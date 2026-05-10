@@ -1,6 +1,7 @@
 [
   {
     "id": "liter",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/34_ogp.jpg",
     "name": "リター",
     "burst": 1,
     "role": "sup",
