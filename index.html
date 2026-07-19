@@ -5,6 +5,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NIKKE PT編成バフ確認ツール</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Orbitron:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #06070e;
@@ -99,18 +102,18 @@
      UI: 編成スロット（5枠）
      ======================================== */
   /* Team Slots */
-  .team-slots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 14px; }
+  .team-slots { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 14px; }
   .slot {
-    aspect-ratio: 1; background: var(--panel2); border: 1px solid var(--border); border-radius: 6px;
+    aspect-ratio: 0.6; background: var(--panel2); border: 1px solid var(--border); border-radius: 6px;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    cursor: pointer; padding: 6px 4px; text-align: center; transition: all 0.15s;
+    cursor: pointer; text-align: center; transition: all 0.15s;
     position: relative; overflow: hidden;
   }
   .slot:hover { border-color: var(--accent); background: rgba(0,212,255,0.05); }
-  .slot.filled { border-color: var(--accent); background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(0,212,255,0.02)); }
+  .slot.filled { border-color: var(--accent); }
   .slot.filled.has-bg {
     background-size: cover;
-    background-position: right top;
+    background-position: center top;
     background-repeat: no-repeat;
   }
   /* スロットCAUTION⚠バッジ */
@@ -120,11 +123,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 52px;
+    font-size: 40px;
     line-height: 1;
     color: #ffe600;
     text-shadow: 0 0 10px #ffe600, 0 0 24px rgba(255,230,0,0.8), 0 0 40px rgba(255,230,0,0.4);
-    z-index: 5;
+    z-index: 8;
     animation: cautionFade 4s ease-in-out infinite;
     pointer-events: none;
     background: rgba(0,0,0,0.25);
@@ -141,10 +144,24 @@
     );
     pointer-events: none;
   }
-  .slot-burst { position: absolute; top: 3px; right: 4px; font-size: 9px; font-family: 'Courier New', monospace; color: var(--accent3); }
-  .slot-name { font-size: 10px; line-height: 1.2; color: var(--text); margin-top: 4px; word-break: break-all; }
-  .slot-empty { font-size: 18px; color: var(--text-dim); }
-  .slot-class { font-size: 8px; color: var(--text-dim); letter-spacing: 0.5px; }
+  .slot-empty { font-size: 22px; color: var(--text-dim); }
+  .slot-class { font-size: 8px; color: var(--text-dim); letter-spacing: 0.5px; margin-top: 3px; }
+  /* 名前を消したのでBURSTを下部中央に大きく表示 */
+  .slot .slotv-burst {
+    bottom: 4px; right: auto; left: 0; width: 100%;
+    justify-content: center;
+    gap: 2px;
+  }
+  .slot .slotv-burst .cbo-b { font-size: 11px; padding-bottom: 5px; }
+  .slot .slotv-burst .cbo-n { font-size: 42px; }
+  .slot .slotv-burst.rh .cbo-n { font-size: 34px; }
+  /* 下部を締めるグラデーション（名前プレートの代わり） */
+  .slot.filled::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 52%;
+    background: linear-gradient(0deg, rgba(6,7,14,0.85) 0%, rgba(6,7,14,0.3) 55%, transparent 100%);
+    pointer-events: none; z-index: 3;
+  }
+  .slot .slotv-rail { gap: 4px; }
 
   /* ========================================
      UI: ツールバー（クリアボタン等）
@@ -170,7 +187,7 @@
     display: flex; flex-direction: column;
     overflow: hidden;
   }
-  .modal-title { font-family: 'Courier New', monospace; font-size: 12px; letter-spacing: 2px; color: var(--accent); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
+  .modal-title { font-family: 'Orbitron', 'Courier New', monospace; font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--accent); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
   .modal-filters { flex-shrink: 0; padding-right: 2px; }
   .modal-filters::-webkit-scrollbar { width: 3px; }
   .modal-filters::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
@@ -189,7 +206,7 @@
   /* フィルター段組み */
   .filter-group { margin-bottom: 8px; }
   .filter-group-label {
-    font-family: 'Courier New', monospace;
+    font-family: 'Orbitron', 'Courier New', monospace;
     font-size: 12px;
     letter-spacing: 2px;
     color: var(--text-mid);
@@ -211,7 +228,8 @@
   .fg-body.collapsed { display: none; }
   .filter-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0; }
   .fchip {
-    font-size: 13px; padding: 7px 16px; border-radius: 3px;
+    font-family: 'Orbitron', 'Courier New', monospace;
+    font-size: 11px; font-weight: 600; padding: 7px 13px; border-radius: 3px;
     border: 1px solid var(--border); background: var(--panel2);
     color: var(--text-dim); cursor: pointer; transition: all 0.12s;
     white-space: nowrap; letter-spacing: 0.5px;
@@ -244,7 +262,7 @@
   .char-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; height: 120px; background: var(--panel2); border: 1px solid var(--border); border-radius: 5px; margin-bottom: 5px; cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden; }
   .char-item:hover { border-color: var(--accent); background: rgba(0,212,255,0.05); }
 
-  .char-burst { font-family: 'Courier New', monospace; font-size: 10px; background: var(--panel); border: 1px solid var(--border); border-radius: 3px; padding: 2px 6px; flex-shrink: 0; }
+  .char-burst { font-family: 'Rajdhani', 'Courier New', monospace; font-style: italic; font-weight: 700; font-size: 12px; background: var(--panel); border: 1px solid var(--border); border-radius: 3px; padding: 2px 7px; flex-shrink: 0; }
   .char-burst.b1 { color: var(--good); border-color: rgba(0,255,157,0.3); }
   .char-burst.b2 { color: var(--accent3); border-color: rgba(255,212,0,0.3); }
   .char-burst.b3 { color: var(--accent2); border-color: rgba(255,60,110,0.3); }
@@ -269,6 +287,73 @@
     color: var(--text-dim);
     font-weight: 400;
     opacity: 0.5;
+  }
+
+  .slotv-ph-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, var(--el-color, var(--accent)) 0%, transparent 65%); opacity: 0.32; }
+
+  .slotv-rail { position: absolute; left: 4px; top: 4px; z-index: 6; display: flex; flex-direction: column; gap: 5px; }
+  .slotv-rail svg { display: block; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.8)); }
+
+  /* バーストオーバーレイ（BURST＋大きな数字の横並び・下端揃え・Rajdhani斜体） */
+  .slotv-burst {
+    position: absolute;
+    bottom: 22px; right: 4px;
+    z-index: 4; /* 画像より手前・名前より奥 */
+    pointer-events: none;
+    display: flex;
+    align-items: flex-end; /* 下端(ベースライン)揃え */
+    gap: 1px;
+    line-height: 0.8;
+    font-family: 'Rajdhani', 'Courier New', monospace;
+    font-weight: 700;
+    font-style: italic;
+    opacity: 0.5;
+    -webkit-text-stroke: 0.5px currentColor;
+  }
+  .slotv-burst .cbo-b { font-size: 11px; letter-spacing: 0.5px; padding-bottom: 4px; }
+  .slotv-burst .cbo-n { font-size: 40px; }
+  .slotv-burst.b1 { color: var(--good); }
+  .slotv-burst.b2 { color: var(--accent3); }
+  .slotv-burst.b3 { color: var(--accent2); }
+  .slotv-burst.rh { color: var(--accent); }
+  .slotv-burst.rh .cbo-n { font-size: 34px; }
+
+  .slotv-nameplate { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; padding: 4px 5px 6px; background: linear-gradient(0deg, rgba(6,7,14,0.94) 20%, rgba(6,7,14,0.45) 72%, transparent 100%); }
+
+  /* 名前ギミック（縮小版・常時ループ） */
+  .slotv-namerow { display: flex; align-items: stretch; gap: 3px; }
+  .slotv-namebar {
+    width: 2px; flex-shrink: 0;
+    background: linear-gradient(180deg, rgba(255,200,0,0.95) 0%, rgba(255,180,0,0.4) 55%, rgba(255,180,0,0) 100%);
+    position: relative; overflow: hidden;
+  }
+  .slotv-namebar::after {
+    content: ''; position: absolute; top: -55%; left: 0; right: 0; height: 55%;
+    background: linear-gradient(180deg, transparent, rgba(255,220,100,0.9), transparent);
+    animation: ci-bar-scan 2.2s linear infinite;
+  }
+  @keyframes ci-bar-scan { 0%{top:-55%;} 100%{top:100%;} }
+  .slotv-namewrap {
+    position: relative; overflow: hidden; flex: 1;
+    border-top: 1px solid rgba(255,180,0,0.5);
+    border-bottom: 1px solid rgba(255,180,0,0.18);
+    background: linear-gradient(90deg, rgba(255,160,0,0.06) 0%, rgba(255,160,0,0) 100%);
+    -webkit-mask-image: linear-gradient(90deg, #000 0%, #000 84%, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 0%, #000 84%, transparent 100%);
+    display: flex; align-items: center;
+  }
+  .slotv-namewrap::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 40%; height: 1px;
+    background: linear-gradient(90deg, rgba(255,180,0,0.2), transparent 55%);
+    pointer-events: none; z-index: 1;
+    animation: ci-glitch 3.5s steps(1) infinite;
+  }
+  @keyframes ci-glitch { 0%,92%,100%{opacity:0;} 94%,98%{opacity:1;} 96%{opacity:0.3;} }
+  .slotv-name {
+    position: relative; z-index: 2;
+    font-size: 11.5px; line-height: 1.5; color: var(--text); font-weight: 700;
+    padding: 1px 3px;
+    display: inline-block; white-space: nowrap; will-change: transform;
   }
 
   /* ========================================
@@ -296,9 +381,10 @@
     overflow: hidden;
   }
   .char-card-burst {
-    font-family: 'Courier New', monospace;
-    font-size: 16px;
-    font-weight: 900;
+    font-family: 'Rajdhani', 'Courier New', monospace;
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 700;
     flex-shrink: 0;
     line-height: 1;
   }
@@ -444,10 +530,43 @@
   .buff-entry:hover { background: rgba(255,255,255,0.02); }
   .buff-entry:last-child { margin-bottom: 0; }
   .buff-entry-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
-  .buff-entry-label { font-size: 16px; color: var(--text); }
+  .buff-entry-label { font-size: 16px; color: var(--text); flex-shrink: 0; }
+  .stack-star {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    font-size: 12px;
+    color: #7dd3fc;
+    margin-left: 5px;
+    vertical-align: middle;
+    flex-shrink: 0;
+  }
+  .stack-star::after {
+    content: '\2726';
+    font-size: 12px;
+    color: #7dd3fc;
+    position: relative;
+    z-index: 1;
+  }
+  .stack-star::before {
+    content: '\2726';
+    position: absolute;
+    font-size: 12px;
+    color: #7dd3fc;
+    animation: stack-ripple 2s ease-out infinite;
+    pointer-events: none;
+  }
+  @keyframes stack-ripple {
+    0%   { transform: scale(1); opacity: 0.8; }
+    100% { transform: scale(2.4); opacity: 0; }
+  }
   .buff-entry-total {
-    font-family: 'Courier New', monospace;
-    font-size: 18px;
+    font-family: 'Rajdhani', 'Courier New', monospace;
+    font-style: italic;
+    font-size: 20px;
     font-weight: 700;
     color: var(--good);
     text-shadow: 0 0 8px rgba(0,255,157,0.4);
@@ -532,7 +651,7 @@
     position: absolute;
     width: 220%;
     height: 26px;
-    background: #000;
+    background: transparent;
     border-top: 1px solid rgba(255,230,0,0.6);
     border-bottom: 1px solid rgba(255,230,0,0.6);
     overflow: hidden;
@@ -555,7 +674,7 @@
   }
   .caution-band-fade {
     position: absolute; inset: 0;
-    background: #000;
+    background: transparent;
     animation: cautionFade 4s ease-in-out infinite;
     pointer-events: none;
   }
@@ -607,7 +726,7 @@
   .buff-source-tag.targeted { background: rgba(255,107,53,0.1); color: var(--warn);    border: 1px solid rgba(255,107,53,0.2); }
   .buff-source-tag.hp-based { background: rgba(52,211,153,0.1); color: #34d399;        border: 1px solid rgba(52,211,153,0.2); }
   .buff-source-name { color: var(--text-mid); }
-  .buff-source-val { font-family: 'Courier New', monospace; font-size: 15px; color: var(--text); margin-left: auto; }
+  .buff-source-val { font-family: 'Rajdhani', 'Courier New', monospace; font-style: italic; font-size: 16px; font-weight: 700; color: var(--text); margin-left: auto; }
 
   /* ========================================
      UI: カードバッジ（企業・武器・属性タグ）
@@ -1407,7 +1526,6 @@
     <div class="ptitle">編成（5枠）</div>
     <div class="team-slots" id="teamSlots"></div>
     <div class="tool-bar">
-      <button class="tool-btn" onclick="clearTeam()">🗑 編成クリア</button>
     </div>
   </div>
 
@@ -1432,7 +1550,7 @@
   <div class="modal-overlay" id="charPicker">
     <div class="modal">
       <div class="modal-title">
-        <span>NIKKE 選択</span>
+        <span>NIKKE SELECT</span>
         <button class="modal-close" onclick="closePicker()">✕</button>
       </div>
       <input type="text" class="search-box" id="charSearch" placeholder="名前で検索..." oninput="renderCharList()">
@@ -1503,11 +1621,6 @@
         </div>
       </div>
 
-      <!-- 段7: 部隊 -->
-      <div class="filter-group" style="margin-bottom:12px;">
-        <div class="filter-group-label collapsible" onclick="toggleFilterGroup(this)">SQUAD <span class="fg-arrow" style="transform:rotate(180deg)">▲</span></div>
-        <div class="filter-chips fg-body collapsed" id="squadFilterChips"></div>
-      </div>
       </div><!-- /modal-filters -->
 
       <div class="char-list" id="charList"></div>
@@ -1545,58 +1658,71 @@
 // ============================================================
 // ===== BUFF LABELS =====
 const BUFF_LABELS = {
-  atk:      '攻撃力▲',
+  atk:      '攻撃力',
   atkRate:  '攻撃倍率▲',
-  dmg:      '攻撃ダメージ▲',
-  normalDmg:'通常攻撃ダメージ倍率▲',
-  normalDmgDown:'通常攻撃ダメ倍率▼',
-  critRate: 'クリ率▲',
-  critDmg:  'クリダメ▲',
-  charge:   'チャージダメ▲',
-  elem:     '有利コードダメ▲',
-  coreDmg:  'コアダメ▲',
+  dmg:      '攻撃ダメ',
+  normalDmg:'通常攻撃ダメ倍率',
+  critRate: 'クリ率',
+  normalCritRate: '通常攻撃クリティカル確率',
+  critDmg:  'クリダメ',
+  elem:     '有利コードダメ',
+  coreDmg:  'コアダメ',
   taken:    '被ダメ▲（デバフ）',
   enemyDmgTaken: '敵被ダメ▲',
   enemyAtkDown:  '敵攻撃力▼',
-  dmgReduce:'被ダメ軽減▲',
+  enemyHealRcvDown: '敵回復量▼',
+  dmgReduce:'被ダメ軽減',
   defDown:  '敵防御▼',
   pierce:   '貫通特化',
-  pierceDmg:'貫通ダメ▲',
-  trueDmg:  '防御無視ダメ▲',
-  partDmg:  'パーツダメ▲',
-  blockDmg: '阻止部位ダメ▲',
-  barrierDmg: 'バリアへのダメ▲',
-  attachDmg:'発射体付着ダメ▲',
-  attachDmgB:'発射体付着ダメ▲',
-  explodeDmg:'発射体爆発ダメ▲',
-  explodeRange:'爆発範囲▲',
+  pierceDmg:'貫通ダメ',
+  trueDmg:  '防御無視ダメ',
+  partDmg:  'パーツダメ',
+  blockDmg: '阻止部位ダメ',
+  barrierDmg: 'バリアへのダメ',
+  attachDmg:'発射体付着ダメ',
+  attachDmgB:'発射体付着ダメ',
+  explodeDmg:'発射体爆発ダメ',
+  enemyProjectileDmg: '敵発射体与ダメ',
+  explodeRange:'爆発範囲',
   piercingAtk:'通常攻撃防御無視化',
-  explodeRangeB:'爆発範囲▲',
+  normalDmgIgnoreDef:'通常ダメ防御無視化',
+  explodeRangeB:'爆発範囲',
   elemAdv:  '有利属性適用',
   grenadeCD:'粘着榴弾発動条件緩和',
-  distDmg:  '分配ダメ▲',
-  reload:   'リロ速▲',
-  reloadDown: 'リロ比率▼',
-  magazine: '装弾▲',
-  maxMagazine: '最大装弾▲',
-  maxMagazineDown: '最大装弾▼',
+  distDmg:  '分配ダメ',
+  reload:   'リロード速度',
+  reloadRateDown: 'リロード速度',
+  maxMagazine: '最大装弾数',
+  maxMagazineK: '最大装弾数',
   magazineInfinite: '装弾数無限',
   magazineDown: '残弾数▼',
-  chargeSpd:'チャージ速度▲',
-  hitRate:  '命中率▲',
-  hitRateUp:'命中率▲',
+  chargeSpd:'チャージ速度',
+  hitRate:  '命中率',
   burstCT:  'バーストCT短縮',
   skillCT:  'スキルCT短縮',
-  burstTimeUp: 'フルバーストタイム延長▲',
+  burstTimeUp: 'フルバーストタイム',
+  burstTimeDown: 'フルバーストタイム',
   heal:     'HP回復',
   healB:    'HP回復',
   healOverTime: '持続回復',
-  healRcvUp:   'HP回復量▲',
+  healPower: '与える回復量',
+  healRcvUp:   'HP回復量',
   healShare:   'HP回復均等分配',
+  dmgShare:    '被ダメ均等分配',
+  dmgShareDiff: '被ダメ偏差分配',
+  dmgShareDiffShelter: '遮蔽被ダメ偏差分配',
   barrier:      'バリア',
   barrierShared:'共用バリア',
   shelter:  '遮蔽HP回復',
+  shelterHpUp: '遮蔽物HP増加',
+  shelterRevive: '遮蔽物復活',
   invincible:'無敵',
+  barrierInvincible:'バリア無敵',
+  nextBarrierHp: 'バリアHP増加',
+  barrierHealOverTime: 'バリアHP回復',
+  medkit:        '忍法救急キット',
+  medkitMaxUp:   '救急キット最大蓄積量',
+  singleTargetExclude: '単一攻撃対象除外',
   taunt:    '挑発',
   stun:     '気絶',
   selfStun: '気絶',
@@ -1606,42 +1732,50 @@ const BUFF_LABELS = {
   immortal: '不屈',
   cleanse:  'デバフ解除',
   debuffImmune: 'デバフ免疫',
-  defUp:    '防御力▲',
-  hpUp:     '最大HP▲',
-  hpUpOnly: '最大HPのみ▲',
+  defUp:    '防御力',
+  hpUp:     '最大HP',
+  hpUpOnly: '最大HPのみ',
   hpReserve: '超過HP保存',
-  hpUpElec: '電撃AR HP▲',
-  dmgElec:  '電撃AR 攻撃ダメ▲',
+  dmgElec:  '電撃AR 攻撃ダメ',
   revive:   '蘇生',
-  burstReEntry: 'バースト再突入',
+  burstReEntryTia:    'バースト再突入',
+  burstReEntryAnisst: 'バースト再突入',
+  burstReEntryChime:  'バースト再突入',
+  burstReEntryAbista: 'バースト再突入',
+  burstReEntryAliceWb:'バースト再突入',
+  burstReEntryViper:  'バースト再突入',
   hpDown:   'HP減少',
   focusFire:'射撃集中',
-  burstGauge:'バーストゲージ▲',
-  bulletCharge:'弾丸チャージ▲',
+  burstGauge:'バーストチャージ速度',
+  burstGaugeInstant: 'バーストゲージ即時チャージ',
+  bulletCharge:'弾丸チャージ',
   pouch:       '弾丸ポーチ',
   enemyMagazineDown: '敵残弾数▼',
-  pellet:       'ペレット数▲',
-  seqDmg:   '順番攻撃ダメ▲',
-  dotDmg:   '持続ダメ▲',
+  pellet:       'ペレット数',
+  seqDmg:   '順番攻撃ダメ',
+  dotDmg:   '持続ダメ',
   chargeFixed:'チャージ時間固定',
+  chargeSpdFixed:'チャージ速度',
   reloadFixed:'リロード速度固定',
   chargeSpdImmuneUp:  'チャージ速度増加効果無効',
   chargeSpdImmuneDown:'チャージ速度減少効果無効',
   shyImmune:          '羞恥心免疫',
   stackImmuneUD:'スタック増減効果無効',
   debuffStackDown: 'スタック可能デバフ▼',
-  atkSW:    '攻撃力▲',
-  rangeUp:      '適正最小射程距離▲',
+  buffStackUp: 'スタック可能バフ▲',
+  atkSW:    '攻撃力',
+  rangeUp:      '適正最小射程距離',
+  rangeUpMax:   '適正最大射程距離',
+  zansMode:     '殲滅モード',
   pierceRange:  '貫通範囲拡大',
   pelletFixed:  'ペレット数固定',
-  atkSpd:       '攻撃速度▲',
-  atkSpdMG:     'MG立ち上げ速度▲',
-  atkSpdDown:   'MG立ち上げ速度▼',
-  chargeDmg:    'チャージダメ▲',
+  atkSpd:       '攻撃速度',
+  mgStartup:    'MG立ち上げ速度',
+  chargeDmg:    'チャージダメ',
   lifesteal:    '攻撃ダメ回復',
   healHelm:     'HP回復（最大HP%）',
-  chargeSpdDown:'チャージ速度▼',
-  hitRateDown:  '命中率▼',
+  chargeSpdDown:'チャージ速度',
+  hitRateDown:  '命中率',
   silenceStack: '消音スタック',
   envCtrC:      '環境コントロール周期短縮',
   envCtrl:      '環境コントロール',
@@ -1650,17 +1784,13 @@ const BUFF_LABELS = {
 };
 
 // デバフ型バフ（赤文字表示）
-const DEBUFF_KEYS = new Set(['hpDown', 'taken', 'selfStun', 'reloadDown', 'magazineDown', 'maxMagazineDown', 'chargeSpdDown', 'hitRateDown', 'normalDmgDown', 'atkSpdDown']);
+const DEBUFF_KEYS = new Set(['hpDown', 'taken', 'selfStun', 'reloadRateDown', 'magazineDown', 'chargeSpdDown', 'burstTimeDown']);
 
 // ▲▼ペア合算マップ: ▲キー → 対応する▼キー
 const BUFF_DEBUFF_PAIRS = {
-  'chargeSpd':   'chargeSpdDown',
-  'reload':      'reloadDown',
-  'maxMagazine': 'maxMagazineDown',
-  'magazine':    'magazineDown',
-  'hitRateUp':   'hitRateDown',
-  'hitRate':     'hitRateDown',
-
+  'chargeSpd':    'chargeSpdDown',
+  'reload':       'reloadRateDown',
+  'burstTimeUp':  'burstTimeDown',
 };
 // ▼キー → 対応する▲キー（逆引き）
 const DEBUFF_BUFF_PAIRS = {};
@@ -1668,10 +1798,10 @@ Object.entries(BUFF_DEBUFF_PAIRS).forEach(([up, down]) => { DEBUFF_BUFF_PAIRS[do
 
 // バフカテゴリ分類
 const BUFF_CATEGORIES = {
-  'ATTACK': ['atk','atkRate','dmg','normalDmg','normalDmgDown','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','critDmg','chargeDmg','charge','seqDmg','dotDmg','attachDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','taken'],
-  'CONTROL': ['magazine','maxMagazine','magazineInfinite','maxMagazineDown','magazineDown','reload','reloadDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','atkSpdMG','atkSpdDown','hitRate','hitRateUp','hitRateDown','burstCT','skillCT','burstTimeUp','burstReEntry','burstGauge','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','selfStun','decoy','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp'],
-  'SURVIVAL': ['heal','healHelm','lifesteal','healRcvUp','healOverTime','healShare','barrier','barrierShared','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','revive','hpDown'],
-  'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown'],
+  'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','critDmg','chargeDmg','seqDmg','dotDmg','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
+  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
+  'SURVIVAL': ['heal','healHelm','healPower','lifesteal','healRcvUp','healOverTime','barrierHealOverTime','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','barrier','barrierShared','barrierInvincible','nextBarrierHp','shelterHpUp','shelterRevive','medkit','medkitMaxUp','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','revive','hpDown'],
+  'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown','enemyHealRcvDown'],
 };
 
 // バフカテゴリ色（数値表示色の固定）
@@ -1681,20 +1811,23 @@ const CAT_COLORS = {
   'SURVIVAL': { color: '#00ff9d', shadow: 'rgba(0,255,157,0.4)' },
   'ENEMY':    { color: '#ff6b6b', shadow: 'rgba(255,107,107,0.4)' },
 };
-const FLAG_BUFFS = new Set(['invincible','taunt','immortal','cleanse','debuffImmune','debuffStackDown','revive','burstReEntry','focusFire','chargeFixed','reloadFixed','pelletFixed','magazineInfinite','chargeSpdImmuneUp','chargeSpdImmuneDown','shyImmune','stackImmuneUD','elemAdv','healShare','stun','selfStun','decoy','camouflage','envCtrl','battleCtrl','silenceStack','pierce']);
+const FLAG_BUFFS = new Set(['invincible','barrierInvincible','taunt','immortal','cleanse','debuffImmune','debuffStackDown','buffStackUp','revive','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','focusFire','chargeFixed','reloadFixed','pelletFixed','magazineInfinite','chargeSpdImmuneUp','chargeSpdImmuneDown','shyImmune','stackImmuneUD','elemAdv','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','stun','selfStun','decoy','singleTargetExclude','camouflage','envCtrl','battleCtrl','silenceStack','pierce','zansMode','normalDmgIgnoreDef','piercingAtk']);
 
 // 条件限定バフ → 親キーへのマージマップ
 const BUFF_MERGE_INTO = {
   dmgElec:     'dmg',
-  hpUpElec:    'hpUp',
   hpUpOnlyElec:'hpUpOnly',
   healB:    'heal',
   healOverTimeB: 'healOverTime',
+  healOverTimeC: 'healOverTime',
+  elemB:    'elem',
+  elemC:    'elem',
   hpUpB:    'hpUp',
   hpUpC:    'hpUp',
   hpUpD:    'hpUp',
   atkB:     'atk',
   critDmgB: 'critDmg',
+  critDmgC: 'critDmg',
   atkSW:    'atk',
   hpUpM1:   'hpUp',
   hpUpM2:   'hpUp',
@@ -1703,12 +1836,13 @@ const BUFF_MERGE_INTO = {
   dmgBS:       'dmg',
   pierceDmgB:  'pierceDmg',
   rangeUpB:    'rangeUp',
-  chargeB:     'charge',
+  chargeB:     'chargeDmg',
   dmgC:        'dmg',
   hpUpOnlyB:   'hpUpOnly',
   burstCTB:    'burstCT',
   burstCTC:    'burstCT',
   atkB1:       'atk',
+  barrierB:    'barrier',
   attachDmgB:  'attachDmg',
   explodeRangeB:'explodeRange',
   hpUpCin:      'hpUp',
@@ -1725,17 +1859,23 @@ const BUFF_MERGE_INTO = {
   atkEve:    'atk',
   atkDorothy2: 'atk',
   pelletDorothy: 'pellet',
-  hitRateUpDorothy1: 'hitRateUp',
-  hitRateUpDorothy2: 'hitRateUp',
+  hitRateUpDorothy1: 'hitRate',
+  hitRateUpDorothy2: 'hitRate',
+  hitRateViper: 'hitRate',
+  tauntBs: 'taunt',
+  hpUpBs: 'hpUp',
+  distDmgB: 'distDmg',
+  chargeDmgB: 'chargeDmg',
   atkAda:    'atk',
   trueDmgAda:'trueDmg',
-  chargeAda:    'charge',
+  chargeAda:    'chargeDmg',
   atkMilk:      'atk',
   pierceDmgMilk1:'pierceDmg',
   pierceDmgMilk2:'pierceDmg',
   dotDmgDW1: 'dotDmg',
   dotDmgDW2: 'dotDmg',
   dotDmgDW3: 'dotDmg',
+  debuffImmuneB: 'debuffImmune',
   dotDmgDW4: 'dotDmg',
   partDmgRaven2: 'partDmg',
   dotDmgRaven1: 'dotDmg',
@@ -1756,21 +1896,39 @@ const BUFF_MERGE_INTO = {
   pierceDmgTZ4: 'pierceDmg',
   critRateTZ1:  'critRate',
   critRateTZ2:  'critRate',
+  dmgCW1: 'dmg',
+  dmgCW2: 'dmg',
+  atkCW1: 'atk',
+  atkCW2: 'atk',
+  elemMS: 'elem',
   maxMagazineTove: 'maxMagazine',
   atkToveSG:    'atk',
   atkToveAll:   'atk',
   bulletChargeTove: 'bulletCharge',
-  pouchS2a: 'pouch',
-  pouchS2b: 'pouch',
   atkAde: 'atk',
   hitRateLv2: 'hitRate',
   hitRateLv3: 'hitRate',
   atkLv2: 'atk',
   atkLv3: 'atk',
   burstCT_gc20: 'burstTimeUp',
+  reloadBS:     'reload',
   hpUp2B1: 'hpUp',
   hpUp2B2: 'hpUp',
   hpUp2B3: 'hpUp',
+  atkSG: 'atk',
+  maxMagazineSG: 'maxMagazine',
+  dotDmgFBT: 'dotDmg',
+  healSorin: 'heal',
+  healAliceWbS1: 'heal',
+  enemyDmgTakenTarot: 'enemyDmgTaken',
+  atkTarotDeath: 'atk',
+  dmgTarotFate: 'dmg',
+  atkBranching: 'atk',
+  defUpBranching: 'defUp',
+  cleanseBranching: 'cleanse',
+  defDownB: 'defDown',
+  trueDmgB: 'trueDmg',
+  dotDmgB: 'dotDmg',
 };
 
 // チーム条件判定ヘルパー
@@ -1856,6 +2014,15 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'mg');
         break;
       }
+      case 'noB3Elec': {
+        triggered = !filledTeam.some(m => m && m.id !== char.id && m.burst === 3 && m.element === 'electric');
+        break;
+      }
+      case 'hasHealer': {
+        const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
+        triggered = filledTeam.some(m => m && m !== char && Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)));
+        break;
+      }
     }
     if(triggered) messages.push(c.message);
   });
@@ -1907,7 +2074,7 @@ function makePilgrimSVG(uid, w, h, bg){
   const clips=PIL_PARTS.filter(p=>p.mode==='clip');
   const fp=fills.flatMap(p=>pilGetPaths(p)).map(d=>`<path d="${d}" fill="${bg}"/>`).join('');
   const cp=clips.flatMap(p=>pilGetPaths(p)).map(d=>`<path d="${d}" fill="#c8d8f0"/>`).join('');
-  return `<svg class="pil-anim" width="${w}" height="${h}" viewBox="30 -28 140 279" style="display:block;"><defs><clipPath id="pil-${uid}"><polygon points="${op}"/></clipPath></defs><polygon points="${op}" fill="#c8d8f0"/><g clip-path="url(#pil-${uid})">${fp}${cp}</g></svg>`;
+  return `<svg class="pil-anim" width="${w}" height="${h}" viewBox="30 10 140 279" style="display:block;"><defs><clipPath id="pil-${uid}"><polygon points="${op}"/></clipPath></defs><polygon points="${op}" fill="#c8d8f0"/><g clip-path="url(#pil-${uid})">${fp}${cp}</g></svg>`;
 }
 
 let NIKKE_DB = [];
@@ -1944,6 +2111,12 @@ let ravenMode = null;
 let graveMode = null;
 let redHoodMode = null;
 let breddyMode = null;
+let pyrikaMode = null;
+let mintMode = null;
+let arcanaFateMode = null;
+let crustMode = null;
+let cinderellaCwMode = null;
+let mollyMode = null;
 function loadTeam() {
   // 開発中はローカルストレージ無効
   TEAM = [null,null,null,null,null];
@@ -1961,6 +2134,73 @@ const WEAPON_LABELS  = { ar:'AR', smg:'SMG', sg:'SG', rl:'RL', sr:'SR', mg:'MG' 
 const ELEMENT_LABELS = { fire:'H.S.T.A', water:'P.S.I.N', wind:'A.N.M.I', iron:'D.M.T.R', electric:'Z.E.U.S' };
 const ELEMENT_COLORS = { fire:'#ff3c6e', water:'#38bdf8', wind:'#86efac', iron:'#ff8c42', electric:'#a855f7' };
 const COMPANY_LABELS = { elysion:'Elysion', missilis:'Missilis', tetra:'Tetra', pilgrim:'Pilgrim', abnormal:'Abnormal' };
+
+// ピッカー用：立ち絵(cardBg)未登録キャラの仮表示アイコン（属性ダイヤモンド）
+const ELEMENT_GLYPH_COLORS = {
+  fire:     ['#ef4444', '#7f1d1d'],
+  water:    ['#38bdf8', '#0c4a6e'],
+  wind:     ['#4ade80', '#14532d'],
+  iron:     ['#f97316', '#7c2d12'],
+  electric: ['#a855f7', '#3b0764']
+};
+function elementGlyph(element, size) {
+  const pair = ELEMENT_GLYPH_COLORS[element] || ['#4a5a7a', '#1a2240'];
+  return `<svg width="${size}" height="${size}" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="${pair[0]}"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="${pair[1]}"/></svg>`;
+}
+
+// ピッカー用：武器種アイコン（本体側ヘキサバッジ意匠）
+const PICKER_WPN_FRAME = '<path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/>';
+const PICKER_WPN_INNER = {
+  mg:  '<circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="35" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/>',
+  sg:  '<circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="40" fill="#000000"/><path d="M 100,82 L 79.5,52 L 120.5,52 Z" fill="#000000"/><path d="M 118,100 L 148,79.5 L 148,120.5 Z" fill="#000000"/><path d="M 100,118 L 120.5,148 L 79.5,148 Z" fill="#000000"/><path d="M 82,100 L 52,120.5 L 52,79.5 Z" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/>',
+  sr:  '<circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="40" fill="#000000"/><path d="M 101,160 L 45,120 L 155,120 Z" fill="#000000"/><path d="M 99,40 L 155,80 L 45,80 Z" fill="#000000"/><circle cx="100" cy="100" r="35" fill="#ffffff"/><circle cx="100" cy="100" r="30" fill="#000000"/><line x1="68" y1="100" x2="132" y2="100" stroke="#ffffff" stroke-width="2"/><line x1="100" y1="68" x2="100" y2="132" stroke="#ffffff" stroke-width="2"/><line x1="122.63" y1="77.37" x2="77.37" y2="122.63" stroke="#ffffff" stroke-width="2"/><line x1="123.4" y1="121.82" x2="76.6" y2="78.18" stroke="#ffffff" stroke-width="2"/><circle cx="100" cy="100" r="22.5" fill="#000000"/><line x1="92" y1="100" x2="108" y2="100" stroke="#ffffff" stroke-width="2"/><line x1="100" y1="92" x2="100" y2="108" stroke="#ffffff" stroke-width="2"/>',
+  ar:  '<circle cx="100" cy="100" r="40" fill="#ffffff"/><circle cx="100" cy="100" r="35" fill="#000000"/><rect x="50.5" y="89" width="99" height="22" fill="#000000"/><path d="M 111,50.5 L 111,149.5 L 89,149.5 L 89,50.5 Z" fill="#000000"/><rect x="45" y="97.5" width="110" height="5" fill="#ffffff"/><path d="M 102.5,45 L 102.5,155 L 97.5,155 L 97.5,45 Z" fill="#ffffff"/><rect x="80" y="80" width="40" height="40" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/>',
+  smg: '<circle cx="100" cy="100" r="37.5" fill="#ffffff"/><circle cx="100" cy="100" r="32.5" fill="#000000"/><circle cx="100" cy="100" r="3.5" fill="#ffffff"/><rect x="89" y="130" width="22" height="10" fill="#000000"/><circle cx="100.25" cy="100" r="32.5" fill="#000000"/><path d="M 97.25,107.5 L 103.25,107.5 L 103.25,137.5 L 97.25,137.5 Z" fill="#ffffff"/><circle cx="100" cy="100" r="3" fill="#ffffff"/>',
+  rl:  '<circle cx="100" cy="100" r="6" fill="#ffffff"/><path d="M 120.5,103.38 L 135.5,103.38 L 135.5,108.63 L 120.5,108.63 Z" fill="#ffffff"/><path d="M 120.5,90.38 L 135.5,90.38 L 135.5,95.63 L 120.5,95.63 Z" fill="#ffffff"/><path d="M 120.5,78.13 L 135.5,78.13 L 135.5,83.38 L 120.5,83.38 Z" fill="#ffffff"/><path d="M 120.5,115.38 L 135.5,115.38 L 135.5,120.63 L 120.5,120.63 Z" fill="#ffffff"/><path d="M 64.5,78.13 L 79.5,78.13 L 79.5,83.38 L 64.5,83.38 Z" fill="#ffffff"/><path d="M 64.5,90.38 L 79.5,90.38 L 79.5,95.63 L 64.5,95.63 Z" fill="#ffffff"/><path d="M 64.5,103.38 L 79.5,103.38 L 79.5,108.63 L 64.5,108.63 Z" fill="#ffffff"/><path d="M 64.25,115.38 L 79.25,115.38 L 79.25,120.63 L 64.25,120.63 Z" fill="#ffffff"/>'
+};
+function pickerWeaponIcon(weapon, size) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 200 200" style="display:block;">${PICKER_WPN_FRAME}${PICKER_WPN_INNER[weapon] || ''}</svg>`;
+}
+
+// ピッカー用：役割アイコン（静止版。ピッカーはアニメ無し）
+const PICKER_ROLE_INNER = {
+  def: '<path d="M 164.95,52.75 L 163,140 L 100,194.5 L 37,140 L 35.05,52.75 L 60,40 L 100,5.5 L 140,40 Z" fill="#ff8c42"/><path d="M 155.5,58.25 L 153.5,138.25 L 100,183.5 L 46.5,138.25 L 44.5,58.25 L 64.5,47.75 L 100,16.5 L 135.5,47.75 Z" fill="#101428"/><path d="M 148.5,63.75 L 146.5,131.5 L 100,172.25 L 53.5,131.5 L 51.5,63.75 L 68.25,55.75 L 100,55 L 131.75,55.75 Z" fill="#ff8c42"/><path d="M 135,53.5 L 132,121 L 100,149 L 68,121 L 65,53.5 L 76,48 L 100,48 L 124,48 Z" fill="#101428"/><path d="M 133,52 L 129,119 L 100,143 L 71,119 L 67,52 L 94,58 L 100,71 L 106,58 Z" fill="#ff8c42"/><path d="M 100,26 L 115.5,40 L 100,49 L 84.5,40 Z" fill="#ff8c42"/><path d="M 100,77.5 L 103.25,87 L 111.5,96.5 L 100,92.75 L 88.5,96.5 L 97.5,87 Z" fill="#101428"/>',
+  sup: '<g fill="#00ff9d"><path d="M 72.08,44.55 L 64.66,37.63 L 100.17,1.37 L 135.76,37.5 L 128.97,44.15 L 100.71,15.97 Z"/><path d="M 43.55,127.92 L 36.63,135.34 L 0.37,99.83 L 36.5,64.24 L 43.15,71.03 L 14.97,99.29 Z"/><path d="M 129.44,155.98 L 136.74,163.03 L 100.6,198.66 L 65.64,161.91 L 72.55,155.39 L 100.31,184.05 Z"/><path d="M 156.45,72.08 L 163.37,64.66 L 199.63,100.17 L 163.5,135.76 L 156.85,128.97 L 185.03,100.71 Z"/><path d="M 136.41,79.64 L 120.86,79.91 L 120.59,64.36 L 170.2,30.25 Z"/><path d="M 120.72,136.28 L 120.72,120.72 L 136.28,120.72 L 170.22,170.22 Z"/><path d="M 63.97,120.72 L 79.53,120.72 L 79.53,136.28 L 30.21,170.4 Z"/><path d="M 79.64,63.84 L 79.91,79.39 L 64.36,79.66 L 30.25,30.05 Z"/><path d="M 100,42.13 L 110.61,89.77 L 160,100 L 110.61,110.23 L 100,157.88 L 89.39,110.23 L 40,100 L 89.39,89.77 Z"/></g>',
+  atk: '<g fill="#ff3c6e"><path d="M 30,90 L 20.75,79.75 L 100.25,1.25 L 180.75,80 L 170.5,90.25 L 100.25,20.25 Z"/><path d="M 32.34,100.92 L 20.97,80.15 L 38.34,78.02 Z"/><path d="M 168.28,100.86 L 163.08,77.77 L 180.36,80.5 Z"/><path d="M 100.25,179.75 L 89.25,115.5 L 59.25,131.5 L 80,95 L 100,74 L 120,95 L 141.25,131.75 L 111,115.75 L 100.5,179.5 Z"/><path d="M 100.25,33.13 L 170,110.5 L 100.25,88.75 L 30.25,110 Z"/><path d="M 110.19,181.37 L 118.67,131.68 L 139.07,139.92 Z"/><path d="M 89.6,181.31 L 61.18,139.67 L 81.58,131.43 Z"/></g><g fill="#000000"><path d="M 100,45.25 L 106,57.25 L 94,57.25 Z"/><path d="M 95.65,63 L 104.35,63 L 107.5,71 L 92.5,71 Z"/><rect x="94" y="61.5" width="12" height="7"/><rect x="92.5" y="70" width="15" height="22"/><rect x="92.5" y="95" width="15" height="2"/></g>'
+};
+function pickerRoleIcon(role, size) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 200 200" style="display:block;overflow:hidden;">${PICKER_ROLE_INNER[role] || ''}</svg>`;
+}
+
+// ピッカー用：企業アイコン（静止版。ピッカーはアニメ無し）
+function pickerCompanyIcon(company, size, uid) {
+  if(company === 'elysion') return `<svg width="${size}" height="${size}" viewBox="0 0 200 200" style="display:block;"><g transform="translate(100,100) rotate(45)"><rect x="-66" y="-66" width="132" height="132" rx="12" fill="none" stroke="#ff3c6e" stroke-width="16"/><rect x="-58" y="-58" width="116" height="116" rx="6" fill="#101428"/><rect x="-49.8" y="-49.8" width="46" height="46" fill="#ff3c6e"/><rect x="3.8" y="-49.8" width="46" height="46" fill="#ff3c6e"/><rect x="-49.8" y="3.8" width="46" height="46" fill="#ff3c6e"/><rect x="3.8" y="3.8" width="46" height="46" fill="#ff3c6e"/></g></svg>`;
+  if(company === 'missilis') return `<svg width="${size}" height="${size}" viewBox="0 0 80 200" style="display:block;"><path d="M4,0 L40,24 L76,0 L76,200 L52,200 L52,52 L40,60 L28,52 L28,200 L4,200 Z" fill="#a855f7"/></svg>`;
+  if(company === 'tetra') return `<svg width="${size}" height="${size}" viewBox="-10 -40 160 220" style="display:block;"><path d="M30,14.4 L138,14.4 L122,42.4 L85,42.4 L85,142.4 L55,142.4 L55,42.4 L14,42.4 Z" fill="#fbbf24"/><polygon points="12,178 20,164 72,164 64,178" fill="#fbbf24"/><polygon points="76,178 84,164 136,164 128,178" fill="#fbbf24"/></svg>`;
+  if(company === 'abnormal') return `<svg width="${size}" height="${size}" viewBox="120 170 260 260" style="display:block;"><rect x="-40" y="-40" width="80" height="80" transform="translate(250,300) rotate(45)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(170,242) rotate(315)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(273,231) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(320,320) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(310,220) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(228,372) rotate(45)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(331,357) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(190,382) rotate(225)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(180,280) rotate(136)" fill="#3b82f6"/></svg>`;
+  // pilgrim: 本体makePilgrimSVGで本物ロゴを生成し、pil-animクラスだけ除去して静止化
+  return `<div style="display:inline-flex;">${makePilgrimSVG(uid, size, size, '#101428').replace('class="pil-anim" ', '')}</div>`;
+}
+
+// スロット用：役割アイコン（アニメ版。本体def/sup/atkと同じ動き）
+const SLOT_ROLE_INNER = {
+  def: '<g class="def-lock"><path class="def-p1" d="M 164.95,52.75 L 163,140 L 100,194.5 L 37,140 L 35.05,52.75 L 60,40 L 100,5.5 L 140,40 Z" fill="#ff8c42"/><path class="def-p2" d="M 155.5,58.25 L 153.5,138.25 L 100,183.5 L 46.5,138.25 L 44.5,58.25 L 64.5,47.75 L 100,16.5 L 135.5,47.75 Z" fill="#101428"/><path class="def-p3" d="M 148.5,63.75 L 146.5,131.5 L 100,172.25 L 53.5,131.5 L 51.5,63.75 L 68.25,55.75 L 100,55 L 131.75,55.75 Z" fill="#ff8c42"/><path class="def-p5" d="M 135,53.5 L 132,121 L 100,149 L 68,121 L 65,53.5 L 76,48 L 100,48 L 124,48 Z" fill="#101428"/><path class="def-p6" d="M 133,52 L 129,119 L 100,143 L 71,119 L 67,52 L 94,58 L 100,71 L 106,58 Z" fill="#ff8c42"/><path class="def-p4" d="M 100,26 L 115.5,40 L 100,49 L 84.5,40 Z" fill="#ff8c42"/><path class="def-p7" d="M 100,77.5 L 103.25,87 L 111.5,96.5 L 100,92.75 L 88.5,96.5 L 97.5,87 Z" fill="#101428"/></g>',
+  sup: '<g class="sup-arrow" fill="#00ff9d"><path d="M 72.08,44.55 L 64.66,37.63 L 100.17,1.37 L 135.76,37.5 L 128.97,44.15 L 100.71,15.97 Z"/><path d="M 43.55,127.92 L 36.63,135.34 L 0.37,99.83 L 36.5,64.24 L 43.15,71.03 L 14.97,99.29 Z"/><path d="M 129.44,155.98 L 136.74,163.03 L 100.6,198.66 L 65.64,161.91 L 72.55,155.39 L 100.31,184.05 Z"/><path d="M 156.45,72.08 L 163.37,64.66 L 199.63,100.17 L 163.5,135.76 L 156.85,128.97 L 185.03,100.71 Z"/></g><g class="sup-diag" fill="#00ff9d"><path d="M 136.41,79.64 L 120.86,79.91 L 120.59,64.36 L 170.2,30.25 Z"/><path d="M 120.72,136.28 L 120.72,120.72 L 136.28,120.72 L 170.22,170.22 Z"/><path d="M 63.97,120.72 L 79.53,120.72 L 79.53,136.28 L 30.21,170.4 Z"/><path d="M 79.64,63.84 L 79.91,79.39 L 64.36,79.66 L 30.25,30.05 Z"/></g><g class="sup-center" fill="#00ff9d"><path d="M 100,42.13 L 110.61,89.77 L 160,100 L 110.61,110.23 L 100,157.88 L 89.39,110.23 L 40,100 L 89.39,89.77 Z"/></g>',
+  atk: '<polygon class="atk-dmnd-top" points="100,10 190,100 100,190 10,100" fill="#ff3c6e"/><polygon class="atk-dmnd-bot" points="100,10 190,100 100,190 10,100" fill="#ff3c6e" opacity="0.6"/><g class="atk-icon" fill="#ff3c6e"><path d="M 30,90 L 20.75,79.75 L 100.25,1.25 L 180.75,80 L 170.5,90.25 L 100.25,20.25 Z"/><path d="M 32.34,100.92 L 20.97,80.15 L 38.34,78.02 Z"/><path d="M 168.28,100.86 L 163.08,77.77 L 180.36,80.5 Z"/><path d="M 100.25,179.75 L 89.25,115.5 L 59.25,131.5 L 80,95 L 100,74 L 120,95 L 141.25,131.75 L 111,115.75 L 100.5,179.5 Z"/><path d="M 100.25,33.13 L 170,110.5 L 100.25,88.75 L 30.25,110 Z"/><path d="M 110.19,181.37 L 118.67,131.68 L 139.07,139.92 Z"/><path d="M 89.6,181.31 L 61.18,139.67 L 81.58,131.43 Z"/></g><polygon class="atk-end-dmnd" points="100,10 190,100 100,190 10,100" fill="#ff3c6e"/><g class="atk-bullet" fill="#000000"><path d="M 100,45.25 L 106,57.25 L 94,57.25 Z"/><path d="M 95.65,63 L 104.35,63 L 107.5,71 L 92.5,71 Z"/><rect x="94" y="61.5" width="12" height="7"/><rect x="92.5" y="70" width="15" height="22"/><rect x="92.5" y="95" width="15" height="2"/></g>'
+};
+function slotRoleIcon(role, size) {
+  return `<svg width="${size}" height="${size}" viewBox="0 0 200 200" style="display:block;overflow:hidden;">${SLOT_ROLE_INNER[role] || ''}</svg>`;
+}
+
+// スロット用：企業アイコン（アニメ版。本体ロゴと同じ動き）
+function slotCompanyIcon(company, size, uid) {
+  if(company === 'elysion') return `<svg width="${size}" height="${size}" viewBox="0 0 200 200" style="display:block;"><g transform="translate(100,100) rotate(45)"><rect class="ely-stroke" x="-66" y="-66" width="132" height="132" rx="12"/><rect class="ely-bg" x="-58" y="-58" width="116" height="116" rx="6" fill="#101428"/><rect class="ely-box" x="-49.8" y="-49.8" width="46" height="46" fill="#ff3c6e"/><rect class="ely-box" x="3.8" y="-49.8" width="46" height="46" fill="#ff3c6e"/><rect class="ely-box" x="-49.8" y="3.8" width="46" height="46" fill="#ff3c6e"/><rect class="ely-box" x="3.8" y="3.8" width="46" height="46" fill="#ff3c6e"/></g></svg>`;
+  if(company === 'missilis') return `<svg class="mis-logo" width="${size}" height="${size}" viewBox="0 0 80 200" style="display:block;"><path d="M4,0 L40,24 L76,0 L76,200 L52,200 L52,52 L40,60 L28,52 L28,200 L4,200 Z" fill="#a855f7"/></svg>`;
+  if(company === 'tetra') return `<svg width="${size}" height="${size}" viewBox="-10 -40 160 220" style="display:block;"><defs><clipPath id="tetClipSlot-${uid}"><path d="M30,14.4 L138,14.4 L122,42.4 L85,42.4 L85,142.4 L55,142.4 L55,42.4 L14,42.4 Z"/><polygon points="12,178 20,164 72,164 64,178"/><polygon points="76,178 84,164 136,164 128,178"/></clipPath><linearGradient id="tetGradSlot-${uid}" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#fff8e1" stop-opacity="0"/><stop offset="30%" stop-color="#fff8e1" stop-opacity="0.7"/><stop offset="50%" stop-color="#ffffff" stop-opacity="1"/><stop offset="70%" stop-color="#fff8e1" stop-opacity="0.7"/><stop offset="100%" stop-color="#fff8e1" stop-opacity="0"/></linearGradient></defs><path class="tet-body" d="M30,14.4 L138,14.4 L122,42.4 L85,42.4 L85,142.4 L55,142.4 L55,42.4 L14,42.4 Z"/><polygon class="tet-l1" points="12,178 20,164 72,164 64,178"/><polygon class="tet-l2" points="76,178 84,164 136,164 128,178"/><g clip-path="url(#tetClipSlot-${uid})"><rect class="tet-shimmer" x="0" y="-10" width="80" height="220" fill="url(#tetGradSlot-${uid})"/></g></svg>`;
+  if(company === 'abnormal') return `<svg width="${size}" height="${size}" viewBox="120 170 260 260" style="display:block;"><defs><mask id="abn-sl-${uid}"><rect x="0" y="0" width="500" height="500" fill="white"/><g class="abn-dia"><rect x="-15" y="-15" width="30" height="30" transform="translate(250,300) rotate(45)" fill="black"/></g></mask></defs><g mask="url(#abn-sl-${uid})"><g class="abn-dia"><rect x="-40" y="-40" width="80" height="80" transform="translate(250,300) rotate(45)" fill="#3b82f6"/></g><g class="abn-arms"><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(170,242) rotate(315)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(273,231) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(320,320) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(310,220) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(228,372) rotate(45)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(331,357) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(190,382) rotate(225)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(180,280) rotate(136)" fill="#3b82f6"/></g></g></svg>`;
+  // pilgrim: 本体makePilgrimSVGで本物ロゴ生成（pil-anim収束アニメ内蔵）＋pil-glow
+  return `<div class="pil-glow" style="display:inline-flex;">${makePilgrimSVG(uid, size, size, '#101428')}</div>`;
+}
 
 // ============================================================
 // HELPERS: ターゲット判定ユーティリティ
@@ -1995,6 +2235,11 @@ function matchSingleTarget(type, val, char, filledTeam, src) {
       const charIdx = TEAM.indexOf(char);
       if(srcIdx === -1 || charIdx === -1) return false;
       return Math.abs(srcIdx - charIdx) === 1;
+    }
+    case 'hasPartyHeal': {
+      // party（全体）対象の回復バフを持つキャラのみ（self限定・healShareは対象外）
+      const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
+      return Object.keys(char.buffs.party || {}).some(k => healKeys.includes(k));
     }
     default: return true;
   }
@@ -2059,11 +2304,25 @@ function renderSlots() {
       }
       const filledForCaution = TEAM.filter(Boolean);
       const hasCaution = getCautionMessages(char, filledForCaution).length > 0;
+
+      const isRH        = char.id === 'redhood';
+      const burstOvlCls = isRH ? 'rh' : ('b' + char.burst);
+      const burstOvlNum = isRH ? 'Λ' : char.burst;
+
       slot.innerHTML = `
-        ${char.cardBg ? '<div class="slot-bg-overlay"></div>' : ''}
-        <div class="slot-burst">B${char.burst}</div>
-        <div class="slot-name">${char.name}</div>
-        <div class="slot-class">${char.role.toUpperCase()}</div>
+        ${slotBg
+          ? '<div class="slot-bg-overlay"></div>'
+          : `<div class="slotv-ph-glow" style="--el-color:${ELEMENT_COLORS[char.element] || 'var(--accent)'};"></div>`}
+        <div class="slotv-rail">
+          ${elementGlyph(char.element, 14)}
+          ${pickerWeaponIcon(char.weapon, 14)}
+          ${pickerRoleIcon(char.role, 14)}
+          ${pickerCompanyIcon(char.company, 14, 'sl-' + char.id)}
+        </div>
+        <div class="slotv-burst ${burstOvlCls}">
+          <span class="cbo-b">BURST</span>
+          <span class="cbo-n">${burstOvlNum}</span>
+        </div>
         ${hasCaution ? '<div class="slot-caution-badge">⚠</div>' : ''}
       `;
     } else {
@@ -2071,6 +2330,7 @@ function renderSlots() {
     }
     cont.appendChild(slot);
   });
+
   renderBuffCards();
   saveTeam();
 }
@@ -2083,6 +2343,21 @@ function removeChar(idx) {
 // ============================================================
 // UI RENDER: バフカード描画（メイン）
 // ============================================================
+// ===== 内訳行HTML共通生成（枠のみ。中身は呼び出し側で計算して渡す）=====
+// o = { rowClass, rowId, dataAttrs(先頭スペース込み文字列), name, valText, valColor, tagsHtml, stackHtml, condLine }
+function renderSourceRow(o) {
+  return `
+            <div class="buff-source-row ${o.rowClass}" id="${o.rowId}"${o.dataAttrs || ''} onclick="toggleSourceRow('${o.rowId}', event)">
+              <div class="buff-source-header">
+                <span class="buff-source-name">${o.name}</span>
+                <span class="buff-source-val" style="color:${o.valColor};">${o.valText}</span>
+              </div>
+              ${o.tagsHtml ? `<div class="buff-source-body">${o.tagsHtml}</div>` : ''}
+              ${o.stackHtml || ''}
+              ${o.condLine || ''}
+            </div>`;
+}
+
 // ===== BUFF CARDS =====
 function renderBuffCards() {
   const cont = el('buffCards');
@@ -2116,6 +2391,26 @@ function renderBuffCards() {
       row.classList.remove('row-on');
       row.classList.add('row-off');
       // 合計値も再計算
+      recalcEntryTotal(row.dataset.entryid, row.dataset.buffkey);
+    }
+  });
+
+  // belowFullStackOnly行を初期状態で強制OFF（参照スライダーが最大値の時のみ）：fullStackOnlyの逆条件
+  // 参照スライダーは別カード（partyバフの場合、発動者以外のカード）にある可能性があるため文書全体を検索
+  document.querySelectorAll('.buff-source-row[data-below-full-stack-ref]').forEach(row => {
+    const refKey = row.dataset.belowFullStackRef;
+    const cardEl = row.closest('.char-card');
+    let slider = cardEl
+      ? (cardEl.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || cardEl.querySelector(`.stack-slider[data-rawkey="${refKey}"]`))
+      : null;
+    if(!slider) {
+      slider = document.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || document.querySelector(`.stack-slider[data-rawkey="${refKey}"]`);
+    }
+    const isFullStack = slider ? parseInt(slider.value) >= parseInt(slider.max) : false;
+    if(isFullStack) {
+      row.dataset.active = '0';
+      row.classList.remove('row-on');
+      row.classList.add('row-off');
       recalcEntryTotal(row.dataset.entryid, row.dataset.buffkey);
     }
   });
@@ -2164,6 +2459,17 @@ function renderBuffCards() {
       const srcCharId = row.dataset.srcCharId;
       hide = !filled.some(m => m && m.id !== srcCharId && m.squad === '777');
     }
+    if(cond === 'hasHealer') {
+      const srcCharId = row.dataset.srcCharId;
+      const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
+      hide = !filled.some(m => m && m.id !== srcCharId && Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)));
+    }
+    if(cond === 'hasSelfHealer') {
+      // 自己回復（self）or 全体回復（party）どちらかを持っていれば「自分が回復を受けた」に該当（healShareは対象外）
+      const srcCharId = row.dataset.srcCharId;
+      const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
+      hide = !filled.some(m => m && m.id !== srcCharId && Object.keys({...(m.buffs.self||{}), ...(m.buffs.party||{})}).some(k => healKeys.includes(k)));
+    }
     if(cond === 'hasEmma') hide = !hasEmmaInTeam;
     if(cond === 'hasUnfa') {
       if(row.dataset.buffkey === 'taunt') {
@@ -2203,11 +2509,13 @@ function renderBuffCards() {
       const wrapW  = wrap.offsetWidth - statusW;
       const innerW = inner.scrollWidth;
       if(innerW > wrapW) {
-        const unitW = innerW + wrapW;
         inner.innerHTML =
           '<span class="ns1">' + char.name + '</span>' +
           '<span style="display:inline-block;width:' + wrapW + 'px;"></span>' +
           '<span class="ns2">' + char.name + '</span>';
+        // 書き換え後のns1実寸でループ長を測る（2週目の折り返しズレ防止）
+        const ns1El = inner.querySelector('.ns1');
+        const unitW = (ns1El ? ns1El.getBoundingClientRect().width : innerW) + wrapW;
         const speed = 40; // px/秒
         let pos = 0;
         let lastTime = null;
@@ -2455,6 +2763,13 @@ function buildCharCard(char, filledTeam) {
     return ravenMode !== null ? ravenMode : 'focus';
   })();
 
+  // ===== モリー モード判定 =====
+  const mollyChar = filledTeam.find(c => c.id === 'molly');
+  const effectiveMollyMode = (() => {
+    if(!mollyChar) return null;
+    return mollyMode !== null ? mollyMode : 'resist';
+  })();
+
   // ===== レッドフード モード判定 =====
   const redHoodChar = filledTeam.find(c => c.id === 'redhood');
   const effectiveRedHoodMode = (() => {
@@ -2476,6 +2791,25 @@ function buildCharCard(char, filledTeam) {
     return breddyMode !== null ? breddyMode : 'habit';
   })();
 
+  const pyrikaChar = TEAM.find(c => c && c.id === 'pyrika');
+  const effectivePyrikaMode = (() => {
+    if(!pyrikaChar) return null;
+    return pyrikaMode !== null ? pyrikaMode : 'norm';
+  })();
+
+  const arcanaTarotChar = TEAM.find(c => c && c.id === 'arcana_tarot');
+  const effectiveArcanaFateMode = (() => {
+    if(!arcanaTarotChar) return null;
+    return arcanaFateMode !== null ? arcanaFateMode : 'normal';
+  })();
+
+  // ===== シンデレラ：クリスタルウェーブ モード判定 =====
+  const cinderellaCwChar = TEAM.find(c => c && c.id === 'cinderella_cw');
+  const effectiveCinderellaCwMode = (() => {
+    if(!cinderellaCwChar) return null;
+    return cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
+  })();
+
   const selfBufs     = char.buffs.self     || {};
   const targetedBufs = char.buffs.targeted || {};
 
@@ -2483,15 +2817,24 @@ function buildCharCard(char, filledTeam) {
   // { buffKey: [ { name, val, unit, tag, condLabel } ] }
   const incoming = {};
 
-  const addBuff = (k, val, name, tag, condLabel, unit, stack, caster, defaultOff, showCond, exclusiveGroup, syncGroup, fullStackOnly, fullStackRef, cautionCondition, srcCharId, stackLinkedKey, parentStack, gcThreshold, hpBased) => {
+  const addBuff = (k, val, name, tag, condLabel, unit, stack, caster, defaultOff, showCond, exclusiveGroup, syncGroup, fullStackOnly, fullStackRef, cautionCondition, srcCharId, stackLinkedKey, parentStack, gcThreshold, hpBased, extra, stackThreshold, stackThresholdRef, belowFullStackOnly, belowFullStackRef) => {
     const mergeKey = BUFF_MERGE_INTO[k];
     const actualKey = mergeKey || k;
     const actualCond = mergeKey
       ? (condLabel ? condLabel : `${BUFF_LABELS[k] || k}`)
       : condLabel;
     const actualTag = tag;
+    // 排他セット：防御型有無で初期OFFになるソースはdefaultOffに畳み込む（合計値も内訳と揃える）
+    const exSet = (extra && extra.exclusiveSet) || null;
+    const exSetId = (extra && extra.setId) || null;
+    let effDefaultOff = defaultOff || false;
+    if(exSet && exSetId) {
+      const hasOtherDef = TEAM.filter(Boolean).some(m => m && m.id !== char.id && m.role === 'def');
+      const activeSet = hasOtherDef ? 'medic' : 'guard';
+      if(exSetId !== activeSet) effDefaultOff = true;
+    }
     if(!incoming[actualKey]) incoming[actualKey] = [];
-    incoming[actualKey].push({ val, name, tag: actualTag, condLabel: actualCond, unit: unit || '%', stack: stack || null, caster: caster || false, defaultOff: defaultOff || false, showCond: showCond || false, exclusiveGroup: exclusiveGroup || null, syncGroup: syncGroup || null, fullStackOnly: fullStackOnly || false, fullStackRef: fullStackRef || null, rawKey: k, cautionCondition: cautionCondition || null, srcCharId: srcCharId || null, stackLinkedKey: stackLinkedKey || null, parentStack: parentStack || null, gcThreshold: gcThreshold || null, hpBased: hpBased || false });
+    incoming[actualKey].push({ val, name, tag: actualTag, condLabel: actualCond, unit: unit || '%', stack: stack || null, caster: caster || false, defaultOff: effDefaultOff, showCond: showCond || false, exclusiveGroup: exclusiveGroup || null, syncGroup: syncGroup || null, fullStackOnly: fullStackOnly || false, fullStackRef: fullStackRef || null, rawKey: k, cautionCondition: cautionCondition || null, srcCharId: srcCharId || null, stackLinkedKey: stackLinkedKey || null, parentStack: parentStack || null, gcThreshold: gcThreshold || null, hpBased: hpBased || false, exclusiveSet: exSet, setId: exSetId, stackThreshold: (stackThreshold != null ? stackThreshold : null), stackThresholdRef: stackThresholdRef || null, belowFullStackOnly: belowFullStackOnly || false, belowFullStackRef: belowFullStackRef || null });
   };
 
   // ラピのpartyバフ制御：
@@ -2522,8 +2865,22 @@ function buildCharCard(char, filledTeam) {
       if(typeof v === 'object' && v !== null && v.targetOnly && char.id !== v.targetOnly && char !== src) return;
       // weaponOnly: 指定武器種のキャラにのみ有効（発動者自身も除外）
       if(typeof v === 'object' && v !== null && v.weaponOnly && char.weapon !== v.weaponOnly) return;
+      // プリカ partyバフのperformanceOnly制御
+      if(src.id === 'pyrika' && typeof v === 'object' && v !== null && v.performanceOnly && effectivePyrikaMode !== 'perf') return;
+      // アルカナ partyバフのarcanaFateOnly制御
+      if(src.id === 'arcana_tarot' && typeof v === 'object' && v !== null && v.arcanaFateOnly && effectiveArcanaFateMode !== 'fate') return;
+      // requireSrc: 指定IDのキャラが編成されている時のみ有効
+      if(typeof v === 'object' && v !== null && v.requireSrc && !filledTeam.some(c => c.id === v.requireSrc)) return;
+      // ミント partyバフのmintVocalOnly/mintDanceOnly制御
+      const effectiveMintMode = (() => { const m = TEAM.find(c => c && c.id === 'mint'); if(!m) return null; return mintMode !== null ? mintMode : 'dance'; })();
+      if(src.id === 'mint' && typeof v === 'object' && v !== null && v.mintVocalOnly && effectiveMintMode !== 'vocal') return;
+      if(src.id === 'mint' && typeof v === 'object' && v !== null && v.mintDanceOnly && effectiveMintMode !== 'dance') return;
+      // クラスト partyバフのcrustMeilardOnly/crustBranchingOnly制御
+      const effectiveCrustMode = (() => { const m = TEAM.find(c => c && c.id === 'crust'); if(!m) return null; return crustMode !== null ? crustMode : 'meilard'; })();
+      if(src.id === 'crust' && typeof v === 'object' && v !== null && v.crustMeilardOnly && effectiveCrustMode !== 'meilard') return;
+      if(src.id === 'crust' && typeof v === 'object' && v !== null && v.crustBranchingOnly && effectiveCrustMode !== 'branching') return;
       if(typeof v === 'object' && v !== null && 'val' in v) {
-        addBuff(k, v.val, src.name, 'party', v.condLabel || '', v.unit, v.stack || null, v.caster || false, v.defaultOff || false, v.showCond || false, v.exclusiveGroup || null, v.syncGroup || null, v.fullStackOnly || false, v.fullStackRef || null, null, null, null, null, null, v.hpBased || false);
+        addBuff(k, v.val, src.name, 'party', v.condLabel || '', v.unit, v.stack || null, v.caster || false, v.defaultOff || false, v.showCond || false, v.exclusiveGroup || null, v.syncGroup || null, v.fullStackOnly || false, v.fullStackRef || null, v.cautionCondition || null, src.id, null, null, null, v.hpBased || false, null, null, null, v.belowFullStackOnly || false, v.belowFullStackRef || null);
       } else {
         addBuff(k, v, src.name, 'party', '');
       }
@@ -2553,7 +2910,7 @@ function buildCharCard(char, filledTeam) {
         if(!hasLeft || !hasRight) return;
       }
       if(matchTarget(target, char, filledTeam, src)) {
-        const baseCond = targetLabelComplex(target);
+        const baseCond = entry.suppressTargetLabel ? '' : targetLabelComplex(target);
         const fullCond = extraCond ? (baseCond ? `${baseCond}・${extraCond}` : extraCond) : baseCond;
         // target:nullは全員対象なので'party'タグ、条件ありは'targeted'タグ
         const buffTag = (!target && !requireSrcBack) ? 'party' : 'targeted';
@@ -2562,15 +2919,23 @@ function buildCharCard(char, filledTeam) {
           if(entry.breddyHabitOnly && effectiveBreddyMode !== 'habit') return;
           if(entry.breddyRecomOnly && effectiveBreddyMode !== 'recom') return;
         }
-        addBuff(k, val, src.name, buffTag, fullCond, unit, entry.stack || null, entry.caster || false, entry.defaultOff || false, entry.showCond || false, entry.exclusiveGroup || null, entry.syncGroup || null, entry.fullStackOnly || false, entry.fullStackRef || null, null, null, null, null, null, entry.hpBased || false);
+        // プリカ partyバフのperformanceOnly制御
+        if(src.id === 'pyrika') {
+          if(entry.performanceOnly && effectivePyrikaMode !== 'perf') return;
+        }
+        // アルカナ targetedバフのarcanaFateOnly制御
+        if(src.id === 'arcana_tarot') {
+          if(entry.arcanaFateOnly && effectiveArcanaFateMode !== 'fate') return;
+        }
+        addBuff(k, val, src.name, buffTag, fullCond, unit, entry.stack || null, entry.caster || false, entry.defaultOff || false, entry.showCond || false, entry.exclusiveGroup || null, entry.syncGroup || null, entry.fullStackOnly || false, entry.fullStackRef || null, null, null, null, null, null, entry.hpBased || false, null, (entry.stackThreshold != null ? entry.stackThreshold : null), entry.stackThresholdRef || null, entry.belowFullStackOnly || false, entry.belowFullStackRef || null);
       }
     });
   });
 
   // 3. 自己バフ
   // アニス：スターのモード制御用キーセット
-  const anisSoloOnlySelf = new Set(['atk', 'dmg', 'burstCT']);  // 私だけの星のみ（self）
-  const anisTeamOnlySelf = new Set(['burstReEntry']);             // みんなの星のみ（self）
+  const anisSoloOnlySelf = new Set(['atk', 'dmg']);  // 私だけの星のみ（self）
+  const anisTeamOnlySelf = new Set([]);                           // みんなの星のみ（self）※burstReEntryは専用キー化のため削除
   // ネオン：ビジョン・アイ モード制御
   // 通常バフは常時表示・超火力バフは超火力モード時のみ追加表示
   const neonUltraOnlySelf = new Set(['atkNeon2','dmgNeon2']); // 超火力状態のみ追加
@@ -2583,6 +2948,8 @@ function buildCharCard(char, filledTeam) {
   // レイヴン selfバフのモード制御
   const ravenFocusOnlySelf = new Set(['dotDmgRaven1']); // 一点集中時のみ
   const ravenAnOnlySelf    = new Set(['dotDmgRaven2']); // ANモード時のみ
+  const mollyResistOnlySelf   = new Set(['taunt', 'barrierHealOverTime']); // 必死の抵抗状態時のみ
+  const mollyNoResistOnlySelf = new Set(['hpUpB']); // 必死の抵抗状態でない時のみ
   // グレイブ モード制御（完全計算中のみ有効なself）
   const graveFullcalcOnlySelf = new Set(['atkGrave2','dmgGrave','hpDown','magazineInfinite','pierce','pierceDmg','critRate']);
   // レッドフード モード制御
@@ -2621,6 +2988,10 @@ function buildCharCard(char, filledTeam) {
       if(ravenFocusOnlySelf.has(k) && effectiveRavenMode !== 'focus') return;
       if(ravenAnOnlySelf.has(k)    && effectiveRavenMode !== 'an')    return;
     }
+    if(char.id === 'molly') {
+      if(mollyResistOnlySelf.has(k)   && effectiveMollyMode !== 'resist')   return;
+      if(mollyNoResistOnlySelf.has(k) && effectiveMollyMode !== 'normal') return;
+    }
     // グレイブ selfバフのモード制御（完全計算中のみ有効）
     if(char.id === 'grave') {
       if(graveFullcalcOnlySelf.has(k) && effectiveGraveMode !== 'fullcalc') return;
@@ -2636,6 +3007,17 @@ function buildCharCard(char, filledTeam) {
       if(v && v.breddyHabitOnly && effectiveBreddyMode !== 'habit') return;
       if(v && v.breddyRecomOnly && effectiveBreddyMode !== 'recom') return;
     }
+    // プリカ selfバフのperformanceOnly制御
+    if(char.id === 'pyrika') {
+      if(v && v.performanceOnly && effectivePyrikaMode !== 'perf') return;
+    }
+    // シンデレラ：クリスタルウェーブ selfバフのモード制御
+    if(char.id === 'cinderella_cw') {
+      if(v && v.cinderellaCwSnipeOnly && effectiveCinderellaCwMode !== 'snipe') return;
+      if(v && v.cinderellaCwNormalOnly && effectiveCinderellaCwMode !== 'normal') return;
+    }
+    // requireSrc: 指定IDのキャラが編成されている時のみ有効
+    if(typeof v === 'object' && v !== null && v.requireSrc && !filledTeam.some(c => c.id === v.requireSrc)) return;
     if(typeof v === 'object' && v !== null && v.requireBack) {
       // 後列（スロット2・4）配置時のみ
       const charIdx = TEAM.indexOf(char);
@@ -2649,7 +3031,7 @@ function buildCharCard(char, filledTeam) {
       if(!hasLeft || !hasRight) return;
       addBuff(k, v.val, char.name, 'self', '両隣2機いる時', v.unit);
     } else if(typeof v === 'object' && v !== null && v.condLabel) {
-      addBuff(k, v.val, char.name, 'self', v.condLabel, v.unit, v.stack || null, v.caster || false, v.defaultOff || false, v.showCond || false, v.exclusiveGroup || null, v.syncGroup || null, v.fullStackOnly || false, v.fullStackRef || null, v.cautionCondition || null, char.id, v.stackLinkedKey || null, v.parentStack || null, v.gcThreshold || null, v.hpBased || false);
+      addBuff(k, v.val, char.name, 'self', v.condLabel, v.unit, v.stack || null, v.caster || false, v.defaultOff || false, v.showCond || false, v.exclusiveGroup || null, v.syncGroup || null, v.fullStackOnly || false, v.fullStackRef || null, v.cautionCondition || null, char.id, v.stackLinkedKey || null, v.parentStack || null, v.gcThreshold || null, v.hpBased || false, { exclusiveSet: v.exclusiveSet || null, setId: v.setId || null }, (v.stackThreshold != null ? v.stackThreshold : null), v.stackThresholdRef || null, v.belowFullStackOnly || false, v.belowFullStackRef || null);
     } else {
       addBuff(k, v, char.name, 'self', '');
     }
@@ -2670,6 +3052,7 @@ function buildCharCard(char, filledTeam) {
       if(condition === 'noIegisSquad') met = true;
       if(condition === 'hasEmma')  met = filledTeam.some(m => m && m.id === 'emma_tu');
       if(condition === 'hasUnfa')  met = filledTeam.some(m => m && m.id === 'unfa_tu');
+      if(condition === 'has777Squad') met = filledTeam.some(m => m && m.id !== src.id && m.squad === '777');
       // アニス：スター condPartyモード制御
       if(src.id === 'anisstar') {
         if(entry.anisMode === 'solo' && effectiveAnisMode !== 'solo') met = false;
@@ -2691,6 +3074,26 @@ function buildCharCard(char, filledTeam) {
   });
 
   // レンダリング
+  // ▼キーのエントリを対応する▲キーにマージ（異なるキャラ間のペア合算）
+  // selfバフは基本マージ対象外（自己デバフは独立表示を維持）だが、
+  // 同一キャラがUP/DOWN両方をselfで持つ場合はそのキャラ分のみ合算する（エミリアの例で対応・2026-06-29）
+  Object.entries(DEBUFF_BUFF_PAIRS).forEach(([downKey, upKey]) => {
+    if(!incoming[downKey] || !incoming[downKey].length) return;
+    if(!incoming[upKey] || !incoming[upKey].some(x => !x.caster)) return;
+    const upCharIds = new Set(incoming[upKey].filter(x => !x.caster).map(x => x.srcCharId).filter(Boolean));
+    const mergeTargets = incoming[downKey].filter(x => x.tag !== 'self' || (x.srcCharId && upCharIds.has(x.srcCharId)));
+    if(!mergeTargets.length) return;
+    mergeTargets.forEach(entry => {
+      incoming[upKey].push({ ...entry, _mergedDown: true });
+    });
+    const remaining = incoming[downKey].filter(x => !mergeTargets.includes(x));
+    if(remaining.length) {
+      incoming[downKey] = remaining;
+    } else {
+      delete incoming[downKey];
+    }
+  });
+
   let bodyHtml = '';
   let hasAny = false;
 
@@ -2709,6 +3112,19 @@ function buildCharCard(char, filledTeam) {
       ${catName}<span class="cat-onoff">OFF</span>
     </div>`;
 
+
+    // バースト再突入グループはval降順でソート
+    const burstReEntryKeys = new Set(['burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper']);
+    relevant.sort((a, b) => {
+      const aIsBR = burstReEntryKeys.has(a);
+      const bIsBR = burstReEntryKeys.has(b);
+      if(aIsBR && bIsBR) {
+        const aVal = incoming[a]?.[0]?.val ?? 0;
+        const bVal = incoming[b]?.[0]?.val ?? 0;
+        return aVal - bVal;
+      }
+      return 0;
+    });
 
     relevant.forEach(k => {
       const isFlag = FLAG_BUFFS.has(k);
@@ -2748,16 +3164,26 @@ function buildCharCard(char, filledTeam) {
             totalText = `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
           } else {
             const flagU1 = activeSrcs1[0]?.unit || '';
-            const flagDisp1 = flagU1 === '秒' ? `${activeSrcs1[0]?.val ?? ''}秒` : flagU1 === '個' ? `${activeSrcs1[0]?.val ?? ''}個` : flagU1 === '段階' ? `${activeSrcs1[0]?.val ?? ''}段階` : '持続';
+            const flagDisp1 = flagU1 === '秒' ? `${activeSrcs1[0]?.val ?? ''}秒` : flagU1 === '個' ? `${activeSrcs1[0]?.val ?? ''}個` : flagU1 === '段階' ? `${activeSrcs1[0]?.val ?? ''}段階` : flagU1 === 'burst' ? `B${activeSrcs1[0]?.val ?? ''}` : '持続';
             totalText = `<span class="buff-entry-total flag" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">${flagDisp1}</span>`;
           }
         } else if(isFlag) {
           const activeSrcs2 = normalSrcs.filter(x => !x.defaultOff);
           if(activeSrcs2.length === 0) {
             totalText = `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
+          } else if(k === 'taunt') {
+            // taunt系は秒数を合算（同一unit「秒」のソースをすべて足す）
+            const flagUt = activeSrcs2[0]?.unit || '';
+            if(flagUt === '秒') {
+              const sumSec = activeSrcs2.reduce((s,x)=> s + (x.val||0), 0);
+              totalText = `<span class="buff-entry-total flag" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${fmt(sumSec)}秒</span>`;
+            } else {
+              const flagDispt = flagUt === '個' ? `${activeSrcs2[0]?.val ?? ''}個` : flagUt === '段階' ? `${activeSrcs2[0]?.val ?? ''}段階` : flagUt === 'burst' ? `B${activeSrcs2[0]?.val ?? ''}` : '持続';
+              totalText = `<span class="buff-entry-total flag" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${flagDispt}</span>`;
+            }
           } else {
             const flagU2 = activeSrcs2[0]?.unit || '';
-            const flagDisp2 = flagU2 === '秒' ? `${activeSrcs2[0]?.val ?? ''}秒` : flagU2 === '個' ? `${activeSrcs2[0]?.val ?? ''}個` : flagU2 === '段階' ? `${activeSrcs2[0]?.val ?? ''}段階` : '持続';
+            const flagDisp2 = flagU2 === '秒' ? `${activeSrcs2[0]?.val ?? ''}秒` : flagU2 === '個' ? `${activeSrcs2[0]?.val ?? ''}個` : flagU2 === '段階' ? `${activeSrcs2[0]?.val ?? ''}段階` : flagU2 === 'burst' ? `B${activeSrcs2[0]?.val ?? ''}` : '持続';
             totalText = `<span class="buff-entry-total flag" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${flagDisp2}</span>`;
           }
         } else if(isEnemy) {
@@ -2780,13 +3206,14 @@ function buildCharCard(char, filledTeam) {
           // ▲▼ペア合算: ▲キーなら対応する▼の合計を差し引く
           const pairDownKey = BUFF_DEBUFF_PAIRS[k];
           const downTotal = pairDownKey && incoming[pairDownKey]
-            ? incoming[pairDownKey].filter(x => !x.defaultOff && !x.caster).reduce((s, x) => s + x.val, 0)
+            ? incoming[pairDownKey].filter(x => !x.defaultOff && !x.caster && x.tag !== 'self').reduce((s, x) => s + x.val, 0)
             : 0;
           // ▼キーなら対応する▲が存在する場合は合計欄を非表示（▲側に合算済み）
           const pairUpKey = DEBUFF_BUFF_PAIRS[k];
-          if(pairUpKey && incoming[pairUpKey] && incoming[pairUpKey].some(x => !x.caster)) {
+          const allSelf = normalSrcs.every(x => x.tag === 'self');
+          if(pairUpKey && incoming[pairUpKey] && incoming[pairUpKey].some(x => !x.caster) && !allSelf) {
             totalText = `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">▲に合算</span>`;
-          } else if(pairUpKey && (!incoming[pairUpKey] || !incoming[pairUpKey].some(x => !x.caster))) {
+          } else if(pairUpKey && (!incoming[pairUpKey] || !incoming[pairUpKey].some(x => !x.caster) || allSelf)) {
             // ▼キー単独（▲ペアなし）→ マイナス表示
             const total = normalSrcs.filter(x => !x.defaultOff).reduce((s, x) => s + x.val, 0);
             const u = normalSrcs[0]?.unit || '%';
@@ -2795,20 +3222,35 @@ function buildCharCard(char, filledTeam) {
               : `<span class="buff-entry-total" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">-${fmt(total)}${u}</span>`;
           } else {
             const parts = Object.entries(unitGroups).map(([u, group]) => {
-              const upTotal = group.filter(x => !x.defaultOff).reduce((s, x) => s + x.val, 0);
-              const net = upTotal - (u === '%' ? downTotal : 0);
+              const upTotal = group.filter(x => !x.defaultOff && !x._mergedDown).reduce((s, x) => s + x.val, 0);
+              const mergedDownTotal = group.filter(x => !x.defaultOff && x._mergedDown).reduce((s, x) => s + x.val, 0);
+              const net = upTotal - mergedDownTotal - (u === '%' ? downTotal : 0);
               if(u === '持続') {
                 return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">持続</span>`;
               } else if(u === '%') {
-                if(k === 'burstCT' || k === 'skillCT') return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">-${fmt(upTotal)}秒</span>`;
-                if(k === 'burstTimeUp') return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">+${fmt(upTotal)}秒</span>`;
-                if(net === 0) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
+                if(k === 'burstCT' || k === 'skillCT') {
+                  if(upTotal > 0) return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">-${fmt(upTotal)}秒</span>`;
+                  if(upTotal < 0) return `<span class="buff-entry-total" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">+${fmt(Math.abs(upTotal))}秒</span>`;
+                  return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">0秒</span>`;
+                }
+                const isCancelledInit = group.some(x => !x.defaultOff && !x._mergedDown && x.val < 0) || mergedDownTotal !== 0 || downTotal !== 0;
+                if(net === 0 && !isCancelledInit) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
+                if(net === 0) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">0%</span>`;
                 const col = net > 0 ? catCol.color : '#ff3c6e';
                 const shd = net > 0 ? catCol.shadow : 'rgba(255,60,110,0.4)';
                 const sign = net > 0 ? '+' : '';
                 return `<span class="buff-entry-total" style="color:${col};text-shadow:0 0 8px ${shd};">${sign}${fmt(net)}%</span>`;
+              } else if(k === 'chargeSpdFixed') {
+                const net2 = upTotal - mergedDownTotal;
+                if(net2 === 0) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
+                return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">-${fmt(net2)}${u}</span>`;
               } else {
-                return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};margin-left:6px;">+${fmt(upTotal)}${u}</span>`;
+                const net2 = upTotal - mergedDownTotal;
+                if(net2 === 0) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">0${u}</span>`;
+                const col2 = net2 > 0 ? catCol.color : '#ff3c6e';
+                const shd2 = net2 > 0 ? catCol.shadow : 'rgba(255,60,110,0.4)';
+                const sign2 = net2 > 0 ? '+' : '';
+                return `<span class="buff-entry-total" style="color:${col2};text-shadow:0 0 8px ${shd2};">${sign2}${fmt(net2)}${u}</span>`;
               }
             });
             totalText = parts.join('');
@@ -2825,14 +3267,16 @@ function buildCharCard(char, filledTeam) {
             valText = silenceLabels[initSliderVal] || `${src.val}個`;
           } else if(isFlag) {
             const sU = src.unit || '';
-            valText = sU === '秒' ? `${src.val}秒` : sU === '個' ? `${src.val}個` : sU === '段階' ? `${src.val}段階` : '持続';
+            valText = sU === '秒' ? `${src.val}秒` : sU === '個' ? `${src.val}個` : sU === '段階' ? `${src.val}段階` : sU === 'burst' ? `B${src.val}` : '持続';
           }
           else if(isEnemy)            valText = `${fmt(src.val)}${src.unit || '%'}`;
-          else if(DEBUFF_KEYS.has(k)) valText = `-${fmt(src.val)}${src.unit || '%'}`;
-          else if(k === 'burstCT' || k === 'skillCT') valText = `-${fmt(src.val)}秒`;
-          else if(k === 'burstTimeUp') valText = `+${fmt(src.val)}秒`;
+          else if(src._mergedDown)      valText = src.unit === '秒' ? `-${fmt(src.val)}秒` : `-${fmt(src.val)}${src.unit || '%'}`;
+          else if(DEBUFF_KEYS.has(k)) valText = u === '秒' ? `-${fmt(src.val)}秒` : `-${fmt(src.val)}${src.unit || '%'}`;
+          else if(k === 'burstCT' || k === 'skillCT') valText = src.val < 0 ? `+${fmt(Math.abs(src.val))}秒` : `-${fmt(src.val)}秒`;
+          else if(k === 'chargeSpdFixed') valText = `-${fmt(src.val)}${u}`;
           else if(u === '持続')       valText = '持続';
           else if(u !== '%')          valText = `+${fmt(src.val)}${u}`;
+          else if(src.val < 0)        valText = `-${fmt(Math.abs(src.val))}%`;
           else                        valText = `+${fmt(src.val)}%`;
           const hasCond = !!src.condLabel;
           // self → 常に「自己」タグ、condLabelあり → さらに「条件付」追加
@@ -2883,7 +3327,7 @@ function buildCharCard(char, filledTeam) {
             return `<div class="stack-slider-wrap"${parentStackAttr ? ` data-parent-stack-wrap="${stackInfo.parentStack}"` : ''}>
               <input type="range" class="stack-slider" id="${sliderId}"
                 min="1" max="${stackInfo.max}" value="${initStack}"
-                data-baseVal="${src.val}" data-unit="${u}" data-rowid="${rowId}" data-entryid="${entryIdForRow}" data-buffkey="${k}" data-rawkey="${rawK}"${stackKeyAttr}${parentStackAttr}
+                data-baseVal="${src.val}" data-unit="${u}" data-rowid="${rowId}" data-entryid="${entryIdForRow}" data-buffkey="${k}" data-rawkey="${rawK}"${stackKeyAttr}${parentStackAttr}${stackInfo.stackSync ? ` data-stack-sync="${stackInfo.stackSync}"` : ''}
                 oninput="onStackSlider(this)" onclick="event.stopPropagation()">
               <span class="stack-label">${stackInfo.label ? `<b style="color:var(--accent3);margin-right:4px;">[${stackInfo.label}]</b>` : ""}<span id="${stackValId}">${initStack}</span>/${stackInfo.max}スタック</span>
             </div>`;
@@ -2898,39 +3342,53 @@ function buildCharCard(char, filledTeam) {
               const silenceLabels = ['3個', '2個', '1個', '騒音公害'];
               return silenceLabels[initSliderVal] || `${initVal}個`;
             }
-            if(isFlag) { const iU = u || ''; return iU === '秒' ? `${initVal}秒` : iU === '個' ? `${initVal}個` : iU === '段階' ? `${initVal}段階` : '持続'; }
+            if(isFlag) { const iU = u || ''; return iU === '秒' ? `${initVal}秒` : iU === '個' ? `${initVal}個` : iU === '段階' ? `${initVal}段階` : iU === 'burst' ? `B${initVal}` : '持続'; }
             if(isEnemy) return `${fmt(initVal)}${u !== '%' ? u : '%'}`;
-            if(DEBUFF_KEYS.has(k)) return `-${fmt(initVal)}%`;
-            if(k === 'burstCT' || k === 'skillCT') return `-${fmt(initVal)}秒`;
-            if(k === 'burstTimeUp') return `+${fmt(initVal)}秒`;
+            if(src._mergedDown) return u === '秒' ? `-${fmt(initVal)}秒` : `-${fmt(initVal)}${u || '%'}`;
+            if(DEBUFF_KEYS.has(k)) return u === '秒' ? `-${fmt(initVal)}秒` : `-${fmt(initVal)}%`;
+            if(k === 'burstCT' || k === 'skillCT') return initVal < 0 ? `+${fmt(Math.abs(initVal))}秒` : `-${fmt(initVal)}秒`;
+            if(k === 'chargeSpdFixed') return `-${fmt(initVal)}${u}`;
             if(u !== '%') return `+${fmt(initVal)}${u}`;
+            if(initVal < 0) return `-${fmt(Math.abs(initVal))}%`;
             return `+${fmt(initVal)}%`;
           })();
-          const isDefaultOff = src.defaultOff === true;
+          const rowParentStack = src.parentStack || (src.stack && src.stack.parentStack) || null;
+          // 排他セット自動初期化（デルタ：自分を除く防御型の有無でセット選択）
+          let exSetDefaultOff = false;
+          if(src.exclusiveSet && src.setId) {
+            const hasOtherDef = TEAM.filter(Boolean).some(m => m && m.id !== char.id && m.role === 'def');
+            // 自分以外に防御型がいる→medic(セット2)ON / いない→guard(セット1)ON
+            const activeSet = hasOtherDef ? 'medic' : 'guard';
+            if(src.setId !== activeSet) exSetDefaultOff = true;
+          }
+          const isDefaultOff = src.defaultOff === true || !!rowParentStack || exSetDefaultOff; // parentStack行は親がMax未満で始まるため初期OFF
           const initActive = isDefaultOff ? '0' : '1';
           const initRowClass = isDefaultOff ? 'row-off' : 'row-on';
           const initActiveVal = initVal; // defaultOffでもval自体は保持（active=0で集計除外）
-          return `
-            <div class="buff-source-row ${initRowClass}" id="${rowId}" data-active="${initActive}" data-val="${initActiveVal}" data-unit="${u}" data-buffkey="${k}" data-entryid="${entryIdForRow}" data-base-val="${src.val}" ${src.exclusiveGroup ? `data-exclusive-group="${src.exclusiveGroup}"` : ''} ${src.syncGroup ? `data-sync-group="${src.syncGroup}"` : ''} ${src.fullStackOnly ? `data-full-stack-ref="${src.fullStackRef || ''}"` : ''} ${src.cautionCondition ? `data-caution-condition="${src.cautionCondition}"` : ''} ${src.cautionCondition ? `data-src-char-id="${src.srcCharId || ''}"` : ''} ${src.stackLinkedKey ? `data-stack-linked-key="${src.stackLinkedKey}"` : ''} ${src.parentStack ? `data-parent-stack-key="${src.parentStack}"` : ''} ${src.gcThreshold != null ? `data-gc-threshold="${src.gcThreshold}"` : ''} onclick="toggleSourceRow('${rowId}', event)">
-              <div class="buff-source-header">
-                <span class="buff-source-name">${src.name}</span>
-              </div>
-              <div class="buff-source-body">
-                <div class="buff-source-tags">${tagsHtml}</div>
-                <span class="buff-source-val" style="color:${DEBUFF_KEYS.has(k) ? '#ff3c6e' : catCol.color};">${initValText}</span>
-              </div>
-              ${stackHtml}
-              ${condLine}
-            </div>`;
+          const dataAttrs = ` data-active="${initActive}" data-val="${initActiveVal}" data-unit="${u}" data-buffkey="${k}" data-raw-key="${src.rawKey || k}" data-src-char-id="${src.srcCharId || ''}" data-entryid="${entryIdForRow}" data-base-val="${src.val}" ${src._mergedDown ? 'data-merged-down="1"' : ''} ${src.exclusiveGroup ? `data-exclusive-group="${src.exclusiveGroup}"` : ''} ${src.syncGroup ? `data-sync-group="${src.syncGroup}"` : ''} ${src.fullStackOnly ? `data-full-stack-ref="${src.fullStackRef || ''}"` : ''} ${src.belowFullStackOnly ? `data-below-full-stack-ref="${src.belowFullStackRef || ''}"` : ''} ${src.cautionCondition ? `data-caution-condition="${src.cautionCondition}"` : ''} ${src.cautionCondition ? `data-src-char-id="${src.srcCharId || ''}"` : ''} ${src.stackLinkedKey ? `data-stack-linked-key="${src.stackLinkedKey}"` : ''} ${rowParentStack ? `data-parent-stack-key="${rowParentStack}"` : ''} ${src.gcThreshold != null ? `data-gc-threshold="${src.gcThreshold}"` : ''} ${src.exclusiveSet ? `data-exclusive-set="${src.exclusiveSet}"` : ''} ${src.setId ? `data-set-id="${src.setId}"` : ''} ${src.stackThreshold != null ? `data-stack-threshold="${src.stackThreshold}"` : ''} ${src.stackThresholdRef ? `data-stack-threshold-ref="${src.stackThresholdRef}"` : ''}`;
+          const valColor = (DEBUFF_KEYS.has(k) || src._mergedDown || (src.val < 0 && k !== 'burstCT' && k !== 'skillCT')) ? '#ff3c6e' : catCol.color;
+          return renderSourceRow({
+            rowClass: initRowClass,
+            rowId,
+            dataAttrs,
+            name: getShortName(src.name),
+            valText: initValText,
+            valColor,
+            tagsHtml,
+            stackHtml,
+            condLine
+          });
         }).join('');
 
         const entryId = `${char.id}-${catName}-${k}`;
         const totalSpanId = `total-${entryId}`;
+        const hasStackSlider = normalSrcs.some(s => s.stack && s.stack.max);
+        const stackStarHtml = hasStackSlider ? '<span class="stack-star"></span>' : '';
         bodyHtml += `
           <div class="buff-entry" data-cat="${char.id}-${catName}" onclick="toggleBuffEntry('${entryId}','${catToggleId}')" style="cursor:pointer;">
             <div class="buff-entry-header">
-              <span class="buff-entry-label">${label}</span>
-              <span id="${totalSpanId}" style="display:flex;gap:4px;align-items:baseline;">${totalText}</span>
+              <span class="buff-entry-label">${label}${stackStarHtml}</span>
+              <span id="${totalSpanId}" style="display:flex;flex-wrap:wrap;gap:4px;align-items:baseline;justify-content:flex-end;">${totalText}</span>
             </div>
             <div class="buff-sources" style="display:none" id="src-${entryId}" data-cat-src="${char.id}-${catName}">${sourceRows}</div>
           </div>`;
@@ -2946,17 +3404,24 @@ function buildCharCard(char, filledTeam) {
         });
 
         Object.entries(casterByChar).forEach(([charName, charSrcs]) => {
-          const casterTotal = charSrcs.reduce((s, x) => s + x.val, 0);
+          const activeCharSrcs = charSrcs.filter(x => !x.defaultOff);
+          const casterTotal = activeCharSrcs.reduce((s, x) => s + x.val, 0);
           const casterEntryId = `${char.id}-${catName}-${k}-caster-${charName}`;
-          const casterU = charSrcs[0]?.unit || '%';
-          const casterTotalText = isFlag
-            ? (() => { const cU = charSrcs[0]?.unit || ''; const cD = cU === '秒' ? `${charSrcs[0]?.val ?? ''}秒` : cU === '個' ? `${charSrcs[0]?.val ?? ''}個` : cU === '段階' ? `${charSrcs[0]?.val ?? ''}段階` : '持続'; return `<span class="buff-entry-total flag" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${cD}</span>`; })()
+          const casterU = (activeCharSrcs[0] || charSrcs[0])?.unit || '%';
+          const casterTotalText = activeCharSrcs.length === 0
+            ? `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`
+            : isFlag
+            ? (() => { const cU = activeCharSrcs[0]?.unit || ''; const cD = cU === '秒' ? `${activeCharSrcs[0]?.val ?? ''}秒` : cU === '個' ? `${activeCharSrcs[0]?.val ?? ''}個` : cU === '段階' ? `${activeCharSrcs[0]?.val ?? ''}段階` : cU === 'burst' ? `B${activeCharSrcs[0]?.val ?? ''}` : '持続'; return `<span class="buff-entry-total flag" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${cD}</span>`; })()
             : isEnemy
               ? `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${fmt(casterTotal)}${casterU}</span>`
             : DEBUFF_KEYS.has(k)
               ? `<span class="buff-entry-total" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">-${fmt(casterTotal)}${casterU}</span>`
               : (k === 'burstCT' || k === 'skillCT')
-                ? `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">-${fmt(casterTotal)}秒</span>`
+                ? (casterTotal > 0
+                    ? `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">-${fmt(casterTotal)}秒</span>`
+                    : casterTotal < 0
+                      ? `<span class="buff-entry-total" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">+${fmt(Math.abs(casterTotal))}秒</span>`
+                      : `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">0秒</span>`)
                 : casterU === '持続'
                   ? `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">持続</span>`
                   : casterU !== '%'
@@ -2973,16 +3438,23 @@ function buildCharCard(char, filledTeam) {
             const casterStackInfo = src.stack || null;
             const casterInitVal = casterStackInfo ? src.val * (casterStackInfo.default || 1) : src.val;
             const casterU = src.unit || '%';
-            const casterInitActive = src.defaultOff === true ? '0' : '1';
-            const casterInitRowClass = src.defaultOff === true ? 'row-off' : 'row-on';
+            // 排他セット自動初期化（caster行用・デルタ防御型判定）
+            let casterExSetOff = false;
+            if(src.exclusiveSet && src.setId) {
+              const hasOtherDef = TEAM.filter(Boolean).some(m => m && m.id !== char.id && m.role === 'def');
+              const activeSet = hasOtherDef ? 'medic' : 'guard';
+              if(src.setId !== activeSet) casterExSetOff = true;
+            }
+            const casterInitActive = (src.defaultOff === true || casterExSetOff) ? '0' : '1';
+            const casterInitRowClass = (src.defaultOff === true || casterExSetOff) ? 'row-off' : 'row-on';
             const casterInitValText = isFlag
-              ? (() => { const ciU = casterU || ''; return ciU === '秒' ? `${casterInitVal}秒` : ciU === '個' ? `${casterInitVal}個` : ciU === '段階' ? `${casterInitVal}段階` : '持続'; })()
+              ? (() => { const ciU = casterU || ''; return ciU === '秒' ? `${casterInitVal}秒` : ciU === '個' ? `${casterInitVal}個` : ciU === '段階' ? `${casterInitVal}段階` : ciU === 'burst' ? `B${casterInitVal}` : '持続'; })()
               : isEnemy
                 ? `${fmt(casterInitVal)}${casterU}`
               : DEBUFF_KEYS.has(k)
                 ? `-${fmt(casterInitVal)}${casterU}`
                 : (k === 'burstCT' || k === 'skillCT')
-                  ? `-${fmt(casterInitVal)}秒`
+                  ? (casterInitVal < 0 ? `+${fmt(Math.abs(casterInitVal))}秒` : `-${fmt(casterInitVal)}秒`)
                   : casterU === '持続'
                     ? '持続'
                     : casterU !== '%'
@@ -2992,40 +3464,45 @@ function buildCharCard(char, filledTeam) {
               const sliderId = `slider-${casterRowId}`;
               const stackValId = `stackval-${casterRowId}`;
               const initStack = casterStackInfo.default || 1;
+              const casterRawK = src.rawKey || k;
+              const casterStackKeyAttr = casterStackInfo.key ? ` data-stack-key="${casterStackInfo.key}"` : ` data-stack-key="${casterRawK}"`;
               return `<div class="stack-slider-wrap">
               <input type="range" class="stack-slider" id="${sliderId}"
                 min="1" max="${casterStackInfo.max}" value="${initStack}"
-                data-baseVal="${src.val}" data-unit="%" data-rowid="${casterRowId}" data-entryid="${casterEntryIdForRow}" data-buffkey="${k}"
+                data-baseVal="${src.val}" data-unit="%" data-rowid="${casterRowId}" data-entryid="${casterEntryIdForRow}" data-buffkey="${k}" data-rawkey="${casterRawK}"${casterStackKeyAttr}${casterStackInfo.stackSync ? ` data-stack-sync="${casterStackInfo.stackSync}"` : ''}
                 oninput="onStackSlider(this)" onclick="event.stopPropagation()">
               <span class="stack-label"><span id="${stackValId}">${initStack}</span>/${casterStackInfo.max}スタック</span>
             </div>`;
             })() : '';
-            return `
-              <div class="buff-source-row ${casterInitRowClass}" id="${casterRowId}" data-active="${casterInitActive}" data-val="${casterInitVal}" data-unit="${casterU}" data-buffkey="${k}" data-entryid="${casterEntryIdForRow}" data-caster="1" ${src.syncGroup ? `data-sync-group="${src.syncGroup}"` : ''} ${src.fullStackRef ? `data-full-stack-ref="${src.fullStackRef}"` : ''} ${src.cautionCondition ? `data-caution-condition="${src.cautionCondition}"` : ''} ${src.cautionCondition ? `data-src-char-id="${src.srcCharId || char.id}"` : ''} onclick="toggleSourceRow('${casterRowId}', event)">
-                <div class="buff-source-header">
-                  <span class="buff-source-name">${src.name}</span>
-                </div>
-                <div class="buff-source-body">
-                  <div class="buff-source-tags">
-                    ${src.tag === 'self' ? `<span class="buff-source-tag self">自己</span>` : ''}
-                    ${src.tag === 'party' ? `<span class="buff-source-tag party">全体</span>` : ''}
-                    <span class="buff-source-tag" style="background:rgba(255,212,0,0.1);color:var(--accent3);border:1px solid rgba(255,212,0,0.3);">発動者基準</span>
-                    ${hasCond ? `<span class="buff-source-tag targeted">条件付</span>` : ''}
-                    ${src.hpBased ? `<span class="buff-source-tag hp-based">最大HP基準</span>` : ''}
-                  </div>
-                  <span class="buff-source-val" style="color:${DEBUFF_KEYS.has(k) ? '#ff3c6e' : catCol.color};">${casterInitValText}</span>
-                </div>
-                ${casterStackHtml}
-                ${casterCondLine}
-              </div>`;
+            const casterDataAttrs = ` data-active="${casterInitActive}" data-val="${casterInitVal}" data-unit="${casterU}" data-buffkey="${k}" data-entryid="${casterEntryIdForRow}" data-caster="1" ${src.syncGroup ? `data-sync-group="${src.syncGroup}"` : ''} ${src.fullStackRef ? `data-full-stack-ref="${src.fullStackRef}"` : ''} ${src.belowFullStackRef ? `data-below-full-stack-ref="${src.belowFullStackRef}"` : ''} ${src.cautionCondition ? `data-caution-condition="${src.cautionCondition}"` : ''} ${src.cautionCondition ? `data-src-char-id="${src.srcCharId || char.id}"` : ''} ${src.exclusiveSet ? `data-exclusive-set="${src.exclusiveSet}"` : ''} ${src.setId ? `data-set-id="${src.setId}"` : ''} ${src.stackThreshold != null ? `data-stack-threshold="${src.stackThreshold}"` : ''} ${src.stackThresholdRef ? `data-stack-threshold-ref="${src.stackThresholdRef}"` : ''}`;
+            const casterValColor = DEBUFF_KEYS.has(k) ? '#ff3c6e' : catCol.color;
+            let casterTags = '';
+            if (src.tag === 'self') casterTags += `<span class="buff-source-tag self">自己</span>`;
+            if (src.tag === 'party') casterTags += `<span class="buff-source-tag party">全体</span>`;
+            casterTags += `<span class="buff-source-tag" style="background:rgba(255,212,0,0.1);color:var(--accent3);border:1px solid rgba(255,212,0,0.3);">発動者基準</span>`;
+            if (hasCond) casterTags += `<span class="buff-source-tag targeted">条件付</span>`;
+            if (src.hpBased) casterTags += `<span class="buff-source-tag hp-based">最大HP基準</span>`;
+            return renderSourceRow({
+              rowClass: casterInitRowClass,
+              rowId: casterRowId,
+              dataAttrs: casterDataAttrs,
+              name: getShortName(src.name),
+              valText: casterInitValText,
+              valColor: casterValColor,
+              tagsHtml: casterTags,
+              stackHtml: casterStackHtml,
+              condLine: casterCondLine
+            });
           }).join('');
 
           const casterEntryIdLocal = `${char.id}-${catName}-${k}-caster-${charName}`;
+          const casterHasStack = charSrcs.some(s => s.stack && s.stack.max);
+          const casterStackStarHtml = casterHasStack ? '<span class="stack-star"></span>' : '';
           bodyHtml += `
             <div class="buff-entry" data-cat="${char.id}-${catName}" onclick="toggleBuffEntry('${casterEntryIdLocal}','${catToggleId}')" style="cursor:pointer;">
               <div class="buff-entry-header">
-                <span class="buff-entry-label">${label} <span style="font-size:11px;color:var(--text-dim);">[${getShortName(charName)}]</span></span>
-                <span id="total-${casterEntryIdLocal}" style="display:flex;gap:4px;align-items:baseline;">${casterTotalText}</span>
+                <span class="buff-entry-label">${label}${casterStackStarHtml} <span style="font-size:11px;color:var(--text-dim);">[${getShortName(charName)}]</span></span>
+                <span id="total-${casterEntryIdLocal}" style="display:flex;flex-wrap:wrap;gap:4px;align-items:baseline;justify-content:flex-end;">${casterTotalText}</span>
               </div>
               <div class="buff-sources" style="display:none" id="src-${casterEntryIdLocal}" data-cat-src="${char.id}-${catName}">${casterSourceRows}</div>
             </div>`;
@@ -3050,6 +3527,11 @@ function buildCharCard(char, filledTeam) {
       if(o.breddyHabitOnly && effectiveBreddyMode !== 'habit') return;
       if(o.breddyRecomOnly && effectiveBreddyMode !== 'recom') return;
     }
+    // シンデレラ：クリスタルウェーブ アクティブスキル/武器スペックのモード制御
+    if(char.id === 'cinderella_cw') {
+      if(o.cinderellaCwSnipeOnly && effectiveCinderellaCwMode !== 'snipe') return;
+      if(o.cinderellaCwNormalOnly && effectiveCinderellaCwMode !== 'normal') return;
+    }
     allCondBuffs.push({ ...o, src: char.name });
   });
   // crossOther: 他キャラから自分のカードに表示されるアクティブスキル情報
@@ -3071,7 +3553,7 @@ function buildCharCard(char, filledTeam) {
         <div class="cond-buff-row"${gcMin}${gcMax}${gcHide}>
           <div class="cond-buff-row-top">
             <span class="cond-buff-label">${o.label}<span class="cond-buff-src">[${o.src}]</span></span>
-            <span class="cond-buff-val">${o.val}${o.unit || '%'}</span>
+            <span class="cond-buff-val">${o.val}${o.unit != null ? o.unit : '%'}</span>
           </div>
           ${o.cond ? `<div class="cond-buff-cond">${o.cond}</div>` : ''}
         </div>`;
@@ -3163,8 +3645,8 @@ function buildCharCard(char, filledTeam) {
     const dispNum = isSupport ? 1 : 3;
     const valLines = isSupport ? ['COMBAT','SUPPORT'] : ['SEVEN','DWARFS','FULL','ACTIVE'];
     const valText = valLines.map(l => `<span style="display:block;line-height:1.4;">${l}</span>`).join('');
-    const color   = isSupport ? '#00ff9d' : '#ff3c6e';
-    const shadow  = isSupport ? '0 0 8px rgba(0,255,157,0.9)' : '0 0 8px rgba(255,60,110,0.9)';
+    const color   = isSupport ? '#00d4ff' : '#ff3c6e';
+    const shadow  = isSupport ? '0 0 8px rgba(0,212,255,0.9)' : '0 0 8px rgba(255,60,110,0.9)';
     const tooltip = isSupport ? '戦闘補助ON（タップで切替）' : '戦闘補助OFF（タップで切替）';
     return `
       <div onclick="toggleRapiMode(event)" title="${tooltip}" style="
@@ -3398,6 +3880,40 @@ function buildCharCard(char, filledTeam) {
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
+  })() : (char.id === 'molly') ? (() => {
+    const mode    = effectiveMollyMode || 'resist';
+    const isResist = mode === 'resist';
+    const valLines = isResist ? ['RESIST'] : ['NORMAL'];
+    const valText  = valLines.map(l => `<span style="display:block;line-height:1.4;">${l}</span>`).join('');
+    const color    = isResist ? '#ffd400' : '#00d4ff';
+    const shadow   = isResist ? '0 0 8px rgba(255,212,0,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const tooltip  = isResist ? 'resist（タップで切替）' : 'normal（タップで切替）';
+    return `
+      <div onclick="toggleMollyMode(event)" title="${tooltip}" style="
+        position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;
+        align-self:stretch;
+      ">
+        <div style="
+          width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;
+          border:1px solid #1a2240;border-radius:3px;
+          display:flex;flex-direction:column;align-items:center;justify-content:space-between;
+          position:relative;overflow:hidden;
+          transition:border-color 0.15s,box-shadow 0.15s;
+        ">
+          <div style="position:absolute;inset:0;border-radius:3px;
+            background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);
+            pointer-events:none;z-index:2;"></div>
+          <div style="position:absolute;top:-100%;left:0;right:0;height:30%;
+            background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
+            animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
+          <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
+            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B2</span>
+            <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
+          </div>
+          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
+          <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
+        </div>
+      </div>`;
   })() : (char.id === 'redhood') ? (() => {
     const mode = effectiveRedHoodMode || 'lambda';
     const modeMap = {
@@ -3450,6 +3966,104 @@ function buildCharCard(char, filledTeam) {
           '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
         '</div>' +
         '<div style="font-family:\'Courier New\',monospace;font-size:22px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
+      '</div>' +
+    '</div>';
+  })() : (char.id === 'pyrika') ? (() => {
+    const isPerf   = effectivePyrikaMode === 'perf';
+    const modeText = isPerf ? 'PERF' : 'NORM';
+    const color    = isPerf ? '#ff3c6e' : '#00d4ff';
+    const shadow   = isPerf ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const tooltip  = isPerf ? 'パフォーマンス状態（タップで切替）' : 'ノーマル状態（タップで切替）';
+    const valText  = '<span style="display:block;line-height:1.4;font-size:10px;">' + modeText + '</span>';
+    return '<div onclick="togglePyrikaMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
+      '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
+        '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
+        '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
+          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
+          '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
+        '</div>' +
+        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
+      '</div>' +
+    '</div>';
+  })() : (char.id === 'mint') ? (() => {
+    const effectiveMintMode2 = mintMode !== null ? mintMode : 'dance';
+    const isVocal  = effectiveMintMode2 === 'vocal';
+    const modeText = isVocal ? 'VOCAL' : 'DANCE';
+    const color    = isVocal ? '#ff3c6e' : '#00d4ff';
+    const shadow   = isVocal ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const tooltip  = isVocal ? 'ボーカル状態（タップで切替）' : 'ダンス状態（タップで切替）';
+    const valText  = '<span style="display:block;line-height:1.4;font-size:10px;">' + modeText + '</span>';
+    return '<div onclick="toggleMintMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
+      '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
+        '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
+        '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
+          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
+          '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
+        '</div>' +
+        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
+      '</div>' +
+    '</div>';
+  })() : (char.id === 'arcana_tarot') ? (() => {
+    const isFate   = effectiveArcanaFateMode === 'fate';
+    const modeText = isFate ? 'FATE' : 'NORM';
+    const color    = isFate ? '#ff3c6e' : '#00d4ff';
+    const shadow   = isFate ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const tooltip  = isFate ? '運命の輪状態（タップで切替）' : 'ノーマル状態（タップで切替）';
+    const valText  = '<span style="display:block;line-height:1.4;font-size:10px;">' + modeText + '</span>';
+    return '<div onclick="toggleArcanaFateMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
+      '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
+        '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
+        '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
+          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
+          '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
+        '</div>' +
+        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
+      '</div>' +
+    '</div>';
+  })() : (char.id === 'crust') ? (() => {
+    const effectiveCrustMode2 = crustMode !== null ? crustMode : 'meilard';
+    const isBranching = effectiveCrustMode2 === 'branching';
+    const modeText = isBranching ? 'BRAN' : 'MEIL';
+    const color    = '#ff3c6e';
+    const shadow   = '0 0 8px rgba(255,60,110,0.9)';
+    const tooltip  = isBranching ? 'ブランチング状態（タップで切替）' : 'メイラード状態（タップで切替）';
+    const valText  = '<span style="display:block;line-height:1.4;font-size:10px;">' + modeText + '</span>';
+    return '<div onclick="toggleCrustMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
+      '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
+        '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
+        '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
+          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
+          '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
+        '</div>' +
+        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
+      '</div>' +
+    '</div>';
+  })() : (char.id === 'cinderella_cw') ? (() => {
+    const effectiveCinderellaCwMode2 = cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
+    const isSnipe  = effectiveCinderellaCwMode2 === 'snipe';
+    const modeText = isSnipe ? 'SNIPE' : 'NORM';
+    const color    = isSnipe ? '#ff3c6e' : '#00d4ff';
+    const shadow   = isSnipe ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const tooltip  = isSnipe ? '狙撃モード状態（タップで切替）' : '通常モード状態（タップで切替）';
+    const valText  = '<span style="display:block;line-height:1.4;font-size:10px;">' + modeText + '</span>';
+    return '<div onclick="toggleCinderellaCwMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
+      '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
+        '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
+        '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
+          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B3</span>' +
+          '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
+        '</div>' +
+        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
@@ -3579,7 +4193,7 @@ function buildCharCard(char, filledTeam) {
                   </g>
                 </svg>
                 
-              </div>` : char.company === 'pilgrim' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><div class="pil-glow">${makePilgrimSVG('c'+char.id, 20, 20, '#101428')}</div></div>` : char.company === 'abnormal' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="120 170 260 260" style="display:block;"><defs><mask id="abn-c${char.id}"><rect x="0" y="0" width="500" height="500" fill="white"/><g class="abn-dia"><rect x="-15" y="-15" width="30" height="30" transform="translate(250,300) rotate(45)" fill="black"/></g></mask></defs><g mask="url(#abn-c${char.id})"><g class="abn-dia"><rect x="-40" y="-40" width="80" height="80" transform="translate(250,300) rotate(45)" fill="#3b82f6"/></g><g class="abn-arms"><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(170,242) rotate(315)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(273,231) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(320,320) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(310,220) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(228,372) rotate(45)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(331,357) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(190,382) rotate(225)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(180,280) rotate(136)" fill="#3b82f6"/></g></g></svg></div>`  : compLabel ? `<span class="char-card-meta-badge" style="color:var(--good);border-color:rgba(0,255,157,0.25);">${compLabel}</span>` : ''}
+              </div>` : char.company === 'pilgrim' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;">${makePilgrimSVG('c'+char.id, 20, 20, '#101428')}</div>` : char.company === 'abnormal' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="120 170 260 260" style="display:block;"><defs><mask id="abn-c${char.id}"><rect x="0" y="0" width="500" height="500" fill="white"/><g class="abn-dia"><rect x="-15" y="-15" width="30" height="30" transform="translate(250,300) rotate(45)" fill="black"/></g></mask></defs><g mask="url(#abn-c${char.id})"><g class="abn-dia"><rect x="-40" y="-40" width="80" height="80" transform="translate(250,300) rotate(45)" fill="#3b82f6"/></g><g class="abn-arms"><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(170,242) rotate(315)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(273,231) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(320,320) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(310,220) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(228,372) rotate(45)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(331,357) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(190,382) rotate(225)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(180,280) rotate(136)" fill="#3b82f6"/></g></g></svg></div>`  : compLabel ? `<span class="char-card-meta-badge" style="color:var(--good);border-color:rgba(0,255,157,0.25);">${compLabel}</span>` : ''}
           </div>
         </div>
         <div class="char-card-actions" style="position:relative;">
@@ -3612,6 +4226,7 @@ function getShortName(name) {
   const SHORT_NAMES = {
     'マスト：ロマンチックメイド':       'マスト：RM',
     'スノーホワイト：ヘビーアームズ':   'スノーホワイト：HA',
+    'スノーホワイト：イノセントデイズ': 'スノーホワイト：ID',
     'ラピ：レッドフード':               'ラピ：RH',
     'ネオン：ビジョン・アイ':           'ネオン：VE',
     'ミハラ：ボンディングチェーン':     'ミハラ：BC',
@@ -3619,7 +4234,7 @@ function getShortName(name) {
     'ディーゼル：ウィンタースイーツ':   'ディーゼル：WS',
     'ミルク：ブルーミングバニー':       'ミルク：BB',
     'ドロシー：セレンディピティ':       'ドロシー：SD',
-    'アニス：スター':                   'アニス：スター',
+    'アニス：スター':                   'アニス：ST',
     'D：キラーワイフ':                  'D：KW',
     'ヘルム：アクアマリン':              'ヘルム：AQ',
     'ロザンナ：シックオーシャン':        'ロザンナ：SO',
@@ -3636,6 +4251,20 @@ function getShortName(name) {
     '式波・アスカ・ラングレー：WILLE':      'アスカ：WILLE',
     'ソーダ：トゥインクルバニー':         'ソーダ：TB',
     'ルドミラ：ウィンターオーナー':       'ルドミラ：WO',
+    'クエンシー：エスケープクイーン':     'クエンシー：EQ',
+    'アニス：スパークリングサマー':       'アニス：SS',
+    'ソリン：フロストチケット':           'ソリン：FT',
+    'アリス：ワンダーランドバニー':       'アリス：WB',
+    'ミカ：スノーバディ':                 'ミカ：SB',
+    'メアリー：ベイゴッデス':             'メアリー：BG',
+    'デルタ：ニンジャシーフ':             'デルタ：NT',
+    'ギロチン：ウィンタースレイヤー':     'ギロチン：WS',
+    'サクラ：ブルーム・イン・サマー':     'サクラ：BS',
+    'プリバティ：アンカインド・メイド':   'プリバティ：UM',
+    'シンデレラ：クリスタルウェーブ':     'シンデレラ：CW',
+    'マルチャーナ：マリンスタディ':       'マルチャーナ：MS',
+    'ラプンツェル：ピュアグレイス':       'ラプンツェル：PG',
+    'エヌ：ミラクルフェアリー':           'エヌ：MF',
   };
   return SHORT_NAMES[name] || name;
 }
@@ -4167,6 +4796,32 @@ function toggleRavenMode(e) {
   });
 }
 
+function toggleMollyMode(e) {
+  e.stopPropagation();
+  const sig = document.getElementById('signal-card-molly');
+  if(!sig || sig.dataset.switching === '1') return;
+  sig.dataset.switching = '1';
+
+  const current  = mollyMode !== null ? mollyMode : 'resist';
+  const nextMode = current === 'resist' ? 'normal' : 'resist';
+
+  const bodyStates = {}, arrowStates = {};
+  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
+  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
+
+  const mollyChar = NIKKE_DB.find(c => c.id === 'molly');
+  const nextImgUrl = mollyChar && mollyChar.cardBg;
+
+  fireSignalBurst('card-molly', nextImgUrl, () => {
+    mollyMode = nextMode;
+    renderBuffCards();
+    Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
+    Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
+    const s = document.getElementById('signal-card-molly');
+    if(s) delete s.dataset.switching;
+  });
+}
+
 function toggleRedHoodMode(e) {
   e.stopPropagation();
   const sig = document.getElementById('signal-card-redhood');
@@ -4194,6 +4849,110 @@ function toggleRedHoodMode(e) {
   });
 }
 
+function togglePyrikaMode(e) {
+  e.stopPropagation();
+  const sig = document.getElementById('signal-card-pyrika');
+  if(!sig || sig.dataset.switching === '1') return;
+  sig.dataset.switching = '1';
+
+  const current  = pyrikaMode !== null ? pyrikaMode : 'norm';
+  const nextMode = current === 'norm' ? 'perf' : 'norm';
+
+  const bodyStates = {}, arrowStates = {};
+  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
+  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
+
+  const pyrikaCharData = NIKKE_DB.find(c => c.id === 'pyrika');
+  const nextImgUrl = pyrikaCharData && pyrikaCharData.cardBg;
+
+  fireSignalBurst('card-pyrika', nextImgUrl, () => {
+    pyrikaMode = nextMode;
+    renderBuffCards();
+    Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
+    Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
+    const s = document.getElementById('signal-card-pyrika');
+    if(s) delete s.dataset.switching;
+  });
+}
+
+function toggleArcanaFateMode(e) {
+  e.stopPropagation();
+  const sig = document.getElementById('signal-card-arcana_tarot');
+  if(!sig || sig.dataset.switching === '1') return;
+  sig.dataset.switching = '1';
+
+  const current  = arcanaFateMode !== null ? arcanaFateMode : 'normal';
+  const nextMode = current === 'normal' ? 'fate' : 'normal';
+
+  const bodyStates = {}, arrowStates = {};
+  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
+  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
+
+  const arcanaTarotCharData = NIKKE_DB.find(c => c.id === 'arcana_tarot');
+  const nextImgUrl = arcanaTarotCharData && arcanaTarotCharData.cardBg;
+
+  fireSignalBurst('card-arcana_tarot', nextImgUrl, () => {
+    arcanaFateMode = nextMode;
+    renderBuffCards();
+    Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
+    Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
+    const s = document.getElementById('signal-card-arcana_tarot');
+    if(s) delete s.dataset.switching;
+  });
+}
+
+function toggleMintMode(e) {
+  e.stopPropagation();
+  const sig = document.getElementById('signal-card-mint');
+  if(!sig || sig.dataset.switching === '1') return;
+  sig.dataset.switching = '1';
+
+  const current  = mintMode !== null ? mintMode : 'dance';
+  const nextMode = current === 'vocal' ? 'dance' : 'vocal';
+
+  const bodyStates = {}, arrowStates = {};
+  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
+  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
+
+  const mintCharData = NIKKE_DB.find(c => c.id === 'mint');
+  const nextImgUrl = mintCharData && mintCharData.cardBg;
+
+  fireSignalBurst('card-mint', nextImgUrl, () => {
+    mintMode = nextMode;
+    renderBuffCards();
+    Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
+    Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
+    const s = document.getElementById('signal-card-mint');
+    if(s) delete s.dataset.switching;
+  });
+}
+
+function toggleCrustMode(e) {
+  e.stopPropagation();
+  const sig = document.getElementById('signal-card-crust');
+  if(!sig || sig.dataset.switching === '1') return;
+  sig.dataset.switching = '1';
+
+  const current  = crustMode !== null ? crustMode : 'meilard';
+  const nextMode = current === 'meilard' ? 'branching' : 'meilard';
+
+  const bodyStates = {}, arrowStates = {};
+  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
+  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
+
+  const crustCharData = NIKKE_DB.find(c => c.id === 'crust');
+  const nextImgUrl = crustCharData && crustCharData.cardBg;
+
+  fireSignalBurst('card-crust', nextImgUrl, () => {
+    crustMode = nextMode;
+    renderBuffCards();
+    Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
+    Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
+    const s = document.getElementById('signal-card-crust');
+    if(s) delete s.dataset.switching;
+  });
+}
+
 function toggleBreddyMode(e) {
   e.stopPropagation();
   const sig = document.getElementById('signal-card-breddy');
@@ -4216,6 +4975,32 @@ function toggleBreddyMode(e) {
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-breddy');
+    if(s) delete s.dataset.switching;
+  });
+}
+
+function toggleCinderellaCwMode(e) {
+  e.stopPropagation();
+  const sig = document.getElementById('signal-card-cinderella_cw');
+  if(!sig || sig.dataset.switching === '1') return;
+  sig.dataset.switching = '1';
+
+  const current  = cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
+  const nextMode = current === 'normal' ? 'snipe' : 'normal';
+
+  const bodyStates = {}, arrowStates = {};
+  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
+  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
+
+  const cinderellaCwCharData = NIKKE_DB.find(c => c.id === 'cinderella_cw');
+  const nextImgUrl = cinderellaCwCharData && cinderellaCwCharData.cardBg;
+
+  fireSignalBurst('card-cinderella_cw', nextImgUrl, () => {
+    cinderellaCwMode = nextMode;
+    renderBuffCards();
+    Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
+    Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
+    const s = document.getElementById('signal-card-cinderella_cw');
     if(s) delete s.dataset.switching;
   });
 }
@@ -4351,50 +5136,6 @@ function checkModeChangeAndRender() {
 }
 
 // ===== TEAM OPS =====
-function clearTeam() {
-  const btn = event.target;
-  if(!btn.dataset.confirm) {
-    btn.dataset.confirm = '1';
-    const orig = btn.textContent;
-    btn.textContent = '⚠ もう一度タップで確定';
-    btn.style.borderColor = 'var(--accent2)'; btn.style.color = 'var(--accent2)';
-    setTimeout(() => { btn.dataset.confirm=''; btn.textContent=orig; btn.style.borderColor=''; btn.style.color=''; }, 3000);
-    return;
-  }
-  TEAM = [null,null,null,null,null];
-  rapiSupMode  = null;
-  anisStarMode = null;
-  neonViMode   = null;
-  dieselWsMode = null;
-  milkBbMode   = null;
-  ravenMode    = null;
-  graveMode    = null;
-  redHoodMode  = null;
-  breddyMode   = null;
-  renderSlots();
-  btn.dataset.confirm=''; btn.textContent='✓ クリア完了';
-  btn.style.borderColor='var(--good)'; btn.style.color='var(--good)';
-  setTimeout(() => { btn.textContent='🗑 編成クリア'; btn.style.borderColor=''; btn.style.color=''; }, 2000);
-}
-function resetDB() {
-  const btn = event.target;
-  if(!btn.dataset.confirm) {
-    btn.dataset.confirm = '1';
-    const orig = btn.textContent;
-    btn.textContent = '⚠ もう一度タップで実行';
-    btn.style.borderColor='var(--accent2)'; btn.style.color='var(--accent2)';
-    setTimeout(() => { btn.dataset.confirm=''; btn.textContent=orig; btn.style.borderColor=''; btn.style.color=''; }, 3000);
-    return;
-  }
-  NIKKE_DB = [...NIKKE_DB_DEFAULT];
-  saveDB();
-  TEAM = TEAM.map(c => c ? (NIKKE_DB.find(d => d.id === c.id) || null) : null);
-  saveTeam(); renderSlots();
-  btn.dataset.confirm=''; btn.textContent=`✓ DB更新完了 (${NIKKE_DB.length}体)`;
-  btn.style.borderColor='var(--good)'; btn.style.color='var(--good)';
-  setTimeout(() => { btn.textContent='🔄 DB初期化'; btn.style.borderColor=''; btn.style.color=''; }, 2500);
-}
-
 // Modal close on overlay click
 document.addEventListener('click', e => {
   if(e.target.id === 'charPicker') closePicker();
@@ -4446,6 +5187,8 @@ function toggleSourceRow(rowId, e) {
   e.stopPropagation(); // バフ行の開閉トリガーを止める
   const row = document.getElementById(rowId);
   if(!row) return;
+  // ディーゼルのhitRate（-100%）はスライダー専用・手動クリック無効
+  if(row.dataset.srcCharId === 'diesel_ws' && row.dataset.buffkey === 'hitRate') return;
   // CAUTION非表示行はクリック無効（hasUnfaはpointerEventsで制御済みなのでここでは除外）
   if(row.dataset.cautionCondition && row.dataset.cautionCondition !== 'hasUnfa') return;
   // hasUnfa: pointerEvents=noneで制御しているが念のため二重チェック
@@ -4453,12 +5196,29 @@ function toggleSourceRow(rowId, e) {
 
   // fullStackOnly行はスライダーが最大値未満のときクリック無効
   if(row.dataset.fullStackRef) {
+    const refKey = row.dataset.fullStackRef;
+    // まず自カードを探し、なければ全カードから探す（partyバフが他キャラカードに表示される場合）
     const cardEl = row.closest('.char-card');
-    if(cardEl) {
-      const refKey = row.dataset.fullStackRef;
-      const slider = cardEl.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || cardEl.querySelector(`.stack-slider[data-rawkey="${refKey}"]`);
-      if(slider && parseInt(slider.value) < parseInt(slider.max)) return;
+    let slider = cardEl
+      ? (cardEl.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || cardEl.querySelector(`.stack-slider[data-rawkey="${refKey}"]`))
+      : null;
+    if(!slider) {
+      slider = document.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || document.querySelector(`.stack-slider[data-rawkey="${refKey}"]`);
     }
+    if(slider && parseInt(slider.value) < parseInt(slider.max)) return;
+    if(!slider) return; // スライダーが見つからない場合もクリック無効
+  }
+  // belowFullStackOnly行はスライダーが最大値の時のみクリック無効（fullStackOnlyの逆条件）
+  if(row.dataset.belowFullStackRef) {
+    const refKey = row.dataset.belowFullStackRef;
+    const cardEl = row.closest('.char-card');
+    let slider = cardEl
+      ? (cardEl.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || cardEl.querySelector(`.stack-slider[data-rawkey="${refKey}"]`))
+      : null;
+    if(!slider) {
+      slider = document.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || document.querySelector(`.stack-slider[data-rawkey="${refKey}"]`);
+    }
+    if(slider && parseInt(slider.value) >= parseInt(slider.max)) return;
   }
   // gcThreshold行はスライダーが閾値未満のときクリック無効
   if(row.dataset.gcThreshold) {
@@ -4483,6 +5243,32 @@ function toggleSourceRow(rowId, e) {
   row.dataset.active = isActive ? '0' : '1';
   row.classList.toggle('row-on', !isActive);
   row.classList.toggle('row-off', isActive);
+
+  // 排他セット制御（exclusiveSet）：セット内は連動・セット間は排他・常にどちらかON
+  if(row.dataset.exclusiveSet) {
+    const cardEl = row.closest('.char-card');
+    if(cardEl) {
+      const grp = row.dataset.exclusiveSet;
+      const mySet = row.dataset.setId;
+      const allSetRows = [...cardEl.querySelectorAll('.buff-source-row[data-exclusive-set]')]
+        .filter(r => r.dataset.exclusiveSet === grp);
+      // ON操作なら自セットON・他セットOFF / OFF操作ならセット切替（自セットOFF・他セットON）
+      const turnOnSet = !isActive ? mySet : null;
+      // OFF操作時：自分以外のセットを探してONにする
+      let targetOnSet = turnOnSet;
+      if(isActive) {
+        const otherSet = allSetRows.map(r => r.dataset.setId).find(s => s !== mySet);
+        targetOnSet = otherSet || mySet;
+      }
+      allSetRows.forEach(r => {
+        const on = r.dataset.setId === targetOnSet;
+        r.dataset.active = on ? '1' : '0';
+        r.classList.toggle('row-on', on);
+        r.classList.toggle('row-off', !on);
+        recalcEntryTotal(r.dataset.entryid, r.dataset.buffkey);
+      });
+    }
+  }
 
   // 排他グループ制御（exclusiveGroup）
   if(row.dataset.exclusiveGroup) {
@@ -4534,13 +5320,24 @@ function toggleSourceRow(rowId, e) {
       });
       // fullStackRef行（distDmg・coreDmg・critRateなど）を追従
       // ただしスライダーがMaxの時だけONにする（OFFは無条件）
+      // partyバフとして他カードにも複製表示されるため文書全体を検索
       const isFull = parseInt(mySlider.value) >= parseInt(mySlider.max);
-      myCardEl.querySelectorAll(`.buff-source-row[data-full-stack-ref="${myStackKey}"]`).forEach(fsRow => {
+      document.querySelectorAll(`.buff-source-row[data-full-stack-ref="${myStackKey}"]`).forEach(fsRow => {
         const shouldBeOn = isNowActive && isFull;
         fsRow.dataset.active = shouldBeOn ? '1' : '0';
         fsRow.classList.toggle('row-on', shouldBeOn);
         fsRow.classList.toggle('row-off', !shouldBeOn);
         recalcEntryTotal(fsRow.dataset.entryid, fsRow.dataset.buffkey);
+      });
+      // belowFullStackRef行（シラツルのhpUpなど）を追従：fullStackRefの逆条件
+      // 自分（stackソース）がOFF、またはMax未満ならON。自分がONかつMaxの時だけOFF
+      // partyバフとして他カードにも複製表示されるため文書全体を検索
+      document.querySelectorAll(`.buff-source-row[data-below-full-stack-ref="${myStackKey}"]`).forEach(bfsRow => {
+        const shouldBeOn = !(isNowActive && isFull);
+        bfsRow.dataset.active = shouldBeOn ? '1' : '0';
+        bfsRow.classList.toggle('row-on', shouldBeOn);
+        bfsRow.classList.toggle('row-off', !shouldBeOn);
+        recalcEntryTotal(bfsRow.dataset.entryid, bfsRow.dataset.buffkey);
       });
     }
   }
@@ -4600,6 +5397,25 @@ function toggleSourceRow(rowId, e) {
     }
   }
 
+  // stackThreshold連動（汎用版・行クリック時）：このスライダー行のキーをThresholdRefに使う行を追従
+  const mySlider3 = row.querySelector('.stack-slider');
+  if(mySlider3) {
+    const stackKey3 = mySlider3.dataset.stackKey || mySlider3.dataset.rawkey || mySlider3.dataset.buffkey;
+    const cardEl3 = row.closest('.char-card');
+    if(cardEl3 && stackKey3) {
+      const isNowOn3 = row.dataset.active === '1';
+      const curVal3 = parseInt(mySlider3.value);
+      cardEl3.querySelectorAll(`.buff-source-row[data-stack-threshold-ref="${stackKey3}"]`).forEach(thRow => {
+        const threshold = parseInt(thRow.dataset.stackThreshold);
+        const shouldOn = isNowOn3 && (curVal3 >= threshold);
+        thRow.dataset.active = shouldOn ? '1' : '0';
+        thRow.classList.toggle('row-on', shouldOn);
+        thRow.classList.toggle('row-off', !shouldOn);
+        recalcEntryTotal(thRow.dataset.entryid, thRow.dataset.buffkey);
+      });
+    }
+  }
+
 }
 
 function recalcEntryTotal(entryId, buffKey) {
@@ -4630,22 +5446,35 @@ function recalcEntryTotal(entryId, buffKey) {
     }
   }
 
-  // アクティブな行だけ集計（unit別）
+  // アクティブな行だけ集計（unit別）、_mergedDownは別集計
   const unitTotals = {};
+  const unitMergedDownTotals = {};
+  let hasNegativeRow = false;
   srcContainer.querySelectorAll('.buff-source-row[data-val]').forEach(row => {
     if(row.dataset.active !== '1') return;
     const val = parseFloat(row.dataset.val);
     const u = row.dataset.unit || '%';
+    const isMergedDown = row.dataset.mergedDown === '1';
     if(isFlag) {
-      if(!unitTotals[u]) unitTotals[u] = val || 0;
+      if(buffKey === 'taunt') {
+        // taunt系は秒数を合算（同一unitで加算）
+        unitTotals[u] = (unitTotals[u] || 0) + (val || 0);
+      } else {
+        if(!unitTotals[u]) unitTotals[u] = val || 0;
+      }
     } else {
       if(isNaN(val) || val === 0) return;
-      unitTotals[u] = (unitTotals[u] || 0) + val;
+      if(val < 0) hasNegativeRow = true;
+      if(isMergedDown) {
+        unitMergedDownTotals[u] = (unitMergedDownTotals[u] || 0) + val;
+      } else {
+        unitTotals[u] = (unitTotals[u] || 0) + val;
+      }
     }
   });
 
-  // 全行OFFの場合
-  if(Object.keys(unitTotals).length === 0) {
+  // 全行OFFかつmergedDownもない場合
+  if(Object.keys(unitTotals).length === 0 && Object.keys(unitMergedDownTotals).length === 0) {
     totalSpan.innerHTML = `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
     return;
   }
@@ -4666,6 +5495,11 @@ function recalcEntryTotal(entryId, buffKey) {
     }
   }
 
+  // unitTotalsが空でもmergedDownがある場合は0で補完して計算を続ける
+  Object.keys(unitMergedDownTotals).forEach(u => {
+    if(!(u in unitTotals)) unitTotals[u] = 0;
+  });
+
   const parts = Object.entries(unitTotals).map(([u, total]) => {
     if(buffKey === 'silenceStack') {
       const sv = 3 - Math.round(total);
@@ -4676,19 +5510,39 @@ function recalcEntryTotal(entryId, buffKey) {
       return `<span class="buff-entry-total flag" style="color:${sc};text-shadow:0 0 8px ${sc};">${sd}</span>`;
     }
     if(isFlag) {
-      const fd = u === '秒' ? `${fmt(total)}秒` : u === '個' ? `${fmt(total)}個` : u === '段階' ? `${fmt(total)}段階` : '持続';
+      const fd = u === '秒' ? `${fmt(total)}秒` : u === '個' ? `${fmt(total)}個` : u === '段階' ? `${fmt(total)}段階` : u === 'burst' ? `B${fmt(total)}` : '持続';
       const fc = isDebuff ? '#ff3c6e' : catCol.color;
       const fs = isDebuff ? 'rgba(255,60,110,0.4)' : catCol.shadow;
       return `<span class="buff-entry-total flag" style="color:${fc};text-shadow:0 0 8px ${fs};">${fd}</span>`;
     }
-    if(isDebuff) return `<span class="buff-entry-total" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">-${fmt(total)}${u}</span>`;
-    if(isCT)     return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">-${fmt(total)}秒</span>`;
-    if(buffKey === 'burstTimeUp') return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">+${fmt(total)}秒</span>`;
+    if(isDebuff) return u === '秒'
+      ? `<span class="buff-entry-total" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">-${fmt(total)}秒</span>`
+      : `<span class="buff-entry-total" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">-${fmt(total)}${u}</span>`;
+    if(isCT) {
+      if(total > 0) return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">-${fmt(total)}秒</span>`;
+      if(total < 0) return `<span class="buff-entry-total" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">+${fmt(Math.abs(total))}秒</span>`;
+      return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">0秒</span>`;
+    }
+    if(buffKey === 'chargeSpdFixed') {
+      const mergedDown = unitMergedDownTotals[u] || 0;
+      const net = total - mergedDown;
+      if(net === 0) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
+      return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};margin-left:6px;">-${fmt(net)}${u}</span>`;
+    }
     if(u === '持続') return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">持続</span>`;
-    if(u !== '%') return `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};margin-left:6px;">+${fmt(total)}${u}</span>`;
-    // %の場合は▼を差し引いて表示
-    const net = total - downTotal;
-    if(net === 0) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
+    if(u !== '%') {
+      const mergedDown = unitMergedDownTotals[u] || 0;
+      const net = total - mergedDown;
+      const col3 = net < 0 ? '#ff3c6e' : catCol.color;
+      const shd3 = net < 0 ? 'rgba(255,60,110,0.4)' : catCol.shadow;
+      const sign3 = net > 0 ? '+' : '';
+      return `<span class="buff-entry-total" style="color:${col3};text-shadow:0 0 8px ${shd3};margin-left:6px;">${sign3}${fmt(net)}${u}</span>`;
+    }
+    // %の場合は▼を差し引いて表示（同カード内のdownTotal＋_mergedDown行の両方を差し引く）
+    const net = total - downTotal - (unitMergedDownTotals['%'] || 0);
+    const isCancelled = hasNegativeRow || downTotal !== 0 || (unitMergedDownTotals['%'] || 0) !== 0;
+    if(net === 0 && !isCancelled) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
+    if(net === 0) return `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">0%</span>`;
     const col = net > 0 ? catCol.color : '#ff3c6e';
     const shd = net > 0 ? catCol.shadow : 'rgba(255,60,110,0.4)';
     const sign = net > 0 ? '+' : '';
@@ -4740,22 +5594,19 @@ function onSilenceStackSlider(slider) {
     valEl.style.textShadow = `0 0 8px ${col}`;
   }
 
-  // hitRateDown行: 騒音公害(sliderVal=3)の時のみ強制ON
-  const cardEl = row ? row.closest('.char-card') : null;
-  if(cardEl) {
-    cardEl.querySelectorAll('.buff-source-row[data-buffkey="hitRateDown"]').forEach(hrRow => {
-      if(sliderVal === 3) {
-        hrRow.dataset.active = '1';
-        hrRow.classList.add('row-on');
-        hrRow.classList.remove('row-off');
-      } else {
-        hrRow.dataset.active = '0';
-        hrRow.classList.remove('row-on');
-        hrRow.classList.add('row-off');
-      }
-      recalcEntryTotal(hrRow.dataset.entryid, 'hitRateDown');
-    });
-  }
+  // hitRate（マイナス値）行: 騒音公害(sliderVal=3)の時のみ強制ON（ディーゼル由来のhitRate行のみ）
+  document.querySelectorAll('.buff-source-row[data-src-char-id="diesel_ws"][data-buffkey="hitRate"]').forEach(hrRow => {
+    if(sliderVal === 3) {
+      hrRow.dataset.active = '1';
+      hrRow.classList.add('row-on');
+      hrRow.classList.remove('row-off');
+    } else {
+      hrRow.dataset.active = '0';
+      hrRow.classList.remove('row-on');
+      hrRow.classList.add('row-off');
+    }
+    recalcEntryTotal(hrRow.dataset.entryid, hrRow.dataset.buffkey);
+  });
 
   recalcEntryTotal(entryId, buffKey);
 }
@@ -4777,22 +5628,49 @@ function onStackSlider(slider) {
   const pct = ((stack - 1) / (parseInt(slider.max) - 1)) * 100;
   slider.style.background = `linear-gradient(90deg, var(--accent) ${pct}%, var(--border2) ${pct}%)`;
 
-  // 行のdata-val更新
+  // 行のdata-val更新＋スライダー操作時はON（parentStackを持つ行は親がMaxのときのみ）
   const row = document.getElementById(rowId);
-  if(row) row.dataset.val = newVal;
+  if(row) {
+    row.dataset.val = newVal;
+    const parentStackKey = row.dataset.parentStackKey;
+    let canActivate = true;
+    if(parentStackKey) {
+      const cardEl2 = row.closest('.char-card');
+      const parentSlider = cardEl2 ? cardEl2.querySelector(`.stack-slider[data-stack-key="${parentStackKey}"], .stack-slider[data-rawkey="${parentStackKey}"]`) : null;
+      if(parentSlider) canActivate = parseInt(parentSlider.value) === parseInt(parentSlider.max);
+    }
+    if(canActivate) {
+      row.dataset.active = '1';
+      row.classList.add('row-on');
+      row.classList.remove('row-off');
+    }
+  }
 
   // 表示値更新
   const valEl = row ? row.querySelector('.buff-source-val') : null;
   if(valEl) {
     const isCT = buffKey === 'burstCT' || buffKey === 'skillCT';
-    if(isCT)        valEl.textContent = `-${fmt(newVal)}秒`;
-    else if(buffKey === 'burstTimeUp') valEl.textContent = `+${fmt(newVal)}秒`;
+    const isDebuffKey = DEBUFF_KEYS.has(buffKey);
+    if(isCT)              valEl.textContent = `-${fmt(newVal)}秒`;
     else if(unit !== '%') valEl.textContent = `+${fmt(newVal)}${unit}`;
-    else            valEl.textContent = `+${fmt(newVal)}%`;
+    else if(isDebuffKey)  valEl.textContent = `-${fmt(newVal)}%`;
+    else                  valEl.textContent = `+${fmt(newVal)}%`;
   }
 
   // 合計値再計算
   recalcEntryTotal(entryId, buffKey);
+
+  // syncGroup連動制御（スライダー操作時もグループ全体を連動・カードまたぎ対応）
+  if(row && row.dataset.syncGroup) {
+    const newActive = row.dataset.active;
+    document.querySelectorAll(`.buff-source-row[data-sync-group="${row.dataset.syncGroup}"]`).forEach(r => {
+      if(r.id === rowId) return;
+      r.dataset.active = newActive;
+      r.classList.toggle('row-on', newActive === '1');
+      r.classList.toggle('row-off', newActive === '0');
+      recalcEntryTotal(r.dataset.entryid, r.dataset.buffkey);
+    });
+  }
 
   // stackLinkedKey連動：このスライダーと同じstackKeyを持つリンクバフ行の値をスタック数に応じて更新
   if(row) {
@@ -4828,12 +5706,22 @@ function onStackSlider(slider) {
     const cardEl = row.closest('.char-card');
     if(cardEl) {
       const isFullStack = stack === parseInt(slider.max);
-      cardEl.querySelectorAll(`.buff-source-row[data-full-stack-ref]`).forEach(r => {
-        if(r.dataset.fullStackRef !== refKey) return;
+      // partyバフとして自カード以外（他の受け手のカード）にも複製表示されるため文書全体を検索
+      document.querySelectorAll(`.buff-source-row[data-full-stack-ref="${refKey}"]`).forEach(r => {
         const newActive = isFullStack ? '1' : '0';
         r.dataset.active = newActive;
         r.classList.toggle('row-on', isFullStack);
         r.classList.toggle('row-off', !isFullStack);
+        recalcEntryTotal(r.dataset.entryid, r.dataset.buffkey);
+      });
+
+      // belowFullStackOnly連動：fullStackOnlyの逆条件。maxに達したら自動OFF、未満なら自動ON
+      // 参照先の行はpartyバフとして自カード以外（他の受け手のカード）にも複製表示されるため文書全体を検索
+      document.querySelectorAll(`.buff-source-row[data-below-full-stack-ref="${refKey}"]`).forEach(r => {
+        const newActive = isFullStack ? '0' : '1';
+        r.dataset.active = newActive;
+        r.classList.toggle('row-on', !isFullStack);
+        r.classList.toggle('row-off', isFullStack);
         recalcEntryTotal(r.dataset.entryid, r.dataset.buffkey);
       });
 
@@ -4843,20 +5731,20 @@ function onStackSlider(slider) {
         if(wrap) wrap.style.display = isFullStack ? '' : 'none';
         const childStackKey = childSlider.dataset.stackKey || childSlider.dataset.rawkey;
         if(isFullStack) {
-          // 子スライダー出現時：子バフ行自体はOFFのまま維持
-          // stackLinkedKey行（命中率）も出現時はOFFのまま（スライダー操作時に連動）
+          // 子スライダー出現時：子バフ行を自動ON
           const childRow2 = document.getElementById(childSlider.dataset.rowid);
-          if(childRow2 && childRow2.dataset.active !== '1') {
-            childRow2.dataset.active = '0';
-            childRow2.classList.remove('row-on');
-            childRow2.classList.add('row-off');
+          if(childRow2) {
+            childRow2.dataset.active = '1';
+            childRow2.classList.add('row-on');
+            childRow2.classList.remove('row-off');
+            recalcEntryTotal(childSlider.dataset.entryid, childSlider.dataset.buffkey);
           }
-          // stackLinkedKey行も同様にOFF維持
+          // stackLinkedKey行も連動ON
           if(childStackKey && cardEl) {
             cardEl.querySelectorAll(`.buff-source-row[data-stack-linked-key="${childStackKey}"]`).forEach(linkedRow => {
-              linkedRow.dataset.active = '0';
-              linkedRow.classList.remove('row-on');
-              linkedRow.classList.add('row-off');
+              linkedRow.dataset.active = '1';
+              linkedRow.classList.add('row-on');
+              linkedRow.classList.remove('row-off');
               recalcEntryTotal(linkedRow.dataset.entryid, linkedRow.dataset.buffkey);
             });
           }
@@ -4864,9 +5752,12 @@ function onStackSlider(slider) {
           childSlider.value = 1;
           const stackValEl = document.getElementById('stackval-' + childSlider.dataset.rowid);
           if(stackValEl) stackValEl.textContent = 1;
-          // 子のdata-val・表示値もリセット
+          // 子のdata-val・表示値もリセット＋OFF
           const childRow = document.getElementById(childSlider.dataset.rowid);
           if(childRow) {
+            childRow.dataset.active = '0';
+            childRow.classList.remove('row-on');
+            childRow.classList.add('row-off');
             const baseVal = parseFloat(childSlider.dataset.baseval);
             childRow.dataset.val = baseVal;
             const valEl = childRow.querySelector('.buff-source-val');
@@ -4897,6 +5788,9 @@ function onStackSlider(slider) {
               if(gStackValEl) gStackValEl.textContent = 1;
               const grandRow = document.getElementById(grandSlider.dataset.rowid);
               if(grandRow) {
+                grandRow.dataset.active = '0';
+                grandRow.classList.remove('row-on');
+                grandRow.classList.add('row-off');
                 const gBaseVal = parseFloat(grandSlider.dataset.baseval);
                 grandRow.dataset.val = gBaseVal;
                 const gValEl = grandRow.querySelector('.buff-source-val');
@@ -4946,6 +5840,41 @@ function onStackSlider(slider) {
           condRow.style.display = (gcVal >= min && gcVal <= max) ? '' : 'none';
         });
       }
+    }
+  }
+
+  // stackThreshold連動（汎用版）：任意のstackKeyを参照し、値が閾値以上ならON・未満ならOFF
+  // gcThresholdはgoldChip専用だが、こちらはどのスタックキーでも使える汎用版（ギロチン：WSで初実装）
+  if(row) {
+    const myStackKeyTh = slider.dataset.stackKey || slider.dataset.rawkey || slider.dataset.buffkey;
+    const cardElTh = row.closest('.char-card');
+    if(cardElTh && myStackKeyTh) {
+      const thVal = stack;
+      cardElTh.querySelectorAll(`.buff-source-row[data-stack-threshold-ref="${myStackKeyTh}"]`).forEach(thRow => {
+        const threshold = parseInt(thRow.dataset.stackThreshold);
+        const isOn = thVal >= threshold;
+        thRow.dataset.active = isOn ? '1' : '0';
+        thRow.classList.toggle('row-on', isOn);
+        thRow.classList.toggle('row-off', !isOn);
+        recalcEntryTotal(thRow.dataset.entryid, thRow.dataset.buffkey);
+      });
+    }
+  }
+
+  // stackSync連動：同一カード内の同じstackSyncを持つスライダーを同じスタック数に揃える
+  if(row && !window._stackSyncing) {
+    const mySync = slider.dataset.stackSync;
+    const myCardEl3 = row.closest('.char-card');
+    if(mySync && myCardEl3) {
+      window._stackSyncing = true;
+      myCardEl3.querySelectorAll(`.stack-slider[data-stack-sync="${mySync}"]`).forEach(other => {
+        if(other === slider) return;
+        if(parseInt(other.value) !== stack) {
+          other.value = stack;
+          onStackSlider(other);
+        }
+      });
+      window._stackSyncing = false;
     }
   }
   }
