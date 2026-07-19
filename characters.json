@@ -22,7 +22,7 @@
           "val": 3.17,
           "condLabel": "FB発動時・全体・3回目"
         },
-        "magazine": {
+        "maxMagazine": {
           "val": 45.17,
           "condLabel": "BS使用・1回目・5秒"
         },
@@ -120,6 +120,11 @@
           "condLabel": "S1・遮蔽物HP回復時・最大HPの10.21%・10秒",
           "caster": true,
           "hpBased": true
+        },
+        "burstReEntryTia": {
+          "val": 1,
+          "unit": "burst",
+          "condLabel": "BS発動時"
         }
       },
       "self": {
@@ -148,7 +153,7 @@
           "caster": true,
           "hpBased": true
         },
-        "heal": {
+        "lifesteal": {
           "val": 21.96,
           "condLabel": "BS時・攻撃ダメージの21.96%・10秒"
         },
@@ -157,10 +162,6 @@
           "condLabel": "S2通常5回命中時・最大HPの32.75%・5秒",
           "caster": true,
           "hpBased": true
-        },
-        "burstReEntry": {
-          "val": 1,
-          "unit": "段階"
         }
       },
       "targeted": {},
@@ -202,6 +203,7 @@
       "self": {
         "dmg": {
           "val": 6.65,
+          "condLabel": "S2",
           "requireBack": true
         },
         "dmgReduce": {
@@ -214,6 +216,8 @@
         "dmg": {
           "val": 6.65,
           "target": "adjacent",
+          "condLabel": "S2・両隣2機限定",
+          "suppressTargetLabel": true,
           "requireSrcBack": true
         },
         "dmgReduce": {
@@ -356,35 +360,35 @@
         "hpUpOnlyElec": {
           "val": 44.98,
           "target": "element:electric&weapon:ar",
-          "condLabel": "戦闘開始時・自分生存時・持続",
+          "condLabel": "S2・戦闘開始時・自分生存時・持続",
           "caster": true
         },
         "invincible": {
           "val": 2,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "戦闘開始時",
+          "condLabel": "S2・戦闘開始時",
           "unit": "秒"
         },
         "dmgElec": {
           "val": 94.15,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・電撃AR限定・スロット1・10秒"
         },
         "reload": {
           "val": 50.82,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・電撃AR限定・スロット1・10秒"
         },
-        "magazine": {
+        "maxMagazine": {
           "val": 20,
           "target": "element:electric&weapon:ar",
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・電撃AR限定・10秒",
           "unit": "発"
         },
-        "hitRateUp": {
+        "hitRate": {
           "val": 45.3,
           "target": "element:electric&weapon:ar",
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・電撃AR限定・10秒"
         }
       },
       "other": [
@@ -402,7 +406,7 @@
         }
       ]
     },
-    "note": "healOverTime・heal・hpUpElecは発動者（トリナ）の最大HP/攻撃力基準。heal2.03%はHP30%以下、1.57%はHP50%以下の味方2機限定。電撃AR限定バフは電撃属性かつAR装備のキャラのみ。"
+    "note": "healOverTime・heal・hpUpOnlyElecは発動者（トリナ）の最大HP/攻撃力基準。heal2.03%はHP30%以下、1.57%はHP50%以下の味方2機限定。電撃AR限定バフは電撃属性かつAR装備のキャラのみ。"
   },
   {
     "id": "killerwife",
@@ -549,18 +553,21 @@
       },
       "self": {
         "hitRate": {
-          "val": 20,
-          "condLabel": "S1・B1突入時・ほろ酔い付与・持続",
+          "val": -20,
+          "condLabel": "S1・B1突入時・ほろ酔い・持続",
           "stack": {
             "max": 3,
-            "default": 1
+            "default": 1,
+            "stackSync": "mastHoroyoi"
           }
         },
         "selfStun": {
           "val": 10,
           "condLabel": "S2・フルFB終了時・ほろ酔いフルスタック時",
           "defaultOff": true,
-          "unit": "秒"
+          "unit": "秒",
+          "fullStackOnly": true,
+          "fullStackRef": "hitRate"
         }
       },
       "targeted": {},
@@ -585,7 +592,8 @@
           "condLabel": "S2・B3突入・ほろ酔い状態時・スタック×15.03%・10秒",
           "stack": {
             "max": 3,
-            "default": 1
+            "default": 1,
+            "stackSync": "mastHoroyoi"
           }
         },
         {
@@ -595,7 +603,8 @@
           "condLabel": "S2・B3突入・ほろ酔い状態時・スタック×15.04%・10秒",
           "stack": {
             "max": 3,
-            "default": 1
+            "default": 1,
+            "stackSync": "mastHoroyoi"
           }
         },
         {
@@ -606,7 +615,8 @@
           "caster": true,
           "stack": {
             "max": 3,
-            "default": 1
+            "default": 1,
+            "stackSync": "mastHoroyoi"
           }
         }
       ],
@@ -682,7 +692,7 @@
       "party": {
         "focusFire": {
           "val": 1,
-          "condLabel": "S1・フォーカス状態時・持続",
+          "condLabel": "S1・リトルマーメイド操作中・持続",
           "unit": "持続"
         },
         "burstCT": {
@@ -690,10 +700,14 @@
           "condLabel": "S1・FB終了時"
         },
         "dmg": {
-          "val": 14.13,
-          "condLabel": "S1 4%はFB発動時10秒 / BS10.13%は10秒"
+          "val": 4,
+          "condLabel": "S1・FB発動時・10秒"
         },
-        "burstGauge": {
+        "dmgB": {
+          "val": 10.13,
+          "condLabel": "BS・10秒"
+        },
+        "burstGaugeInstant": {
           "val": 37,
           "condLabel": "S1・味方消費弾400発ごと",
           "unit": "%"
@@ -739,7 +753,7 @@
         }
       ]
     },
-    "note": "dmgはS1（FB発動時4%・10秒）＋バースト（10.13%・10秒）の合計14.13%。バブル/バブルバーストは敵へのデバフ（ACTIVE SKILL参照）。burstGaugeは弾400発消費ごとに37%チャージ。bulletChargeはバースト時全体に33.26%。atk 17.28%は発動者（リトルマーメイド）基準。"
+    "note": "dmgはS1（FB発動時4%・10秒）とBS（10.13%・10秒）を別行で表示（合計14.13%）。バブル/バブルバーストは敵へのデバフ（ACTIVE SKILL参照）。burstGaugeは弾400発消費ごとに37%チャージ。bulletChargeはバースト時全体に33.26%。atk 17.28%は発動者（リトルマーメイド）基準。"
   },
   {
     "id": "snowwhite_ha",
@@ -781,10 +795,6 @@
           "val": 62.64,
           "condLabel": "S2・フルチャージ時・5秒"
         },
-        "charge": {
-          "val": 528,
-          "condLabel": "S2・フルアクティブ中・フルチャージ時・1発"
-        },
         "seqDmg": {
           "val": 158.4,
           "condLabel": "S2・フルアクティブ中・フルチャージ時・1発"
@@ -796,6 +806,10 @@
         "defUp": {
           "val": 42.24,
           "condLabel": "S1・チャージ中・持続"
+        },
+        "chargeDmg": {
+          "val": 528,
+          "condLabel": "S2・フルアクティブ中・フルチャージ時・1発"
         }
       },
       "targeted": {},
@@ -883,7 +897,7 @@
           "exclusiveGroup": "moranHpUp",
           "defaultOff": true
         },
-        "heal": {
+        "lifesteal": {
           "val": 36.14,
           "condLabel": "BS・攻撃ダメージの36.14%回復・10秒"
         },
@@ -1074,10 +1088,6 @@
           "val": 70.12,
           "condLabel": "S1・B3突入時・10秒"
         },
-        "charge": {
-          "val": 80,
-          "condLabel": "S2・フルチャージ攻撃時・1発間"
-        },
         "chargeB": {
           "val": 140.68,
           "condLabel": "BS・10秒"
@@ -1085,6 +1095,10 @@
         "trueDmg": {
           "val": 55.3,
           "condLabel": "BS・10秒"
+        },
+        "chargeDmg": {
+          "val": 80,
+          "condLabel": "S2・フルチャージ攻撃時・1発間"
         }
       },
       "targeted": {},
@@ -1146,12 +1160,12 @@
         },
         "chargeSpdImmuneUp": {
           "val": 1,
-          "condLabel": "戦闘開始時・持続・解除不可",
+          "condLabel": "S2・戦闘開始時・持続・解除不可",
           "unit": "持続"
         },
         "chargeSpdImmuneDown": {
           "val": 1,
-          "condLabel": "戦闘開始時・持続・解除不可",
+          "condLabel": "S2・戦闘開始時・持続・解除不可",
           "unit": "持続"
         }
       },
@@ -1318,7 +1332,7 @@
           "caster": true,
           "hpBased": true
         },
-        "hitRateUp": {
+        "hitRate": {
           "val": 1.4,
           "condLabel": "S2・3秒ごと・最大30スタック",
           "stack": {
@@ -1412,7 +1426,7 @@
       "self": {
         "atk": {
           "val": 2.71,
-          "condLabel": "B3突入時・最大HPの2.71%分・10秒",
+          "condLabel": "S1・B3突入時・最大HPの2.71%分・10秒",
           "caster": true,
           "hpBased": true
         },
@@ -1422,7 +1436,7 @@
         },
         "decoy": {
           "val": 1,
-          "condLabel": "戦闘開始・B3突入時・最大HP×96%・持続",
+          "condLabel": "S2・戦闘開始・B3突入時・最大HP×96%・持続",
           "triggersLinked": true,
           "linkedTo": "hpUp",
           "unit": "持続",
@@ -1430,7 +1444,7 @@
         },
         "hpUpCin": {
           "val": 1.6,
-          "condLabel": "デコイ存在時・3秒ごと・持続",
+          "condLabel": "S2・デコイ存在時・3秒ごと・持続",
           "stack": {
             "max": 12,
             "default": 1
@@ -1476,17 +1490,7 @@
       }
     ],
     "buffs": {
-      "party": {
-        "atkArcana": {
-          "val": 13,
-          "condLabel": "S1・FB終了時・SG持ち全体・15秒・大切な思い出スタック数倍",
-          "caster": true,
-          "stack": {
-            "max": 3,
-            "default": 1
-          }
-        }
-      },
+      "party": {},
       "self": {
         "critRate": {
           "val": 20.09,
@@ -1535,8 +1539,20 @@
         "dmgArcana": {
           "val": 55,
           "target": "weapon:sg",
-          "condLabel": "(アルカナ:フォーチュンメイトを除く)・S2・BS使用時・ 10秒",
-          "excludeSelf": true
+          "condLabel": "S2・BS使用時・SG限定（自分を除く）・10秒",
+          "excludeSelf": true,
+          "suppressTargetLabel": true
+        },
+        "atkArcana": {
+          "val": 13,
+          "condLabel": "S1・FB終了時・SG限定・15秒・大切な思い出スタック数倍",
+          "caster": true,
+          "stack": {
+            "max": 3,
+            "default": 1
+          },
+          "target": "weapon:sg",
+          "suppressTargetLabel": true
         }
       },
       "condParty": [],
@@ -1563,7 +1579,7 @@
     "squad": "ゴッデス",
     "buffs": {
       "self": {
-        "magazine": {
+        "maxMagazine": {
           "val": 60,
           "condLabel": "S2・フルFB発動時・10秒",
           "unit": "%"
@@ -1578,8 +1594,8 @@
           "condLabel": "BS・10秒",
           "unit": "%"
         },
-        "charge": {
-          "val": 150.12,
+        "chargeDmg": {
+          "val": 169.63,
           "condLabel": "BS・10秒",
           "unit": "%"
         }
@@ -1587,21 +1603,21 @@
       "other": [
         {
           "label": "S1・フルチャージ3回",
-          "val": 250.47,
+          "val": 283.03,
           "unit": "%",
           "cond": "フルチャージ攻撃3回・最終防御最低の敵1機",
           "selfOnly": true
         },
         {
           "label": "S1・フルチャージ6回",
-          "val": 500,
+          "val": 565,
           "unit": "%",
           "cond": "フルチャージ攻撃6回・範囲内全敵・分配",
           "selfOnly": true
         },
         {
           "label": "S1・フルチャージ9回",
-          "val": 750.47,
+          "val": 848.03,
           "unit": "%",
           "cond": "フルチャージ攻撃9回・全敵・分配",
           "selfOnly": true
@@ -1636,15 +1652,6 @@
           "val": 40.01,
           "condLabel": "S1・「私だけの星」状態・持続"
         },
-        "burstReEntry": {
-          "val": 1,
-          "condLabel": "S1・「みんなの星」状態・持続",
-          "unit": "段階"
-        },
-        "burstCT": {
-          "val": 7.48,
-          "condLabel": "S1・戦闘開始時／FB終了時・「私だけの星」状態"
-        },
         "dmg": {
           "val": 35.2,
           "condLabel": "BS・「私だけの星」状態・10秒"
@@ -1672,11 +1679,19 @@
       },
       "condParty": [
         {
+          "key": "burstCT",
+          "val": 7.48,
+          "condition": "always",
+          "anisMode": "solo",
+          "condLabel": "S1・戦闘開始時／FB終了時・「私だけの星」状態"
+        },
+        {
           "key": "atk",
           "val": 35.01,
           "condition": "always",
           "anisMode": "solo",
-          "condLabel": "S2・FB発動時・「私だけの星」状態・10秒"
+          "condLabel": "S2・FB発動時・「私だけの星」状態・10秒",
+          "caster": true
         },
         {
           "key": "hpUpAnisstar",
@@ -1692,6 +1707,14 @@
           "anisMode": "team",
           "condLabel": "S2・フルチャージ攻撃時・「みんなの星」状態・発動者最終最大HPの1.26%",
           "caster": true
+        },
+        {
+          "key": "burstReEntryAnisst",
+          "val": 1,
+          "condition": "always",
+          "anisMode": "team",
+          "condLabel": "BS発動時",
+          "unit": "burst"
         }
       ],
       "other": [
@@ -1733,7 +1756,7 @@
         "debuffImmune": {
           "val": 3,
           "condLabel": "S1・被弾時・「健康体」状態でない時・免疫個数∞・3秒・戦闘中5回まで",
-          "unit": "持続"
+          "unit": "秒"
         },
         "healRcvUp": {
           "val": 10.26,
@@ -1854,13 +1877,13 @@
           "val": 30.96,
           "condLabel": "S1・FB発動1回目・5秒"
         },
-        "hitRateUp": {
+        "hitRate": {
           "val": 10.13,
           "condLabel": "S2・FB終了1回目・10秒"
         },
         "atk": {
           "val": 35.02,
-          "condLabel": "S2・FB終了2回目・発動者基準・10秒",
+          "condLabel": "S2・FB終了2回目・10秒",
           "caster": true
         },
         "reload": {
@@ -1878,18 +1901,18 @@
         },
         "heal": {
           "val": 40.18,
-          "condLabel": "BS・発動者最大HP基準",
+          "condLabel": "BS",
           "caster": true,
           "hpBased": true
         },
         "atkAnchor": {
           "val": 30.09,
-          "condLabel": "BS・発動者基準・10秒",
+          "condLabel": "BS・10秒",
           "caster": true
         },
         "hpReserve": {
           "val": 60.19,
-          "condLabel": "BS・発動者最大HP基準・超過HP回復量を保存・25秒",
+          "condLabel": "BS・超過HP回復量を保存・25秒",
           "caster": true,
           "hpBased": true
         }
@@ -1947,7 +1970,7 @@
       "self": {
         "healOverTime": {
           "val": 2,
-          "condLabel": "S1・放熱中・発動者最大HP基準・1秒毎",
+          "condLabel": "S1・放熱中・1秒毎",
           "caster": true,
           "hpBased": true
         },
@@ -1955,7 +1978,7 @@
           "val": 100,
           "condLabel": "S1・完全計算終了時・放熱状態付与"
         },
-        "reloadDown": {
+        "reloadRateDown": {
           "val": 50,
           "condLabel": "S1・完全計算終了時・放熱状態・一定条件で解除"
         },
@@ -2033,15 +2056,17 @@
           "condLabel": "S2・通常10回命中時・電撃コード対象時・3発",
           "unit": "発",
           "showCond": true
-        },
-        "enemyDmgTaken": {
-          "val": 10,
-          "condLabel": "S1・不安定エネルギー命中時・電撃コード対象に・10秒",
-          "showCond": true
         }
       },
       "targeted": {},
-      "condParty": [],
+      "condParty": [
+        {
+          "key": "enemyDmgTaken",
+          "val": 10,
+          "condition": "always",
+          "condLabel": "S1・不安定エネルギー命中時・電撃コード対象に・10秒"
+        }
+      ],
       "other": [
         {
           "label": "S1・不安定エネルギー",
@@ -2099,14 +2124,14 @@
     ],
     "buffs": {
       "party": {
-        "burstReEntry": {
-          "val": 2,
-          "condLabel": "BS・バースト再突入・10秒",
-          "unit": "段階"
-        },
         "maxMagazine": {
           "val": 20,
           "condLabel": "BS・10秒"
+        },
+        "burstReEntryChime": {
+          "val": 2,
+          "condLabel": "BS発動時",
+          "unit": "burst"
         }
       },
       "self": {},
@@ -2150,22 +2175,22 @@
     ],
     "buffs": {
       "party": {
-        "burstReEntry": {
+        "burstReEntryAbista": {
           "val": 1,
-          "condLabel": "BS・バースト再突入",
-          "unit": "段階"
+          "condLabel": "BS発動時",
+          "unit": "burst"
         }
       },
       "self": {
         "healOverTime": {
           "val": 3.52,
-          "condLabel": "S1・FB終了時・発動者最大HP基準・1秒毎・10秒",
+          "condLabel": "S1・FB終了時・1秒毎・10秒",
           "caster": true,
           "hpBased": true
         },
         "hpUp": {
           "val": 26.4,
-          "condLabel": "BS・発動者基準・持続",
+          "condLabel": "BS・持続",
           "caster": true
         },
         "hpDown": {
@@ -2239,7 +2264,7 @@
           "key": "atk",
           "val": 30.78,
           "condition": "always",
-          "condLabel": "S2・5秒・発動者基準",
+          "condLabel": "S2・5秒",
           "caster": true
         }
       ],
@@ -2305,8 +2330,8 @@
       "targeted": {},
       "condParty": [
         {
-          "key": "hitRateDown",
-          "val": 100,
+          "key": "hitRate",
+          "val": -100,
           "condition": "always",
           "dieselWsMode": "climax",
           "condLabel": "BS・騒音公害時・ディーゼル:ウィンタースイーツを除く全体・1秒",
@@ -2382,7 +2407,7 @@
           "target": "burst:3",
           "condLabel": "S1・FB発動時・直前BS使用済みのB3に・10秒"
         },
-        "healRcvUp": {
+        "lifesteal": {
           "val": 10,
           "target": "burst:3",
           "condLabel": "S1・FB発動時・直前BS使用済みのB3に・攻撃ダメの10%回復・10秒"
@@ -2629,21 +2654,25 @@
           "val": 20.16,
           "condLabel": "FB発動時・10秒"
         },
-        "maxMagazineDown": {
-          "val": 50.66,
-          "condLabel": "FB発動時・10秒（デバフ）"
-        },
         "stun": {
           "val": 3,
           "condLabel": "BS・敵全体",
           "unit": "秒"
+        },
+        "enemyDmgTaken": {
+          "val": 10.01,
+          "target": null,
+          "condLabel": "S2・最後の弾丸命中時・10秒"
+        },
+        "maxMagazine": {
+          "val": -50.66,
+          "condLabel": "FB発動時・10秒"
         }
       },
       "self": {
         "elem": {
           "val": 130,
-          "condLabel": "BS・有利属性攻撃ダメ▲・10秒",
-          "caster": true
+          "condLabel": "BS・有利属性攻撃ダメ▲・10秒"
         }
       },
       "targeted": {
@@ -2651,11 +2680,6 @@
           "val": 5.02,
           "target": null,
           "condLabel": "BS・ターゲット指定状態の敵・10秒"
-        },
-        "enemyDmgTaken": {
-          "val": 10.01,
-          "target": null,
-          "condLabel": "S2・最後の弾丸命中時・10秒"
         }
       },
       "condParty": [],
@@ -2705,11 +2729,11 @@
           "val": 27.87,
           "condLabel": "FB発動時・10秒"
         },
-        "heal": {
+        "lifesteal": {
           "val": 54.45,
           "condLabel": "BS・攻撃ダメージの54.45%回復・10秒"
         },
-        "burstGauge": {
+        "burstGaugeInstant": {
           "val": 14.31,
           "condLabel": "S1・フルチャージ攻撃時"
         },
@@ -2752,12 +2776,12 @@
       "party": {
         "atk": {
           "val": 77.55,
-          "condLabel": "BS（ビーストケージ）・発動者基準・10秒",
+          "condLabel": "BS（ビーストケージ）・10秒",
           "caster": true
         },
         "defUp": {
           "val": 50.68,
-          "condLabel": "S2・BS（ビーストケージ）発動時・発動者基準・10秒",
+          "condLabel": "S2・BS（ビーストケージ）発動時・10秒",
           "caster": true
         }
       },
@@ -2812,7 +2836,7 @@
         },
         "atkRH": {
           "val": 71.42,
-          "condLabel": "S2・BS（レッドウルフ）発動時・発動者基準・10秒",
+          "condLabel": "S2・BS（レッドウルフ）発動時・10秒",
           "caster": true,
           "showCond": true
         },
@@ -2852,7 +2876,7 @@
           "showCond": true,
           "exclusiveGroup": "aliceS2"
         },
-        "heal": {
+        "lifesteal": {
           "val": 8.12,
           "condLabel": "S2・自分のHP80%未満・攻撃ダメージの8.12%回復",
           "showCond": true,
@@ -2906,19 +2930,21 @@
         }
       },
       "self": {},
-      "targeted": {
-        "enemyDmgTaken": {
+      "targeted": {},
+      "condParty": [
+        {
+          "key": "enemyDmgTaken",
           "val": 15.12,
-          "target": null,
+          "condition": "always",
           "condLabel": "S1・FB発動時・風圧コードの敵全体・10秒"
         },
-        "enemyDmgTakenBrid": {
+        {
+          "key": "enemyDmgTakenBrid",
           "val": 12.12,
-          "target": null,
+          "condition": "always",
           "condLabel": "S2・通常10回攻撃時・風圧コード最低HP敵1機・10秒"
         }
-      },
-      "condParty": [],
+      ],
       "other": [
         {
           "label": "S1・FB発動時：敵全体ダメージ",
@@ -3088,13 +3114,13 @@
         "atkToveSG": {
           "val": 24.21,
           "target": "weapon:sg",
-          "condLabel": "BS・発動者基準・SG限定・15秒",
+          "condLabel": "BS・SG限定・15秒",
           "caster": true
         },
         "atkToveAll": {
           "val": 2.32,
           "target": null,
-          "condLabel": "BS・発動者基準・15秒",
+          "condLabel": "BS・15秒",
           "caster": true
         }
       },
@@ -3140,9 +3166,9 @@
         }
       },
       "self": {
-        "camouflage": {
+        "singleTargetExclude": {
           "val": 1,
-          "condLabel": "S1・BS使用時 or フルチャージFB中・5秒",
+          "condLabel": "S1・BS使用時 or フルチャージFB中・【カモフラージュ】・5秒",
           "syncGroup": "unfaCamo"
         },
         "trueDmg": {
@@ -3721,7 +3747,7 @@
     "caution": [],
     "buffs": {
       "party": {
-        "hitRateUp": {
+        "hitRate": {
           "val": 5.44,
           "condLabel": "S1・通常30回命中時・全体・5秒"
         },
@@ -3760,7 +3786,7 @@
           "condLabel": "S2・FB発動時・攻撃力最高の味方1機・1発",
           "excludeSelf": true
         },
-        "hitRateUp": {
+        "hitRate": {
           "val": 3.79,
           "target": "weapon:smg",
           "condLabel": "S1・通常30回命中時・SMG持ち味方・5秒"
@@ -3791,7 +3817,7 @@
         },
         "atk": {
           "val": 3,
-          "condLabel": "S1・パーツ破壊時・発動者基準・30秒・最大5スタック",
+          "condLabel": "S1・パーツ破壊時・30秒・最大5スタック",
           "caster": true,
           "stack": {
             "max": 5,
@@ -3842,19 +3868,19 @@
       "party": {
         "barrierShared": {
           "val": 11.8,
-          "condLabel": "S1・通常120回攻撃時・発動者基準最大HP・5秒",
+          "condLabel": "S1・通常120回攻撃時・5秒",
           "caster": true,
           "hpBased": true
         },
         "healOverTime": {
           "val": 3.68,
-          "condLabel": "S2・FB終了時・発動者基準最大HP・1秒間隔・5秒",
+          "condLabel": "S2・FB終了時・1秒間隔・5秒",
           "caster": true,
           "hpBased": true
         },
         "healOverTimeB": {
           "val": 3.84,
-          "condLabel": "BS・発動者基準最大HP・1秒間隔・8秒",
+          "condLabel": "BS・1秒間隔・8秒",
           "caster": true,
           "hpBased": true
         },
@@ -3905,13 +3931,13 @@
       "party": {
         "heal": {
           "val": 9.7,
-          "condLabel": "S1・自分のバリア破壊時・発動者基準最大HP",
+          "condLabel": "S1・自分のバリア破壊時",
           "caster": true,
           "hpBased": true
         },
         "barrier": {
           "val": 7,
-          "condLabel": "S2・CT9秒・発動者基準最大HP・5秒",
+          "condLabel": "S2・CT9秒・5秒",
           "caster": true,
           "hpBased": true
         },
@@ -3935,7 +3961,7 @@
       "other": [
         {
           "label": "S2強制使用",
-          "val": null,
+          "val": "",
           "unit": "",
           "cond": "S1・戦闘開始時",
           "selfOnly": true
@@ -3984,7 +4010,7 @@
           "val": 100,
           "condLabel": "BS・残弾100%減少・強制リロード"
         },
-        "hitRateUp": {
+        "hitRate": {
           "val": 80.78,
           "condLabel": "BS・10秒"
         },
@@ -4023,26 +4049,28 @@
     "squad": "エレクトリックショック",
     "cardBg": null,
     "buffs": {
-      "party": {
-        "atk": {
-          "val": 16.2,
-          "condLabel": "S1・水冷コード味方・幽霊キャプチャー数1以上・発動者基準・持続",
-          "caster": true,
-          "elementOnly": "water"
-        },
-        "elem": {
-          "val": 35,
-          "condLabel": "S1・水冷コード味方・幽霊キャプチャー数4以上・有利コードダメ・持続",
-          "elementOnly": "water"
-        }
-      },
+      "party": {},
       "self": {
         "atk": {
           "val": 40,
           "condLabel": "S2・BS使用後・10秒"
         }
       },
-      "targeted": {},
+      "targeted": {
+        "atk": {
+          "val": 16.2,
+          "condLabel": "S1・水冷限定・幽霊キャプチャー数1以上・持続",
+          "caster": true,
+          "target": "element:water",
+          "suppressTargetLabel": true
+        },
+        "elem": {
+          "val": 35,
+          "condLabel": "S1・水冷限定・幽霊キャプチャー数4以上・持続",
+          "target": "element:water",
+          "suppressTargetLabel": true
+        }
+      },
       "condParty": [],
       "other": [
         {
@@ -4105,13 +4133,7 @@
           "breddyRecomOnly": true
         }
       },
-      "targeted": {
-        "enemyDmgTaken": {
-          "val": 10.2,
-          "condLabel": "S2・やみつき状態・5秒",
-          "breddyHabitOnly": true
-        }
-      },
+      "targeted": {},
       "other": [
         {
           "label": "S2・あと味（持続ダメ）",
@@ -4138,7 +4160,14 @@
           "breddyHabitOnly": true
         }
       ],
-      "condParty": []
+      "condParty": [],
+      "party": {
+        "enemyDmgTaken": {
+          "val": 10.2,
+          "condLabel": "S2・やみつき状態・5秒",
+          "breddyHabitOnly": true
+        }
+      }
     },
     "note": "S1（パッシブ）：FB発動時にself atk70.01%UP（10秒）。持続ダメ増加効果適用時→【やみつきの味】状態（chargeSpdDown 20%・50秒・解除不可）、オススメ状態を強制解除。分配ダメ増加効果適用時かつやみつき状態でない場合→【オススメの味】状態（chargeSpdDown 20%・50秒・解除不可）、やみつき状態を強制解除。S2（パッシブ）：やみつき状態でフルチャージ3回命中→敵にenemyDmgTaken 10.2%（5秒）＋あと味150.04%（持続ダメ・1秒×5回）。オススメ状態でフルチャージ命中→self dmg60.01%（5秒）＋敵全体に分配ダメ265.07%。BS（CT40秒）：self dmg60.19%UP（10秒）。やみつき状態ならあと味効果349.8%UP（10秒）。オススメ状態ならself atk70.09%UP（10秒）。"
   },
@@ -4154,8 +4183,8 @@
     "cardBg": null,
     "buffs": {
       "self": {
-        "normalDmgDown": {
-          "val": 40,
+        "normalDmg": {
+          "val": -40,
           "condLabel": "BS・殲滅態勢中・9秒"
         },
         "bulletCharge": {
@@ -4165,7 +4194,7 @@
         },
         "atk": {
           "val": 46.8,
-          "condLabel": "BS・殲滅態勢中・発動者基準・9秒",
+          "condLabel": "BS・殲滅態勢中・9秒",
           "caster": true
         },
         "dmg": {
@@ -4176,8 +4205,8 @@
           "val": 30.97,
           "condLabel": "S2・殲滅態勢状態・FB発動時・10秒"
         },
-        "atkSpdDown": {
-          "val": 100,
+        "mgStartup": {
+          "val": -100,
           "condLabel": "S2・緊急修復・BS終了後・3秒"
         },
         "magazineDown": {
@@ -4191,21 +4220,12 @@
         },
         "healOverTime": {
           "val": 3.77,
-          "condLabel": "S2・緊急修復・BS終了後・caster最大HP基準・1秒間隔・3秒",
+          "condLabel": "S2・緊急修復・BS終了後・1秒間隔・3秒",
           "caster": true,
           "hpBased": true
         }
       },
-      "targeted": {
-        "enemyDmgTaken": {
-          "val": 0.83,
-          "condLabel": "S1・アンチA.T.フィールド・10発ごと・30スタック・30秒",
-          "stack": {
-            "max": 30,
-            "default": 1
-          }
-        }
-      },
+      "targeted": {},
       "other": [
         {
           "label": "S1・追加ダメ（アンチA.T.フィールド対象）",
@@ -4229,7 +4249,17 @@
           "selfOnly": true
         }
       ],
-      "condParty": []
+      "condParty": [],
+      "party": {
+        "enemyDmgTaken": {
+          "val": 0.83,
+          "condLabel": "S1・アンチA.T.フィールド・10発ごと・30スタック・30秒",
+          "stack": {
+            "max": 30,
+            "default": 1
+          }
+        }
+      }
     },
     "note": "S1（パッシブ）：通常攻撃50回命中で追加ダメ471.86%。殲滅態勢中は10発ごとに照準線最近の敵2機に15.62%ダメ＋アンチA.T.フィールド付与（0.83%スタック・最大30・30秒）。S2（パッシブ）：殲滅態勢状態でFB発動時にself dmg30.97%UP（10秒）。BS終了後に緊急修復発動→MG立ち上げ速度▼100%（3秒）・残弾▼100%・リロード60%固定（1発）・caster最大HP3.77%持続回復（1秒×3回）。BS（CT40秒）：殲滅態勢付与（9秒）→self normalDmgDown40%・bulletCharge21%・caster atk46.8%・dmg36%UP。9秒後にアンチA.T.フィールド対象敵に殲滅発動（6.62%×スタック数コピー・その後解除）。"
   },
@@ -4250,7 +4280,7 @@
       },
       {
         "condition": "noMGInParty",
-        "message": "マシンガンのニケが編成されていません"
+        "message": "MGのニケが編成されていません"
       }
     ],
     "crossOther": [
@@ -4284,7 +4314,7 @@
           "condLabel": "FB発動時・10秒",
           "caster": true
         },
-        "atkSpdMG": {
+        "mgStartup": {
           "val": 100,
           "condLabel": "FB発動時・直前BSがMGの味方のみ・13秒",
           "weaponOnly": "mg"
@@ -4345,7 +4375,7 @@
           "val": 48.62,
           "condLabel": "S1・ゲージ55%以上・持続"
         },
-        "hitRateUp": {
+        "hitRate": {
           "val": 22.37,
           "condLabel": "S1・ゲージ25%以上・持続"
         },
@@ -4569,28 +4599,31 @@
           "condLabel": "S2・戦闘開始時・ラプチャーバリアへの適用分・持続"
         }
       },
-      "party": {
+      "party": {},
+      "targeted": {
         "atk": {
           "val": 25.03,
-          "condLabel": "S2・B3突入時・灼熱味方全体・10秒",
+          "condLabel": "S2・B3突入時・灼熱限定・10秒",
           "caster": true,
-          "elementOnly": "fire"
+          "target": "element:fire",
+          "suppressTargetLabel": true
         },
         "dmg": {
           "val": 48.02,
-          "condLabel": "BS・灼熱味方全体・10秒",
+          "condLabel": "BS・灼熱限定・10秒",
           "caster": true,
-          "elementOnly": "fire"
+          "target": "element:fire",
+          "suppressTargetLabel": true
         },
         "barrier": {
           "val": 13.44,
-          "condLabel": "BS・最終最大HPの13.44%・10秒",
+          "condLabel": "BS・灼熱限定・最終最大HPの13.44%・10秒",
           "caster": true,
-          "elementOnly": "fire",
-          "hpBased": true
+          "hpBased": true,
+          "target": "element:fire",
+          "suppressTargetLabel": true
         }
-      },
-      "targeted": {}
+      }
     },
     "cond": {
       "condSelf": [
@@ -4661,19 +4694,20 @@
           "val": 3.16,
           "condLabel": "BS・攻撃ダメの3.16%回復・吸血・10秒"
         },
-        "hitRateUp": {
+        "hitRate": {
           "val": 101.37,
           "condLabel": "BS・10秒"
         }
       },
-      "party": {
+      "party": {},
+      "targeted": {
         "coreDmg": {
           "val": 60.07,
-          "condLabel": "S2・FB時・灼熱味方全体・10秒",
-          "elementOnly": "fire"
+          "condLabel": "S2・FB時・灼熱限定・10秒",
+          "target": "element:fire",
+          "suppressTargetLabel": true
         }
-      },
-      "targeted": {}
+      }
     },
     "cond": {
       "condSelf": [],
@@ -4801,13 +4835,13 @@
           "condLabel": "S1・通常60回命中ごと・自分"
         }
       },
-      "party": {},
-      "targeted": {
+      "party": {
         "enemyDmgTaken": {
           "val": 12.56,
           "condLabel": "S1・通常60回命中ごと・対象敵・3秒"
         }
-      }
+      },
+      "targeted": {}
     },
     "cond": {
       "condSelf": [
@@ -4862,7 +4896,7 @@
         },
         "atk": {
           "val": 6.16,
-          "condLabel": "S2・戦闘開始時・最終最大HP基準・持続",
+          "condLabel": "S2・戦闘開始時・持続",
           "hpBased": true
         }
       },
@@ -4896,5 +4930,4624 @@
       "condParty": []
     },
     "note": "S1（パッシブ）：BS使用回数に応じてself hpUp段階的UP（1回目:10.03%・2回目:20.06%・3回目:57.76%・各持続）。S2（パッシブ）：戦闘開始時にself atk最終最大HPの6.16%分（持続）。通常300回射撃ごとに敵全体に167.45%ダメ。BS（CT40秒）：敵全体に2439.36%分配ダメ・最大HP最高の敵1機に792%追加ダメ。"
+  },
+  {
+    "id": "anis_ss",
+    "name": "アニス：スパークリングサマー",
+    "burst": 3,
+    "role": "sup",
+    "weapon": "sg",
+    "element": "electric",
+    "company": "tetra",
+    "squad": "カウンターズ",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "blockDmg": {
+          "val": 6.91,
+          "condLabel": "S2・ラストバレット時・10秒（ループ）"
+        },
+        "reloadBS": {
+          "val": 27.72,
+          "condLabel": "BS・10秒"
+        },
+        "elem": {
+          "val": 42.24,
+          "condLabel": "BS・10秒"
+        },
+        "maxMagazine": {
+          "val": -73.92,
+          "condLabel": "BS・10秒"
+        }
+      },
+      "targeted": {
+        "atk": {
+          "val": 55.31,
+          "condLabel": "FB発動時・10秒",
+          "caster": true,
+          "target": "element:electric"
+        },
+        "reload": {
+          "val": 49.28,
+          "condLabel": "FB発動時・10秒",
+          "target": "element:electric"
+        }
+      },
+      "condParty": []
+    },
+    "note": "S1（パッシブ）：FB発動時に電撃コード味方全体へatk+55.31%（発動者基準・10秒）・reload+49.28%（10秒）。S2（パッシブ）：ラストバレット攻撃時に敵2機へ382.42%ダメ・self blockDmg+6.91%（10秒・ループ）。BS（CT40秒）：self maxMagazine-73.92%・reload+27.72%・elem+42.24%（各10秒）。",
+    "cond": {
+      "condSelf": [
+        {
+          "label": "S2・ラストバレットダメージ",
+          "val": 382.42,
+          "unit": "%",
+          "cond": "ラストバレット時・攻撃力最高の敵2機・最終攻撃力基準",
+          "selfOnly": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "modania",
+    "name": "モダニア",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "mg",
+    "element": "fire",
+    "company": "pilgrim",
+    "squad": "ヘレティック",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "hitRate": {
+          "val": 8.56,
+          "condLabel": "FB発動時・全体・15秒"
+        },
+        "burstTimeUp": {
+          "val": 5,
+          "unit": "秒",
+          "condLabel": "BS・全体"
+        }
+      },
+      "self": {
+        "critDmg": {
+          "val": 14.25,
+          "condLabel": "S1・200発命中ごと・10秒",
+          "stack": {
+            "key": "modaniaS1",
+            "max": 5,
+            "label": "スタック数"
+          }
+        },
+        "atk": {
+          "val": 29.38,
+          "condLabel": "S2・200発命中時・命中率増加状態・10秒"
+        },
+        "magazineInfinite": {
+          "val": 1,
+          "condLabel": "BS・殲滅モード中・15秒"
+        },
+        "zansMode": {
+          "val": 1,
+          "condLabel": "BS・15秒・照準拡張・照準内オートエイム・全敵単一対象化"
+        },
+        "maxMagazine": {
+          "val": -5.04,
+          "condLabel": "S1・200発命中ごと・10秒",
+          "stackLinkedKey": "modaniaS1"
+        }
+      },
+      "targeted": {},
+      "condParty": []
+    },
+    "cond": {
+      "condSelf": [
+        {
+          "label": "S1・通常攻撃追加ダメージ",
+          "val": 3.05,
+          "unit": "%",
+          "cond": "通常攻撃命中ごと・最終攻撃力基準",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・殲滅モードダメージ",
+          "val": 2.24,
+          "unit": "%",
+          "cond": "BS・15秒・最終攻撃力基準",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：通常攻撃命中ごとに敵へ3.05%追加ダメ。200発命中ごとにself critDmg+14.25%・maxMagazine-5.04%（各最大5スタック・10秒）。S2（パッシブ）：FB発動時に全体hitRate+8.56%（15秒）。200発命中時＋命中率増加状態でself atk+29.38%（10秒）。BS（CT40秒）：全体burstTimeUp+5秒（10秒）・self 殲滅モード（装弾無限・照準拡張・全敵単一対象化・15秒）・2.24%ダメ。"
+  },
+  {
+    "id": "isabel",
+    "name": "イサベル",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "sg",
+    "element": "electric",
+    "company": "pilgrim",
+    "squad": "インヘルト",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "enemyDmgTaken": {
+          "val": 39.96,
+          "condLabel": "BS・マーキング1状態・5秒"
+        },
+        "burstTimeDown": {
+          "val": 5,
+          "unit": "秒",
+          "condLabel": "BS・味方全体・フルバーストタイム短縮・10秒→5秒"
+        }
+      },
+      "self": {
+        "critRate": {
+          "val": 6.26,
+          "condLabel": "S1・BS1回目以降・ターゲットマーキング1・45秒"
+        },
+        "critDmg": {
+          "val": 18.03,
+          "condLabel": "S1・BS2回目以降・ターゲットマーキング2・45秒"
+        },
+        "atk": {
+          "val": 17.28,
+          "condLabel": "S1・BS3回目以降・ターゲットマーキング3・45秒"
+        }
+      },
+      "targeted": {},
+      "other": []
+    },
+    "note": "S1（パッシブ）：BS使用回数に応じてself強化。1回目→critRate+6.26%（45秒）、2回目→critDmg+18.03%（45秒）、3回目以降→atk+17.28%（45秒）。下位効果スタック適用（3回目時は3種すべて有効）。S2（CT15秒）：防御力最高の敵5機に170.58%ダメ。BS（CT40秒）：敵全体に149.85%ダメ・味方全体フルバーストタイム-5秒（10秒→5秒）。マーキング1状態時→enemyDmgTaken+39.96%（5秒）、マーキング2状態時→追加ダメ299.7%、マーキング3状態時→追加ダメ349.65%。",
+    "cond": {
+      "condSelf": [
+        {
+          "label": "S2・ダメージ（防御力最高の敵5機）",
+          "val": 170.58,
+          "unit": "%",
+          "cond": "CT15秒・最終攻撃力の170.58%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・ダメージ（敵全体）",
+          "val": 149.85,
+          "unit": "%",
+          "cond": "CT40秒・最終攻撃力の149.85%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・追加ダメージ（マーキング2状態・敵全体）",
+          "val": 299.7,
+          "unit": "%",
+          "cond": "BS・マーキング2状態・最終攻撃力の299.7%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・追加ダメージ（マーキング3状態・敵全体）",
+          "val": 349.65,
+          "unit": "%",
+          "cond": "BS・マーキング3状態・最終攻撃力の349.65%",
+          "selfOnly": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "snowwhite",
+    "name": "スノーホワイト",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "iron",
+    "company": "pilgrim",
+    "squad": "パイオニア",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "atk": {
+          "val": 8.28,
+          "condLabel": "S1・通常攻撃30回命中ごと・5秒"
+        },
+        "critRate": {
+          "val": 26.1,
+          "condLabel": "S2・FB中・10秒"
+        }
+      },
+      "targeted": {},
+      "other": []
+    },
+    "cond": {
+      "condSelf": [
+        {
+          "label": "S1・追加ダメージ（敵）",
+          "val": 82.8,
+          "unit": "%",
+          "cond": "通常攻撃30回命中ごと・最終攻撃力の82.8%",
+          "selfOnly": true
+        },
+        {
+          "label": "S2・ダメージ（攻撃範囲内の敵）",
+          "val": 144.73,
+          "unit": "%",
+          "cond": "CT15秒・最終攻撃力の144.73%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・特殊チャージ砲ダメージ",
+          "val": 499.5,
+          "unit": "%",
+          "cond": "CT40秒・装弾1発・チャージ5秒・最終攻撃力の499.5%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・特殊チャージ砲ダメージ（フルチャージ）",
+          "val": 1000,
+          "unit": "%",
+          "cond": "CT40秒・フルチャージ時・最終攻撃力の1000%・貫通特化",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：通常攻撃30回命中ごとに敵へ82.8%追加ダメ＋self atk+8.28%（5秒）。S2（CT15秒）：攻撃範囲内の敵に144.73%ダメ。FB中ならself critRate+26.1%（10秒）。BS（CT40秒）：装弾1発の特殊チャージ砲に換装（チャージ5秒・499.5%ダメ、フルチャージ時1000%ダメ・貫通特化）。"
+  },
+  {
+    "id": "laplace",
+    "name": "ラプラス",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "rl",
+    "element": "iron",
+    "company": "missilis",
+    "squad": "メティス",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "explodeRange": {
+          "val": 3.57,
+          "condLabel": "S1・フルチャージ攻撃ごと・15秒",
+          "stack": {
+            "key": "laplaceS1",
+            "max": 5,
+            "label": "ヒーロービジョン"
+          }
+        },
+        "pierce": {
+          "val": 10,
+          "condLabel": "BS・貫通特化・10秒",
+          "unit": "秒"
+        },
+        "normalDmgIgnoreDef": {
+          "val": 10,
+          "condLabel": "BS・BSスキルダメ対象・10秒",
+          "unit": "秒"
+        }
+      },
+      "targeted": {},
+      "other": []
+    },
+    "cond": {
+      "condSelf": [
+        {
+          "label": "S2・追加ダメージ（フルチャージ命中）",
+          "val": 132.45,
+          "unit": "%",
+          "cond": "フルチャージ攻撃命中時・最終攻撃力の132.45%",
+          "selfOnly": true
+        },
+        {
+          "label": "S2・追加ダメージ（パーツ命中）",
+          "val": 14.78,
+          "unit": "%",
+          "cond": "パーツ命中時・最終攻撃力の14.78%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・レーザー初回ヒットダメージ",
+          "val": 1455.72,
+          "unit": "%",
+          "cond": "CT40秒・最終攻撃力の1455.72%・貫通特化",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・レーザー通常ダメージ",
+          "val": 22.2,
+          "unit": "%",
+          "cond": "持続10秒・最終攻撃力の22.2%・貫通特化",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・レーザー持続ダメージ（防御無視・5スタック時）",
+          "val": 11.9,
+          "unit": "%",
+          "cond": "ヒーロービジョン5スタック時・最終攻撃力の11.9%防御無視・持続10秒",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：フルチャージ攻撃ごとにself explodeRange+3.57%（15秒）＋ヒーロービジョンスタック付与（最大5）。S2（パッシブ）：フルチャージ攻撃命中時に132.45%追加ダメ。パーツ命中時にさらに14.78%追加ダメ。BS（CT40秒）：極大レーザー照射に換装（初回1455.72%・持続22.2%×10秒・貫通特化）。ヒーロービジョン5スタック時は持続ダメが防御無視＋11.9%防御無視ダメ追加。"
+  },
+  {
+    "id": "drake",
+    "name": "ドレイク",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "sg",
+    "element": "fire",
+    "company": "missilis",
+    "squad": "メティス",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "hitRate": {
+          "val": 20.09,
+          "condLabel": "S1・FB発動時・10秒"
+        },
+        "atk": {
+          "val": 11.85,
+          "condLabel": "S1・FB発動時・10秒"
+        }
+      },
+      "self": {
+        "maxMagazine": {
+          "val": 72.18,
+          "condLabel": "BS・10秒"
+        },
+        "dmg": {
+          "val": 31.68,
+          "condLabel": "BS・10秒"
+        }
+      },
+      "targeted": {
+        "atkSG": {
+          "val": 63.88,
+          "condLabel": "S1・FB発動時・10秒",
+          "target": "weapon:sg"
+        },
+        "maxMagazineSG": {
+          "val": 50.14,
+          "condLabel": "S1・FB発動時・10秒",
+          "target": "weapon:sg"
+        }
+      },
+      "other": []
+    },
+    "cond": {
+      "condSelf": [
+        {
+          "label": "S2・ダメージ（HP最低の敵3機）",
+          "val": 98.55,
+          "unit": "%",
+          "cond": "通常攻撃10回ごと・最終攻撃力の98.55%",
+          "selfOnly": true
+        },
+        {
+          "label": "S2・ダメージ（HP最低の敵1機・宝もの）",
+          "val": 201.6,
+          "unit": "%",
+          "cond": "通常攻撃5回ごと・最終攻撃力の201.6%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・ダメージ（攻撃範囲内の敵）",
+          "val": 3009.6,
+          "unit": "%",
+          "cond": "CT40秒・最終攻撃力の3009.6%",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：FB発動時に全体hitRate+20.09%・atk+11.85%（10秒）。SG持ち限定でさらにatk+63.88%・maxMagazine+50.14%（10秒）。S2（パッシブ）：通常攻撃10回ごとにHP最低の敵3機に98.55%ダメ。宝もの追加：5回ごとにHP最低の敵1機に201.6%ダメ。BS（CT40秒）：攻撃範囲内の敵に3009.6%ダメ・self maxMagazine+72.18%・dmg+31.68%（10秒）。"
+  },
+  {
+    "id": "pyrika",
+    "name": "プリカ",
+    "company": "tetra",
+    "burst": 2,
+    "weapon": "sr",
+    "element": "water",
+    "role": "sup",
+    "squad": "T.T.STAR",
+    "themeColor": null,
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "explodeDmg": {
+          "val": 20,
+          "condLabel": "S1・フルチャージ攻撃時・3秒"
+        },
+        "pierceDmg": {
+          "val": 13.09,
+          "condLabel": "S1・フルチャージ攻撃時・3秒"
+        },
+        "healOverTime": {
+          "val": 3.04,
+          "condLabel": "BS・25秒・解除不可",
+          "performanceOnly": true,
+          "caster": true,
+          "hpBased": true
+        },
+        "chargeDmg": {
+          "val": 25,
+          "condLabel": "BS・25秒・解除不可",
+          "performanceOnly": true
+        },
+        "dmg": {
+          "val": 25.01,
+          "condLabel": "S2・シンガロング適用時・パフォーマンス状態・10秒",
+          "performanceOnly": true,
+          "requireSrc": "mint"
+        }
+      },
+      "self": {
+        "atk": {
+          "val": 20,
+          "condLabel": "S1・フルチャージ攻撃時・3秒",
+          "caster": true
+        },
+        "hpUp": {
+          "val": 19.98,
+          "condLabel": "S2・FB発動時・10秒"
+        },
+        "healRcvUp": {
+          "val": 49.92,
+          "condLabel": "S1・フルチャージ攻撃時＋パフォーマンス状態・持続",
+          "performanceOnly": true
+        },
+        "pierce": {
+          "condLabel": "S1・フルチャージ攻撃時＋パフォーマンス状態・持続",
+          "performanceOnly": true
+        },
+        "burstCT": {
+          "val": -21,
+          "condLabel": "S2・シンガロング適用時・パフォーマンス状態・リバウンドデバフ",
+          "performanceOnly": true,
+          "requireSrc": "mint"
+        }
+      },
+      "other": []
+    },
+    "cond": {},
+    "note": "S1（パッシブ）：フルチャージ攻撃時に全体explodeDmg+20%・pierceDmg+13.09%・caster atk+20%（3秒）。パフォーマンス状態の場合さらにself healRcvUp+49.92%・貫通特化（持続）。S2（パッシブ）：FB発動時にself hpUp+19.98%（10秒）。パフォーマンス状態でシンガロング適用時に全体dmg+25.01%（10秒）・self burstCT+21秒（リバウンドデバフ）。BS（CT40秒）：パフォーマンス付与（25秒・解除不可）→全体heal 最大HP3.04%/秒・chargeDmg+25%（25秒・解除不可）。"
+  },
+  {
+    "id": "mint",
+    "name": "ミント",
+    "company": "tetra",
+    "burst": 2,
+    "weapon": "rl",
+    "element": "iron",
+    "role": "sup",
+    "squad": "T.T.STAR",
+    "themeColor": null,
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "atk": {
+          "val": 45.02,
+          "condLabel": "ボーカルエフェクト付与・フルチャージ攻撃時・3秒",
+          "caster": true,
+          "mintVocalOnly": true
+        },
+        "healOverTime": {
+          "val": 1.8,
+          "condLabel": "ダンスエフェクト付与・フルチャージ攻撃時・3秒",
+          "hpBased": true,
+          "mintDanceOnly": true
+        },
+        "critRate": {
+          "val": 19.94,
+          "condLabel": "S2・FB突入時・ボーカル状態・10秒",
+          "mintVocalOnly": true
+        },
+        "explodeDmg": {
+          "val": 50,
+          "condLabel": "S2・FB突入時・ボーカル状態・10秒",
+          "mintVocalOnly": true
+        },
+        "pierceDmg": {
+          "val": 32.72,
+          "condLabel": "S2・FB突入時・ボーカル状態・10秒",
+          "mintVocalOnly": true
+        },
+        "dmg": {
+          "val": 30.02,
+          "condLabel": "BS・シンガロング・10秒"
+        },
+        "maxMagazine": {
+          "val": 40,
+          "condLabel": "BS・シンガロング・10秒"
+        },
+        "critDmg": {
+          "val": 45.05,
+          "condLabel": "BS・シンガロング・10秒"
+        }
+      },
+      "self": {},
+      "other": []
+    },
+    "cond": {},
+    "note": "S1（パッシブ）：フルチャージ攻撃時、ボーカル状態なら全体caster atk+45.02%（3秒）、ダンス状態なら全体healOverTime 最大HP1.8%/秒（3秒）。S2（パッシブ）：FB突入時、ボーカル状態なら全体critRate+19.94%・explodeDmg+50%・pierceDmg+32.72%（10秒）。BS（CT20秒）：ダンス↔ボーカル切替（トグル）＋全体dmg+30.02%・maxMagazine+40%・critDmg+45.05%（10秒・シンガロング）。"
+  },
+  {
+    "id": "arcblack",
+    "name": "アークレンジャー・ブラック",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "wind",
+    "company": "tetra",
+    "squad": "女神戦隊アークレンジャー",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "partDmg": {
+          "val": 20,
+          "condLabel": "S1・戦闘開始時・持続"
+        },
+        "atk": {
+          "val": 156.19,
+          "condLabel": "S1・変身中・持続（約20秒）"
+        },
+        "dotDmg": {
+          "val": 135.83,
+          "condLabel": "BS・10秒"
+        }
+      },
+      "targeted": {
+        "dotDmgFBT": {
+          "val": 77.5,
+          "target": "element:wind&weapon:ar",
+          "condLabel": "S2・風圧AR限定・FB時・10秒"
+        }
+      },
+      "other": [
+        {
+          "label": "持続ダメ（通常攻撃30回ごと）",
+          "val": 59.6,
+          "unit": "%",
+          "cond": "S1・通常攻撃30回ごと・self・5秒"
+        },
+        {
+          "label": "攻撃力（変身中）",
+          "val": 156.19,
+          "unit": "%",
+          "cond": "S1・バッテリー100%到達時・変身中・self・持続（約20秒）"
+        },
+        {
+          "label": "持続ダメ・敵全体（変身中常時）",
+          "val": 45.87,
+          "unit": "%",
+          "cond": "S2・変身状態適用時＆変身中に敵出現時・最終攻撃力45.87%・1秒間隔・変身解除まで"
+        },
+        {
+          "label": "持続ダメ・最大HP最高の敵1機",
+          "val": 266.69,
+          "unit": "%",
+          "cond": "BS（CT40秒）・最終攻撃力266.69%・1秒間隔・10秒"
+        },
+        {
+          "label": "バッテリー操作（BS）",
+          "val": "",
+          "unit": "",
+          "cond": "BS・変身中→バッテリー+50%（変身10秒延長）／非変身→バッテリー+100%即変身・その後-50%（変身10秒スタート）"
+        }
+      ]
+    },
+    "cond": {},
+    "note": "S1（パッシブ）：戦闘開始時 self partDmg+20%（持続）。通常攻撃30回ごと self dotDmg+59.6%（5秒）。バッテリーはパーツ破壊ごとに+50%蓄積（最大100%）→変身状態へ移行・atk+156.19%（約20秒・0.2秒ごとに1%減少）。S2（パッシブ）：変身中・最終攻撃力45.87%の持続ダメを敵全体に1秒間隔で与え続ける（変身解除まで）。FBT発動時、風圧&AR限定で dotDmg+77.5%（10秒）。BS（CT40秒）：変身中なら+50%（10秒延長）・非変身なら+100%即変身後-50%（10秒スタート）。最大HP最高の敵1機に最終攻撃力266.69%・1秒間隔・10秒の持続ダメ。"
+  },
+  {
+    "id": "maxwell",
+    "name": "マクスウェル",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "sr",
+    "element": "iron",
+    "company": "missilis",
+    "squad": "メティス",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "chargeSpd": {
+          "val": 4.48,
+          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒"
+        },
+        "atk": {
+          "val": 43.1,
+          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒"
+        }
+      },
+      "self": {
+        "critRate": {
+          "val": 4.83,
+          "condLabel": "S2・敵5機以上・持続"
+        },
+        "critDmg": {
+          "val": 13.91,
+          "condLabel": "S2・敵5機以上・持続"
+        },
+        "chargeFixed": {
+          "val": 2,
+          "unit": "秒",
+          "condLabel": "BS・チャージ時間2秒固定・1発間持続"
+        },
+        "pierce": {
+          "val": 1,
+          "unit": "持続",
+          "condLabel": "BS・貫通特化・持続",
+          "showCond": true
+        }
+      },
+      "targeted": {},
+      "other": []
+    },
+    "note": "S1（パッシブ）：FB発動時、攻撃力最高2機にchargeSpd+4.48%・atk+43.1%（10秒）。自身が対象に含まれる場合は自分にも適用（caster:true）。S2（パッシブ）：敵5機以上でcritRate+4.83%・critDmg+13.91%（持続）。BS（CT40秒）：特殊レールガン（装弾1発・チャージ2秒固定）に換装。基本813.42%・フルチャージ2440.26%ダメ・貫通特化。",
+    "cond": {
+      "condSelf": [
+        {
+          "label": "BS・基本ダメージ（レールガン）",
+          "val": 813.42,
+          "unit": "%",
+          "cond": "CT40秒・最終攻撃力の813.42%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・フルチャージダメージ（レールガン）",
+          "val": 2440.26,
+          "unit": "%",
+          "cond": "CT40秒・フルチャージ時・最終攻撃力の2440.26%",
+          "selfOnly": true
+        }
+      ]
+    }
+  },
+  {
+    "id": "label",
+    "name": "レーベル",
+    "burst": 1,
+    "role": "def",
+    "weapon": "ar",
+    "element": "iron",
+    "company": "elysion",
+    "squad": "ベストセラー",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "dmgReduce": {
+          "val": 70.4,
+          "condLabel": "S2・戦闘開始1回・電撃コード敵限定・5秒"
+        },
+        "atk": {
+          "val": 80.36,
+          "condLabel": "BS・妄想共有状態・10秒",
+          "defaultOff": true,
+          "syncGroup": "labelBsSync",
+          "excludeSelf": true
+        }
+      },
+      "self": {
+        "barrier": {
+          "val": 30.15,
+          "hpBased": true,
+          "condLabel": "S1・妄想状態・発動者基準最大HPの30.15%・持続"
+        },
+        "burstGauge": {
+          "val": 70.4,
+          "condLabel": "S2・妄想状態・持続"
+        },
+        "atk": {
+          "val": 93.39,
+          "condLabel": "S2・妄想状態・持続"
+        },
+        "dmgReduce": {
+          "val": 70.4,
+          "condLabel": "S2・妄想状態・電撃コード敵限定・持続"
+        },
+        "selfStun": {
+          "val": 1,
+          "unit": "秒",
+          "condLabel": "S1・妄想崩壊・直接攻撃で解除・最大2回",
+          "defaultOff": true,
+          "stack": {
+            "max": 2,
+            "default": 1
+          }
+        },
+        "hpUp": {
+          "val": 20.26,
+          "condLabel": "BS・10秒",
+          "defaultOff": true,
+          "syncGroup": "labelBsSync"
+        },
+        "barrierInvincible": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "BS・バリアに無敵付与・10秒",
+          "defaultOff": true,
+          "syncGroup": "labelBsSync"
+        }
+      },
+      "targeted": {},
+      "other": []
+    },
+    "note": "S1（パッシブ）：戦闘開始時・通常攻撃時・BS使用時に妄想状態でなければ自身にバリア（最大HPの30.15%・持続）付与。妄想崩壊状態：最大2回・単一攻撃対象除外（decoy）＋気絶（1秒×回数）。S2（パッシブ）：妄想状態時にburstGauge+70.4%・atk+93.39%・被ダメ軽減+70.4%（電撃コード限定）。妄想共有状態時（BS・10秒）に味方全体にatk+80.36%（caster）。戦闘開始1回・味方全体に被ダメ軽減+70.4%（電撃コード限定・5秒）。BS（CT20秒）：自身にhpUp+20.26%（10秒）＋invincible（自分のバリアに無敵付与・10秒）。labelBsSync連動。",
+    "cond": {}
+  },
+  {
+    "id": "sorin_ft",
+    "name": "ソリン：フロストチケット",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "sg",
+    "element": "water",
+    "company": "elysion",
+    "squad": "インフィニティレール",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "hpUpOnly": {
+          "val": 10,
+          "hpBased": true,
+          "condLabel": "S1・乗車券1枚あたり最大HPのみ+10%・最大2枚・持続",
+          "stack": {
+            "max": 2,
+            "default": 1,
+            "key": "sorinTicket"
+          }
+        },
+        "burstCT": {
+          "val": 7.48,
+          "condLabel": "S1・FB発動時・早期割引解除"
+        },
+        "heal": {
+          "val": 32.26,
+          "hpBased": true,
+          "condLabel": "BS・CT40秒・発動者基準最大HPの32.26%"
+        },
+        "healSorin": {
+          "val": 12.27,
+          "hpBased": true,
+          "condLabel": "S2・HP15%以下の乗車券所持対象・乗車券1枚減少・発動者基準最大HPの12.27%"
+        }
+      },
+      "self": {},
+      "targeted": {},
+      "other": []
+    },
+    "note": "S1（パッシブ）：戦闘開始時またはBS使用時に味方全体に乗車券発券（最大2枚）。乗車券1枚あたり発動者基準最大HPのみ+10%（持続）。FB発動時に全体にburstCT-7.48秒＋早期割引解除。S2（パッシブ）：HP15%以下の乗車券所持対象に発動者基準最大HPの12.27%回復＋乗車券1枚減少。戦闘開始時に早期割引付与（6秒間S2による乗車券減少が発生しない）。BS（CT40秒）：味方全体に発動者基準最大HPの32.26%回復。",
+    "cond": {
+      "condSelf": [
+        {
+          "label": "早期割引",
+          "val": 0,
+          "unit": "",
+          "cond": "戦闘開始時・味方全体に付与・6秒間S2による乗車券減少が発生しない",
+          "selfOnly": false
+        }
+      ]
+    }
+  },
+  {
+    "id": "alice_wb",
+    "name": "アリス：ワンダーランドバニー",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "smg",
+    "element": "water",
+    "company": "tetra",
+    "squad": "アンリミテッド",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "healAliceWbS1": {
+          "val": 7.4,
+          "condLabel": "S1・通常攻撃60回",
+          "caster": true,
+          "hpBased": true
+        },
+        "blockDmg": {
+          "val": 2,
+          "condLabel": "S1・ニンジンパーティー・5秒",
+          "stack": {
+            "key": "blockDmgAliceWb",
+            "max": 5
+          }
+        },
+        "burstGauge": {
+          "val": 10,
+          "condLabel": "S2・FBT終了時・5秒"
+        },
+        "maxMagazine": {
+          "val": 40,
+          "condLabel": "S2・FBT発動時・15秒"
+        },
+        "bulletCharge": {
+          "val": 40,
+          "condLabel": "S2・FBT発動時・15秒"
+        },
+        "heal": {
+          "val": 27,
+          "condLabel": "BS",
+          "caster": true,
+          "hpBased": true
+        },
+        "healRcvUp": {
+          "val": 150,
+          "condLabel": "BS・ニンジンパーティーフルスタック時・15秒",
+          "fullStackOnly": true,
+          "fullStackRef": "blockDmgAliceWb"
+        },
+        "burstReEntryAliceWb": {
+          "val": 1,
+          "condLabel": "BS発動時",
+          "unit": "burst"
+        }
+      },
+      "self": {},
+      "targeted": {
+        "buffStackUp": {
+          "val": 1,
+          "condLabel": "S1・通常攻撃90回・水冷限定",
+          "unit": "個",
+          "target": "element:water",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常攻撃60回で発動者基準最大HP7.4%瞬間回復＋ニンジンパーティー（阻止部位ダメ+2%・5スタック・5秒）付与。通常攻撃90回で水冷コード味方全体のスタック可能バフ1個UP。S2（パッシブ）：FBT終了時にバーストチャージ速度+10%（5秒）。FBT発動時に最大装弾数+40%・弾丸チャージ+40%（15秒）。BS（CT40秒）：全体バースト再突入1段階＋発動者基準最大HP27%回復。ニンジンパーティーフルスタック時はHP回復量+150%（15秒）も付与。"
+  },
+  {
+    "id": "mika_sb",
+    "name": "ミカ：スノーバディ",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "smg",
+    "element": "iron",
+    "company": "tetra",
+    "squad": "リトルキャノン",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "dmgReduce": {
+          "val": 2,
+          "condLabel": "S1・通常攻撃120回・整理整頓・15秒",
+          "stack": {
+            "key": "dmgReduceMikaSb",
+            "max": 10
+          }
+        },
+        "maxMagazine": {
+          "val": 40,
+          "condLabel": "S1・整理整頓フルスタック時・持続",
+          "fullStackOnly": true,
+          "fullStackRef": "dmgReduceMikaSb"
+        },
+        "buffStackUp": {
+          "val": 1,
+          "condLabel": "S2・通常攻撃150回・バフ効果スキルスタック・15秒",
+          "unit": "個"
+        },
+        "cleanse": {
+          "val": 1,
+          "condLabel": "BS・デバフ解除1個",
+          "unit": "個"
+        },
+        "atk": {
+          "val": 39.93,
+          "condLabel": "BS・5秒",
+          "caster": true
+        }
+      },
+      "self": {
+        "burstGauge": {
+          "val": 300,
+          "condLabel": "S2・戦闘開始時・持続"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常攻撃120回命中で味方全体に被ダメ-2%（整理整頓・10スタック・15秒）。整理整頓フルスタック時に最大装弾数+40%（持続）。S2（パッシブ）：通常攻撃150回命中で味方全体のスタック可能バフ+1個（15秒）。戦闘開始時に自分のバーストチャージ速度+300%（持続）。BS（CT20秒）：味方全体のデバフ解除1個＋発動者基準攻撃力+39.93%（5秒）。"
+  },
+  {
+    "id": "mary_bg",
+    "name": "メアリー：ベイゴッデス",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "sr",
+    "element": "water",
+    "company": "tetra",
+    "squad": "セラフィム",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "healOverTime": {
+          "val": 1.05,
+          "condLabel": "S1・FB発動時・1秒間隔・5秒間維持・1回目",
+          "caster": true,
+          "hpBased": true
+        },
+        "healOverTimeB": {
+          "val": 3.69,
+          "condLabel": "S1・FB発動時・1秒間隔・5秒間維持・2回目",
+          "caster": true,
+          "hpBased": true
+        },
+        "healOverTimeC": {
+          "val": 6.86,
+          "condLabel": "S1・FB発動時・1秒間隔・5秒間維持・3回目",
+          "caster": true,
+          "hpBased": true
+        },
+        "hpUp": {
+          "val": 27.87,
+          "condLabel": "BS・10秒間維持",
+          "caster": true,
+          "hpBased": true
+        }
+      },
+      "self": {},
+      "targeted": {
+        "elem": {
+          "val": 20.85,
+          "condLabel": "S2・BS使用時・水冷限定・3秒間維持・1回目",
+          "target": "element:water",
+          "suppressTargetLabel": true
+        },
+        "elemB": {
+          "val": 13.88,
+          "condLabel": "S2・BS使用時・水冷限定・5秒間維持・2回目",
+          "target": "element:water",
+          "suppressTargetLabel": true
+        },
+        "elemC": {
+          "val": 8.36,
+          "condLabel": "S2・BS使用時・水冷限定・10秒間維持・3回目",
+          "target": "element:water",
+          "suppressTargetLabel": true
+        },
+        "atk": {
+          "val": 23.23,
+          "condLabel": "BS・水冷限定・3秒間維持",
+          "target": "element:water",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：FB発動時に味方全体へ発動者基準最大HPの持続回復（1秒間隔・5秒間維持）。1回目1.05%・2回目3.69%・3回目6.86%（下位効果スタック適用）。S2（パッシブ）：BS使用時に水冷コードの味方全体へ有利コードダメージUP。1回目20.85%・3秒、2回目13.88%・5秒、3回目8.36%・10秒（下位効果スタック適用）。BS（CT20秒）：水冷コードの味方全体に攻撃力23.23%UP（3秒）。味方全体に発動者基準最大HP27.87%UP（10秒）。"
+  },
+  {
+    "id": "jackal",
+    "name": "ジャッカル",
+    "burst": 1,
+    "role": "def",
+    "weapon": "rl",
+    "element": "iron",
+    "company": "missilis",
+    "squad": "エキゾチック",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "enemyDmgTaken": {
+          "val": 9.09,
+          "condLabel": "S1・通常10回被弾時・最終最大HP最高の敵1機・10秒間維持"
+        },
+        "enemyAtkDown": {
+          "val": 9.09,
+          "condLabel": "S1・通常10回被弾時・最終最大HP最高の敵1機・10秒間維持"
+        },
+        "dmg": {
+          "val": 38.91,
+          "condLabel": "BS・単体対象のBSのみダメージUP・追加ダメージ適用外・15秒間維持"
+        },
+        "defUp": {
+          "val": 14.69,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {},
+      "targeted": {
+        "dmgShare": {
+          "val": 120,
+          "target": null,
+          "unit": "秒",
+          "condLabel": "S2・戦闘開始時・自分＋最終攻撃力上位2機（自分以外）対象・持続"
+        },
+        "defUp": {
+          "val": 8.27,
+          "target": null,
+          "condLabel": "S2・戦闘開始時・自分＋最終攻撃力上位2機（自分以外）対象・120秒間維持"
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常10回被弾時、最終最大HP最高の敵1機に被ダメ9.09%UP・攻撃力9.09%ダウン（各10秒）。S2（パッシブ）：戦闘開始時、自分＋自分以外の最終攻撃力上位2機に被ダメ均等分配（120秒）・防御力8.27%UP（120秒）。BS（CT20秒）：味方全体に対象が「敵1機」で終わるバーストスキルのダメージ38.91%UP（追加ダメージ適用外・15秒）＋防御力14.69%UP（10秒）。"
+  },
+  {
+    "id": "rapunzel",
+    "name": "ラプンツェル",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "iron",
+    "company": "pilgrim",
+    "squad": "パイオニア",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "heal": {
+          "val": 40.83,
+          "condLabel": "BS",
+          "caster": true,
+          "hpBased": true
+        },
+        "stun": {
+          "val": 1,
+          "unit": "秒",
+          "condLabel": "BS・自分のHP30%以下の場合・敵全体・1秒間維持"
+        }
+      },
+      "self": {},
+      "targeted": {
+        "heal": {
+          "val": 4.03,
+          "target": null,
+          "condLabel": "S1・フルチャージ攻撃時・HP最低の味方3機",
+          "caster": true,
+          "hpBased": true
+        },
+        "hpUp": {
+          "val": 8.19,
+          "target": null,
+          "condLabel": "S2・CT15秒・最終攻撃力最高の味方2機・15秒間維持"
+        },
+        "healRcvUp": {
+          "val": 13.65,
+          "target": null,
+          "condLabel": "S2・CT15秒・最終攻撃力最高の味方2機・15秒間維持"
+        },
+        "revive": {
+          "val": 81.67,
+          "target": null,
+          "condLabel": "BS・戦闘不能状態の最終攻撃力最高の味方1機・HP81.67%で復活"
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：フルチャージ攻撃時、HP最低の味方3機に発動者基準最大HPの4.03%回復。S2（CT15秒）：最終攻撃力最高の味方2機に最大HP8.19%UP・受けるHP回復量13.65%UP（各15秒）。BS（CT60秒）：味方全体に発動者基準最大HPの40.83%回復。戦闘不能の最終攻撃力最高の味方1機をHP81.67%で復活。自分のHP30%以下の場合、敵全体に気絶1秒。"
+  },
+  {
+    "id": "volume",
+    "name": "ボリューム",
+    "burst": 1,
+    "role": "atk",
+    "weapon": "smg",
+    "element": "wind",
+    "company": "tetra",
+    "squad": "プリマドンナ",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "burstCT": {
+          "val": 2.34,
+          "condLabel": "S2・FB発動時・全体・1回目"
+        },
+        "burstCTB": {
+          "val": 2.7,
+          "condLabel": "S2・FB発動時・全体・2回目"
+        },
+        "burstCTC": {
+          "val": 3.17,
+          "condLabel": "S2・FB発動時・全体・3回目"
+        },
+        "critDmg": {
+          "val": 10.77,
+          "condLabel": "S2・BS使用時・全体・5秒間維持・1回目"
+        },
+        "critDmgB": {
+          "val": 12.46,
+          "condLabel": "S2・BS使用時・全体・5秒間維持・2回目"
+        },
+        "critDmgC": {
+          "val": 14.42,
+          "condLabel": "S2・BS使用時・全体・5秒間維持・3回目"
+        },
+        "critRate": {
+          "val": 31.9,
+          "condLabel": "BS・5秒間維持"
+        }
+      },
+      "self": {
+        "atk": {
+          "val": 12.6,
+          "condLabel": "S1・敵を倒した時・5秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：敵を倒した時、自分に攻撃力12.6%UP（5秒）。S2（パッシブ）：FB発動時に味方全体へバーストスキルクールタイム短縮（1回目2.34秒・2回目2.7秒・3回目3.17秒・下位効果スタック適用）。BS使用時に味方全体へクリティカルダメージUP（1回目10.77%・2回目12.46%・3回目14.42%・各5秒・下位効果スタック適用）。BS（CT20秒）：味方全体にクリティカル確率31.9%UP（5秒）。"
+  },
+  {
+    "id": "noise",
+    "name": "ノイズ",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "electric",
+    "company": "tetra",
+    "squad": "プリマドンナ",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "dmgReduce": {
+          "val": 10.66,
+          "condLabel": "S1・通常20回被弾時・全体・20秒間維持"
+        },
+        "healOverTime": {
+          "val": 2.47,
+          "condLabel": "BS・1秒間隔・10秒間維持",
+          "caster": true,
+          "hpBased": true
+        },
+        "hpUp": {
+          "val": 49.5,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "taunt": {
+          "val": 2,
+          "unit": "秒",
+          "condLabel": "S2・フルチャージ攻撃命中時・対象に挑発・2秒間維持"
+        },
+        "hpUp": {
+          "val": 24.86,
+          "condLabel": "S2・フルチャージ攻撃時・1.8秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常20回被弾時、味方全体に被ダメ10.66%ダウン（20秒）。S2（パッシブ）：フルチャージ攻撃命中時、対象に挑発（2秒）。フルチャージ攻撃時、自分に最大HP24.86%UP（1.8秒）。BS（CT40秒）：味方全体に発動者基準最大HPの2.47%持続回復（1秒間隔・10秒）＋最大HP49.5%UP（10秒）。"
+  },
+  {
+    "id": "milk",
+    "name": "ミルク",
+    "burst": 1,
+    "role": "atk",
+    "weapon": "sr",
+    "element": "water",
+    "company": "tetra",
+    "squad": "カフェ・スウィーティー",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "critDmg": {
+          "val": 11.13,
+          "condLabel": "S2・自分のHP80%以上・持続"
+        },
+        "burstCT": {
+          "val": 2.83,
+          "condLabel": "S2・フルチャージ攻撃10回命中時"
+        },
+        "lifesteal": {
+          "val": 16.16,
+          "condLabel": "BS・10秒間維持"
+        },
+        "healRcvUp": {
+          "val": 75.5,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "burstCT": {
+          "val": 20,
+          "condLabel": "S1・戦闘開始時・持続"
+        }
+      },
+      "targeted": {
+        "atk": {
+          "val": 31.83,
+          "target": null,
+          "condLabel": "S1・20秒ごと・最終攻撃力最高の味方3機・10秒間維持"
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：20秒ごとに最終攻撃力最高の味方3機に攻撃力31.83%UP（10秒）。戦闘開始時、自分にバーストスキルクールタイム20秒減少（持続）。S2（パッシブ）：自分のHP80%以上の場合、味方全体にクリティカルダメージ11.13%UP（持続）。フルチャージ攻撃10回命中時、味方全体にバーストスキルクールタイム2.83秒減少。BS（CT40秒）：最終防御力最高の敵1機に最終攻撃力367.34%のダメージ。味方全体に攻撃ダメージの16.16%回復（10秒）＋受けるHP回復量75.5%UP（10秒）。"
+  },
+  {
+    "id": "pepper",
+    "name": "ペッパー",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "sg",
+    "element": "wind",
+    "company": "missilis",
+    "squad": "セラフィム",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "healRcvUp": {
+          "val": 6.53,
+          "condLabel": "S1・最後の弾丸命中時・リフレッシュハート・15秒間維持",
+          "stack": {
+            "key": "healRcvUpPepper",
+            "max": 5
+          }
+        },
+        "enemyAtkDown": {
+          "val": 3.55,
+          "condLabel": "S2・最終攻撃力最高の敵1機・5秒間維持"
+        },
+        "buffStackUp": {
+          "val": 1,
+          "condLabel": "BS発動時",
+          "unit": "個"
+        },
+        "heal": {
+          "val": 27.22,
+          "condLabel": "BS・リフレッシュハートフルスタック時",
+          "caster": true,
+          "hpBased": true,
+          "fullStackOnly": true,
+          "fullStackRef": "healRcvUpPepper"
+        }
+      },
+      "self": {},
+      "targeted": {
+        "heal": {
+          "val": 4.45,
+          "target": null,
+          "condLabel": "S1・最後の弾丸命中時・HP最低の味方1機",
+          "caster": true,
+          "hpBased": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "cond": {
+      "condSelf": [
+        {
+          "label": "S2・ダメージ（最終攻撃力最高の敵1機）",
+          "val": 160,
+          "unit": "%",
+          "cond": "CT10秒・最終攻撃力の160%",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・ダメージ（最終攻撃力最高の敵1機）",
+          "val": 1237.5,
+          "unit": "%",
+          "cond": "CT20秒・最終攻撃力の1237.5%",
+          "selfOnly": true
+        }
+      ],
+      "condParty": []
+    },
+    "note": "S1（パッシブ）：最後の弾丸命中時、HP最低の味方1機に発動者基準最大HPの4.45%回復。同時に味方全体に受けるHP回復量6.53%UP（15秒・リフレッシュハート最大5スタック）。S2（アクティブ・CT10秒）：最終攻撃力最高の敵1機に最終攻撃力160%ダメージ＋攻撃力3.55%ダウン（5秒）。BS（CT20秒）：最終攻撃力最高の敵1機に最終攻撃力1237.5%ダメージ。味方全体のスタック可能バフ1個UP。自分がリフレッシュハートフルスタック状態なら味方全体に発動者基準最大HPの27.22%回復。"
+  },
+  {
+    "id": "delta_nt",
+    "name": "デルタ：ニンジャシーフ",
+    "burst": 2,
+    "role": "def",
+    "weapon": "mg",
+    "element": "water",
+    "company": "elysion",
+    "squad": "スカウティング",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "enemyDmgTaken": {
+          "val": 12,
+          "condLabel": "S1・FB発動時・敵全体・15秒間維持"
+        },
+        "enemyDmgTakenB": {
+          "val": 8,
+          "condLabel": "S1・BS使用時・照準線最近の攻撃範囲内の敵1機・10秒間維持"
+        },
+        "distDmg": {
+          "val": 20,
+          "condLabel": "BS・10秒間維持"
+        },
+        "atk": {
+          "val": 15,
+          "caster": true,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "atk": {
+          "val": 15.04,
+          "condLabel": "S1・BS使用時・10秒間維持"
+        },
+        "barrier": {
+          "val": 12.25,
+          "caster": true,
+          "hpBased": true,
+          "condLabel": "S2・戦闘開始時・自分以外に防御型がいない場合・10秒間維持",
+          "exclusiveSet": "deltaStance",
+          "setId": "guard"
+        },
+        "taunt": {
+          "val": 1,
+          "condLabel": "S2・戦闘開始時・自分以外に防御型がいない場合・【ヘイト】・持続",
+          "exclusiveSet": "deltaStance",
+          "setId": "guard"
+        },
+        "lifesteal": {
+          "val": 11.22,
+          "condLabel": "S2・戦闘開始時・自分以外に防御型がいる場合・【忍法注射器】・持続",
+          "exclusiveSet": "deltaStance",
+          "setId": "medic"
+        },
+        "barrierB": {
+          "val": 12.25,
+          "caster": true,
+          "hpBased": true,
+          "condLabel": "S2・通常攻撃200回攻撃時・自分がヘイト状態の場合・10秒間維持",
+          "exclusiveSet": "deltaStance",
+          "setId": "guard"
+        },
+        "nextBarrierHp": {
+          "val": 20.13,
+          "condLabel": "BS・自分がヘイト状態の場合・次のバリアのHPを20.13%UP・10秒間維持",
+          "exclusiveSet": "deltaStance",
+          "setId": "guard"
+        },
+        "medkit": {
+          "val": 165.28,
+          "caster": true,
+          "condLabel": "S2・忍法注射器状態時・受けた回復を蓄積し持続後に味方全体へ還元・最終攻撃力165.28%・4秒間維持",
+          "exclusiveSet": "deltaStance",
+          "setId": "medic"
+        },
+        "medkitMaxUp": {
+          "val": 20.13,
+          "condLabel": "BS・忍法注射器状態の場合・救急キット最大蓄積量を20.13%UP・10秒間維持",
+          "exclusiveSet": "deltaStance",
+          "setId": "medic"
+        },
+        "singleTargetExclude": {
+          "val": 1,
+          "condLabel": "S2・戦闘開始時・自分以外に防御型がいる場合・直接攻撃を受けると解除・10秒間維持",
+          "exclusiveSet": "deltaStance",
+          "setId": "medic"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "cond": {
+      "condSelf": [
+        {
+          "label": "BS・分配ダメージ（敵全体）",
+          "val": 170,
+          "unit": "%",
+          "cond": "CT40秒・最終攻撃力の170%・分配ダメージ",
+          "selfOnly": true
+        }
+      ],
+      "condParty": []
+    },
+    "note": "S1（パッシブ）：FB発動時に敵全体へenemyDmgTaken12%（15秒）。BS使用時に自己atk15.04%（10秒）＋照準線最近の攻撃範囲内の敵1機にenemyDmgTaken8%（10秒）。S2（パッシブ）：戦闘開始時、自分以外に防御型がいない場合は自己barrier12.25%（発動者基準maxHP・10秒）＋【ヘイト】taunt（持続）。自分以外に防御型がいる場合は単一攻撃対象から除外（直接攻撃で解除・10秒）＋【忍法注射器】lifesteal11.22%（持続）。通常攻撃200回攻撃時、ヘイト状態なら自己barrierB12.25%（同条件・10秒）。4秒ごと忍法注射器状態なら【忍法救急キット】受けた回復を蓄積、持続終了後に味方全体へ蓄積量分回復（最大蓄積量＝発動者基準最終攻撃力165.28%・4秒間維持）。BS（CT40秒）：味方全体にdistDmg20%（10秒）＋発動者基準atk15%（10秒）。敵全体に最終攻撃力170%の分配ダメ。ヘイト状態なら次のバリアHP20.13%UP（10秒）。忍法注射器状態なら忍法救急キット最大蓄積量20.13%UP（10秒）。"
+  },
+  {
+    "id": "arcana_tarot",
+    "name": "アルカナ",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "electric",
+    "company": "elysion",
+    "squad": "ベストセラー",
+    "cardBg": null,
+    "caution": [
+      {
+        "condition": "noB3Elec",
+        "message": "アルカナ以外のB3・電撃のニケを編成してください"
+      }
+    ],
+    "buffs": {
+      "self": {},
+      "targeted": {
+        "dmg": {
+          "val": 180,
+          "target": "burst:3&element:electric",
+          "condLabel": "S1・FB終了時・運命の輪状態・直前にBSを使用したB3電撃の味方・【魔術師のカード】・15秒",
+          "arcanaFateOnly": true,
+          "caster": true,
+          "suppressTargetLabel": true
+        },
+        "atk": {
+          "val": 180,
+          "target": "burst:3&element:electric",
+          "condLabel": "S2・FB終了時・運命の輪状態・直前にBSを使用したB3電撃の味方・【力のカード】・15秒",
+          "caster": true,
+          "arcanaFateOnly": true,
+          "suppressTargetLabel": true
+        },
+        "dmgTarotFate": {
+          "val": 10,
+          "target": "element:electric",
+          "condLabel": "BS・電撃コードの味方全体・【運命の輪のカード】・10秒",
+          "arcanaFateOnly": true
+        }
+      },
+      "party": {
+        "atk": {
+          "val": 5,
+          "condLabel": "S1・FB終了時・味方全体・10秒",
+          "caster": true
+        },
+        "dmg": {
+          "val": 7.5,
+          "condLabel": "S2・FB終了時・味方全体・10秒"
+        },
+        "burstCT": {
+          "val": 6,
+          "condLabel": "S2・FB終了時・運命の輪状態・味方全体・【死神のカード】",
+          "arcanaFateOnly": true
+        },
+        "atkTarotDeath": {
+          "val": 50,
+          "condLabel": "S2・FB終了時・運命の輪状態・味方全体・【死神のカード】・5秒",
+          "caster": true,
+          "arcanaFateOnly": true
+        },
+        "enemyDmgTakenTarot": {
+          "val": 10,
+          "condLabel": "BS・敵全体・【審判のカード】・10秒",
+          "arcanaFateOnly": true
+        }
+      },
+      "condParty": [],
+      "other": [
+        {
+          "label": "バーストスキルダメージ",
+          "val": 300,
+          "unit": "%",
+          "cond": "BS・敵全体・最終攻撃力基準",
+          "selfOnly": true
+        },
+        {
+          "label": "【魔術師のカード】対象スキル2CT短縮",
+          "val": 75,
+          "unit": "%",
+          "cond": "S1・FB終了時・運命の輪状態・直前にBSを使用したB3電撃の味方・15秒（対象キャラの元CT秒数に依存するため秒数表示不可）",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：FB終了時、運命の輪状態（BS使用後10秒以内）なら直前にBSを使用したB3・電撃の味方に【魔術師のカード】（スキル2CT75%減少・攻撃ダメージ180%UP・15秒）。FB終了時、味方全体に発動者基準atk+5%（10秒）。S2（パッシブ）：FB終了時、運命の輪状態なら直前にBSを使用したB3・電撃の味方に【力のカード】（発動者基準atk+180%・15秒）。FB終了時、運命の輪状態なら味方全体に【死神のカード】（BS CT-6秒・発動者基準atk+50%・5秒）。FB終了時、味方全体にdmg+7.5%（10秒）。BS（CT40秒）：電撃コードの味方全体に【運命の輪のカード】（dmg+10%・10秒）。敵全体に最終攻撃力300%のBSダメージ。敵全体に【審判のカード】（被ダメ+10%・10秒）。運命の輪のカード・審判のカードはBSが付与する効果のため、運命の輪モードON時にまとめて表示。"
+  },
+  {
+    "id": "crust",
+    "name": "クラスト",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "water",
+    "company": "tetra",
+    "squad": "クッキングオイル",
+    "buffs": {
+      "party": {
+        "atk": {
+          "val": 10,
+          "condLabel": "S1・通常攻撃3回・メイラード・10秒",
+          "caster": true,
+          "crustMeilardOnly": true
+        },
+        "atkBranching": {
+          "val": 10,
+          "condLabel": "S1・フルチャージ攻撃3回・ブランチング・10秒",
+          "caster": true,
+          "crustBranchingOnly": true
+        },
+        "defUp": {
+          "val": 10,
+          "condLabel": "S2・通常攻撃3回・10秒",
+          "caster": true,
+          "crustMeilardOnly": true
+        },
+        "defUpBranching": {
+          "val": 10,
+          "condLabel": "S2・フルチャージ攻撃3回・10秒",
+          "caster": true,
+          "crustBranchingOnly": true
+        },
+        "cleanse": {
+          "val": 1,
+          "unit": "個",
+          "condLabel": "S2・通常攻撃3回",
+          "crustMeilardOnly": true
+        },
+        "cleanseBranching": {
+          "val": 1,
+          "unit": "個",
+          "condLabel": "S2・フルチャージ攻撃3回",
+          "crustBranchingOnly": true
+        },
+        "atkB": {
+          "val": 20,
+          "condLabel": "S2・FBT発動時・メイラード/ブランチング対象・10秒",
+          "caster": true
+        },
+        "dmg": {
+          "val": 20,
+          "condLabel": "BS・10秒"
+        },
+        "distDmg": {
+          "val": 60,
+          "condLabel": "BS・メイラード状態・10秒",
+          "crustMeilardOnly": true
+        },
+        "dotDmg": {
+          "val": 10,
+          "condLabel": "BS・ブランチング状態・10秒",
+          "crustBranchingOnly": true
+        }
+      },
+      "self": {},
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "メイラード持続時間延長",
+          "val": 2.5,
+          "unit": "秒",
+          "cond": "S1・メイラード状態でフルチャージ攻撃時・味方全体のメイラード持続時間+2.5秒",
+          "selfOnly": false
+        },
+        {
+          "label": "ブランチング持続時間延長",
+          "val": 2.5,
+          "unit": "秒",
+          "cond": "S1・ブランチング状態でフルチャージ攻撃時・味方全体のブランチング持続時間+2.5秒",
+          "selfOnly": false
+        }
+      ]
+    },
+    "note": "メイラード（分配ダメ系）／ブランチング（持続ダメ系）の2状態を切替可能な支援型。S1（パッシブ）：通常攻撃3回（非フルチャ）で味方全体に【メイラード】発動者基準atk10%UP（10秒）＋ブランチング解除。フルチャージ1秒維持の攻撃3回で味方全体に【ブランチング】発動者基準atk10%UP（10秒）＋メイラード解除。フルチャージ攻撃時、現在の状態（メイラード/ブランチング）の持続時間を+2.5秒延長。S2（パッシブ）：通常攻撃3回 or フルチャージ3回で、たっぷりクッキング状態でない味方全体に発動者基準defUp10%UP（10秒）＋デバフ解除1個。FBT発動時、メイラードまたはブランチング状態の対象に発動者基準atk20%UP（10秒）。BS（CT20秒）：味方全体に攻撃ダメージ20%UP（10秒）。メイラード状態なら追加で分配ダメージ60%UP（10秒）。ブランチング状態なら追加で持続ダメージ10%UP（10秒）。"
+  },
+  {
+    "id": "bay",
+    "name": "ベイ",
+    "burst": 2,
+    "role": "def",
+    "weapon": "rl",
+    "element": "fire",
+    "company": "tetra",
+    "squad": "リワインド",
+    "buffs": {
+      "party": {
+        "dmgShareDiff": {
+          "val": 1,
+          "condLabel": "S1・BS使用時・自分が生存している限り・持続"
+        },
+        "defUp": {
+          "val": 10.13,
+          "condLabel": "S1・BS使用時・自分が生存している限り・持続",
+          "caster": true
+        },
+        "heal": {
+          "val": 4,
+          "condLabel": "S1・フルチャージ攻撃時",
+          "caster": true,
+          "hpBased": true,
+          "excludeSelf": true
+        },
+        "dmgReduce": {
+          "val": 8.87,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "dmgShareDiffShelter": {
+          "val": 1,
+          "condLabel": "S2・BS使用時・自分が生存している限り・持続"
+        },
+        "shelter": {
+          "val": 2.88,
+          "condLabel": "S2・FBT終了時・1秒間隔・5秒間維持",
+          "caster": true,
+          "hpBased": true
+        },
+        "heal": {
+          "val": 20,
+          "condLabel": "S2・バーストI段階突入時・遮蔽物破壊状態の場合",
+          "caster": true,
+          "hpBased": true
+        },
+        "shelterHpUp": {
+          "val": 18,
+          "condLabel": "BS・20秒間維持",
+          "caster": true,
+          "hpBased": true
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "遮蔽物復活",
+          "val": "HP20%",
+          "unit": "",
+          "cond": "BS・遮蔽物破壊状態の場合・戦闘中に1回発動",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：BS使用時、自分が生存している限り味方全体に被ダメ偏差分配（持続）＋発動者基準defUp10.13%UP（持続）。フルチャージ攻撃時、自分を除く味方全体に発動者基準最終最大HP4%回復。S2（パッシブ）：BS使用時、自分が生存している限り自分の遮蔽物に被ダメ偏差分配（持続）。FBT終了時、自分に発動者基準最終最大HP比例で遮蔽物HP持続回復2.88%（1秒間隔・5秒間維持）。バーストI段階突入時、遮蔽物が破壊された状態なら自分に発動者基準最終最大HP20%回復。BS（CT40秒）：遮蔽物破壊状態なら遮蔽物HP20%で復活（戦闘中1回）。自分に発動者基準最大HP比例で遮蔽物最大HP18%UP（20秒間維持）。味方全体に被ダメ8.87%ダウン（10秒間維持）。"
+  },
+  {
+    "id": "rem",
+    "name": "レム",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "mg",
+    "element": "water",
+    "company": "abnormal",
+    "squad": "エミリア陣営",
+    "buffs": {
+      "party": {
+        "healShare": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "S1・BS使用時・HP回復均等分配"
+        }
+      },
+      "self": {
+        "atk": {
+          "val": 4.22,
+          "condLabel": "S1・【鬼の気】状態・通常攻撃15回命中時・10秒間維持",
+          "stack": {
+            "max": 30,
+            "default": 1
+          },
+          "defaultOff": true,
+          "syncGroup": "remOniNoKi"
+        },
+        "lifesteal": {
+          "val": 42.24,
+          "condLabel": "S2・戦闘開始時・持続"
+        },
+        "critRate": {
+          "val": 37.8,
+          "condLabel": "BS・【鬼の気】・10秒間維持",
+          "defaultOff": true,
+          "syncGroup": "remOniNoKi",
+          "showCond": true
+        }
+      },
+      "targeted": {
+        "healShare": {
+          "val": 1,
+          "target": "weapon:rl",
+          "condLabel": "S2・戦闘開始時・RL限定・自分＋最終攻撃力最高の味方2機・持続",
+          "suppressTargetLabel": true
+        },
+        "atk": {
+          "val": 50.78,
+          "target": "weapon:rl",
+          "condLabel": "BS・RL限定・10秒間維持",
+          "caster": true,
+          "suppressTargetLabel": true
+        },
+        "maxMagazine": {
+          "val": 5,
+          "unit": "発",
+          "target": "weapon:rl",
+          "condLabel": "BS・RL限定・10秒間維持",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：【鬼の気】状態時、通常攻撃15回命中ごとに自分にatk4.22%UP（30スタック・10秒）。BS使用時、味方全体にHP回復均等分配（10秒）。S2（パッシブ）：戦闘開始時、自分に攻撃ダメージ42.24%回復（持続）。戦闘開始時、自分とロケットランチャー所持の最終攻撃力上位2機にHP回復均等分配（持続・RL所持全体表示）。BS（CT20秒）：自分に【鬼の気】クリ率37.8%UP（10秒）。ロケットランチャー所持の味方全体に発動者基準atk50.78%UP（10秒）＋最大装弾数+5発（10秒）。"
+  },
+  {
+    "id": "eleg",
+    "name": "エレグ",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "mg",
+    "element": "electric",
+    "company": "missilis",
+    "squad": "エレクトリックショック",
+    "buffs": {
+      "party": {
+        "enemyProjectileDmg": {
+          "val": 59.66,
+          "condLabel": "S1・戦闘開始時・持続"
+        },
+        "atk": {
+          "val": 10.56,
+          "condLabel": "S2・通常攻撃60回命中時・【ブームインストール】状態の対象がいる場合・5秒間維持",
+          "caster": true,
+          "defaultOff": true,
+          "syncGroup": "elegBoomInstall"
+        },
+        "burstGaugeInstant": {
+          "val": 100,
+          "condLabel": "S2・ターゲット出現時・戦闘中1回発動"
+        },
+        "distDmg": {
+          "val": 39.74,
+          "condLabel": "BS・10秒間維持"
+        },
+        "defDown": {
+          "val": 35.64,
+          "condLabel": "BS・照準線最近の敵1機・【ブームインストール】・10秒間維持",
+          "defaultOff": true,
+          "syncGroup": "elegBoomInstall",
+          "showCond": true
+        }
+      },
+      "self": {},
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "分配ダメージ（通常攻撃100回）",
+          "val": 158.65,
+          "unit": "%",
+          "cond": "S1・通常攻撃100回命中時・【ブームインストール】状態の対象と周囲の敵2機・最終攻撃力158.65%の分配ダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "ダメージ（照準線最近の敵）",
+          "val": 316.66,
+          "unit": "%",
+          "cond": "BS・照準線最近の敵1機・最終攻撃力316.66%のダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：戦闘開始時、味方全体に敵発射体与ダメ59.66%UP（持続）。通常攻撃100回命中時、【ブームインストール】状態の対象がいれば対象と周囲の敵2機に最終攻撃力158.65%の分配ダメージ。S2（パッシブ）：通常攻撃60回命中時、【ブームインストール】状態の対象がいれば味方全体に発動者基準atk10.56%UP（5秒）。ターゲットが出現した時、味方全体にバーストゲージ100%チャージ（戦闘中1回）。BS（CT20秒）：味方全体に分配ダメ39.74%UP（10秒）。照準線最近の敵1機に最終攻撃力316.66%ダメ＋【ブームインストール】防御力35.64%ダウン（10秒）。"
+  },
+  {
+    "id": "marciana",
+    "name": "マルチャーナ",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "sg",
+    "element": "iron",
+    "company": "elysion",
+    "squad": "アカデミア",
+    "buffs": {
+      "party": {
+        "lifesteal": {
+          "val": 10.95,
+          "condLabel": "S1・最後の弾丸命中時・3秒間維持"
+        },
+        "healRcvUp": {
+          "val": 26.98,
+          "condLabel": "S1・最後の弾丸命中時・最終攻撃力上位2機・3秒間維持"
+        },
+        "heal": {
+          "val": 28.11,
+          "condLabel": "S2・バースト使用時・発動者基準の最終最大HP"
+        },
+        "hpReserve": {
+          "val": 27.87,
+          "condLabel": "BS・発動者基準の最大HP・10秒間維持"
+        },
+        "defUp": {
+          "val": 20.9,
+          "condLabel": "BS・発動者基準の防御力・10秒間維持"
+        }
+      },
+      "self": {},
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：最後の弾丸が命中した時、味方全体に攻撃ダメ回復10.95%UP（3秒）。最終攻撃力が最も高い味方2機に受けるHP回復量26.98%UP（3秒）。S2（パッシブ）：バースト使用時、味方全体に発動者基準の最終最大HP28.11%回復。BS（CT20秒）：味方全体に発動者基準の最大HP27.87%まで超過HP保存（10秒）＋発動者基準の防御力20.9%UP（10秒）。"
+  },
+  {
+    "id": "biscuit",
+    "name": "ビスケット",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "electric",
+    "company": "tetra",
+    "squad": "ハッピーズー",
+    "buffs": {
+      "party": {},
+      "self": {},
+      "targeted": {
+        "critRate": {
+          "val": 5.77,
+          "target": "role:atk",
+          "condLabel": "S1・フルバーストタイム終了時・火力型限定・10秒間維持",
+          "suppressTargetLabel": true
+        },
+        "healOverTime": {
+          "val": 1.53,
+          "hpBased": true,
+          "target": "role:atk",
+          "condLabel": "S1・フルバーストタイム終了時・火力型限定・1秒間隔・10秒間維持",
+          "suppressTargetLabel": true
+        },
+        "invincible": {
+          "val": 5,
+          "unit": "秒",
+          "target": "role:def",
+          "excludeSelf": true,
+          "condLabel": "S2・自分以外の防御型限定・HP50%以下の対象・5秒間維持・戦闘中2回発動",
+          "suppressTargetLabel": true
+        },
+        "heal": {
+          "val": 23.26,
+          "target": "role:def",
+          "excludeSelf": true,
+          "condLabel": "S2・自分以外の防御型限定・HP50%以下の対象・戦闘中2回発動",
+          "suppressTargetLabel": true
+        },
+        "shelterRevive": {
+          "val": 93.6,
+          "condLabel": "BS・遮蔽物が破壊された味方ランダム2機・遮蔽物復活"
+        },
+        "atk": {
+          "val": 43.08,
+          "target": "role:sup",
+          "condLabel": "BS・支援型限定・10秒間維持",
+          "suppressTargetLabel": true
+        },
+        "lifesteal": {
+          "val": 55.44,
+          "target": "role:sup",
+          "condLabel": "BS・支援型限定・10秒間維持",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：フルバーストタイム終了時、火力型の味方全体に通常攻撃クリ率5.77%UP（10秒）＋発動者基準の最終最大HP1.53%持続回復（1秒間隔・10秒）。S2（パッシブ）：自分以外の防御型のHPが50%以下の対象に無敵5秒（戦闘中2回）＋発動者基準の最終最大HP23.26%回復（戦闘中2回）。BS（CT40秒）：遮蔽物が破壊された味方ランダム2機に遮蔽物HP93.6%で遮蔽物復活。支援型の味方全体に攻撃力43.08%UP＋攻撃ダメ回復55.44%UP（10秒）。"
+  },
+  {
+    "id": "viper",
+    "name": "バイパー",
+    "burst": 2,
+    "role": "atk",
+    "weapon": "sg",
+    "element": "water",
+    "company": "tetra",
+    "squad": "エキゾチック",
+    "buffs": {
+      "party": {
+        "atk": {
+          "val": 25.98,
+          "condLabel": "S1・ターゲット出現時・10秒間維持"
+        },
+        "hitRate": {
+          "val": 11.13,
+          "condLabel": "S1・ターゲット出現時・10秒間維持"
+        },
+        "burstReEntryViper": {
+          "val": 2,
+          "unit": "burst",
+          "condLabel": "S2・BS発動時"
+        }
+      },
+      "self": {
+        "dotDmg": {
+          "val": 4.4,
+          "condLabel": "S1・愛嬌状態時に攻撃した時・最大132%UP・10秒間維持",
+          "stack": {
+            "max": 30,
+            "key": "viperCharmStack"
+          },
+          "defaultOff": true,
+          "syncGroup": "viperCharm"
+        },
+        "hitRateViper": {
+          "val": 1.84,
+          "condLabel": "S1・愛嬌状態時に攻撃した時・最大55.2%UP・10秒間維持",
+          "stack": {
+            "max": 30,
+            "key": "viperCharmStack"
+          },
+          "defaultOff": true,
+          "syncGroup": "viperCharm"
+        },
+        "hitRate": {
+          "val": 21.96,
+          "condLabel": "S2・持続"
+        },
+        "singleTargetExclude": {
+          "val": 1,
+          "condLabel": "S2・【愛嬌】FB発動時・攻撃を受けると解除・持続",
+          "unit": "持続",
+          "defaultOff": true,
+          "syncGroup": "viperCharm"
+        },
+        "invincible": {
+          "val": 1,
+          "unit": "秒",
+          "condLabel": "S2・FB発動時",
+          "defaultOff": true,
+          "syncGroup": "viperCharm"
+        }
+      },
+      "targeted": {
+        "defDown": {
+          "val": 19.83,
+          "target": null,
+          "condLabel": "BS・ターゲット指定状態の敵・10秒間維持"
+        }
+      },
+      "condParty": [],
+      "other": [
+        {
+          "label": "バーストスキルダメージ",
+          "val": 1029.6,
+          "unit": "%",
+          "cond": "バースト・指定した敵対象1機に最終攻撃力の1029.6%の直接ダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "ターゲット持続ダメージ",
+          "val": 105.3,
+          "unit": "%/秒",
+          "cond": "バースト・対象がターゲット指定状態なら同じ敵に最終攻撃力105.3%の持続ダメージ（1秒間隔・10秒間維持）",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：ターゲット出現時、味方全体に攻撃力25.98%UP＋命中率11.13%UP（10秒）。愛嬌状態時に攻撃した時、自分に持続ダメージ4.4%UP（30スタック・最大132%）＋命中率1.84%UP（30スタック・最大55.2%）（10秒）。S2（パッシブ）：自分に命中率21.96%UP（持続）。FB発動時、自分に【愛嬌】単一攻撃対象除外（攻撃を受けると解除・持続）＋無敵1秒。バースト使用時、味方全体にバースト再突入2段階。BS（CT20秒）：指定した敵対象1機に最終攻撃力1029.6%の直接ダメージ。対象がターゲット指定状態なら同じ敵に防御力19.83%ダウン（10秒）＋最終攻撃力105.3%の持続ダメージ（1秒間隔・10秒、ACTIVE SKILL欄記載）。"
+  },
+  {
+    "id": "noah",
+    "name": "ノア",
+    "burst": 2,
+    "role": "def",
+    "weapon": "rl",
+    "element": "wind",
+    "company": "pilgrim",
+    "squad": "インヘルト",
+    "buffs": {
+      "party": {
+        "dmgReduce": {
+          "val": 8,
+          "condLabel": "S1・撃たれた時10%の確率・10秒間維持"
+        },
+        "invincible": {
+          "val": 3,
+          "unit": "秒",
+          "condLabel": "BS"
+        },
+        "defUp": {
+          "val": 133.48,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "taunt": {
+          "val": 2,
+          "unit": "秒",
+          "condLabel": "S2・フルチャージ攻撃命中時・対象に挑発・2秒間維持"
+        },
+        "tauntBs": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "BS・【ヘイト】敵全体を挑発"
+        }
+      },
+      "targeted": {
+        "enemyAtkDown": {
+          "val": 13.25,
+          "target": null,
+          "condLabel": "S2・フルチャージ攻撃命中時・対象敵に・5秒間維持"
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：撃たれた時10%の確率で味方全体に被ダメ8%ダウン（10秒）。S2（パッシブ）：フルチャージ攻撃が命中した時、自分に対象敵への挑発2秒、対象敵に攻撃力13.25%ダウン（5秒）。BS（CT40秒）：自分に【ヘイト】敵全体を挑発10秒。味方全体に無敵3秒＋防御力133.48%UP（10秒）。"
+  },
+  {
+    "id": "dollar",
+    "name": "ドラー",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "sr",
+    "element": "wind",
+    "company": "tetra",
+    "squad": "タレント",
+    "buffs": {
+      "party": {
+        "atk": {
+          "val": 16.16,
+          "condLabel": "S1・CT10秒・5秒間維持"
+        },
+        "burstCT": {
+          "val": 1.82,
+          "condLabel": "S2・FB発動時・全体・1回目"
+        },
+        "burstCTB": {
+          "val": 2.2,
+          "condLabel": "S2・FB発動時・全体・2回目"
+        },
+        "burstCTC": {
+          "val": 2.6,
+          "condLabel": "S2・FB発動時・全体・3回目"
+        },
+        "atkB": {
+          "val": 7.72,
+          "condLabel": "S2・BS使用・1回目・5秒"
+        },
+        "critRate": {
+          "val": 4.21,
+          "condLabel": "S2・BS使用・2回目・5秒"
+        },
+        "critDmg": {
+          "val": 13.22,
+          "condLabel": "S2・BS使用・3回目・5秒"
+        }
+      },
+      "self": {},
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "バーストスキルダメージ",
+          "val": 734.69,
+          "unit": "%",
+          "cond": "バースト・最終防御力が最も高い敵1機に最終攻撃力の734.69%のダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（アクティブ・CT10秒）：味方全体に攻撃力16.16%UP（5秒）。S2（パッシブ）：FB発動時、味方全体にバーストCT短縮（下位スタック・1回目1.82秒/2回目2.2秒/3回目2.6秒）。BS使用時、味方全体に下位スタックで攻撃力7.72%UP（1回目）/クリ率4.21%UP（2回目）/クリダメ13.22%UP（3回目）（各5秒）。BS（CT20秒）：最終防御力が最も高い敵1機に最終攻撃力734.69%のダメージ。"
+  },
+  {
+    "id": "diesel",
+    "name": "ディーゼル",
+    "burst": 2,
+    "role": "def",
+    "weapon": "mg",
+    "element": "wind",
+    "company": "elysion",
+    "squad": "インフィニティレール",
+    "buffs": {
+      "party": {
+        "bulletCharge": {
+          "val": 86.62,
+          "condLabel": "S2・イチゴキャンディ最大スタック・スタック解除後"
+        },
+        "pierceDmg": {
+          "val": 30,
+          "condLabel": "S2・イチゴキャンディ最大スタック・スタック解除後・10秒間維持"
+        }
+      },
+      "self": {
+        "defUp": {
+          "val": 25.92,
+          "condLabel": "S1・FB発動時・10秒間維持"
+        },
+        "heal": {
+          "val": 12.96,
+          "condLabel": "S1・撃たれた時・ヘイト状態・発動者基準の最終最大HP",
+          "defaultOff": true,
+          "syncGroup": "dieselHate"
+        },
+        "buffStackUp": {
+          "val": 1,
+          "unit": "個",
+          "condLabel": "S1・通常攻撃150回命中時・ヘイト状態",
+          "defaultOff": true,
+          "syncGroup": "dieselHate"
+        },
+        "maxMagazine": {
+          "val": 56.7,
+          "condLabel": "S2・通常攻撃70回命中時・10秒間維持・「イチゴキャンディ」最大10スタック",
+          "stack": {
+            "max": 10,
+            "key": "dieselCandyStack"
+          }
+        },
+        "hpUpOnly": {
+          "val": 100.05,
+          "condLabel": "BS・10秒間維持",
+          "defaultOff": true,
+          "syncGroup": "dieselHate"
+        },
+        "taunt": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "BS・【ヘイト】敵全体を挑発",
+          "defaultOff": true,
+          "syncGroup": "dieselHate"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "バーストスキルダメージ",
+          "val": 299.66,
+          "unit": "%",
+          "cond": "バースト・最終攻撃力が最も高い敵5機に最終攻撃力の299.66%のダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：FB発動時、自分に防御力25.92%UP（10秒）。撃たれた時、自分がヘイト状態なら発動者基準の最終最大HP12.96%回復。通常攻撃150回命中時、自分がヘイト状態ならスタック可能バフのスタック量1個UP。S2（パッシブ）：通常攻撃70回命中時、自分に最大装弾数56.7%UP（10秒）＋「イチゴキャンディ」1スタック（最大10）。イチゴキャンディが最大スタックでスタック解除後、味方全体に弾丸チャージ86.62%＋貫通ダメ30%UP（10秒）。BS（CT20秒）：最終攻撃力が最も高い敵5機に最終攻撃力299.66%のダメージ。自分に最大HPのみ100.05%UP（10秒）＋【ヘイト】敵全体を挑発（10秒）。S1のヘイト状態系バフ（回復・スタック量UP）とBSのヘイト系バフ（最大HPのみ・挑発）はsyncGroup「dieselHate」で連動。"
+  },
+  {
+    "id": "eh",
+    "name": "E.H.",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "smg",
+    "element": "wind",
+    "company": "elysion",
+    "squad": "エキゾチック",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "atk": {
+          "val": 7.5,
+          "condLabel": "S1・廃品10個回収時・自家製弾倉1本増加（最大4本）・持続",
+          "stack": {
+            "max": 4,
+            "key": "ehMagazineStack"
+          }
+        },
+        "elem": {
+          "val": 16.36,
+          "condLabel": "S2・廃品回収時・15秒間維持",
+          "defaultOff": true
+        },
+        "atkB": {
+          "val": 430.05,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "特殊武器：フルチャージダメージ",
+          "val": 250,
+          "unit": "%",
+          "cond": "BS発動時、特殊武器に換装（10秒間維持・全弾消費で解除）。チャージ時間0.4秒・通常ダメージは最終攻撃力の61%・最大装弾数は自家製弾倉の数に応じて1〜4発",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：廃品を10個回収した時、自家製弾倉が4本未満なら廃品数リセット＋自家製弾倉1本増加（最大4本・持続）。自家製弾倉の数に応じて自分に攻撃力7.5%×本数UP（最大30%・持続）。S2（パッシブ）：戦闘開始時に廃品10個UP。自分を含む味方が破壊可能な発射体を破壊した時に廃品1個UP、パーツ破壊時に廃品5個UP、敵撃破時に廃品2個UP。廃品を回収した時、自分に有利コードの攻撃ダメージ16.36%UP（15秒間維持）。BS（CT40秒）：自分の使用武器を特殊武器に変更（10秒間維持・または全弾消費で解除）。チャージ時間0.4秒・ダメージは最終攻撃力の61%（フルチャージダメージ250%）・最大装弾数は自家製弾倉の数×1発（最大4発）。自分に攻撃力430.05%UP（10秒間維持）。"
+  },
+  {
+    "id": "k",
+    "name": "K",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "smg",
+    "element": "electric",
+    "company": "elysion",
+    "squad": "シージペリラス",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "maxMagazineK": {
+          "val": -51.13,
+          "condLabel": "S2・【正義の実現】傾く天秤付与時・10秒間維持（同一効果重複不可）"
+        },
+        "dmg": {
+          "val": 10.62,
+          "condLabel": "S2・【正義の実現】傾く天秤付与時・10秒間維持"
+        }
+      },
+      "self": {
+        "critRate": {
+          "val": 0.75,
+          "condLabel": "S1・【傾く天秤】最後の弾丸で攻撃時・持続（FBT終了で解除）",
+          "stack": {
+            "max": 100,
+            "key": "kTenbinStack"
+          }
+        },
+        "atk": {
+          "val": 63.36,
+          "condLabel": "BS・10秒間維持",
+          "caster": true
+        },
+        "dmg": {
+          "val": 21.12,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S1・ペレットクリ4回命中時：追加ダメージ",
+          "val": "最終攻撃力×23.9%",
+          "unit": "",
+          "cond": "ペレットごとのクリティカル攻撃が4回命中した時、対象に最終攻撃力の23.9%の追加ダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・特殊武器ダメージ",
+          "val": "最終攻撃力×92.5%",
+          "unit": "",
+          "cond": "BS発動時、特殊武器に換装（10秒間維持）。ダメージは最終攻撃力の92.5%・ペレット数（散弾数）10個・攻撃速度90%ダウン",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：最後の弾丸で攻撃した時、自分に【傾く天秤】クリティカル確率0.75%UP（最大100スタック・最大75%UP・持続）＋傾く天秤のスタック量29個UP。ペレットごとのクリティカル攻撃が4回命中した時、対象に最終攻撃力23.9%の追加ダメージ。フルバーストタイム終了時、傾く天秤解除。S2（パッシブ）：傾く天秤が付与された時、味方全体に【正義の実現】最大装弾数51.13%減少（10秒間維持・同一効果重複不可）＋攻撃ダメージ10.62%UP（10秒間維持）。フルバーストタイム終了時、味方全体の正義の実現解除。BS（CT40秒）：自分の使用武器を特殊武器に変更（10秒間維持）。ダメージは最終攻撃力92.5%・ペレット数10個・攻撃速度90%ダウン。発動者基準で攻撃力63.36%UP（10秒間維持）＋攻撃ダメージ21.12%UP（10秒間維持）。"
+  },
+  {
+    "id": "mana",
+    "name": "マナ",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "wind",
+    "company": "missilis",
+    "squad": "M.M.R.",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "heal": {
+          "val": 2.04,
+          "condLabel": "S1・【マターガンマ】状態時・通常攻撃10回命中時",
+          "caster": true,
+          "hpBased": true,
+          "syncGroup": "manaGamma"
+        }
+      },
+      "self": {
+        "atk": {
+          "val": 58.08,
+          "condLabel": "S1・【マターガンマ】戦闘開始時・持続・戦闘中1回発動",
+          "syncGroup": "manaGamma"
+        },
+        "burstGauge": {
+          "val": 70.4,
+          "condLabel": "S2・【マターシグマ】戦闘開始時・持続",
+          "syncGroup": "manaSigma"
+        },
+        "dmg": {
+          "val": 21.12,
+          "condLabel": "S2・【マターシグマ】状態時・FBT発動時・10秒間維持",
+          "syncGroup": "manaSigma"
+        },
+        "atkB": {
+          "val": 63.36,
+          "condLabel": "S2・【マターシグマ】状態時・FBT発動時・10秒間維持",
+          "syncGroup": "manaSigma"
+        },
+        "dotDmg": {
+          "val": 52.8,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {
+        "revive": {
+          "val": 96,
+          "target": null,
+          "condLabel": "S1・【マターガンマ】状態時・味方が戦闘不能時・戦闘不能状態の最終攻撃力最高の味方1機・HP96%で復活",
+          "syncGroup": "manaGamma"
+        },
+        "chargeSpdFixed": {
+          "val": 0.18,
+          "unit": "秒",
+          "target": null,
+          "condLabel": "S2・FBT発動時・基本チャージ時間が最も長い味方1機・チャージ時間0.18秒減少・10秒間維持"
+        }
+      },
+      "condParty": [],
+      "other": [
+        {
+          "label": "BS・敵への持続ダメージ",
+          "val": "最終攻撃力×396%",
+          "unit": "",
+          "cond": "照準線に最も近い敵1機に最終攻撃力396%の持続ダメージ（1秒間隔・10秒間維持）",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：戦闘開始時、自分に【マターガンマ】攻撃力58.08%UP（持続・戦闘中1回発動）。通常攻撃10回命中時、マターガンマ状態なら味方全体に発動者基準の最終最大HPの2.04%回復。味方が戦闘不能時、マターガンマ状態なら自分を除く戦闘不能状態の最終攻撃力最高の味方1機にHP96%で復活させ、自分のマターガンマを解除。S2（パッシブ）：戦闘開始時、自分に【マターシグマ】バーストゲージのチャージ速度70.4%UP（持続）。FBT発動時、マターシグマ状態なら自分に攻撃ダメージ21.12%UP＋攻撃力63.36%UP（各10秒間維持）、マターシグマを解除。FBT発動時、基本チャージ時間が一番長い味方1機にチャージ時間0.18秒減少（10秒間維持）。FBT終了時、直前にバーストスキルを使用していれば自分のマターシグマを再付与。BS（CT40秒）：自分に持続ダメージ52.8%UP（10秒間維持）。照準線に最も近い敵1機に最終攻撃力396%の持続ダメージ（1秒間隔・10秒間維持）。"
+  },
+  {
+    "id": "guillotine_ws",
+    "name": "ギロチン：ウィンタースレイヤー",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "water",
+    "company": "elysion",
+    "squad": "エクスターナー",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "atk": {
+          "val": 1.81,
+          "condLabel": "S2・通常攻撃6回命中（コア以外）またはコア3回命中時・1スタック増加・持続",
+          "stack": {
+            "max": 100,
+            "key": "guillotineExpStack"
+          }
+        },
+        "bulletCharge": {
+          "val": 10.26,
+          "condLabel": "S1・経験値10スタックごと（勇者レベルアップ時）"
+        },
+        "heal": {
+          "val": 2.44,
+          "condLabel": "S1・経験値10スタックごと（勇者レベルアップ時）",
+          "caster": true,
+          "hpBased": true
+        },
+        "elem": {
+          "val": 7.46,
+          "condLabel": "S2・勇者レベル2以上時・持続",
+          "defaultOff": true,
+          "stackThreshold": 2,
+          "stackThresholdRef": "guillotineHeroLevel"
+        }
+      },
+      "targeted": {
+        "elem": {
+          "val": 1.16,
+          "target": "element:water",
+          "suppressTargetLabel": true,
+          "condLabel": "S1・勇者レベルアップ時・水冷限定・レベル数分UP・持続",
+          "stack": {
+            "max": 11,
+            "stackSync": "guillotineHeroLevel",
+            "key": "guillotineHeroLevel"
+          }
+        },
+        "atk": {
+          "val": 0.91,
+          "target": "element:water",
+          "caster": true,
+          "suppressTargetLabel": true,
+          "condLabel": "S1・勇者レベルアップ時・水冷限定・レベル数分UP・持続",
+          "stack": {
+            "max": 11,
+            "stackSync": "guillotineHeroLevel",
+            "key": "guillotineHeroLevel"
+          }
+        },
+        "dmg": {
+          "val": 10.14,
+          "target": "element:water",
+          "suppressTargetLabel": true,
+          "condLabel": "BS・水冷限定・10秒"
+        },
+        "elemB": {
+          "val": 18.75,
+          "target": "element:water",
+          "suppressTargetLabel": true,
+          "condLabel": "BS・水冷限定・10秒"
+        }
+      },
+      "condParty": [],
+      "other": [
+        {
+          "label": "BS・敵への持続ダメージ",
+          "val": "最終攻撃力×20.87%×勇者レベル数（最大毎秒229.57%）",
+          "unit": "",
+          "cond": "最大HPが最も高い敵1機に最終攻撃力20.87%×勇者レベル数分の持続ダメージ（最大毎秒229.57%・1秒間隔・10秒間維持）",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：経験値が10スタックするごとに自分に【勇者レベルアップ】（最大11レベルまで成長）。レベルアップ時、弾丸チャージ10.26%＋発動者基準の最終最大HPに比例して2.44%回復。勇者レベルアップ時、水冷コードの味方全体に持続で有利コードの攻撃ダメージ1.16%×レベル数分UP（最大12.76%）＋発動者基準で攻撃力0.91%×レベル数分UP（最大10.01%）。S2（パッシブ）：通常攻撃が6回命中（コア以外）またはコアに3回命中した時、自分に【経験値】攻撃力1.81%UP（最大100スタック・最大181%UP・持続）。勇者レベルが2以上の時のみ、自分に有利コードの攻撃ダメージ7.46%UP（持続）。BS（CT40秒）：水冷コードの味方全体に攻撃ダメージ10.14%UP＋有利コードの攻撃ダメージ18.75%UP（各10秒間維持）。最大HPが最も高い敵1機に最終攻撃力20.87%×勇者レベル数分の持続ダメージ（最大毎秒229.57%・1秒間隔・10秒間維持）。"
+  },
+  {
+    "id": "phantom",
+    "name": "ファントム",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "water",
+    "company": "elysion",
+    "squad": "ベストセラー",
+    "cardBg": null,
+    "buffs": {
+      "party": {
+        "defDown": {
+          "val": 32.19,
+          "condLabel": "S1・【予告状】通常攻撃命中時・5秒（※「予告状状態ではないラプチャー」の種族条件は再現不可のため簡略化）"
+        }
+      },
+      "self": {
+        "hitRate": {
+          "val": 25.75,
+          "condLabel": "S1・【怪盗の短剣】通常攻撃命中時・5秒間維持",
+          "stack": {
+            "max": 3,
+            "key": "phantomDaggerStack"
+          }
+        },
+        "dmg": {
+          "val": 75.17,
+          "condLabel": "S1・予告状状態の対象に攻撃時・1発間維持",
+          "defaultOff": true
+        },
+        "distDmg": {
+          "val": 12.86,
+          "condLabel": "S2・【怪盗の短剣】フルスタック解除時・BS使用後スタック解除・持続",
+          "stack": {
+            "max": 3,
+            "key": "phantomDistStack"
+          }
+        },
+        "atk": {
+          "val": 85.12,
+          "condLabel": "S2・通常攻撃10回攻撃時・5秒間維持"
+        },
+        "distDmgB": {
+          "val": 31.92,
+          "condLabel": "S2・通常攻撃10回攻撃時・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S2・怪盗の短剣フルスタック時：追加ダメージ",
+          "val": "最終攻撃力×84.33%",
+          "unit": "",
+          "cond": "怪盗の短剣フルスタック状態なら、スタック解除後予告状状態の対象に最終攻撃力84.33%の追加ダメージ（効果発動後、予告状解除）",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・敵全体への分配ダメージ",
+          "val": "最終攻撃力×1457.28%",
+          "unit": "",
+          "cond": "敵全体に最終攻撃力1457.28%の分配ダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：通常攻撃が命中した時、予告状状態ではないラプチャーなら対象に【予告状】防御力32.19%ダウン（5秒）。同条件で自分に【怪盗の短剣】命中率25.75%UP（最大3スタック・5秒間維持）。対象が予告状状態なら自分に攻撃ダメージ75.17%UP（1発間維持）。S2（パッシブ）：怪盗の短剣フルスタック状態なら、スタック解除後予告状状態の対象に最終攻撃力84.33%の追加ダメージ（効果発動後、予告状解除）。同条件で自分に分配ダメージ12.86%UP（最大3スタック・BS使用後スタック解除・持続）。通常攻撃で10回攻撃した時、自分に攻撃力85.12%UP（5秒間維持）＋分配ダメージ31.92%UP（10秒間維持）。BS（CT40秒）：敵全体に最終攻撃力1457.28%の分配ダメージ。"
+  },
+  {
+    "id": "sakura_bis",
+    "name": "サクラ：ブルーム・イン・サマー",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "wind",
+    "company": "tetra",
+    "squad": "アンダーワールドクイーン",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "dotDmg": {
+          "val": 5.1,
+          "condLabel": "S1・パーツ破壊時（味方含む）・30秒間維持"
+        },
+        "dmg": {
+          "val": 15.64,
+          "condLabel": "S2・【花の舞】・15秒間維持（パーツ破壊時、花の舞状態なら維持時間+10.02秒延長）"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S1・戦闘開始時",
+          "val": "S2強制使用",
+          "unit": "",
+          "cond": "戦闘開始時、自分のスキル2を強制的に使用する",
+          "selfOnly": true
+        },
+        {
+          "label": "S2・桜かんむり：敵への持続ダメージ",
+          "val": "最終攻撃力×256%",
+          "unit": "",
+          "cond": "最終攻撃力が最も高い敵1機に【桜かんむり】最終攻撃力256%の持続ダメージ（1秒間隔・15秒間維持）。パーツ破壊時、桜かんむり状態の敵全体は維持時間+10.02秒延長",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・ランダム敵への連続ダメージ",
+          "val": "最終攻撃力×457.14%×10回",
+          "unit": "",
+          "cond": "ランダムの敵に最終攻撃力457.14%のダメージを10回順番に攻撃",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・同じ敵への持続ダメージ",
+          "val": "最終攻撃力×35.16%",
+          "unit": "",
+          "cond": "上記と同じ敵に最終攻撃力35.16%の持続ダメージ（1秒間隔・10秒間維持・10スタック）",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：戦闘開始時、自分のスキル2を強制使用。自分を含む味方の誰かがパーツを破壊した時、自分に持続ダメージ5.1%UP（30秒間維持）。同条件で自分が花の舞状態なら花の舞維持時間+10.02秒UP。同条件で桜かんむり状態の敵全体は桜かんむり維持時間+10.02秒UP。S2（アクティブ・CT30秒）：自分に【花の舞】攻撃ダメージ15.64%UP（15秒間維持）。最終攻撃力が最も高い敵1機に【桜かんむり】最終攻撃力256%の持続ダメージ（1秒間隔・15秒間維持）。BS（CT40秒）：ランダムの敵に最終攻撃力457.14%のダメージを10回順番に攻撃。同じ敵に最終攻撃力35.16%の持続ダメージ（1秒間隔・10秒間維持・10スタック）。"
+  },
+  {
+    "id": "emilia",
+    "name": "エミリア",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "rl",
+    "element": "water",
+    "company": "abnormal",
+    "squad": "エミリア陣営",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "chargeSpd": {
+          "val": 13.01,
+          "condLabel": "S1・フルチャージ攻撃時・1発間維持"
+        },
+        "chargeDmg": {
+          "val": 2.01,
+          "condLabel": "S1・フルチャージ攻撃時・自分の最終最大装弾数1発につき2.01%UP（最大50発まで対応）・1発間維持",
+          "stack": {
+            "max": 50,
+            "key": "emiliaMagazineCount"
+          }
+        },
+        "maxMagazine": {
+          "val": 3,
+          "unit": "発",
+          "condLabel": "S2・FBT発動時・10秒間維持"
+        },
+        "explodeRange": {
+          "val": 101.24,
+          "condLabel": "BS・10秒間維持"
+        },
+        "chargeSpdDown": {
+          "val": 300,
+          "condLabel": "BS・1発間維持"
+        },
+        "chargeDmgB": {
+          "val": 1300.53,
+          "condLabel": "BS・1発間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S2・フルチャージ攻撃命中時：固定ダメージ",
+          "val": "発動者基準で与ダメージ量×58.99%",
+          "unit": "",
+          "cond": "フルチャージ攻撃が命中した時、対象に発動者基準が与えたダメージ量の58.99%分、本体に固定ダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：フルチャージして攻撃した時、自分にチャージ速度13.01%UP（1発間維持）＋自分の最終最大装弾数1発当たりのチャージダメージ2.01%UP（1発間維持・装弾数は最大50発まで対応するスライダーで調整）。S2（パッシブ）：フルチャージ攻撃が命中した時、対象に発動者基準が与えたダメージ量の58.99%分、本体に固定ダメージ。フルバーストタイムが発動した時、自分に最大装弾数3発UP（10秒間維持）。BS（CT40秒）：自分に爆発範囲101.24%UP（10秒間維持）＋チャージ速度300%ダウン（1発間維持）＋チャージダメージ1300.53%UP（1発間維持）。"
+  },
+  {
+    "id": "privaty_um",
+    "name": "プリバティ：アンカインド・メイド",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "sg",
+    "element": "electric",
+    "company": "elysion",
+    "squad": "メイド・フォー・ユー",
+    "cardBg": null,
+    "buffs": {
+      "party": {},
+      "self": {
+        "reload": {
+          "val": 20.88,
+          "condLabel": "S2・通常攻撃1回でペレット5個以上命中時・2秒間維持"
+        },
+        "bulletCharge": {
+          "val": 1,
+          "unit": "発",
+          "condLabel": "S2・FBT中・ペレット30回命中時"
+        },
+        "atk": {
+          "val": 11.22,
+          "condLabel": "S2・FBT中・ペレット30回命中時・2秒間維持",
+          "stack": {
+            "max": 5,
+            "key": "privatyUmPelletStack"
+          }
+        },
+        "dmg": {
+          "val": 10.56,
+          "condLabel": "BS・10秒間維持"
+        },
+        "critDmg": {
+          "val": 88.17,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S1・ペレット30回命中時：照準線最近の敵2機にダメージ",
+          "val": "最終攻撃力×202.84%",
+          "unit": "",
+          "cond": "ペレットが30回命中した時、照準線に最も近い敵2機に最終攻撃力202.84%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・敵全体ダメージ",
+          "val": "最終攻撃力×1066.66%",
+          "unit": "",
+          "cond": "敵全体に最終攻撃力1066.66%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "命中率増加",
+          "val": "",
+          "unit": "",
+          "cond": "基礎仕様・通常攻撃命中時・攻撃間隔毎",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：ペレットが30回命中した時、照準線に最も近い敵2機に最終攻撃力202.84%のダメージ。S2（パッシブ）：通常攻撃1回でペレットが5個以上命中した時、自分にリロード速度20.88%UP（2秒間維持）。フルバーストタイムの持続時間中、ペレットが30回命中した時、自分に弾丸チャージ1発＋攻撃力11.22%UP（最大5スタック・2秒間維持）。BS（CT40秒）：自分に攻撃ダメージ10.56%UP＋クリティカルダメージ88.17%UP（各10秒間維持）。敵全体に最終攻撃力1066.66%ダメージ。"
+  },
+  {
+    "id": "snowwhite_id",
+    "name": "スノーホワイト：イノセントデイズ",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "iron",
+    "company": "pilgrim",
+    "squad": "ゴッデス",
+    "buffs": {
+      "party": {},
+      "self": {
+        "maxMagazine": {
+          "val": 25.66,
+          "condLabel": "S1・通常攻撃30回命中時・5秒間維持",
+          "stack": {
+            "max": 5,
+            "default": 1
+          }
+        },
+        "dmg": {
+          "val": 21.12,
+          "condLabel": "S2・BS使用時・10秒"
+        },
+        "atk": {
+          "val": 97.2,
+          "condLabel": "BS・10秒"
+        },
+        "magazineInfinite": {
+          "val": 10,
+          "condLabel": "BS",
+          "unit": "秒"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S1・通常攻撃30回命中時：追加ダメージ",
+          "val": "最終攻撃力×188.68%",
+          "unit": "",
+          "cond": "通常攻撃が30回命中した時、攻撃範囲内の敵に最終攻撃力の188.68%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "S2・通常攻撃50回命中時：敵全体ダメージ",
+          "val": "最終攻撃力×61.69%",
+          "unit": "",
+          "cond": "通常攻撃が50回命中した時、敵全体に最終攻撃力の61.69%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・スキル2命中回数条件緩和",
+          "val": "20回ダウン",
+          "unit": "",
+          "cond": "BS発動時、スキル2の命中回数条件を20回軽減（10秒間維持）",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1は通常攻撃30回命中時、自分にmaxMagazine+25.66%（5秒・最大5スタック）、攻撃範囲内の敵に最終攻撃力188.68%の直接ダメージ。S2は通常攻撃50回命中時、敵全体に最終攻撃力61.69%の直接ダメージ、BS使用時に自分にdmg+21.12%（10秒）。BSは自分にatk+97.2%・magazineInfinite・S2命中回数条件20回緩和を10秒間付与。"
+  },
+  {
+    "id": "a2",
+    "name": "A2",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "rl",
+    "element": "fire",
+    "company": "abnormal",
+    "squad": "ヨルハ",
+    "buffs": {
+      "party": {},
+      "self": {
+        "chargeDmg": {
+          "val": 110.44,
+          "condLabel": "S1・BS使用時・15秒"
+        },
+        "explodeRange": {
+          "val": 100.74,
+          "condLabel": "S1・BS使用時・15秒"
+        },
+        "partDmg": {
+          "val": 40.88,
+          "condLabel": "S2・フルチャージ攻撃命中時・3秒"
+        },
+        "hpDown": {
+          "val": 3.99,
+          "condLabel": "BS・Bモード中のみ適用・現在HP3.99%ダウン（1秒間隔）・HP40%以下でBモード解除",
+          "showCond": true
+        },
+        "atk": {
+          "val": 15.19,
+          "condLabel": "BS・Bモード中のみ適用"
+        },
+        "chargeSpd": {
+          "val": 35.88,
+          "condLabel": "BS・Bモード中のみ適用"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S2・フルチャージ攻撃命中時：追加ダメージ",
+          "val": "最終攻撃力×30.1%",
+          "unit": "",
+          "cond": "フルチャージ攻撃が命中した時、対象に最終攻撃力の30.1%の追加ダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1はBS使用時にchargeDmg+110.44%・explodeDmg+100.74%（15秒）。S2はフルチャージ攻撃命中時にpartDmg+40.88%（3秒）と追加ダメージ（最終攻撃力30.1%）。BSはBモード発動：atk+15.19%・chargeSpd+35.88%・現在HP3.99%ダウン（1秒間隔）。HP40%以下でBモード解除。"
+  },
+  {
+    "id": "noir",
+    "name": "ノワール",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "sg",
+    "element": "wind",
+    "company": "tetra",
+    "squad": "777",
+    "caution": [
+      {
+        "condition": "no777Squad",
+        "message": "ノワール以外の777部隊のニケを編成してください"
+      }
+    ],
+    "buffs": {
+      "party": {
+        "atk": {
+          "val": 14.08,
+          "condLabel": "S1・自身HP70%以上・持続",
+          "caster": true
+        },
+        "maxMagazine": {
+          "val": 5,
+          "unit": "発",
+          "condLabel": "S2・フルバーストタイム発動時・10秒間維持"
+        },
+        "bulletCharge": {
+          "val": 39.88,
+          "condLabel": "S2・フルバーストタイム発動時"
+        }
+      },
+      "self": {},
+      "targeted": {
+        "hitRate": {
+          "val": 13.93,
+          "target": "weapon:sg",
+          "condLabel": "BS・SG限定・10秒間維持",
+          "suppressTargetLabel": true
+        },
+        "blockDmg": {
+          "val": 23.23,
+          "target": "weapon:sg",
+          "condLabel": "BS・SG限定・10秒間維持",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [
+        {
+          "key": "hitRate",
+          "val": 11.61,
+          "condition": "has777Squad",
+          "condLabel": "BS・777部隊の味方がいる場合・30秒間維持"
+        },
+        {
+          "key": "blockDmg",
+          "val": 19.36,
+          "condition": "has777Squad",
+          "condLabel": "BS・777部隊の味方がいる場合・30秒間維持"
+        }
+      ],
+      "other": [
+        {
+          "label": "ダメージ（敵全体）",
+          "val": 351.64,
+          "unit": "%",
+          "cond": "BS・敵全体・最終攻撃力351.64%のダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：自身HP70%以上の場合、味方全体に発動者基準atk14.08%UP（持続）。S2（パッシブ）：フルバーストタイム発動時、味方全体に最大装弾数5発UP（10秒）＋弾丸チャージ39.88%。BS（CT40秒）：敵全体に最終攻撃力351.64%ダメ。SG所持の味方全体に命中率13.93%UP＋阻止部位ダメ23.23%UP（10秒）。777部隊の味方がいる場合、味方全体に命中率11.61%UP＋阻止部位ダメ19.36%UP（30秒）。"
+  },
+  {
+    "id": "harran",
+    "name": "ハラン",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "sr",
+    "element": "electric",
+    "company": "pilgrim",
+    "squad": "インヘルト",
+    "buffs": {
+      "party": {},
+      "self": {
+        "pierce": {
+          "val": 1,
+          "unit": "発",
+          "condLabel": "S2・フルチャージ攻撃時・1発間維持"
+        },
+        "critRate": {
+          "val": 2.95,
+          "condLabel": "S2・フルチャージ攻撃時・1秒間維持"
+        },
+        "atk": {
+          "val": 3.02,
+          "condLabel": "S2・敵撃破時・最大15スタック・10秒間維持",
+          "stack": {
+            "max": 15,
+            "default": 1
+          }
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S1・【ウイルス転移】持続ダメージ付与",
+          "val": 17.28,
+          "unit": "%",
+          "cond": "攻撃時25%の確率で対象に付与・1秒間隔・5秒間維持",
+          "selfOnly": true
+        },
+        {
+          "label": "S1・【ウイルス転移】伝播（敵撃破時）",
+          "val": 17.28,
+          "unit": "%",
+          "cond": "敵撃破時・対象がウイルス転移状態なら最も近い敵2機に再付与・1秒間隔・5秒間維持",
+          "selfOnly": true
+        },
+        {
+          "label": "ダメージ（敵全体）",
+          "val": 999,
+          "unit": "%",
+          "cond": "BS・敵全体・最終攻撃力999%のダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：攻撃時25%の確率で対象に【ウイルス転移】毎秒最終攻撃力17.28%の持続ダメージ（5秒）。敵撃破時、対象がウイルス転移状態なら最も近い敵2機に同効果を再付与。S2（パッシブ）：フルチャージ攻撃時、自分に貫通特化（1発）＋クリティカル確率2.95%UP（1秒）。敵撃破時、自分に攻撃力3.02%UP（最大15スタック・10秒）。BS（CT40秒）：敵全体に最終攻撃力999%ダメ。"
+  },
+  {
+    "id": "cinderella_cw",
+    "name": "シンデレラ：クリスタルウェーブ",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "mg",
+    "element": "iron",
+    "company": "pilgrim",
+    "squad": "オールドテイルズ",
+    "buffs": {
+      "party": {
+        "burstGaugeInstant": {
+          "val": 12,
+          "condLabel": "S1・味方の弾丸消費合計200発ごと"
+        }
+      },
+      "self": {
+        "dmgCW1": {
+          "val": 24,
+          "condLabel": "S1・戦闘開始時・持続"
+        },
+        "atkCW1": {
+          "val": 29,
+          "condLabel": "S2・戦闘開始時・持続"
+        },
+        "decoy": {
+          "val": 70.34,
+          "condLabel": "S2・戦闘開始時・BS使用時・持続",
+          "caster": true,
+          "hpBased": true
+        },
+        "partDmg": {
+          "val": 26.21,
+          "condLabel": "S2・狙撃モード適用時・持続（デストロイ・ピンポイント解除）",
+          "cinderellaCwSnipeOnly": true
+        },
+        "coreDmg": {
+          "val": 26,
+          "condLabel": "S2・戦闘開始時／狙撃モード解除時・持続（ピンポイント・デストロイ解除）",
+          "cinderellaCwNormalOnly": true
+        },
+        "dmgCW2": {
+          "val": 92,
+          "condLabel": "BS・10秒間維持"
+        },
+        "atkCW2": {
+          "val": 65,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "武器スペック（狙撃モード・チャージ時間）",
+          "val": "1秒",
+          "unit": "",
+          "cond": "武器スペック・狙撃モード",
+          "selfOnly": true,
+          "cinderellaCwSnipeOnly": true
+        },
+        {
+          "label": "武器スペック（狙撃モード・通常攻撃ダメージ）",
+          "val": "最終攻撃力×62.13%",
+          "unit": "",
+          "cond": "武器スペック・狙撃モード",
+          "selfOnly": true,
+          "cinderellaCwSnipeOnly": true
+        },
+        {
+          "label": "武器スペック（狙撃モード・フルチャージダメージ）",
+          "val": "250%",
+          "unit": "",
+          "cond": "武器スペック・狙撃モード",
+          "selfOnly": true,
+          "cinderellaCwSnipeOnly": true
+        },
+        {
+          "label": "武器スペック（狙撃モード・最大装弾数）",
+          "val": "15発",
+          "unit": "",
+          "cond": "武器スペック・狙撃モード・貫通特化・リロード完了時に更新",
+          "selfOnly": true,
+          "cinderellaCwSnipeOnly": true
+        },
+        {
+          "label": "ダメージ（照準線最も近い敵1機・5秒ごと）",
+          "val": 900,
+          "unit": "%",
+          "cond": "S1・5秒ごと",
+          "selfOnly": true
+        },
+        {
+          "label": "FBT・敵全体ダメージ（パーツ含む）",
+          "val": 1189.66,
+          "unit": "%",
+          "cond": "S2・直前にBS使用時のみ・狙撃モード時",
+          "selfOnly": true,
+          "cinderellaCwSnipeOnly": true
+        },
+        {
+          "label": "FBT・コア命中ダメージ（コア活性化中の敵全体）",
+          "val": 833.79,
+          "unit": "%",
+          "cond": "S2・直前にBS使用時のみ・狙撃モードでない時",
+          "selfOnly": true,
+          "cinderellaCwNormalOnly": true
+        },
+        {
+          "label": "BSダメージ（最終攻撃力最高の敵1機）",
+          "val": 6000,
+          "unit": "%",
+          "cond": "BS・最終攻撃力最高の敵1機",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "モード切替キャラ（通常モード⇔狙撃モード）。S1（パッシブ）：最大弾数リロード完了時、変更準備状態なら狙撃モードに変更（チャージ時間1秒・通常攻撃ダメ62.13%・フルチャージダメ250%・最大装弾数15発・貫通特化）。戦闘開始時、自分に攻撃ダメージ24%UP（持続）。最大弾数リロード完了時、自分に【変更準備】（リロード時間3秒固定・6秒間維持・最後の弾丸で攻撃時解除）。5秒ごとに照準線最も近い敵1機に最終攻撃力900%ダメ。味方弾丸消費合計200発ごとに味方全体にバーストゲージ12%チャージ。S2（パッシブ）：戦闘開始時・BS使用時、自分に【デコイ】発動者基準最終最大HP70.34%の分身（持続）。戦闘開始時、自分に攻撃力29%UP（持続）。狙撃モード適用時、自分に【デストロイ】パーツダメージ26.21%UP（持続・ピンポイント解除）。戦闘開始時／狙撃モード解除時、自分に【ピンポイント】コアダメージ26%UP（持続・デストロイ解除）。FBT発動時、直前にBS使用していれば：狙撃モードなら敵全体（パーツ含む）に最終攻撃力1189.66%ダメ、狙撃モードでなければコア活性化中の敵全体に最終攻撃力833.79%のコア命中ダメ。BS（CT40秒）：自分に攻撃ダメージ92%UP＋攻撃力65%UP（各10秒間維持）。最終攻撃力最高の敵1機に最終攻撃力6000%のBSダメ。"
+  },
+  {
+    "id": "marciana_ms",
+    "name": "マルチャーナ：マリンスタディ",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "iron",
+    "company": "elysion",
+    "squad": "アカデミア",
+    "buffs": {
+      "party": {
+        "enemyAtkDown": {
+          "val": 10.56,
+          "condLabel": "S1・警戒対象指定時（FBT時・敵撃破時再指定時）・10秒間維持"
+        },
+        "defDown": {
+          "val": 10.56,
+          "condLabel": "BS・電撃コードの敵全体・【高リスク対象】付与・20秒間維持"
+        }
+      },
+      "self": {
+        "atk": {
+          "val": 32.73,
+          "condLabel": "S2・戦闘開始時4スタック付与＋ラプチャー3機以下を5秒維持するたび1スタック追加・持続",
+          "stack": {
+            "max": 5,
+            "default": 4
+          }
+        },
+        "elem": {
+          "val": 20.41,
+          "condLabel": "S2・ラプチャー出現/破壊時・ラプチャー5機以下の場合・持続"
+        },
+        "elemMS": {
+          "val": 30.97,
+          "condLabel": "BS・10秒間維持"
+        },
+        "dmg": {
+          "val": 27.45,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "FBT・敵1機への追加ダメージ（警戒対象指定・最終最大HP最高）",
+          "val": 3789.25,
+          "unit": "%",
+          "cond": "S1・直前にBS使用時のみ",
+          "selfOnly": true
+        },
+        {
+          "label": "敵撃破時・ランダムな敵への追加ダメージ（警戒対象再指定）",
+          "val": 3789.25,
+          "unit": "%",
+          "cond": "S1・対象が警戒対象状態の場合のみ",
+          "selfOnly": true
+        },
+        {
+          "label": "通常攻撃20回命中時・追加ダメージ（高リスク対象）",
+          "val": 152.68,
+          "unit": "%",
+          "cond": "S1・対象が高リスク対象状態の場合のみ",
+          "selfOnly": true
+        },
+        {
+          "label": "ラプチャー6機以上・1秒ごとの敵全体追加ダメージ",
+          "val": 214.36,
+          "unit": "%",
+          "cond": "S2・ラプチャー6機以上の状態を1秒間維持するたび・自分のホイッスルスタック1個消費",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：FBT発動時、直前にBS使用していれば最終最大HP最高の敵1機に【警戒対象指定】最終攻撃力3789.25%の追加ダメ＋対象生存中は攻撃力10.56%ダウン（10秒）。敵撃破時、対象が警戒対象状態ならランダムな敵1機に同効果を再付与。通常攻撃20回命中時、対象が高リスク対象状態なら最終攻撃力152.68%の追加ダメ。S2（パッシブ）：戦闘開始時、自分に【ホイッスル】攻撃力32.73%UP×4スタック付与（最大5スタック・持続）。ラプチャーが3機以下の状態を5秒維持するたびに1スタック追加。ラプチャーが6機以上の状態を1秒維持するたびに敵全体へ最終攻撃力214.36%の追加ダメ＋自分のホイッスルスタック1個消費。ラプチャー出現/破壊時、ラプチャーが5機以下なら自分に有利コード攻撃ダメージ20.41%UP（持続）。BS（CT40秒）：自分に有利コード攻撃ダメージ30.97%UP＋攻撃ダメージ27.45%UP（各10秒）。電撃コードの敵全体に【高リスク対象】防御力10.56%ダウン（20秒）。"
+  },
+  {
+    "id": "sugar",
+    "name": "シュガー",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "sg",
+    "element": "iron",
+    "company": "tetra",
+    "squad": "カフェ・スウィーティー",
+    "buffs": {
+      "party": {},
+      "self": {
+        "critDmg": {
+          "val": 16.39,
+          "condLabel": "S1・遮蔽物が撃たれた時20%の確率・10秒間維持"
+        },
+        "reload": {
+          "val": 12.12,
+          "condLabel": "S1・遮蔽物が撃たれた時20%の確率・10秒間維持"
+        },
+        "critRate": {
+          "val": 13.02,
+          "condLabel": "S2・フルバーストタイム発動時・10秒間維持"
+        },
+        "atkSpd": {
+          "val": 66,
+          "condLabel": "BS・15秒間維持"
+        },
+        "hitRate": {
+          "val": 33,
+          "condLabel": "BS・15秒間維持"
+        }
+      },
+      "targeted": {
+        "maxMagazine": {
+          "val": 83.8,
+          "target": "weapon:sg",
+          "condLabel": "S2・SG限定・10秒間維持",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：遮蔽物が撃たれた時20%の確率で自分にクリティカルダメージ16.39%UP＋リロード速度12.12%UP（各10秒）。S2（パッシブ）：フルバーストタイム発動時、自分にクリティカル確率13.02%UP（10秒）。SG所持の味方全体に最大装弾数83.8%UP（10秒）。BS（CT40秒）：自分に攻撃速度66%UP＋命中率33%UP（各15秒）。"
+  },
+  {
+    "id": "julia",
+    "name": "ジュリア",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "ar",
+    "element": "iron",
+    "company": "missilis",
+    "squad": "マスターハンド",
+    "buffs": {
+      "party": {},
+      "self": {
+        "critRate": {
+          "val": 26.04,
+          "condLabel": "S1・10秒間維持"
+        },
+        "atk": {
+          "val": 20,
+          "condLabel": "S1・10秒間維持"
+        },
+        "normalCritRate": {
+          "val": 36.16,
+          "condLabel": "S1・10秒間維持"
+        },
+        "critDmg": {
+          "val": 24.79,
+          "condLabel": "S2・通常攻撃6回クリティカル命中ごと・15秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S2・戦闘開始時",
+          "val": "S1強制使用",
+          "unit": "",
+          "cond": "戦闘開始時、自分のスキル1を強制的に使用する",
+          "selfOnly": true
+        },
+        {
+          "label": "S2・マルカート追加ダメージ（対象）",
+          "val": "最終攻撃力×88%",
+          "unit": "",
+          "cond": "通常攻撃が8回クリティカル命中した時、対象に【マルカート】最終攻撃力88%の追加ダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "S2・マルカートクリティカル時追加ダメージ（同じ敵）",
+          "val": "最終攻撃力×100%",
+          "unit": "",
+          "cond": "マルカートがクリティカル命中した時、同じ敵に最終攻撃力100%の追加ダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・ランダム敵への連続ダメージ",
+          "val": "最終攻撃力×544.5%×5回",
+          "unit": "",
+          "cond": "ランダムな敵に最終攻撃力544.5%のダメージを5回順番に攻撃",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・フルスタック時追加ダメージ（同じ敵）",
+          "val": "最終攻撃力×544.5%",
+          "unit": "",
+          "cond": "クレッシェンドがフルスタック（5スタック）状態の場合、同じ敵に最終攻撃力544.5%の追加ダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（アクティブ・CT20秒）：宝もの装着時、自分にクリティカル確率26.04%UP＋攻撃力20%UP＋通常攻撃のクリティカル確率36.16%UP（各10秒）。S2（パッシブ）：宝もの装着時、通常攻撃が6回クリティカル命中するごとに自分にクリティカルダメージ24.79%UP（15秒）＋「クレッシェンド」5スタック付与。通常攻撃が8回クリティカル命中した時、対象に【マルカート】最終攻撃力88%の追加ダメージ。マルカートがクリティカル命中した時、同じ敵に最終攻撃力100%の追加ダメージ。戦闘開始時、自分のスキル1を強制使用。BS（CT40秒）：宝もの装着時、ランダムな敵に最終攻撃力544.5%のダメージを5回順番に攻撃。自分がクレッシェンドのフルスタック状態なら、同じ敵に最終攻撃力544.5%の追加ダメージ。※全て宝もの装着を前提とした数値。"
+  },
+  {
+    "id": "guillotine",
+    "name": "ギロチン",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "mg",
+    "element": "electric",
+    "company": "elysion",
+    "squad": "エクスターナー",
+    "buffs": {
+      "party": {},
+      "self": {
+        "critRate": {
+          "val": 9.28,
+          "condLabel": "S1・通常攻撃30回命中ごと・10秒間維持"
+        },
+        "hpDown": {
+          "val": 2.01,
+          "condLabel": "S1・通常攻撃30回命中ごと"
+        },
+        "critDmg": {
+          "val": 14.69,
+          "condLabel": "S2・通常攻撃150回命中ごと・5秒間維持"
+        },
+        "atk": {
+          "val": 0.96,
+          "condLabel": "S2・HP70%以下限定・失ったHP1%ごとに1スタック・持続",
+          "stack": {
+            "max": 69,
+            "default": 1,
+            "key": "guillotineHpLossStack"
+          }
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "BS・最終攻撃力最高の敵への大ダメージ",
+          "val": "最終攻撃力×1237.5%",
+          "unit": "",
+          "cond": "最終攻撃力が最も高い敵1機に最終攻撃力1237.5%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・HP50%以下限定追加ダメージ（同じ対象）",
+          "val": "最終攻撃力×1237.5%",
+          "unit": "",
+          "cond": "自分のHPが50%以下の場合、同じ対象に最終攻撃力1237.5%の追加ダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：通常攻撃が30回命中するごとに自分にクリティカル確率9.28%UP（10秒）＋現在HP2.01%ダウン。S2（パッシブ）：通常攻撃が150回命中するごとに自分にクリティカルダメージ14.69%UP（5秒）。自分のHPが70%以下の場合に限り、失ったHP1%ごとに自分に攻撃力0.96%UP（持続）。BS（CT40秒）：最終攻撃力が最も高い敵1機に最終攻撃力1237.5%のダメージ。自分のHPが50%以下の場合、同じ対象に最終攻撃力1237.5%の追加ダメージ。"
+  },
+  {
+    "id": "sora",
+    "name": "ソラ",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "wind",
+    "company": "elysion",
+    "squad": "オーバー・ザ・ホライズン",
+    "buffs": {
+      "party": {
+        "hpReserve": {
+          "val": 5.36,
+          "condLabel": "S2・パーツ破壊時・15秒間維持",
+          "caster": true,
+          "stack": {
+            "max": 5,
+            "default": 1
+          }
+        },
+        "atk": {
+          "val": 23.74,
+          "condLabel": "S2・パーツ破壊時・15秒間維持",
+          "caster": true
+        },
+        "heal": {
+          "val": 52.27,
+          "condLabel": "BS",
+          "caster": true,
+          "hpBased": true
+        },
+        "cleanse": {
+          "val": 1,
+          "unit": "個",
+          "condLabel": "BS"
+        }
+      },
+      "self": {
+        "healPower": {
+          "val": 35.2,
+          "condLabel": "S1・戦闘開始時・持続"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：戦闘開始時、自分に与える回復量35.2%UP（持続）。S2（パッシブ）：自分を含む味方の誰かがパーツを破壊した時、味方全体に発動者基準で最大HP5.36%まで超過するHP回復量保存（5スタック・15秒）＋発動者基準で攻撃力23.74%UP（15秒）。BS（CT40秒）：味方全体に発動者基準の最終最大HP52.27%回復＋デバフ効果解除1個。"
+  },
+  {
+    "id": "sakura_suzuhara",
+    "name": "鈴原サクラ",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "smg",
+    "element": "water",
+    "company": "abnormal",
+    "squad": "WILLE",
+    "buffs": {
+      "party": {},
+      "self": {},
+      "targeted": {
+        "healRcvUp": {
+          "val": 15.18,
+          "target": null,
+          "condLabel": "S2・通常攻撃60回攻撃ごと・残りHP割合最低の味方2機・10秒間維持"
+        },
+        "dmgReduce": {
+          "val": 14.97,
+          "target": null,
+          "condLabel": "S2・通常攻撃120回攻撃ごと・残りHP割合最低の味方2機・10秒間維持"
+        },
+        "healOverTime": {
+          "val": 10.03,
+          "target": null,
+          "condLabel": "BS・残りHP割合最低の味方2機・1秒間隔・10秒間維持",
+          "caster": true,
+          "hpBased": true
+        }
+      },
+      "condParty": [
+        {
+          "key": "enemyDmgTaken",
+          "val": 17.18,
+          "condition": "always",
+          "condLabel": "S1・通常攻撃120回命中ごと・対象敵・5秒間維持"
+        }
+      ],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常攻撃が120回命中するごとに対象（敵）に受けるダメージ17.18%UP（5秒）。S2（パッシブ）：通常攻撃で60回攻撃するごとに残りHP割合最低の味方2機に受けるHP回復量15.18%UP（10秒）。通常攻撃で120回攻撃するごとに残りHP割合最低の味方2機に受けるダメージ14.97%ダウン（10秒）。BS（CT40秒）：残りHP割合最低の味方2機に発動者基準の最終最大HP10.03%持続回復（1秒間隔・10秒間維持）。"
+  },
+  {
+    "id": "rapunzel_pg",
+    "name": "ラプンツェル：ピュアグレイス",
+    "burst": 1,
+    "role": "def",
+    "weapon": "sr",
+    "element": "iron",
+    "company": "pilgrim",
+    "squad": "ゴッデス",
+    "buffs": {
+      "party": {
+        "dmg": {
+          "val": 10.41,
+          "condLabel": "S1・フルチャージ1秒以上維持時・自分がバリア適用中限定・持続",
+          "syncGroup": "rapunzelPgBarrierSustain"
+        },
+        "dmgB": {
+          "val": 15.24,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "barrierShared": {
+          "val": 20.59,
+          "condLabel": "S1・戦闘開始時／BS使用時・持続",
+          "caster": true,
+          "hpBased": true,
+          "syncGroup": "rapunzelPgBarrierSustain"
+        },
+        "heal": {
+          "val": 2,
+          "condLabel": "S2・フルチャージ攻撃時",
+          "caster": true,
+          "hpBased": true
+        },
+        "hpDown": {
+          "val": 2,
+          "condLabel": "S2・フルチャージ1秒以上維持時・自分がバリア適用中限定・1秒間隔・持続",
+          "syncGroup": "rapunzelPgBarrierSustain"
+        },
+        "barrierHealOverTime": {
+          "val": 3.16,
+          "condLabel": "S2・フルチャージ1秒以上維持時・自分がバリア適用中限定・1秒間隔・持続",
+          "caster": true,
+          "hpBased": true,
+          "syncGroup": "rapunzelPgBarrierSustain"
+        },
+        "hpUp": {
+          "val": 10.13,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：戦闘開始時／BS使用時、自分に発動者基準の最終最大HP20.59%の共用バリア（持続）。フルチャージ状態を1秒以上維持し、自分がバリア適用状態の時に限り、味方全体に攻撃ダメージ10.41%UP（持続）。S2（パッシブ）：フルチャージして攻撃した時、自分に発動者基準の最終最大HP2%回復。フルチャージ状態を1秒以上維持し、自分がバリア適用状態の時に限り、自分に現在HP2%ダウン＋発動者基準の最終最大HPに比例してバリアHP3.16%回復（各1秒間隔・持続）。BS（CT20秒）：自分に最大HP10.13%UP（10秒）。味方全体に攻撃ダメージ15.24%UP（10秒）。"
+  },
+  {
+    "id": "rumani",
+    "name": "ルマニ",
+    "burst": 1,
+    "role": "def",
+    "weapon": "rl",
+    "element": "fire",
+    "company": "tetra",
+    "squad": "ライフトニック",
+    "buffs": {
+      "party": {
+        "partDmg": {
+          "val": 10.05,
+          "condLabel": "S2・対象パーツに5回命中時・5秒間維持"
+        },
+        "normalDmg": {
+          "val": 10.05,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "hpUp": {
+          "val": 3.04,
+          "condLabel": "S1・フルチャージ攻撃時・2秒間維持",
+          "stack": {
+            "max": 5,
+            "default": 1
+          }
+        },
+        "taunt": {
+          "val": 5,
+          "unit": "秒",
+          "condLabel": "S1・フルバースト中フルチャージ攻撃命中時・対象に挑発・5秒間維持"
+        },
+        "hpUpBs": {
+          "val": 15.13,
+          "condLabel": "BS・10秒間維持"
+        },
+        "dmgReduce": {
+          "val": 20.06,
+          "condLabel": "BS・マッスルアップフルスタック時・10秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "hpUp"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：フルチャージして攻撃した時、自分に【マッスルアップ】最大HP3.04%UP（最大5スタック・2秒間維持）。フルバーストタイムの持続中にフルチャージ攻撃が命中した対象に挑発（5秒間維持）。S2（パッシブ）：対象のパーツに5回命中した時、味方全体にパーツダメージ10.05%UP（5秒間維持）。BS（CT20秒）：自分に最大HP15.13%UP（10秒）＋味方全体に通常攻撃ダメージ10.05%倍率UP（10秒）。自分がマッスルアップのフルスタック状態なら、自分に受けるダメージ20.06%ダウン（10秒）。"
+  },
+  {
+    "id": "sakura",
+    "name": "サクラ",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "sr",
+    "element": "fire",
+    "company": "tetra",
+    "squad": "アンダーワールドクイーン",
+    "buffs": {
+      "party": {
+        "defUp": {
+          "val": 8.15,
+          "condLabel": "S1・通常攻撃3回攻撃ごと・【桜茶】10スタック・15秒間維持",
+          "stack": {
+            "max": 10,
+            "default": 1
+          }
+        },
+        "enemyProjectileDmg": {
+          "val": 7.74,
+          "condLabel": "S2・敵の発射体攻撃時・持続"
+        },
+        "burstCT": {
+          "val": 4.84,
+          "condLabel": "S2・フルバースト発動時"
+        },
+        "dmgReduce": {
+          "val": 90.72,
+          "condLabel": "BS・風圧コードの敵から受けるダメージ限定・30秒間維持・戦闘中1回発動"
+        },
+        "atk": {
+          "val": 23.76,
+          "condLabel": "BS・10秒間維持",
+          "caster": true
+        },
+        "blockDmg": {
+          "val": 23.54,
+          "condLabel": "BS・桜茶フルスタック時・30秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "defUp"
+        }
+      },
+      "self": {},
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常攻撃で3回攻撃した時、味方全体に防御力8.15%UP（【桜茶】最大10スタック・15秒間維持）。S2（パッシブ）：味方全体は敵の発射体を攻撃する時、該当の発射体に与えるダメージ7.74%UP（持続）。フルバーストタイムが発動した時、味方全体のバーストスキルクールタイム4.84秒ダウン。BS（CT40秒）：味方全体が風圧コードの敵から受けるダメージ90.72%ダウン（30秒間維持・戦闘中1回発動）＋発動者基準の攻撃力23.76%分の攻撃力UP（10秒間維持）。自分が桜茶のフルスタック状態なら、味方全体に阻止部位の攻撃ダメージ23.54%UP（30秒間維持）。"
+  },
+  {
+    "id": "shiratsuru",
+    "caution": [
+      {
+        "condition": "hasHealer",
+        "message": "HP回復を持つニケが編成されていると誓約違反立証が蓄積します"
+      }
+    ],
+    "name": "シラツル",
+    "burst": 2,
+    "role": "def",
+    "weapon": "sr",
+    "element": "water",
+    "company": "missilis",
+    "squad": "ヴェイルド・オーダー",
+    "buffs": {
+      "party": {
+        "hpUp": {
+          "val": 10,
+          "condLabel": "S1・【回復独占誓約】・誓約違反立証フルスタックで自動OFF・持続",
+          "caster": true,
+          "belowFullStackOnly": true,
+          "belowFullStackRef": "healPowerShiratsuru"
+        },
+        "heal": {
+          "val": 1.32,
+          "condLabel": "S2・フルチャージ状態で3回攻撃時・回復独占誓約状態限定",
+          "caster": true,
+          "hpBased": true,
+          "belowFullStackOnly": true,
+          "belowFullStackRef": "healPowerShiratsuru"
+        },
+        "barrier": {
+          "val": 9.5,
+          "condLabel": "S2・フルバースト発動時・10秒間維持",
+          "caster": true,
+          "hpBased": true
+        },
+        "healB": {
+          "val": 44.68,
+          "condLabel": "BS",
+          "caster": true,
+          "hpBased": true
+        }
+      },
+      "self": {
+        "healPower": {
+          "val": -10,
+          "condLabel": "S1・他者からの回復適用時・【誓約違反立証】最大3スタック・持続",
+          "cautionCondition": "hasHealer",
+          "stack": {
+            "key": "healPowerShiratsuru",
+            "max": 3,
+            "default": 1
+          }
+        },
+        "healOverTime": {
+          "val": 0.24,
+          "condLabel": "S2・誓約違反立証フルスタック時のみ・1秒間隔・持続",
+          "caster": true,
+          "hpBased": true,
+          "fullStackOnly": true,
+          "fullStackRef": "healPowerShiratsuru"
+        },
+        "pierce": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：自分が誓約解除状態ではない時のみ、味方全体に【回復独占誓約】発動者基準で最大HP10%UP（持続）。回復効果が適用された時、自分が発動した効果でなければ自分に【誓約違反立証】与えるHP回復量10%ダウン（最大3スタック・持続）。S2（パッシブ）：フルチャージ状態で3回攻撃した時、回復独占誓約状態の味方全体に発動者基準の最終最大HPの1.32%回復。フルバーストタイムが発動した時、味方全体に発動者基準の最終最大HPの9.5%のバリア（10秒間維持）。自分の誓約違反立証が最大数なら、自分に【誓約解除】誓約違反立証免疫（持続）＋発動者基準の最終最大HPの0.24%回復（1秒間隔・持続）。BS（CT40秒）：味方全体に発動者基準の最終最大HPの44.68%回復。自分に貫通特化（10秒間維持）。※誓約違反立証が3スタックに到達すると誓約解除状態となり、S1の最大HP10%UPが自動的にOFFになる仕組み（belowFullStackOnly機構で実装、fullStackOnlyの逆条件）。誓約解除状態時の免疫効果自体はスタック上限（3）で実質頭打ちのため、独立したバフカードは作らずnoteのみに記載。"
+  },
+  {
+    "id": "soda",
+    "name": "ソーダ",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "mg",
+    "element": "fire",
+    "company": "tetra",
+    "squad": "メイド・フォー・ユー",
+    "buffs": {
+      "party": {
+        "heal": {
+          "val": 3.23,
+          "condLabel": "S2",
+          "caster": true,
+          "hpBased": true
+        },
+        "healB": {
+          "val": 12.71,
+          "condLabel": "S2・メイド精神フルスタック時のみ",
+          "caster": true,
+          "hpBased": true,
+          "fullStackOnly": true,
+          "fullStackRef": "hpUpSoda"
+        },
+        "buffStackUp": {
+          "val": 1,
+          "unit": "個",
+          "condLabel": "BS・灼熱コードの味方全体"
+        }
+      },
+      "self": {
+        "hpUp": {
+          "val": 13,
+          "condLabel": "S1・通常攻撃180回攻撃時・【メイド精神】5スタック・10秒間維持",
+          "stack": {
+            "key": "hpUpSoda",
+            "max": 5,
+            "default": 1
+          }
+        },
+        "stun": {
+          "val": 1,
+          "unit": "秒",
+          "condLabel": "BS・ランダムの敵2機・1秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "バーストダメージ（ランダムの敵2機）",
+          "val": 321.28,
+          "unit": "%",
+          "cond": "バースト・最終攻撃力の321.28%・気絶1秒間維持",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：通常攻撃で180回攻撃した時、自分に最大HP13%UP（10秒間維持）＋【メイド精神】最大5スタック。S2（アクティブ・CT12秒）：味方全体に発動者基準の最終最大HPの3.23%回復。自分がメイド精神のフルスタック状態なら、味方全体に発動者基準の最終最大HPの12.71%回復（追加）。BS（CT20秒）：ランダムの敵2機に最終攻撃力321.28%のダメージ＋気絶（1秒間維持）。灼熱コードの味方全体にスタック可能バフのスタック量1個UP（buffStackUpキーで実装、ミカ：スノーバディ・ペッパーと同じパターン）。"
+  },
+  {
+    "id": "cocoa",
+    "name": "ココア",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "sr",
+    "element": "fire",
+    "company": "tetra",
+    "squad": "メイド・フォー・ユー",
+    "buffs": {
+      "party": {
+        "shelter": {
+          "val": 17.76,
+          "condLabel": "S1"
+        },
+        "cleanse": {
+          "val": 1,
+          "unit": "個",
+          "condLabel": "BS・デバフ解除1個"
+        },
+        "enemyAtkDown": {
+          "val": 13.59,
+          "condLabel": "BS・プロケチャップフルスタック時・敵全体・10秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "dmgReduceCocoa"
+        }
+      },
+      "self": {
+        "dmgReduce": {
+          "val": 4.37,
+          "condLabel": "S2・フルチャージ攻撃時・5秒間維持",
+          "stack": {
+            "key": "dmgReduceCocoa",
+            "max": 15,
+            "default": 1
+          }
+        }
+      },
+      "targeted": {
+        "cleanse": {
+          "val": 1,
+          "unit": "個",
+          "condLabel": "S1・デバフのかかった味方ランダム2機・デバフ解除1個"
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（アクティブ・CT15秒）：味方全体に遮蔽物HP回復17.76%。デバフがかけられている味方のうちランダムに2機にデバフ効果解除1個。S2（パッシブ）：フルチャージして攻撃した時、自分に受けるダメージ4.37%ダウン（5秒間維持）＋「プロケチャップ」1スタック（最大15）。BS（CT20秒）：味方全体にデバフ効果解除1個。自分がプロケチャップのフルスタック状態なら、敵全体に攻撃力13.59%ダウン（10秒間維持）。"
+  },
+  {
+    "id": "ludmilla",
+    "name": "ルドミラ",
+    "burst": 1,
+    "role": "def",
+    "weapon": "smg",
+    "element": "water",
+    "company": "tetra",
+    "squad": "アンリミテッド",
+    "buffs": {
+      "party": {
+        "defDown": {
+          "val": 8.4,
+          "condLabel": "S1・最後の弾丸命中時・対象・10秒間維持"
+        },
+        "enemyAtkDown": {
+          "val": 8.4,
+          "condLabel": "S1・最後の弾丸命中時・対象・10秒間維持"
+        },
+        "defUp": {
+          "val": 12.93,
+          "condLabel": "BS・自分のHP50%以上・10秒間維持"
+        }
+      },
+      "self": {
+        "taunt": {
+          "val": 15.09,
+          "condLabel": "S2・フルバースト発動時・敵全体を挑発",
+          "unit": "秒"
+        },
+        "dmgReduce": {
+          "val": 57.86,
+          "condLabel": "S2・フルバースト発動時・15秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "バーストダメージ（最終攻撃力最高の敵10機）",
+          "val": 163.1,
+          "unit": "%",
+          "cond": "BS・最終攻撃力の163.1%のダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：最後の弾丸が命中した時、対象に防御力8.4%ダウン＋攻撃力8.4%ダウン（各10秒間維持）。S2（パッシブ）：フルバーストタイムが発動した時、敵全体に挑発（15.09秒間維持）＋自分に受けるダメージ57.86%ダウン（15秒間維持）。BS（CT20秒）：最終攻撃力が最も高い敵10機に最終攻撃力163.1%のダメージ。自分のHPが50%以上なら味方全体に防御力12.93%UP（10秒間維持）。"
+  },
+  {
+    "id": "prim",
+    "name": "プリム",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "sr",
+    "element": "iron",
+    "company": "tetra",
+    "squad": "カフェ・スウィーティー",
+    "buffs": {
+      "party": {
+        "defDown": {
+          "val": 4,
+          "condLabel": "S1・フルチャージ攻撃命中時・対象・10秒間維持",
+          "stack": {
+            "key": "sleepyPrim",
+            "max": 5,
+            "default": 1
+          }
+        },
+        "defDownB": {
+          "val": 9.86,
+          "condLabel": "BS・最終防御力最高の敵10機・10秒間維持"
+        },
+        "hpUp": {
+          "val": 6.09,
+          "condLabel": "S2・フルチャージ攻撃時・4秒間維持"
+        },
+        "hpUpB": {
+          "val": 30.26,
+          "condLabel": "BS・4秒間維持"
+        },
+        "trueDmg": {
+          "val": 28.16,
+          "condLabel": "S2・フルチャージ攻撃時・眠いフルスタック（起きた）時・5秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "sleepyPrim"
+        },
+        "trueDmgB": {
+          "val": 49.97,
+          "condLabel": "BS・眠いフルスタック（起きた）時・10秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "sleepyPrim"
+        }
+      },
+      "self": {
+        "normalDmgIgnoreDef": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "S1・眠いフルスタック時・フルチャージ攻撃6回命中で【起きた】発動・10秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "sleepyPrim"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "バーストダメージ（最終防御力最高の敵10機）",
+          "val": 101.66,
+          "unit": "%",
+          "cond": "BS・最終攻撃力の101.66%のダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：フルチャージ攻撃が命中した時、対象に防御力4%ダウン（10秒間維持）＋「眠い」5スタック。フルチャージ攻撃が6回命中した時、対象が眠いのフルスタック状態なら自分に【起きた】（通常攻撃を防御力無視ダメージとして適用・10秒間維持）。通常攻撃4回命中時の防御力15.84%ダウン（10秒間維持）はゆりまん指示により実装対象外。S2（パッシブ）：フルチャージして攻撃した時、味方全体に最大HP6.09%UP（4秒間維持）。同条件で自分が起きた状態なら味方全体に防御力無視ダメージ28.16%UP（5秒間維持）。BS（CT20秒）：最終防御力が最も高い敵10機に最終攻撃力101.66%のダメージ＋防御力9.86%ダウン（10秒間維持）。味方全体に最大HP30.26%UP（4秒間維持）。自分が起きた状態なら味方全体に防御力無視ダメージ49.97%UP（10秒間維持）。「眠い」フルスタック時に起きた関連バフ（起きた本体・trueDmg・trueDmgB）が全て連動してONになる仕様（stackキーsleepyPrimで一括連動、シラツルの誓約違反立証と同じ設計）。"
+  },
+  {
+    "id": "emma",
+    "name": "エマ",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "mg",
+    "element": "fire",
+    "company": "elysion",
+    "squad": "アブソルート",
+    "buffs": {
+      "party": {
+        "heal": {
+          "val": 10.77,
+          "condLabel": "S1・被弾時5%確率",
+          "caster": true,
+          "hpBased": true
+        },
+        "healRcvUp": {
+          "val": 13.33,
+          "condLabel": "S2・自分のHP90%以上限定・持続"
+        },
+        "healB": {
+          "val": 39.6,
+          "condLabel": "BS",
+          "caster": true,
+          "hpBased": true
+        },
+        "lifesteal": {
+          "val": 39.6,
+          "condLabel": "BS・5秒間維持"
+        }
+      },
+      "self": {},
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：撃たれた時、5%の確率で味方全体に発動者基準の最終最大HPの10.77%回復。S2（パッシブ）：自分のHPが90%以上の時のみ、味方全体に受けるHP回復量13.33%UP（持続）。BS（CT40秒）：味方全体に発動者基準の最終最大HPの39.6%回復＋攻撃ダメージの39.6%回復（5秒間維持）。squad「アブソルート」設定によりウンファ：タクティカル・アップのS2 squadOnly critRate（8.16%）の対象に自動的に含まれる。"
+  },
+  {
+    "id": "n102",
+    "name": "N102",
+    "burst": 1,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "water",
+    "company": "missilis",
+    "squad": "リコール&リリーズ",
+    "buffs": {
+      "party": {
+        "atk": {
+          "val": 25.86,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {},
+      "targeted": {
+        "maxMagazine": {
+          "val": 3,
+          "unit": "発",
+          "target": null,
+          "condLabel": "S1・フルチャージ攻撃時・最終攻撃力最高の味方1機・10秒間維持"
+        },
+        "critDmg": {
+          "val": 10.34,
+          "target": null,
+          "condLabel": "S1・フルチャージ攻撃時・最終攻撃力最高の味方1機・10秒間維持",
+          "caster": true
+        },
+        "chargeDmg": {
+          "val": 25.84,
+          "target": null,
+          "condLabel": "S2・CT15秒・最終攻撃力最高の味方1機・5秒間維持",
+          "caster": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：フルチャージして攻撃した時、最終攻撃力が最も高い味方1機に最大装弾数3発UP＋発動者基準のクリティカルダメージ10.34%UP（各10秒間維持）。S2（アクティブ・CT15秒）：クールタイムごとに自動発動、最終攻撃力が最も高い味方1機に発動者基準のチャージダメージ25.84%UP（5秒間維持）。BS（CT20秒）：味方全体に攻撃力25.86%UP（10秒間維持）。"
+  },
+  {
+    "id": "molly",
+    "name": "モリー",
+    "burst": 2,
+    "role": "def",
+    "weapon": "ar",
+    "element": "wind",
+    "company": "missilis",
+    "squad": "インキュベーター",
+    "buffs": {
+      "party": {
+        "dotDmg": {
+          "val": 2.03,
+          "condLabel": "S2・パーツ破壊時・15秒間維持",
+          "stack": {
+            "max": 5,
+            "default": 1
+          }
+        },
+        "dotDmgB": {
+          "val": 10.16,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "barrier": {
+          "val": 40.12,
+          "condLabel": "S1・戦闘開始時 or BS使用時（必死の抵抗状態でない場合）・【必死の抵抗】・持続",
+          "caster": true,
+          "hpBased": true
+        },
+        "hpUp": {
+          "val": 5.06,
+          "condLabel": "S1・必死の抵抗終了時・持続",
+          "caster": true,
+          "hpBased": true,
+          "stack": {
+            "key": "hpUpMolly",
+            "max": 5,
+            "default": 1
+          }
+        },
+        "taunt": {
+          "val": 4,
+          "unit": "秒",
+          "condLabel": "S2・通常攻撃60回命中時・必死の抵抗状態限定・対象に挑発・4秒間維持",
+          "showCond": true
+        },
+        "barrierHealOverTime": {
+          "val": 15.04,
+          "condLabel": "BS・必死の抵抗状態限定・持続",
+          "caster": true,
+          "hpBased": true,
+          "showCond": true
+        },
+        "hpUpB": {
+          "val": 10.09,
+          "condLabel": "BS・必死の抵抗状態でない場合・10秒間維持",
+          "caster": true,
+          "hpBased": true,
+          "showCond": true
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S2・持続ダメージ（攻撃力最高の敵1機）",
+          "val": 23.23,
+          "unit": "%",
+          "cond": "S2・パーツ破壊時・攻撃力最高の敵1機に発動者基準の最終攻撃力23.23%の持続ダメージ（1秒間隔・15秒間維持）"
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：戦闘開始時、自分に【必死の抵抗】発動者基準の最終最大HPの40.12%のバリア（持続）。バーストスキル使用時、必死の抵抗状態でなければ同じバリアを再付与。必死の抵抗が終了した時、自分に発動者基準の最大HP5.06%UP（5スタック・持続）。S2（パッシブ）：通常攻撃が60回命中した時、必死の抵抗状態なら対象に挑発（4秒間維持）。自分を含む味方の誰かがパーツを破壊した時、味方全体に持続ダメージ2.03%UP（5スタック・15秒間維持）＋攻撃力最高の敵1機に発動者基準の最終攻撃力23.23%の持続ダメージ（1秒間隔・15秒間維持）。BS（CT20秒）：必死の抵抗状態なら自分に発動者基準の最終最大HPに比例してバリアHP15.04%回復（持続）、必死の抵抗状態でなければ自分に発動者基準の最大HP10.09%UP（10秒間維持）。味方全体に持続ダメージ10.16%UP（10秒間維持）。必死の抵抗状態／通常状態はゆりまん指示によりモード切替ボタン（mollyMode）で実装。index.htmlにmollyMode変数・effectiveMollyMode判定・mollyResistOnlySelf/mollyNoResistOnlySelfフィルター・toggleMollyMode関数・切替ボタンUI（レイヴンとレッドフードの間に配置）を追加。デフォルトは必死の抵抗状態。"
+  },
+  {
+    "id": "flora",
+    "caution": [
+      {
+        "condition": "noAdjacent",
+        "message": "隣にニケが編成されていません"
+      }
+    ],
+    "name": "フローラ",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "mg",
+    "element": "electric",
+    "company": "missilis",
+    "squad": "ボタニックガーデン",
+    "buffs": {
+      "party": {
+        "barrier": {
+          "val": 10.22,
+          "condLabel": "S2・両隣の味方いずれかがHP90%以下になった時・10秒間維持",
+          "caster": true,
+          "hpBased": true
+        },
+        "trueDmg": {
+          "val": 30.97,
+          "condLabel": "S2・両隣の味方いずれかのHPが最大になった時・5秒間維持"
+        },
+        "heal": {
+          "val": 10.45,
+          "condLabel": "BS",
+          "caster": true,
+          "hpBased": true
+        },
+        "trueDmgB": {
+          "val": 42.39,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "healOverTime": {
+          "val": 1,
+          "condLabel": "S1・戦闘開始時・生存時限定・1秒間隔・持続",
+          "caster": true,
+          "hpBased": true
+        },
+        "healRcvUp": {
+          "val": 4,
+          "condLabel": "S1・戦闘開始時・生存時限定・持続",
+          "stack": {
+            "max": 5,
+            "default": 1
+          }
+        }
+      },
+      "targeted": {
+        "healOverTime": {
+          "val": 1,
+          "target": "adjacent",
+          "condLabel": "S1・両隣2機限定・戦闘開始時・生存時限定・1秒間隔・持続",
+          "suppressTargetLabel": true,
+          "caster": true,
+          "hpBased": true
+        },
+        "healRcvUp": {
+          "val": 4,
+          "target": "adjacent",
+          "condLabel": "S1・両隣2機限定・戦闘開始時・生存時限定・持続",
+          "suppressTargetLabel": true,
+          "stack": {
+            "max": 5,
+            "default": 1
+          }
+        },
+        "buffStackUp": {
+          "val": 1,
+          "unit": "個",
+          "target": "element:electric",
+          "condLabel": "S1・通常攻撃100回・電撃限定",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：戦闘開始時、自分が生存状態なら、自分と両隣の味方2機に発動者基準の最終最大HP1%回復（1秒間隔・持続）＋受けるHP回復量4%UP（5スタック・持続）。両隣分はtargetedブロック（target:adjacent・suppressTargetLabel）で自分と同値を複製、ルージュのself/targeted分割と同じ構成。通常攻撃100回時、電撃コードの味方全体にスタック可能バフ効果のスタック量1個UP（targeted・target:element:electric、ミカ：スノーバディと同パターン）。S2（パッシブ）：両隣の味方のうちいずれかがHP90%以下になった時、味方全体に発動者基準の最終最大HP10.22%のバリア（10秒間維持）。両隣の味方のうちいずれかのHPが最大になった時、味方全体に防御力無視ダメージ30.97%UP（5秒間維持）。いずれも味方のHPをリアルタイム判定できないためcondLabelの説明文のみで常時表示。BS（CT40秒）：味方全体に発動者基準の最終最大HP10.45%回復＋防御力無視ダメージ42.39%UP（10秒間維持、trueDmgBとしてtrueDmgに合算）。両隣依存効果が多いためcautionにnoAdjacentを設定。"
+  },
+  {
+    "id": "clay",
+    "name": "クレイ",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "smg",
+    "element": "electric",
+    "company": "tetra",
+    "squad": "リワインド",
+    "buffs": {
+      "party": {
+        "trueDmg": {
+          "val": 6.45,
+          "condLabel": "S1・FBT中通常攻撃60回ごと・6秒間維持",
+          "stack": {
+            "key": "victoryCryClay",
+            "max": 3,
+            "default": 1,
+            "stackSync": "victoryCryClay"
+          }
+        },
+        "enemyProjectileDmg": {
+          "val": 45.05,
+          "condLabel": "S1・FBT中通常攻撃60回ごと・6秒間維持",
+          "stack": {
+            "key": "victoryCryClayEp",
+            "max": 3,
+            "default": 1,
+            "stackSync": "victoryCryClay"
+          }
+        },
+        "debuffImmune": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "S2・バースト1段階突入時・デバフ免疫1回・10秒間維持"
+        },
+        "atk": {
+          "val": 20.07,
+          "condLabel": "S2・自分がヴィクトリークライ状態の時・持続",
+          "caster": true,
+          "fullStackOnly": true,
+          "fullStackRef": "victoryCryClay"
+        },
+        "trueDmgB": {
+          "val": 12.56,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {
+        "normalDmgIgnoreDef": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：FBT中に通常攻撃で60回攻撃した時、味方全体に防御力無視ダメージ6.45%UP（6秒間維持）＋敵発射体与ダメ45.05%UP（6秒間維持）＋「ヴィクトリークライ」1スタック（最大3・FBT中60/120/180回で積み増し）。trueDmgとenemyProjectileDmgはstackSyncで同じスタック数に連動。S2（パッシブ）：バースト1段階突入時、味方全体にデバフ免疫1回（10秒間維持）。自分がヴィクトリークライ状態（スタックMAX）の時、味方全体に発動者基準の攻撃力20.07%UP（持続）＝fullStackOnly・fullStackRef:victoryCryClayでtrueDmgのスタックに連動。BS（CT40秒）：味方全体に防御力無視ダメージ12.56%UP（10秒間維持、trueDmgBとしてtrueDmgに合算）。自分に「通常攻撃を防御力無視ダメージとして適用」（10秒間維持、normalDmgIgnoreDef・プリムの起きたと同キー）。"
+  },
+  {
+    "id": "ade",
+    "name": "エード",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "ar",
+    "element": "wind",
+    "company": "tetra",
+    "squad": "メイド・フォー・ユー",
+    "buffs": {
+      "party": {
+        "debuffImmune": {
+          "val": 1,
+          "unit": "回",
+          "condLabel": "S1・戦闘開始時・持続"
+        },
+        "debuffImmuneB": {
+          "val": 1,
+          "unit": "回",
+          "condLabel": "S2・通常攻撃420回時・持続"
+        },
+        "atk": {
+          "val": 5.19,
+          "condLabel": "S1・自分HP90%以下の時・5秒間維持",
+          "caster": true
+        },
+        "hpUpOnly": {
+          "val": 15.62,
+          "condLabel": "S2・通常攻撃120回時・5秒間維持",
+          "caster": true
+        },
+        "hpUpOnlyB": {
+          "val": 25.15,
+          "condLabel": "BS・10秒間維持",
+          "caster": true
+        },
+        "atkB": {
+          "val": 10.15,
+          "condLabel": "BS・10秒間維持",
+          "caster": true
+        }
+      },
+      "self": {},
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：戦闘開始時、味方全体にデバフ免疫1回（持続）。「完璧なメイド」1スタックはデバフ免疫と同一効果のためゆりまん指示により別実装なし。自分のHPが90%以下の時、味方全体に発動者基準の攻撃力5.19%UP（5秒間維持）。S2（パッシブ）：通常攻撃420回時、味方全体にデバフ免疫1回（持続、debuffImmuneBとしてdebuffImmuneに合算）＋「完璧なメイド」1スタック（同上、別実装なし）。通常攻撃120回時、味方全体に発動者基準の最大HPのみ15.62%UP（5秒間維持）。BS（CT20秒）：味方全体に発動者基準の最大HPのみ25.15%UP（10秒間維持、hpUpOnlyBとしてhpUpOnlyに合算）＋発動者基準の攻撃力10.15%UP（10秒間維持、atkBとしてatkに合算）。index.htmlのBUFF_MERGE_INTOにdebuffImmuneB追加。"
+  },
+  {
+    "id": "leona",
+    "name": "レオナ",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "sg",
+    "element": "water",
+    "company": "tetra",
+    "squad": "ハッピーズー",
+    "buffs": {
+      "party": {
+        "critRate": {
+          "val": 2.62,
+          "condLabel": "S1・通常攻撃5回攻撃時・5秒間維持",
+          "stack": {
+            "key": "roarLeona",
+            "max": 5,
+            "default": 1
+          }
+        },
+        "hitRate": {
+          "val": 20.28,
+          "condLabel": "S2・フルバーストタイム発動時・10秒間維持"
+        },
+        "critDmg": {
+          "val": 34.64,
+          "condLabel": "BS・10秒間維持"
+        }
+      },
+      "self": {},
+      "targeted": {
+        "rangeUpMax": {
+          "val": 20,
+          "target": "weapon:sg",
+          "condLabel": "S1・通常攻撃15回攻撃時・SG限定・10秒間維持",
+          "suppressTargetLabel": true
+        },
+        "pellet": {
+          "val": 5,
+          "unit": "個",
+          "target": "weapon:sg",
+          "condLabel": "S2・フルバーストタイム発動時・SG所持の最終攻撃力上位2機・10秒間維持",
+          "suppressTargetLabel": true
+        },
+        "critRate": {
+          "val": 21.32,
+          "target": "weapon:sg",
+          "condLabel": "BS・咆哮フルスタック時・SG限定・10秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "roarLeona",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常攻撃5回攻撃した時、味方全体にクリティカル確率2.62%UP（5秒間維持）＋「咆哮」1スタック（最大5）。通常攻撃15回攻撃した時、SG所持の味方全体に適正最大射程距離20%UP（10秒間維持、新規キーrangeUpMax追加）。S2（パッシブ）：フルバーストタイム発動時、味方全体に命中率20.28%UP（10秒間維持）＋SG所持の最終攻撃力上位2機にペレット数5個UP（10秒間維持、上位2機の動的ソートはマルチャーナと同様condLabel表記で簡略化、weapon:sgのみ実ターゲット）。BS（CT20秒）：味方全体にクリティカルダメージ34.64%UP（10秒間維持）。自分が咆哮のフルスタック状態なら、SG所持の味方全体にクリティカル確率21.32%UP（10秒間維持、fullStackOnly・fullStackRef:roarLeonaでcritRateのスタックに連動）。"
+  },
+  {
+    "id": "nero",
+    "name": "ネロ",
+    "burst": 2,
+    "role": "def",
+    "weapon": "smg",
+    "element": "fire",
+    "company": "tetra",
+    "squad": "ハッピーズー",
+    "buffs": {
+      "party": {},
+      "self": {
+        "dmgReduce": {
+          "val": 8.43,
+          "condLabel": "S1・味方が回復効果を発動した時・5秒間維持",
+          "cautionCondition": "hasHealer",
+          "stack": {
+            "key": "catFavorNero",
+            "max": 5,
+            "default": 1
+          }
+        },
+        "hpUp": {
+          "val": 60.28,
+          "condLabel": "S2・戦闘開始時・持続",
+          "caster": true,
+          "hpBased": true
+        },
+        "taunt": {
+          "val": 15,
+          "unit": "秒",
+          "condLabel": "BS・【ヘイト】・15秒間維持"
+        },
+        "healRcvUp": {
+          "val": 60.08,
+          "condLabel": "BS・ネコの恩返しフルスタック時・【大きくて乱暴なネコ】・15秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "catFavorNero"
+        }
+      },
+      "targeted": {
+        "dmgReduce": {
+          "val": 14.14,
+          "target": "hasPartyHeal",
+          "condLabel": "S1・味方が回復効果を発動した時・発動した回復バフ持ち本人が対象・5秒間維持",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [
+        {
+          "key": "enemyDmgTaken",
+          "val": 8.26,
+          "condition": "always",
+          "condLabel": "S2・撃たれた時30%確率・対象敵・5秒間維持"
+        }
+      ],
+      "other": [
+        {
+          "label": "反撃ダメージ（撃った敵・大きくて乱暴なネコ状態限定）",
+          "val": 158.05,
+          "unit": "%",
+          "cond": "S2・撃たれた時30%確率・自分が【大きくて乱暴なネコ】状態の時・対象に最終攻撃力158.05%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "バーストダメージ（HPが最も高い敵1機）",
+          "val": 1104.91,
+          "unit": "%",
+          "cond": "BS・HPが最も高い敵1機に最終攻撃力1104.91%のダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：回復効果が発動した時（編成内のニケが回復を発動した時）、その発動した回復バフ持ち本人に受けるダメージ14.14%ダウン（5秒間維持、targetedブロック・target:hasPartyHeal（party回復キー保有者のみに絞り込み）で本人カードにのみ表示）＋自分に受けるダメージ8.43%ダウン（5秒間維持）＋「ネコの恩返し」1スタック（最大5、self.dmgReduceにstack.key:catFavorNeroで付与）。表示条件はcautionCondition:hasHealer（partyブロックのheal系キー保有者チェック、self回復のみ・healShareは対象外）。恩返しスタックスライダーは持続回復／フルチャージ回復等の区別はせず、party回復バフ持ちが編成にいれば常に1〜5可変（ゆりまん指示により簡略化）。S2（パッシブ）：撃たれた時30%の確率で対象（撃った敵）に受けるダメージ8.26%UP（5秒間維持、condParty・enemyDmgTaken）。撃たれた時30%の確率で、自分が【大きくて乱暴なネコ】状態なら対象に発動者基準の最終攻撃力158.05%のダメージ（otherブロック・条件文のみ、状態のリアルタイム判定はしない）。戦闘開始時、自分に発動者基準の最大HP60.28%UP（持続）。BS（CT20秒）：HPが最も高い敵1機に発動者基準の最終攻撃力1104.91%のダメージ。自分に【ヘイト】敵全体を挑発（15秒間維持）。自分がネコの恩返しのフルスタック状態なら、自分に【大きくて乱暴なネコ】受けるHP回復量60.08%UP（15秒間維持、fullStackOnly・fullStackRef:catFavorNeroで恩返しスタックに連動）。index.html側：partyブロックのaddBuff呼び出しでcautionCondition/srcCharIdが渡っていなかった不具合を修正済み。matchSingleTargetにhasPartyHealターゲットタイプを新規追加（party回復キー保有者のみに一致）。"
+  },
+  {
+    "id": "nihilister",
+    "name": "ニヒリスター",
+    "burst": 2,
+    "role": "atk",
+    "weapon": "sr",
+    "element": "fire",
+    "company": "pilgrim",
+    "squad": "ヘレティック",
+    "buffs": {
+      "party": {},
+      "self": {
+        "pierce": {
+          "val": 1,
+          "unit": "発",
+          "condLabel": "S1・フルチャージして攻撃した時・1発間維持"
+        },
+        "pierceRange": {
+          "val": 50,
+          "condLabel": "S1・フルチャージして攻撃した時・1発間維持"
+        },
+        "maxMagazine": {
+          "val": 6,
+          "unit": "発",
+          "condLabel": "BS・15秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": [
+        {
+          "label": "S1・追加ダメージ（通常攻撃2機以上同時命中時）",
+          "val": 50.33,
+          "unit": "%",
+          "cond": "通常攻撃時2機以上の敵に同時命中した場合・対象に発動者基準の最終攻撃力50.33%の追加ダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "S2・攻撃範囲内の敵へのダメージ",
+          "val": 112.64,
+          "unit": "%",
+          "cond": "CT10秒・自動発動・攻撃範囲内の敵全体に発動者基準の最終攻撃力112.64%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・攻撃範囲内の敵へのダメージ",
+          "val": 158.59,
+          "unit": "%",
+          "cond": "CT20秒・攻撃範囲内の敵全体に発動者基準の最終攻撃力158.59%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・火傷（持続ダメージ）",
+          "val": 13.19,
+          "unit": "%",
+          "cond": "攻撃範囲内の敵全体に発動者基準の最終攻撃力13.19%の火傷ダメージ（1秒間隔・10秒間維持）",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：フルチャージして攻撃した時、自分に貫通特化（1発間維持）＋貫通範囲50%UP（1発間維持）。通常攻撃時に2機以上の敵に同時命中した場合、対象に発動者基準の最終攻撃力50.33%の追加ダメージ（otherブロック・selfOnly）。S2（CT10秒・自動発動）：攻撃範囲内の敵全体に発動者基準の最終攻撃力112.64%のダメージ。BS（CT20秒）：攻撃範囲内の敵全体に発動者基準の最終攻撃力158.59%のダメージ＋火傷（毎秒13.19%・10秒間維持）。自分に最大装弾数6発UP（15秒間維持）。party/targetedバフなし（自己バフ＋ダメージスキルのみのキャラ）。"
+  },
+  {
+    "id": "makima",
+    "name": "マキマ",
+    "burst": 2,
+    "role": "def",
+    "weapon": "smg",
+    "element": "water",
+    "company": "abnormal",
+    "squad": "デビルハンター",
+    "buffs": {
+      "party": {
+        "reload": {
+          "val": 36.96,
+          "condLabel": "S1・20回撃たれた時・10秒間維持"
+        },
+        "defUp": {
+          "val": 14.78,
+          "condLabel": "S1・20回撃たれた時・10秒間維持"
+        }
+      },
+      "self": {
+        "taunt": {
+          "val": 3,
+          "unit": "秒",
+          "condLabel": "S2・通常攻撃120回攻撃時・【ヘイト】敵全体を挑発・3秒間維持"
+        },
+        "immortal": {
+          "val": 7,
+          "unit": "秒",
+          "condLabel": "S2・戦闘不能に至る攻撃を受けた時・7秒間維持・戦闘中1回発動",
+          "syncGroup": "makimaImmortal",
+          "defaultOff": true
+        },
+        "burstCT": {
+          "val": 11.58,
+          "condLabel": "S2・戦闘不能に至る攻撃を受けた時・戦闘中1回発動"
+        },
+        "pierce": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "BS・10秒間維持"
+        },
+        "lifesteal": {
+          "val": 34.02,
+          "condLabel": "BS・攻撃ダメージの34.02%回復・10秒間維持"
+        },
+        "healRcvUp": {
+          "val": 41.02,
+          "condLabel": "BS・自分が不屈状態の場合・10秒間維持",
+          "syncGroup": "makimaImmortal",
+          "defaultOff": true
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：20回撃たれた時、味方全体にリロード速度36.96%UP＋防御力14.78%UP（各10秒間維持）。S2（パッシブ）：通常攻撃で120回攻撃した時、自分に【ヘイト】敵全体を挑発（3秒間維持）。戦闘不能に至る攻撃を受けると、自分に不屈（7秒間維持・戦闘中1回発動、ナユタと同じimmortalキー）＋バーストスキルクールタイム11.58秒短縮。BS（CT20秒）：自分に貫通特化（10秒間維持）＋攻撃ダメージの34.02%回復（10秒間維持）。自分が不屈状態なら、自分に受けるHP回復量41.02%UP（10秒間維持）。不屈状態のリアルタイム判定はできないため、self.immortal（S2）とself.healRcvUp（BS）をsyncGroup:makimaImmortalで連動（マナのマターガンマ/マターシグマと同じ設計）。両者ともdefaultOff（戦闘不能条件付きトリガーのため初期OFF）。"
+  },
+  {
+    "id": "quency",
+    "name": "クエンシー",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "smg",
+    "element": "electric",
+    "company": "missilis",
+    "squad": "リアルカインドネス",
+    "buffs": {
+      "party": {},
+      "self": {
+        "hpUp": {
+          "val": 12.42,
+          "condLabel": "S1・通常攻撃60回攻撃時・最大HPが最も高い味方の最大HPを12.42%コピー・10秒間維持"
+        }
+      },
+      "targeted": {
+        "atk": {
+          "val": 16.11,
+          "target": null,
+          "condLabel": "S2・CT8秒・自動発動・最終攻撃力最高の味方2機・5秒間維持"
+        },
+        "hpUp": {
+          "val": 43.87,
+          "target": null,
+          "condLabel": "BS・最終攻撃力最高の味方2機・5秒間維持"
+        },
+        "critDmg": {
+          "val": 29.9,
+          "target": null,
+          "condLabel": "BS・最終攻撃力最高の味方2機・10秒間維持",
+          "caster": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常攻撃で60回攻撃した時、自分に最大HPが最も高いニケの最大HPを12.42%コピー（10秒間維持）。実数値計算はしないため単純にself.hpUp12.42%として実装（既存キー再利用・新規キーではない）。S2（アクティブ・CT8秒・自動発動）：最終攻撃力が最も高い味方2機に攻撃力16.11%UP（5秒間維持）。BS（CT20秒）：最終攻撃力が最も高い味方2機に最大HP43.87%UP（5秒間維持）＋発動者基準のクリティカルダメージ29.9%UP（10秒間維持）。"
+  },
+  {
+    "id": "guilty",
+    "name": "ギルティ",
+    "burst": 2,
+    "role": "atk",
+    "weapon": "sg",
+    "element": "wind",
+    "company": "missilis",
+    "squad": "リアルカインドネス",
+    "buffs": {
+      "party": {
+        "defDown": {
+          "val": 20.25,
+          "condLabel": "BS・借りていくよぉフルスタック時・同じ敵・5秒間維持",
+          "fullStackOnly": true,
+          "fullStackRef": "kariteikuGuilty"
+        }
+      },
+      "self": {
+        "atk": {
+          "val": 8.81,
+          "condLabel": "S1・通常攻撃6回攻撃時・攻撃力が最も高い味方の攻撃力を8.81%コピー・10秒間維持",
+          "stack": {
+            "key": "kariteikuGuilty",
+            "max": 5,
+            "default": 1
+          }
+        }
+      },
+      "targeted": {
+        "buffStackUp": {
+          "val": 1,
+          "unit": "個",
+          "target": "element:wind",
+          "condLabel": "S2・通常攻撃12回攻撃時・風圧コード限定",
+          "suppressTargetLabel": true
+        },
+        "atk": {
+          "val": 4.13,
+          "target": "element:wind",
+          "condLabel": "S2・通常攻撃12回攻撃時・風圧コード限定・10秒間維持",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": [
+        {
+          "label": "バーストダメージ（最終防御力最高の敵1機）",
+          "val": 284.32,
+          "unit": "%",
+          "cond": "BS・最終防御力が最も高い敵1機に最終攻撃力284.32%のダメージ",
+          "selfOnly": true
+        },
+        {
+          "label": "BS・追加ダメージ（借りていくよぉフルスタック時・同じ敵）",
+          "val": 277.71,
+          "unit": "%",
+          "cond": "自分が借りていくよぉのフルスタック状態なら、同じ敵に最終攻撃力277.71%の追加ダメージ",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：通常攻撃で6回攻撃した時、自分に攻撃力が最も高い味方の攻撃力を8.81%コピー（10秒間維持）＋「借りていくよぉ⋯」1スタック（最大5、self.atkに同居）。S2（パッシブ）：通常攻撃で12回攻撃した時、風圧コードの味方全体にスタック可能バフ1個UP＋攻撃力4.13%UP（10秒間維持）。targetedブロック・target:element:wind・suppressTargetLabelで実装（ミカ：スノーバディと同型）。BS（CT20秒）：最終防御力が最も高い敵1機に最終攻撃力284.32%のダメージ。自分が借りていくよぉのフルスタック状態なら、同じ敵に防御力20.25%ダウン（5秒間維持・party.defDownにfullStackOnly/fullStackRef:kariteikuGuiltyで実装、プリム・ココアと同型）＋最終攻撃力277.71%の追加ダメージ（other・条件文はcond欄のみ）。"
+  },
+  {
+    "id": "n_mf",
+    "name": "エヌ：ミラクルフェアリー",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "wind",
+    "company": "missilis",
+    "squad": "リコール&リリーズ",
+    "buffs": {
+      "party": {
+        "healRcvUp": {
+          "val": 23.46,
+          "condLabel": "S2・自分のHP90%以上限定・持続"
+        },
+        "enemyHealRcvDown": {
+          "val": 78.93,
+          "condLabel": "S2・最後の弾丸命中時・自分のHP90%以上限定・敵全体・10秒間維持"
+        }
+      },
+      "self": {},
+      "targeted": {
+        "lifesteal": {
+          "val": 6.07,
+          "target": "role:sup",
+          "condLabel": "S1・通常攻撃3回攻撃時・支援型限定・5秒間維持",
+          "suppressTargetLabel": true
+        },
+        "heal": {
+          "val": 38.61,
+          "target": "role:atk",
+          "condLabel": "BS・火力型限定・10秒間維持",
+          "caster": true,
+          "hpBased": true,
+          "suppressTargetLabel": true
+        },
+        "atk": {
+          "val": 77.22,
+          "target": "role:atk",
+          "condLabel": "BS・火力型限定・10秒間維持",
+          "suppressTargetLabel": true
+        },
+        "revive": {
+          "val": 99,
+          "target": "role:atk",
+          "condLabel": "BS・戦闘不能状態の火力型ランダム1機・HP99%で復活・戦闘中1回のみ発動",
+          "suppressTargetLabel": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：通常攻撃で3回攻撃した時、支援型の味方全体に攻撃ダメージの6.07%回復（5秒間維持、targeted・target:role:sup、ビスケット等と同型）。S2（パッシブ）：自分のHPが90%以上の時のみ、味方全体に受けるHP回復量23.46%UP（持続、エマと同じ「HP90%以上限定・持続」表現）。最後の弾丸が命中した時、自分のHPが90%以上なら敵全体に受けるHP回復量78.93%ダウン（10秒間維持）。既存キーに敵の被回復量ダウンが無かったため新規キーenemyHealRcvDown（敵回復量▼、ENEMY系カテゴリに追加）を作成。BS（CT60秒）：火力型の味方全体に発動者基準の最終最大HP38.61%回復（10秒間維持）＋攻撃力77.22%UP（10秒間維持）。戦闘不能状態の火力型の味方をランダムで1機、HP99%で復活（戦闘中1回のみ発動）。全てtargetedブロック・target:role:atk・suppressTargetLabelで実装。名前に「：」を含むため短縮名「エヌ：MF」をSHORT_NAMESに登録済み。"
   }
 ]
