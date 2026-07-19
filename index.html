@@ -7,7 +7,7 @@
 <title>NIKKE PT編成バフ確認ツール</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Orbitron:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Orbitron:wght@600;700&family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #06070e;
@@ -266,6 +266,25 @@
   .char-burst.b1 { color: var(--good); border-color: rgba(0,255,157,0.3); }
   .char-burst.b2 { color: var(--accent3); border-color: rgba(255,212,0,0.3); }
   .char-burst.b3 { color: var(--accent2); border-color: rgba(255,60,110,0.3); }
+  /* バースト背景透かし（ニケ選択画面カード用） */
+  .char-burst-wm {
+    position: absolute;
+    left: 26px; top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+    font-family: 'Rajdhani', 'Courier New', monospace;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 62px;
+    line-height: 1;
+    opacity: 0.28;
+  }
+  /* レッドフードのΛ用（Rajdhaniはギリシャ文字非対応のためExo 2を使用） */
+  .char-burst-wm.rh { font-family: 'Exo 2', 'Rajdhani', 'Courier New', monospace; font-weight: 800; font-style: normal; font-size: 52px; }
+  .char-burst-wm.b1 { color: #00ff9d; text-shadow: 0 0 10px #00ff9d; }
+  .char-burst-wm.b2 { color: #ffd400; text-shadow: 0 0 10px #ffd400; }
+  .char-burst-wm.b3 { color: #ff3c6e; text-shadow: 0 0 10px #ff3c6e; }
   .char-item-name { flex: 1; font-size: 13px; color: var(--text); font-weight: 600; }
   .char-item-meta { display: flex; gap: 6px; flex-wrap: wrap; font-size: 10px; margin-top: 2px; color: var(--text-dim); }
   .char-item-tag { display: none !important; }
@@ -391,6 +410,23 @@
   .char-card-burst.b1 { color: #00ff9d; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
   .char-card-burst.b2 { color: #ffd400; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
   .char-card-burst.b3 { color: #ff3c6e; text-shadow: 0 1px 4px rgba(0,0,0,0.9); }
+  /* バースト背景透かし（旧・小バッジの場所に大きく薄く表示。レイアウトには一切影響しない） */
+  .char-card-burst-wm {
+    position: absolute;
+    left: 2px; top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    pointer-events: none;
+    font-family: 'Rajdhani', 'Courier New', monospace;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 82px;
+    line-height: 1;
+    opacity: 0.28;
+  }
+  .char-card-burst-wm.b1 { color: #00ff9d; text-shadow: 0 0 10px #00ff9d; }
+  .char-card-burst-wm.b2 { color: #ffd400; text-shadow: 0 0 10px #ffd400; }
+  .char-card-burst-wm.b3 { color: #ff3c6e; text-shadow: 0 0 10px #ff3c6e; }
   .char-card-info { flex: 1; min-width: 0; }
   .char-card-name { font-size: 16px; font-weight: 700; color: var(--text); line-height: 1.2; }
   /* ONLINE上部ラベル */
@@ -2020,7 +2056,17 @@ function getCautionMessages(char, filledTeam) {
       }
       case 'hasHealer': {
         const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
-        triggered = filledTeam.some(m => m && m !== char && Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)));
+        triggered = filledTeam.some(m => m && m !== char && (
+          Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)) ||
+          (m.buffs.condParty||[]).some(e => {
+            if(!healKeys.includes(e.key)) return false;
+            // アニス：スターの「みんなの星」限定回復は、実際に他のB1がいる場合のみカウント
+            if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filledTeam.some(x => x && x.id !== m.id && x.burst === 1);
+            return true;
+          }) ||
+          Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k)) ||
+          !!(m.buffs.self && m.buffs.self.medkit) // デルタ：ニンジャシーフの忍法救急キットは自己ブロックだが実質味方全体還元
+        ));
         break;
       }
     }
@@ -2132,6 +2178,11 @@ function saveTeam() {
 const ROLE_LABELS    = { atk:'Attacker', def:'Defender', sup:'Supporter' };
 const WEAPON_LABELS  = { ar:'AR', smg:'SMG', sg:'SG', rl:'RL', sr:'SR', mg:'MG' };
 const ELEMENT_LABELS = { fire:'H.S.T.A', water:'P.S.I.N', wind:'A.N.M.I', iron:'D.M.T.R', electric:'Z.E.U.S' };
+
+// レッドフード用：シャープなΛをSVGで直接描画（フォント環境に依存しない）
+function lambdaSVG(h) {
+  return '<svg viewBox="0 0 100 100" style="height:' + h + 'px;width:auto;display:inline-block;vertical-align:middle;fill:currentColor;filter:drop-shadow(0 0 5px currentColor);" xmlns="http://www.w3.org/2000/svg"><polygon points="50,0 94,100 75,100 50,34 25,100 6,100"/></svg>';
+}
 const ELEMENT_COLORS = { fire:'#ff3c6e', water:'#38bdf8', wind:'#86efac', iron:'#ff8c42', electric:'#a855f7' };
 const COMPANY_LABELS = { elysion:'Elysion', missilis:'Missilis', tetra:'Tetra', pilgrim:'Pilgrim', abnormal:'Abnormal' };
 
@@ -2307,7 +2358,7 @@ function renderSlots() {
 
       const isRH        = char.id === 'redhood';
       const burstOvlCls = isRH ? 'rh' : ('b' + char.burst);
-      const burstOvlNum = isRH ? 'Λ' : char.burst;
+      const burstOvlNum = isRH ? lambdaSVG(18) : char.burst;
 
       slot.innerHTML = `
         ${slotBg
@@ -2462,13 +2513,30 @@ function renderBuffCards() {
     if(cond === 'hasHealer') {
       const srcCharId = row.dataset.srcCharId;
       const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
-      hide = !filled.some(m => m && m.id !== srcCharId && Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)));
+      hide = !filled.some(m => m && m.id !== srcCharId && (
+        Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)) ||
+        (m.buffs.condParty||[]).some(e => {
+          if(!healKeys.includes(e.key)) return false;
+          if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filled.some(x => x && x.id !== m.id && x.burst === 1);
+          return true;
+        }) ||
+        Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k)) ||
+        !!(m.buffs.self && m.buffs.self.medkit)
+      ));
     }
     if(cond === 'hasSelfHealer') {
-      // 自己回復（self）or 全体回復（party）どちらかを持っていれば「自分が回復を受けた」に該当（healShareは対象外）
+      // 自己回復（self）or 全体回復（party/condParty/targeted）どちらかを持っていれば「自分が回復を受けた」に該当（healShareは対象外）
       const srcCharId = row.dataset.srcCharId;
       const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
-      hide = !filled.some(m => m && m.id !== srcCharId && Object.keys({...(m.buffs.self||{}), ...(m.buffs.party||{})}).some(k => healKeys.includes(k)));
+      hide = !filled.some(m => m && m.id !== srcCharId && (
+        Object.keys({...(m.buffs.self||{}), ...(m.buffs.party||{})}).some(k => healKeys.includes(k)) ||
+        (m.buffs.condParty||[]).some(e => {
+          if(!healKeys.includes(e.key)) return false;
+          if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filled.some(x => x && x.id !== m.id && x.burst === 1);
+          return true;
+        }) ||
+        Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k))
+      ));
     }
     if(cond === 'hasEmma') hide = !hasEmmaInTeam;
     if(cond === 'hasUnfa') {
@@ -3667,10 +3735,10 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B${dispNum}</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B${dispNum}</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
@@ -3701,10 +3769,10 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B1</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B1</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
@@ -3735,10 +3803,10 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
@@ -3770,10 +3838,10 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
@@ -3803,10 +3871,10 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:0;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:0;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">
             <span style="display:block;line-height:1.4;">${label}</span>
           </div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
@@ -3839,10 +3907,10 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
@@ -3873,10 +3941,10 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B3</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
@@ -3907,20 +3975,20 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B2</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${color};text-shadow:${shadow};display:block;height:20px;line-height:20px;text-align:center;">B2</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:${color};text-shadow:${shadow};text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">${valText}</div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
   })() : (char.id === 'redhood') ? (() => {
     const mode = effectiveRedHoodMode || 'lambda';
     const modeMap = {
-      lambda: { top: 'Λ', sub: '---', color: '#888888', shadow: '0 0 8px rgba(136,136,136,0.6)', tooltip: '未選択（タップで切替）' },
-      b1:     { top: 'Λ', sub: 'B1',  color: '#00ff9d', shadow: '0 0 8px rgba(0,255,157,0.9)',   tooltip: 'ビーストケージ（タップで切替）' },
-      b2:     { top: 'Λ', sub: 'B2',  color: '#ffd400', shadow: '0 0 8px rgba(255,212,0,0.9)',   tooltip: 'ハウリングエンド（タップで切替）' },
-      b3:     { top: 'Λ', sub: 'B3',  color: '#ff3c6e', shadow: '0 0 8px rgba(255,60,110,0.9)',  tooltip: 'レッドウルフ（タップで切替）' },
+      lambda: { top: lambdaSVG(12), sub: '---', color: '#888888', shadow: '0 0 8px rgba(136,136,136,0.6)', tooltip: '未選択（タップで切替）' },
+      b1:     { top: lambdaSVG(12), sub: 'B1',  color: '#00ff9d', shadow: '0 0 8px rgba(0,255,157,0.9)',   tooltip: 'ビーストケージ（タップで切替）' },
+      b2:     { top: lambdaSVG(12), sub: 'B2',  color: '#ffd400', shadow: '0 0 8px rgba(255,212,0,0.9)',   tooltip: 'ハウリングエンド（タップで切替）' },
+      b3:     { top: lambdaSVG(12), sub: 'B3',  color: '#ff3c6e', shadow: '0 0 8px rgba(255,60,110,0.9)',  tooltip: 'レッドウルフ（タップで切替）' },
     };
     const m = modeMap[mode];
     return `
@@ -3942,10 +4010,10 @@ function buildCharCard(char, filledTeam) {
             background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);
             animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>
           <div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">
-            <span style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${m.color};text-shadow:${m.shadow};display:block;height:20px;line-height:20px;text-align:center;">${m.top}</span>
+            <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:${m.color};text-shadow:${m.shadow};display:block;height:20px;line-height:20px;text-align:center;">${m.top}</span>
             <div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>
           </div>
-          <div style="font-family:'Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;z-index:4;position:relative;color:${m.color};text-shadow:${m.shadow};text-align:center;flex:1;display:flex;align-items:center;justify-content:center;">${m.sub}</div>
+          <div style="font-family:'Chakra Petch','Courier New',monospace;font-size:13px;font-weight:900;letter-spacing:1px;z-index:4;position:relative;color:${m.color};text-shadow:${m.shadow};text-align:center;flex:1;display:flex;align-items:center;justify-content:center;">${m.sub}</div>
           <div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>
         </div>
       </div>`;
@@ -3962,10 +4030,10 @@ function buildCharCard(char, filledTeam) {
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
         '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
         '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
-          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B3</span>' +
+          '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B3</span>' +
           '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
         '</div>' +
-        '<div style="font-family:\'Courier New\',monospace;font-size:22px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:22px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
@@ -3981,10 +4049,10 @@ function buildCharCard(char, filledTeam) {
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
         '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
         '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
-          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
+          '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
           '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
         '</div>' +
-        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
@@ -4001,10 +4069,10 @@ function buildCharCard(char, filledTeam) {
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
         '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
         '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
-          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
+          '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
           '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
         '</div>' +
-        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
@@ -4020,10 +4088,10 @@ function buildCharCard(char, filledTeam) {
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
         '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
         '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
-          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
+          '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
           '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
         '</div>' +
-        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
@@ -4040,10 +4108,10 @@ function buildCharCard(char, filledTeam) {
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
         '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
         '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
-          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
+          '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B2</span>' +
           '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
         '</div>' +
-        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
@@ -4060,14 +4128,14 @@ function buildCharCard(char, filledTeam) {
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
         '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
         '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
-          '<span style="font-family:\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B3</span>' +
+          '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B3</span>' +
           '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
         '</div>' +
-        '<div style="font-family:\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
-  })() : `<span class="char-card-burst b${char.burst}" style="position:relative;">B${char.burst}</span>`;
+  })() : `<span class="char-card-burst b${char.burst}" style="visibility:hidden;">B${char.burst}</span><div class="char-card-burst-wm b${char.burst}">${char.burst}</div>`;
 
   return `
     <div class="char-card" id="${cardId}" data-char-id="${char.id}">
@@ -4425,13 +4493,13 @@ function renderCharList() {
     item.innerHTML = `
       <div class="crt-vignette"></div><div class="crt-overlay"></div><div class="crt-flicker"></div>
       ${c.cardBg ? `<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,7,14,0.7) 0%,rgba(6,7,14,0.4) 100%);pointer-events:none;"></div>` : '<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,212,255,0.08),transparent);pointer-events:none;"></div>'}
-      <span class="char-burst b${c.burst}" style="position:relative;">${c.id === 'redhood' ? 'Λ' : 'B' + c.burst}</span>
+      <span class="char-burst b${c.burst}" style="visibility:hidden;">${c.id === 'redhood' ? 'Λ' : 'B' + c.burst}</span><div class="char-burst-wm b${c.burst}${c.id === 'redhood' ? ' rh' : ''}">${c.id === 'redhood' ? lambdaSVG(25) : c.burst}</div>
       <div style="flex:1; min-width:0; position:relative; display:flex; flex-direction:column; justify-content:center; gap:4px;">
         <div class="char-item-name">${c.name}</div>
         ${squadLabel ? `<div style="font-size:10px; color:var(--accent);">${squadLabel}</div>` : ''}
         <div style="display:flex; flex-wrap:wrap; gap:4px; align-items:center;">
-          ${c.element === 'fire' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#ef4444"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#7f1d1d"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ef4444;letter-spacing:0.5px;">HSTA</span></div>` : c.element === 'water' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#38bdf8"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#0c4a6e"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#38bdf8;letter-spacing:0.5px;">PSIN</span></div>` : c.element === 'wind' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#4ade80"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#14532d"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#4ade80;letter-spacing:0.5px;">ANMI</span></div>` : c.element === 'iron' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#f97316"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#7c2d12"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#f97316;letter-spacing:0.5px;">DMTR</span></div>` : c.element === 'electric' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#a855f7"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#3b0764"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#a855f7;letter-spacing:0.5px;">ZEUS</span></div>` : ''}
-          ${c.weapon === 'mg' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="35" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">MG</span></div>` : c.weapon === 'sg' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="40" fill="#000000"/><path d="M 100,82 L 79.5,52 L 120.5,52 Z" fill="#000000"/><path d="M 118,100 L 148,79.5 L 148,120.5 Z" fill="#000000"/><path d="M 100,118 L 120.5,148 L 79.5,148 Z" fill="#000000"/><path d="M 82,100 L 52,120.5 L 52,79.5 Z" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">SG</span></div>` : c.weapon === 'sr' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="40" fill="#000000"/><path d="M 101,160 L 45,120 L 155,120 Z" fill="#000000"/><path d="M 99,40 L 155,80 L 45,80 Z" fill="#000000"/><circle cx="100" cy="100" r="35" fill="#ffffff"/><circle cx="100" cy="100" r="30" fill="#000000"/><line x1="68" y1="100" x2="132" y2="100" stroke="#ffffff" stroke-width="2"/><line x1="100" y1="68" x2="100" y2="132" stroke="#ffffff" stroke-width="2"/><line x1="122.63" y1="77.37" x2="77.37" y2="122.63" stroke="#ffffff" stroke-width="2"/><line x1="123.4" y1="121.82" x2="76.6" y2="78.18" stroke="#ffffff" stroke-width="2"/><circle cx="100" cy="100" r="22.5" fill="#000000"/><line x1="92" y1="100" x2="108" y2="100" stroke="#ffffff" stroke-width="2"/><line x1="100" y1="92" x2="100" y2="108" stroke="#ffffff" stroke-width="2"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">SR</span></div>` : c.weapon === 'ar' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="40" fill="#ffffff"/><circle cx="100" cy="100" r="35" fill="#000000"/><rect x="50.5" y="89" width="99" height="22" fill="#000000"/><path d="M 111,50.5 L 111,149.5 L 89,149.5 L 89,50.5 Z" fill="#000000"/><rect x="45" y="97.5" width="110" height="5" fill="#ffffff"/><path d="M 102.5,45 L 102.5,155 L 97.5,155 L 97.5,45 Z" fill="#ffffff"/><rect x="80" y="80" width="40" height="40" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">AR</span></div>` : c.weapon === 'smg' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="37.5" fill="#ffffff"/><circle cx="100" cy="100" r="32.5" fill="#000000"/><circle cx="100" cy="100" r="3.5" fill="#ffffff"/><rect x="89" y="130" width="22" height="10" fill="#000000"/><circle cx="100.25" cy="100" r="32.5" fill="#000000"/><path d="M 97.25,107.5 L 103.25,107.5 L 103.25,137.5 L 97.25,137.5 Z" fill="#ffffff"/><circle cx="100" cy="100" r="3" fill="#ffffff"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">SMG</span></div>` : c.weapon === 'rl' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.87,65 L 160.87,135 L 100.25,170 L 39.63,135 L 39.63,65 L 100.25,30 Z" fill="#000000"/><circle cx="100" cy="100" r="6" fill="#ffffff"/><path d="M 120.5,103.38 L 135.5,103.38 L 135.5,108.63 L 120.5,108.63 Z" fill="#ffffff"/><path d="M 120.5,90.38 L 135.5,90.38 L 135.5,95.63 L 120.5,95.63 Z" fill="#ffffff"/><path d="M 120.5,78.13 L 135.5,78.13 L 135.5,83.38 L 120.5,83.38 Z" fill="#ffffff"/><path d="M 120.5,115.38 L 135.5,115.38 L 135.5,120.63 L 120.5,120.63 Z" fill="#ffffff"/><path d="M 64.5,78.13 L 79.5,78.13 L 79.5,83.38 L 64.5,83.38 Z" fill="#ffffff"/><path d="M 64.5,90.38 L 79.5,90.38 L 79.5,95.63 L 64.5,95.63 Z" fill="#ffffff"/><path d="M 64.5,103.38 L 79.5,103.38 L 79.5,108.63 L 64.5,108.63 Z" fill="#ffffff"/><path d="M 64.25,115.38 L 79.25,115.38 L 79.25,120.63 L 64.25,120.63 Z" fill="#ffffff"/><path d="M 135.5,119.75 L 135.5,134.75 L 130,134.75 L 130,119.75 Z" fill="#ffffff"/><path d="M 130,130.5 L 144.5,130.5 L 144.5,135.75 L 130,135.75 Z" fill="#ffffff"/><path d="M 135.5,64.5 L 135.5,79.5 L 130,79.5 L 130,64.5 Z" fill="#ffffff"/><path d="M 130.25,64.5 L 144.75,64.5 L 144.75,69.75 L 130.25,69.75 Z" fill="#ffffff"/><path d="M 70,66.75 L 70,81.75 L 64.5,81.75 L 64.5,66.75 Z" fill="#ffffff"/><path d="M 55.5,64.25 L 70,64.25 L 70,69.5 L 55.5,69.5 Z" fill="#ffffff"/><path d="M 55.25,130.25 L 69.75,130.25 L 69.75,135.5 L 55.25,135.5 Z" fill="#ffffff"/><path d="M 69.75,115.5 L 69.75,130.5 L 64.25,130.5 L 64.25,115.5 Z" fill="#ffffff"/></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">RL</span></div>`  : `<span class="char-card-meta-badge" style="color:var(--accent4);border-color:rgba(168,85,247,0.3);">${wpnLabel}</span>`}
+          ${c.element === 'fire' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#ef4444"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#7f1d1d"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ef4444;letter-spacing:0.5px;">HSTA</span></div>` : c.element === 'water' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#38bdf8"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#0c4a6e"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#38bdf8;letter-spacing:0.5px;">PSIN</span></div>` : c.element === 'wind' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#4ade80"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#14532d"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#4ade80;letter-spacing:0.5px;">ANMI</span></div>` : c.element === 'iron' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#f97316"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#7c2d12"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#f97316;letter-spacing:0.5px;">DMTR</span></div>` : c.element === 'electric' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 164.95,62.5 L 164.95,137.5 L 100,175 L 35.05,137.5 L 35.05,62.5 L 100,25 Z" fill="#a855f7"/><path d="M 151.96,70 L 151.96,130 L 100,160 L 48.04,130 L 48.04,70 L 100,40 Z" fill="#3b0764"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#a855f7;letter-spacing:0.5px;">ZEUS</span></div>` : ''}
+          ${c.weapon === 'mg' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="35" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">MG</span></div>` : c.weapon === 'sg' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="40" fill="#000000"/><path d="M 100,82 L 79.5,52 L 120.5,52 Z" fill="#000000"/><path d="M 118,100 L 148,79.5 L 148,120.5 Z" fill="#000000"/><path d="M 100,118 L 120.5,148 L 79.5,148 Z" fill="#000000"/><path d="M 82,100 L 52,120.5 L 52,79.5 Z" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">SG</span></div>` : c.weapon === 'sr' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="45" fill="#ffffff"/><circle cx="100" cy="100" r="40" fill="#000000"/><path d="M 101,160 L 45,120 L 155,120 Z" fill="#000000"/><path d="M 99,40 L 155,80 L 45,80 Z" fill="#000000"/><circle cx="100" cy="100" r="35" fill="#ffffff"/><circle cx="100" cy="100" r="30" fill="#000000"/><line x1="68" y1="100" x2="132" y2="100" stroke="#ffffff" stroke-width="2"/><line x1="100" y1="68" x2="100" y2="132" stroke="#ffffff" stroke-width="2"/><line x1="122.63" y1="77.37" x2="77.37" y2="122.63" stroke="#ffffff" stroke-width="2"/><line x1="123.4" y1="121.82" x2="76.6" y2="78.18" stroke="#ffffff" stroke-width="2"/><circle cx="100" cy="100" r="22.5" fill="#000000"/><line x1="92" y1="100" x2="108" y2="100" stroke="#ffffff" stroke-width="2"/><line x1="100" y1="92" x2="100" y2="108" stroke="#ffffff" stroke-width="2"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">SR</span></div>` : c.weapon === 'ar' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="40" fill="#ffffff"/><circle cx="100" cy="100" r="35" fill="#000000"/><rect x="50.5" y="89" width="99" height="22" fill="#000000"/><path d="M 111,50.5 L 111,149.5 L 89,149.5 L 89,50.5 Z" fill="#000000"/><rect x="45" y="97.5" width="110" height="5" fill="#ffffff"/><path d="M 102.5,45 L 102.5,155 L 97.5,155 L 97.5,45 Z" fill="#ffffff"/><rect x="80" y="80" width="40" height="40" fill="#000000"/><circle cx="100" cy="100" r="5" fill="#ffffff"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">AR</span></div>` : c.weapon === 'smg' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.62,65 L 160.62,135 L 100,170 L 39.38,135 L 39.38,65 L 100,30 Z" fill="#000000"/><circle cx="100" cy="100" r="37.5" fill="#ffffff"/><circle cx="100" cy="100" r="32.5" fill="#000000"/><circle cx="100" cy="100" r="3.5" fill="#ffffff"/><rect x="89" y="130" width="22" height="10" fill="#000000"/><circle cx="100.25" cy="100" r="32.5" fill="#000000"/><path d="M 97.25,107.5 L 103.25,107.5 L 103.25,137.5 L 97.25,137.5 Z" fill="#ffffff"/><circle cx="100" cy="100" r="3" fill="#ffffff"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">SMG</span></div>` : c.weapon === 'rl' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;"><path d="M 169.28,60 L 169.28,140 L 100,180 L 30.72,140 L 30.72,60 L 100,20 Z" fill="#ffffff"/><path d="M 160.87,65 L 160.87,135 L 100.25,170 L 39.63,135 L 39.63,65 L 100.25,30 Z" fill="#000000"/><circle cx="100" cy="100" r="6" fill="#ffffff"/><path d="M 120.5,103.38 L 135.5,103.38 L 135.5,108.63 L 120.5,108.63 Z" fill="#ffffff"/><path d="M 120.5,90.38 L 135.5,90.38 L 135.5,95.63 L 120.5,95.63 Z" fill="#ffffff"/><path d="M 120.5,78.13 L 135.5,78.13 L 135.5,83.38 L 120.5,83.38 Z" fill="#ffffff"/><path d="M 120.5,115.38 L 135.5,115.38 L 135.5,120.63 L 120.5,120.63 Z" fill="#ffffff"/><path d="M 64.5,78.13 L 79.5,78.13 L 79.5,83.38 L 64.5,83.38 Z" fill="#ffffff"/><path d="M 64.5,90.38 L 79.5,90.38 L 79.5,95.63 L 64.5,95.63 Z" fill="#ffffff"/><path d="M 64.5,103.38 L 79.5,103.38 L 79.5,108.63 L 64.5,108.63 Z" fill="#ffffff"/><path d="M 64.25,115.38 L 79.25,115.38 L 79.25,120.63 L 64.25,120.63 Z" fill="#ffffff"/><path d="M 135.5,119.75 L 135.5,134.75 L 130,134.75 L 130,119.75 Z" fill="#ffffff"/><path d="M 130,130.5 L 144.5,130.5 L 144.5,135.75 L 130,135.75 Z" fill="#ffffff"/><path d="M 135.5,64.5 L 135.5,79.5 L 130,79.5 L 130,64.5 Z" fill="#ffffff"/><path d="M 130.25,64.5 L 144.75,64.5 L 144.75,69.75 L 130.25,69.75 Z" fill="#ffffff"/><path d="M 70,66.75 L 70,81.75 L 64.5,81.75 L 64.5,66.75 Z" fill="#ffffff"/><path d="M 55.5,64.25 L 70,64.25 L 70,69.5 L 55.5,69.5 Z" fill="#ffffff"/><path d="M 55.25,130.25 L 69.75,130.25 L 69.75,135.5 L 55.25,135.5 Z" fill="#ffffff"/><path d="M 69.75,115.5 L 69.75,130.5 L 64.25,130.5 L 64.25,115.5 Z" fill="#ffffff"/></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ffffff;letter-spacing:0.5px;">RL</span></div>`  : `<span class="char-card-meta-badge" style="color:var(--accent4);border-color:rgba(168,85,247,0.3);">${wpnLabel}</span>`}
           ${c.role === 'def' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;">
                   <g class="def-lock">
                     <path class="def-p1" d="M 164.95,52.75 L 163,140 L 100,194.5 L 37,140 L 35.05,52.75 L 60,40 L 100,5.5 L 140,40 Z" fill="#ff8c42"/>
@@ -4442,7 +4510,7 @@ function renderCharList() {
                     <path class="def-p4" d="M 100,26 L 115.5,40 L 100,49 L 84.5,40 Z" fill="#ff8c42"/>
                     <path class="def-p7" d="M 100,77.5 L 103.25,87 L 111.5,96.5 L 100,92.75 L 88.5,96.5 L 97.5,87 Z" fill="#101428"/>
                   </g>
-                </svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ff8c42;letter-spacing:0.5px;">DEF</span></div>` : c.role === 'sup' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;overflow:hidden;">
+                </svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ff8c42;letter-spacing:0.5px;">DEF</span></div>` : c.role === 'sup' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;overflow:hidden;">
                   <g class="sup-arrow" fill="#00ff9d">
                     <path d="M 72.08,44.55 L 64.66,37.63 L 100.17,1.37 L 135.76,37.5 L 128.97,44.15 L 100.71,15.97 Z"/>
                     <path d="M 43.55,127.92 L 36.63,135.34 L 0.37,99.83 L 36.5,64.24 L 43.15,71.03 L 14.97,99.29 Z"/>
@@ -4458,7 +4526,7 @@ function renderCharList() {
                   <g class="sup-center" fill="#00ff9d">
                     <path d="M 100,42.13 L 110.61,89.77 L 160,100 L 110.61,110.23 L 100,157.88 L 89.39,110.23 L 40,100 L 89.39,89.77 Z"/>
                   </g>
-                </svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#00ff9d;letter-spacing:0.5px;">SUP</span></div>` : c.role === 'atk' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;overflow:hidden;">
+                </svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#00ff9d;letter-spacing:0.5px;">SUP</span></div>` : c.role === 'atk' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="0 0 200 200" style="display:block;overflow:hidden;">
                   <polygon class="atk-dmnd-top" points="100,10 190,100 100,190 10,100" fill="#ff3c6e"/>
                   <polygon class="atk-dmnd-bot" points="100,10 190,100 100,190 10,100" fill="#ff3c6e" opacity="0.6"/>
                   <g class="atk-icon" fill="#ff3c6e">
@@ -4483,7 +4551,7 @@ function renderCharList() {
                     <rect x="92.5" y="70" width="15" height="22"/>
                     <rect x="92.5" y="95" width="15" height="2"/>
                   </g>
-                </svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#ff3c6e;letter-spacing:0.5px;">ATK</span></div>` : roleLabel ? `<span class="char-card-meta-badge" style="color:${roleColor};border-color:${roleColor}44;">${roleLabel}</span>` : ''}
+                </svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ff3c6e;letter-spacing:0.5px;">ATK</span></div>` : roleLabel ? `<span class="char-card-meta-badge" style="color:${roleColor};border-color:${roleColor}44;">${roleLabel}</span>` : ''}
           ${c.company === 'elysion' ? `
             <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;">
               <svg width="20" height="20" viewBox="0 0 200 200">
@@ -4496,13 +4564,13 @@ function renderCharList() {
                   <rect class="ely-box" x="3.8"   y="3.8"   width="46" height="46" fill="#ff3c6e"/>
                 </g>
               </svg>
-              <span style="font-family:'Courier New',monospace;font-size:8px;color:#ff3c6e;letter-spacing:0.5px;">ELYSION</span>
+              <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#ff3c6e;letter-spacing:0.5px;">ELYSION</span>
             </div>` : c.company === 'missilis' ? `
             <div style="position:relative;display:inline-flex;flex-direction:column;align-items:center;gap:2px;">
               <svg class="mis-logo" width="20" height="20" viewBox="0 0 80 200">
                 <path d="M4,0 L40,24 L76,0 L76,200 L52,200 L52,52 L40,60 L28,52 L28,200 L4,200 Z" fill="#a855f7"/>
               </svg>
-              <span style="font-family:'Courier New',monospace;font-size:8px;color:#a855f7;letter-spacing:0.5px;">MISSILIS</span>
+              <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#a855f7;letter-spacing:0.5px;">MISSILIS</span>
             </div>` : c.company === 'tetra' ? `
             <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;">
               <svg width="20" height="20" viewBox="-10 -40 160 220" style="display:block;">
@@ -4527,8 +4595,8 @@ function renderCharList() {
                   <rect class="tet-shimmer" x="0" y="-10" width="80" height="220" fill="url(#tetGradPicker)"/>
                 </g>
               </svg>
-              <span style="font-family:'Courier New',monospace;font-size:8px;color:#fbbf24;letter-spacing:0.5px;">TETRA</span>
-            </div>` : c.company === 'pilgrim' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><div class="pil-glow">${makePilgrimSVG('p'+c.id, 20, 20, '#101428')}</div><span style="font-family:'Courier New',monospace;font-size:8px;color:#c8d8f0;letter-spacing:0.5px;">PILGRIM</span></div>` : c.company === 'abnormal' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="120 170 260 260" style="display:block;"><defs><mask id="abn-p${c.id}"><rect x="0" y="0" width="500" height="500" fill="white"/><g class="abn-dia"><rect x="-15" y="-15" width="30" height="30" transform="translate(250,300) rotate(45)" fill="black"/></g></mask></defs><g mask="url(#abn-p${c.id})"><g class="abn-dia"><rect x="-40" y="-40" width="80" height="80" transform="translate(250,300) rotate(45)" fill="#3b82f6"/></g><g class="abn-arms"><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(170,242) rotate(315)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(273,231) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(320,320) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(310,220) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(228,372) rotate(45)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(331,357) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(190,382) rotate(225)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(180,280) rotate(136)" fill="#3b82f6"/></g></g></svg><span style="font-family:'Courier New',monospace;font-size:8px;color:#3b82f6;letter-spacing:0.5px;">ABNORMAL</span></div>`  : compLabel ? `<span class="char-card-meta-badge" style="color:var(--good);border-color:rgba(0,255,157,0.25);">${compLabel}</span>` : ''}
+              <span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#fbbf24;letter-spacing:0.5px;">TETRA</span>
+            </div>` : c.company === 'pilgrim' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><div class="pil-glow">${makePilgrimSVG('p'+c.id, 20, 20, '#101428')}</div><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#c8d8f0;letter-spacing:0.5px;">PILGRIM</span></div>` : c.company === 'abnormal' ? `<div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;"><svg width="20" height="20" viewBox="120 170 260 260" style="display:block;"><defs><mask id="abn-p${c.id}"><rect x="0" y="0" width="500" height="500" fill="white"/><g class="abn-dia"><rect x="-15" y="-15" width="30" height="30" transform="translate(250,300) rotate(45)" fill="black"/></g></mask></defs><g mask="url(#abn-p${c.id})"><g class="abn-dia"><rect x="-40" y="-40" width="80" height="80" transform="translate(250,300) rotate(45)" fill="#3b82f6"/></g><g class="abn-arms"><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(170,242) rotate(315)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(273,231) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(320,320) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(310,220) rotate(44)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(228,372) rotate(45)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(331,357) rotate(133)" fill="#3b82f6"/><polygon points="-55,-10 75,-10 75,10 -75,10" transform="translate(190,382) rotate(225)" fill="#3b82f6"/><polygon points="-75,-10 75,-10 75,10 -75,10" transform="translate(180,280) rotate(136)" fill="#3b82f6"/></g></g></svg><span style="font-family:'Chakra Petch','Courier New',monospace;font-size:8px;color:#3b82f6;letter-spacing:0.5px;">ABNORMAL</span></div>`  : compLabel ? `<span class="char-card-meta-badge" style="color:var(--good);border-color:rgba(0,255,157,0.25);">${compLabel}</span>` : ''}
         </div>
         <div class="char-item-tag">${tag}</div>
       </div>`;
