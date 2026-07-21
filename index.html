@@ -609,7 +609,7 @@
   }
   .buff-entry-total.party-only { color: var(--accent); text-shadow: 0 0 8px rgba(0,212,255,0.4); }
   .buff-entry-total.self-only { color: var(--accent3); text-shadow: 0 0 8px rgba(255,212,0,0.4); }
-  .buff-entry-total.flag { color: var(--accent4); font-size: 15px; }
+  .buff-entry-total.flag { color: var(--accent4); font-size: 20px; }
 
   .buff-sources { padding-left: 12px; }
   .buff-source-row { display: flex; flex-direction: column; gap: 3px; font-size: 14px; color: var(--text-dim); padding: 6px 0 4px; position: relative; width: 100%; }
@@ -1579,7 +1579,9 @@
     ・発動条件はカード内の注記を参照してください。<br>
     ・各バフは表示のON/OFFが可能です。<br>
     ・特定の条件が必要なスキルは条件を満たすことで表示されます。<br>
-    ・アクティブスキル・バフ計算対象外のスキルに関してはカード下部の<em style="color:var(--accent4);">[ACTIVE SKILL]</em>をタップすることで確認が出来ます。
+    ・アクティブスキル・バフ計算対象外のスキルに関してはカード下部の<br><em style="color:var(--accent4);">[ACTIVE SKILL]</em>をタップすることで確認が出来ます。<br>
+    ・宝物が実装しているニケは宝物3段階が前提です。<br>
+    ・同タイミングのスキルは左側から処理されます。
   </div>
 
   <!-- Modal: Character Picker -->
@@ -1707,6 +1709,7 @@ const BUFF_LABELS = {
   enemyDmgTaken: '敵被ダメ▲',
   enemyAtkDown:  '敵攻撃力▼',
   enemyHealRcvDown: '敵回復量▼',
+  enemyBuffRemove: '敵バフ解除',
   dmgReduce:'被ダメ軽減',
   defDown:  '敵防御▼',
   pierce:   '貫通特化',
@@ -1741,6 +1744,8 @@ const BUFF_LABELS = {
   heal:     'HP回復',
   healB:    'HP回復',
   healOverTime: '持続回復',
+  decoyHeal: 'デコイ回復',
+  decoyHealOverTime: 'デコイ持続回復',
   healPower: '与える回復量',
   healRcvUp:   'HP回復量',
   healShare:   'HP回復均等分配',
@@ -1761,6 +1766,7 @@ const BUFF_LABELS = {
   singleTargetExclude: '単一攻撃対象除外',
   taunt:    '挑発',
   stun:     '気絶',
+  immobilize: '移動不可',
   selfStun: '気絶',
   decoy:    'デコイ',
   camouflage: 'カモフラージュ',
@@ -1768,6 +1774,7 @@ const BUFF_LABELS = {
   immortal: '不屈',
   cleanse:  'デバフ解除',
   debuffImmune: 'デバフ免疫',
+  stunImmune: '気絶免疫',
   defUp:    '防御力',
   hpUp:     '最大HP',
   hpUpOnly: '最大HPのみ',
@@ -1835,9 +1842,9 @@ Object.entries(BUFF_DEBUFF_PAIRS).forEach(([up, down]) => { DEBUFF_BUFF_PAIRS[do
 // バフカテゴリ分類
 const BUFF_CATEGORIES = {
   'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','critDmg','chargeDmg','seqDmg','dotDmg','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
-  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
-  'SURVIVAL': ['heal','healHelm','healPower','lifesteal','healRcvUp','healOverTime','barrierHealOverTime','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','barrier','barrierShared','barrierInvincible','nextBarrierHp','shelterHpUp','shelterRevive','medkit','medkitMaxUp','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','revive','hpDown'],
-  'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown','enemyHealRcvDown'],
+  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','immobilize','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
+  'SURVIVAL': ['heal','healHelm','healPower','lifesteal','healRcvUp','healOverTime','decoyHeal','decoyHealOverTime','barrierHealOverTime','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','barrier','barrierShared','barrierInvincible','nextBarrierHp','shelterHpUp','shelterRevive','medkit','medkitMaxUp','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','stunImmune','revive','hpDown'],
+  'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown','enemyHealRcvDown','enemyBuffRemove'],
 };
 
 // バフカテゴリ色（数値表示色の固定）
@@ -1847,7 +1854,7 @@ const CAT_COLORS = {
   'SURVIVAL': { color: '#00ff9d', shadow: 'rgba(0,255,157,0.4)' },
   'ENEMY':    { color: '#ff6b6b', shadow: 'rgba(255,107,107,0.4)' },
 };
-const FLAG_BUFFS = new Set(['invincible','barrierInvincible','taunt','immortal','cleanse','debuffImmune','debuffStackDown','buffStackUp','revive','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','focusFire','chargeFixed','reloadFixed','pelletFixed','magazineInfinite','chargeSpdImmuneUp','chargeSpdImmuneDown','shyImmune','stackImmuneUD','elemAdv','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','stun','selfStun','decoy','singleTargetExclude','camouflage','envCtrl','battleCtrl','silenceStack','pierce','zansMode','normalDmgIgnoreDef','piercingAtk']);
+const FLAG_BUFFS = new Set(['invincible','barrierInvincible','taunt','immortal','cleanse','debuffImmune','debuffStackDown','buffStackUp','revive','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','focusFire','chargeFixed','reloadFixed','pelletFixed','magazineInfinite','chargeSpdImmuneUp','chargeSpdImmuneDown','shyImmune','stackImmuneUD','elemAdv','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','stun','immobilize','selfStun','decoy','singleTargetExclude','camouflage','envCtrl','battleCtrl','silenceStack','pierce','zansMode','normalDmgIgnoreDef','piercingAtk']);
 
 // 条件限定バフ → 親キーへのマージマップ
 const BUFF_MERGE_INTO = {
@@ -1857,9 +1864,12 @@ const BUFF_MERGE_INTO = {
   healOverTimeB: 'healOverTime',
   healOverTimeC: 'healOverTime',
   elemB:    'elem',
+  lifestealB: 'lifesteal',
   elemC:    'elem',
   hpUpB:    'hpUp',
   hpUpC:    'hpUp',
+  nextBarrierHpB: 'nextBarrierHp',
+  nextBarrierHpC: 'nextBarrierHp',
   hpUpD:    'hpUp',
   atkB:     'atk',
   critDmgB: 'critDmg',
@@ -3397,7 +3407,7 @@ function buildCharCard(char, filledTeam) {
                 min="1" max="${stackInfo.max}" value="${initStack}"
                 data-baseVal="${src.val}" data-unit="${u}" data-rowid="${rowId}" data-entryid="${entryIdForRow}" data-buffkey="${k}" data-rawkey="${rawK}"${stackKeyAttr}${parentStackAttr}${stackInfo.stackSync ? ` data-stack-sync="${stackInfo.stackSync}"` : ''}
                 oninput="onStackSlider(this)" onclick="event.stopPropagation()">
-              <span class="stack-label">${stackInfo.label ? `<b style="color:var(--accent3);margin-right:4px;">[${stackInfo.label}]</b>` : ""}<span id="${stackValId}">${initStack}</span>/${stackInfo.max}スタック</span>
+              <span class="stack-label"><span id="${stackValId}">${initStack}</span>/${stackInfo.max}スタック</span>
             </div>`;
           })() : '';
           const initVal = (k === 'silenceStack')
