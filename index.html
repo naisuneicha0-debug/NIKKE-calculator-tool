@@ -283,10 +283,11 @@
     opacity: 0.28;
   }
   /* レッドフードのΛ用（Rajdhaniはギリシャ文字非対応のためExo 2を使用） */
-  .char-burst-wm.rh { font-family: 'Exo 2', 'Rajdhani', 'Courier New', monospace; font-weight: 800; font-style: normal; font-size: 52px; }
+  .char-burst-wm.rh { font-family: 'Exo 2', 'Rajdhani', 'Courier New', monospace; font-weight: 800; font-style: normal; font-size: 52px; left: 22px; }
   .char-burst-wm.b1 { color: #00ff9d; text-shadow: 0 0 10px #00ff9d; }
   .char-burst-wm.b2 { color: #ffd400; text-shadow: 0 0 10px #ffd400; }
   .char-burst-wm.b3 { color: #ff3c6e; text-shadow: 0 0 10px #ff3c6e; }
+  .char-burst-wm.rh.b1, .char-burst-wm.rh.b2, .char-burst-wm.rh.b3 { color: #ff3c6e; text-shadow: 0 0 10px #ff3c6e; }
   .char-item-name { flex: 1; font-size: 13px; color: var(--text); font-weight: 600; }
   .char-item-meta { display: flex; gap: 6px; flex-wrap: wrap; font-size: 10px; margin-top: 2px; color: var(--text-dim); }
   .char-item-tag { display: none !important; }
@@ -336,7 +337,7 @@
   .slotv-burst.b1 { color: var(--good); }
   .slotv-burst.b2 { color: var(--accent3); }
   .slotv-burst.b3 { color: var(--accent2); }
-  .slotv-burst.rh { color: var(--accent); }
+  .slotv-burst.rh { color: #ff3c6e; }
   .slotv-burst.rh .cbo-n { font-size: 34px; }
 
   .slotv-nameplate { position: absolute; left: 0; right: 0; bottom: 0; z-index: 5; padding: 4px 5px 6px; background: linear-gradient(0deg, rgba(6,7,14,0.94) 20%, rgba(6,7,14,0.45) 72%, transparent 100%); }
@@ -426,7 +427,7 @@
     line-height: 1;
     opacity: 0.28;
   }
-  .char-card-burst-wm.b1 { color: #00ff9d; text-shadow: 0 0 10px #00ff9d; }
+  .char-card-burst-wm.b1 { color: #00ff9d; text-shadow: 0 0 10px #00ff9d; left: 6px; }
   .char-card-burst-wm.b2 { color: #ffd400; text-shadow: 0 0 10px #ffd400; }
   .char-card-burst-wm.b3 { color: #ff3c6e; text-shadow: 0 0 10px #ff3c6e; }
   .char-card-info { flex: 1; min-width: 0; }
@@ -2198,6 +2199,10 @@ const ELEMENT_LABELS = { fire:'H.S.T.A', water:'P.S.I.N', wind:'A.N.M.I', iron:'
 function lambdaSVG(h) {
   return '<svg viewBox="0 0 100 100" style="height:' + h + 'px;width:auto;display:inline-block;vertical-align:middle;fill:currentColor;filter:drop-shadow(0 0 5px currentColor);" xmlns="http://www.w3.org/2000/svg"><polygon points="50,0 94,100 75,100 50,34 25,100 6,100"/></svg>';
 }
+// 編成スロット（縦カード）専用：均等な太さのストローク方式Λ（h38・線幅16・butt cap）
+function lambdaSVGSlot(h) {
+  return '<svg viewBox="0 0 100 100" style="height:' + h + 'px;width:auto;display:inline-block;vertical-align:bottom;filter:drop-shadow(0 0 5px currentColor);" xmlns="http://www.w3.org/2000/svg"><polyline points="15,92 50,8 85,92" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="butt" stroke-linejoin="miter"/></svg>';
+}
 const ELEMENT_COLORS = { fire:'#ff3c6e', water:'#38bdf8', wind:'#86efac', iron:'#ff8c42', electric:'#a855f7' };
 const COMPANY_LABELS = { elysion:'Elysion', missilis:'Missilis', tetra:'Tetra', pilgrim:'Pilgrim', abnormal:'Abnormal' };
 
@@ -2373,7 +2378,7 @@ function renderSlots() {
 
       const isRH        = char.id === 'redhood';
       const burstOvlCls = isRH ? 'rh' : ('b' + char.burst);
-      const burstOvlNum = isRH ? lambdaSVG(18) : char.burst;
+      const burstOvlNum = isRH ? lambdaSVGSlot(31) : char.burst;
 
       slot.innerHTML = `
         ${slotBg
@@ -2614,6 +2619,24 @@ function renderBuffCards() {
         inner._raf = requestAnimationFrame(tick);
         inner.classList.add('scrolling');
       }
+    });
+  });
+
+  // バースト内訳の透かし数字：名前部分の高さと、カード全体（枠）の中間位置に配置
+  requestAnimationFrame(() => {
+    filled.forEach(char => {
+      const cardId = 'card-' + char.id;
+      const header = document.getElementById('header-' + cardId);
+      const wrap   = document.getElementById('namewrap-' + cardId);
+      const wm     = document.getElementById('burstwm-' + cardId);
+      if(!header || !wrap || !wm) return;
+      const headerRect = header.getBoundingClientRect();
+      const wrapRect   = wrap.getBoundingClientRect();
+      const nameCenterY   = wrapRect.top + wrapRect.height / 2 - headerRect.top;
+      const headerCenterY = headerRect.height / 2;
+      const centerY = (nameCenterY + headerCenterY) / 2;
+      wm.style.top = centerY + 'px';
+      wm.style.transform = 'translateY(-50%)';
     });
   });
 
@@ -4150,7 +4173,7 @@ function buildCharCard(char, filledTeam) {
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
-  })() : `<span class="char-card-burst b${char.burst}" style="visibility:hidden;">B${char.burst}</span><div class="char-card-burst-wm b${char.burst}">${char.burst}</div>`;
+  })() : `<span class="char-card-burst b${char.burst}" style="visibility:hidden;">B${char.burst}</span><div class="char-card-burst-wm b${char.burst}" id="burstwm-${cardId}">${char.burst}</div>`;
 
   return `
     <div class="char-card" id="${cardId}" data-char-id="${char.id}">
@@ -4466,8 +4489,13 @@ function renderCharList() {
     return;
   }
 
+  const activeBursts = ['b1','b2','b3'].filter(k => filterState.burst.has(k));
+  const effBurst = c => (c.id === 'redhood' && activeBursts.length === 1)
+    ? parseInt(activeBursts[0].slice(1), 10)
+    : c.burst;
   filtered.sort((a, b) => {
-    if(a.burst !== b.burst) return a.burst - b.burst;
+    const ba = effBurst(a), bb = effBurst(b);
+    if(ba !== bb) return ba - bb;
     return a.name.localeCompare(b.name, 'ja');
   });
 
@@ -4508,7 +4536,7 @@ function renderCharList() {
     item.innerHTML = `
       <div class="crt-vignette"></div><div class="crt-overlay"></div><div class="crt-flicker"></div>
       ${c.cardBg ? `<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,7,14,0.7) 0%,rgba(6,7,14,0.4) 100%);pointer-events:none;"></div>` : '<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,212,255,0.08),transparent);pointer-events:none;"></div>'}
-      <span class="char-burst b${c.burst}" style="visibility:hidden;">${c.id === 'redhood' ? 'Λ' : 'B' + c.burst}</span><div class="char-burst-wm b${c.burst}${c.id === 'redhood' ? ' rh' : ''}">${c.id === 'redhood' ? lambdaSVG(25) : c.burst}</div>
+      <span class="char-burst b${c.burst}" style="visibility:hidden;">${c.id === 'redhood' ? 'Λ' : 'B' + c.burst}</span><div class="char-burst-wm b${c.burst}${c.id === 'redhood' ? ' rh' : ''}">${c.id === 'redhood' ? lambdaSVG(36) : c.burst}</div>
       <div style="flex:1; min-width:0; position:relative; display:flex; flex-direction:column; justify-content:center; gap:4px;">
         <div class="char-item-name">${c.name}</div>
         ${squadLabel ? `<div style="font-size:10px; color:var(--accent);">${squadLabel}</div>` : ''}
