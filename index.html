@@ -7,7 +7,7 @@
 <title>NIKKE PT編成バフ確認ツール</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Orbitron:wght@600;700&family=Chakra+Petch:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&family=Orbitron:wght@600;700&family=Chakra+Petch:wght@700&family=Teko:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #06070e;
@@ -95,6 +95,8 @@
   .panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity: 0.4; }
   .panel.y::before { background: linear-gradient(90deg, transparent, var(--accent3), transparent); }
   .ptitle { font-family: 'Courier New', monospace; font-size: 10px; letter-spacing: 2px; color: var(--accent); margin-bottom: 14px; display: flex; align-items: center; gap: 7px; }
+  .ptitle.ptitle-en { font-family: 'Chakra Petch', 'Courier New', monospace; justify-content: center; font-size: 22px; letter-spacing: 3px; margin-bottom: 8px; }
+  .ptitle.ptitle-en::before { display: none; }
   .panel.y .ptitle { color: var(--accent3); }
   .ptitle::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; box-shadow: 0 0 7px currentColor; flex-shrink: 0; }
 
@@ -845,7 +847,9 @@
     padding: 7px;
     border: none !important;
     border-radius: 0 !important;
-    font-size: 11px;
+    font-family: 'Teko', 'Courier New', monospace !important;
+    font-weight: 600 !important;
+    font-size: 14px;
     letter-spacing: 1.5px;
     color: var(--text-mid) !important;
     background: rgba(0,0,0,0.15) !important;
@@ -1068,7 +1072,9 @@
     border-radius: 0 0 0 0;
     border: none;
     border-top: none;
-    font-size: 11px;
+    font-family: 'Teko', 'Courier New', monospace;
+    font-weight: 600;
+    font-size: 14px;
     letter-spacing: 1.5px;
   }
 
@@ -1559,7 +1565,7 @@
 
   <!-- 編成パネル -->
   <div class="panel">
-    <div class="ptitle">編成（5枠）</div>
+    <div class="ptitle ptitle-en">FORMATION</div>
     <div class="team-slots" id="teamSlots"></div>
     <div class="tool-bar">
     </div>
@@ -1567,7 +1573,6 @@
 
   <!-- バフ確認パネル -->
   <div class="panel y" id="buffPanel">
-    <div class="ptitle">キャラ別バフ内訳</div>
     <div id="buffCards">
       <div class="empty-team">ニケを編成してください</div>
     </div>
@@ -3669,7 +3674,7 @@ function buildCharCard(char, filledTeam) {
   // 条件注記（折りたたみ対応）
   const noteHtml = char.note
     ? `<div class="note-footer">
-        <button class="toggle-btn note-toggle-btn" onclick="toggleNote('card-${char.id}')" style="width:100%;text-align:center;padding:7px;font-size:11px;letter-spacing:1.5px;">📌 条件・備考 ▼</button>
+        <button class="toggle-btn note-toggle-btn" onclick="toggleNote('card-${char.id}')" style="width:100%;text-align:center;padding:7px;font-size:11px;letter-spacing:1.5px;">Notes ▼</button>
         <div class="buff-note note-body" data-note="${char.id}" style="display:none;margin-top:0;border-top:none;border-radius:0 0 4px 4px;">${char.note}</div>
       </div>`
     : '';
@@ -5986,11 +5991,11 @@ function toggleNote(cardId) {
   if(isHidden) {
     body.style.display = '';
     btn.classList.add('note-on');
-    btn.textContent = '📌 条件・備考 ▲';
+    btn.textContent = 'Notes ▲';
   } else {
     body.style.display = 'none';
     btn.classList.remove('note-on');
-    btn.textContent = '📌 条件・備考 ▼';
+    btn.textContent = 'Notes ▼';
   }
 }
 
