@@ -10548,5 +10548,63 @@
       "other": []
     },
     "note": "S1（パッシブ）：最後の弾丸が命中した時、HPが最も低い味方1機に発動者基準最終最大HPの8.4%回復（ペッパーS1と同型）。S2（パッシブ）：フルバーストタイムが発動した時、味方全体に受けるHP回復量23.78%UP（15秒間維持）。BS（アクティブ・CT40秒）：味方全体に発動者基準最終最大HPの39.6%回復。自分のHPが50%以上なら味方全体に防御力19.8%UP（10秒間維持、ルドミラのdefUpと同型）。新規キー追加なし。"
+  },
+  {
+    "id": "rupee_xmas",
+    "name": "ルピー：ウィンターショッパー",
+    "burst": 1,
+    "role": "def",
+    "weapon": "ar",
+    "element": "electric",
+    "company": "tetra",
+    "squad": "タレント",
+    "buffs": {
+      "party": {
+        "defUp": {
+          "val": 19.02,
+          "condLabel": "S1・最後の弾丸命中時・5秒間維持"
+        },
+        "defUpRupeeX": {
+          "val": 1.33,
+          "condLabel": "S2・味方がBS使用時・【ショッピング】・20秒間維持",
+          "stack": {
+            "key": "shoppingRupeeX",
+            "max": 4,
+            "default": 1
+          }
+        },
+        "burstGauge": {
+          "val": 7.9,
+          "condLabel": "S2・フルバーストタイム終了時・ショッピングフルスタック時・5秒間維持",
+          "defaultOff": true,
+          "fullStackOnly": true,
+          "fullStackRef": "shoppingRupeeX"
+        },
+        "reload": {
+          "val": 63.17,
+          "condLabel": "BS・10秒間維持"
+        },
+        "burstReEntryRupeeX": {
+          "val": 1,
+          "unit": "burst",
+          "condLabel": "BS発動時"
+        }
+      },
+      "self": {
+        "taunt": {
+          "val": 5,
+          "unit": "秒",
+          "condLabel": "BS・CT20秒・【ヘイト】敵全体を挑発"
+        },
+        "lifesteal": {
+          "val": 50.47,
+          "condLabel": "BS・攻撃ダメージの50.47%回復・10秒間維持"
+        }
+      },
+      "targeted": {},
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：最後の弾丸が命中した時、味方全体に防御力19.02%UP（5秒間維持）。S2（パッシブ）：味方がバーストスキルを使用した時、【ショッピング】スタックを1つ付与（最大4）、スタック1つにつき味方全体に防御力1.33%UP（20秒間維持、defUpにBUFF_MERGE_INTOで合算）。フルバーストタイム終了時、ショッピングがフルスタックの場合、バーストゲージチャージ速度7.9%UP（5秒間維持、fullStackOnly/fullStackRef:shoppingRupeeX）。BS（アクティブ）：自分に5秒間【ヘイト】状態を付与し敵全体を挑発（CT20秒）。攻撃ダメージの50.47%を回復（10秒間維持）。味方全体のリロード速度63.17%UP（10秒間維持）。バースト再突入1回付与（専用キーburstReEntryRupeeX）。新規キー2つ：defUpRupeeX（defUpにマージ）、burstReEntryRupeeX（再突入は全キャラ専用キー化ルールに準拠）。"
   }
 ]
