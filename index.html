@@ -1717,7 +1717,7 @@ const BUFF_LABELS = {
   enemyHealRcvDown: '敵回復量▼',
   enemyBuffRemove: '敵バフ解除',
   dmgReduce:'被ダメ軽減',
-  defDown:  '敵防御▼',
+  defDown:  '敵防御力▼',
   pierce:   '貫通特化',
   pierceDmg:'貫通ダメ',
   trueDmg:  '防御無視ダメ',
@@ -1773,6 +1773,7 @@ const BUFF_LABELS = {
   taunt:    '挑発',
   stun:     '気絶',
   immobilize: '移動不可',
+  forcedMove: '強制移動',
   selfStun: '気絶',
   decoy:    'デコイ',
   camouflage: 'カモフラージュ',
@@ -1849,7 +1850,7 @@ Object.entries(BUFF_DEBUFF_PAIRS).forEach(([up, down]) => { DEBUFF_BUFF_PAIRS[do
 // バフカテゴリ分類
 const BUFF_CATEGORIES = {
   'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','critDmg','chargeDmg','seqDmg','dotDmg','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
-  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','immobilize','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
+  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','immobilize','forcedMove','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
   'SURVIVAL': ['heal','healHelm','healPower','lifesteal','healRcvUp','healOverTime','decoyHeal','decoyHealOverTime','barrierHealOverTime','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','barrier','barrierShared','barrierInvincible','nextBarrierHp','shelterHpUp','shelterRevive','medkit','medkitMaxUp','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','stunImmune','revive','hpDown'],
   'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown','enemyHealRcvDown','enemyBuffRemove'],
 };
@@ -1861,7 +1862,7 @@ const CAT_COLORS = {
   'SURVIVAL': { color: '#00ff9d', shadow: 'rgba(0,255,157,0.4)' },
   'ENEMY':    { color: '#ff6b6b', shadow: 'rgba(255,107,107,0.4)' },
 };
-const FLAG_BUFFS = new Set(['invincible','barrierInvincible','taunt','immortal','cleanse','debuffImmune','debuffStackDown','buffStackUp','revive','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','focusFire','chargeFixed','reloadFixed','pelletFixed','magazineInfinite','chargeSpdImmuneUp','chargeSpdImmuneDown','shyImmune','stackImmuneUD','elemAdv','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','stun','immobilize','selfStun','decoy','singleTargetExclude','camouflage','envCtrl','battleCtrl','silenceStack','pierce','zansMode','normalDmgIgnoreDef','piercingAtk']);
+const FLAG_BUFFS = new Set(['invincible','barrierInvincible','taunt','immortal','cleanse','debuffImmune','debuffStackDown','buffStackUp','revive','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','focusFire','chargeFixed','reloadFixed','pelletFixed','magazineInfinite','chargeSpdImmuneUp','chargeSpdImmuneDown','shyImmune','stackImmuneUD','elemAdv','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','stun','immobilize','forcedMove','selfStun','decoy','singleTargetExclude','camouflage','envCtrl','battleCtrl','silenceStack','pierce','zansMode','normalDmgIgnoreDef','piercingAtk']);
 
 // 条件限定バフ → 親キーへのマージマップ
 const BUFF_MERGE_INTO = {
@@ -1879,6 +1880,8 @@ const BUFF_MERGE_INTO = {
   nextBarrierHpC: 'nextBarrierHp',
   hpUpD:    'hpUp',
   atkB:     'atk',
+  atkLilyA: 'atk',
+  atkLilyB: 'atk',
   critDmgB: 'critDmg',
   critDmgC: 'critDmg',
   atkSW:    'atk',
@@ -1891,7 +1894,13 @@ const BUFF_MERGE_INTO = {
   rangeUpB:    'rangeUp',
   chargeB:     'chargeDmg',
   dmgC:        'dmg',
+  chargeFixedB: 'chargeFixed',
+  chargeFixedC: 'chargeFixed',
+  chargeFixedD: 'chargeFixed',
+  chargeFixedE: 'chargeFixed',
   hpUpOnlyB:   'hpUpOnly',
+  hpUpOnlyC:   'hpUpOnly',
+  hpUpOnlyD:   'hpUpOnly',
   burstCTB:    'burstCT',
   burstCTC:    'burstCT',
   atkB1:       'atk',
@@ -1931,6 +1940,8 @@ const BUFF_MERGE_INTO = {
   debuffImmuneB: 'debuffImmune',
   dotDmgDW4: 'dotDmg',
   partDmgRaven2: 'partDmg',
+  partDmgB: 'partDmg',
+  partDmgC: 'partDmg',
   dotDmgRaven1: 'dotDmg',
   dotDmgRaven2: 'dotDmg',
   atkRH:        'atk',
@@ -2060,6 +2071,10 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m.id !== char.id && m.squad === '777');
         break;
       }
+      case 'noEmiliaSquad': {
+        triggered = !filledTeam.some(m => m && m.id !== char.id && m.squad === 'エミリア陣営');
+        break;
+      }
       case 'noAsukaW': {
         triggered = !filledTeam.some(m => m && m.id === 'asuka_w');
         break;
@@ -2181,6 +2196,7 @@ let arcanaFateMode = null;
 let crustMode = null;
 let cinderellaCwMode = null;
 let mollyMode = null;
+let laplaceUhMode = null;
 function loadTeam() {
   // 開発中はローカルストレージ無効
   TEAM = [null,null,null,null,null];
@@ -2488,6 +2504,21 @@ function renderBuffCards() {
     }
   });
 
+  // stackThreshold行を初期状態でスタックのdefault値に応じてON/OFF判定（汎用版・fullStackOnlyと同様の初期化処理）
+  document.querySelectorAll('.buff-source-row[data-stack-threshold-ref]').forEach(row => {
+    const cardEl = row.closest('.char-card');
+    if(!cardEl) return;
+    const refKey = row.dataset.stackThresholdRef;
+    const slider = cardEl.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || cardEl.querySelector(`.stack-slider[data-rawkey="${refKey}"]`);
+    const threshold = parseInt(row.dataset.stackThreshold);
+    const curVal = slider ? parseInt(slider.value) : 0;
+    const isOn = curVal >= threshold;
+    row.dataset.active = isOn ? '1' : '0';
+    row.classList.toggle('row-on', isOn);
+    row.classList.toggle('row-off', !isOn);
+    recalcEntryTotal(row.dataset.entryid, row.dataset.buffkey);
+  });
+
   // parentStackスライダーを初期状態で非表示（親スライダーがMaxでない限り）
   document.querySelectorAll('.stack-slider[data-parent-stack]').forEach(slider => {
     const cardEl = slider.closest('.char-card');
@@ -2531,6 +2562,10 @@ function renderBuffCards() {
     if(cond === 'no777Squad') {
       const srcCharId = row.dataset.srcCharId;
       hide = !filled.some(m => m && m.id !== srcCharId && m.squad === '777');
+    }
+    if(cond === 'noEmiliaSquad') {
+      const srcCharId = row.dataset.srcCharId;
+      hide = !filled.some(m => m && m.id !== srcCharId && m.squad === 'エミリア陣営');
     }
     if(cond === 'hasHealer') {
       const srcCharId = row.dataset.srcCharId;
@@ -2918,6 +2953,13 @@ function buildCharCard(char, filledTeam) {
     return cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
   })();
 
+  // ===== ラプラス：アルティメットヒーロー モード判定 =====
+  const laplaceUhChar = TEAM.find(c => c && c.id === 'laplace_uh');
+  const effectiveLaplaceUhMode = (() => {
+    if(!laplaceUhChar) return null;
+    return laplaceUhMode !== null ? laplaceUhMode : 'normal';
+  })();
+
   const selfBufs     = char.buffs.self     || {};
   const targetedBufs = char.buffs.targeted || {};
 
@@ -3124,6 +3166,10 @@ function buildCharCard(char, filledTeam) {
       if(v && v.cinderellaCwSnipeOnly && effectiveCinderellaCwMode !== 'snipe') return;
       if(v && v.cinderellaCwNormalOnly && effectiveCinderellaCwMode !== 'normal') return;
     }
+    // ラプラス：アルティメットヒーロー selfバフのモード制御
+    if(char.id === 'laplace_uh') {
+      if(v && v.laplaceUhFullOnly && effectiveLaplaceUhMode !== 'full') return;
+    }
     // requireSrc: 指定IDのキャラが編成されている時のみ有効
     if(typeof v === 'object' && v !== null && v.requireSrc && !filledTeam.some(c => c.id === v.requireSrc)) return;
     if(typeof v === 'object' && v !== null && v.requireBack) {
@@ -3272,7 +3318,7 @@ function buildCharCard(char, filledTeam) {
             totalText = `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`;
           } else {
             const flagU1 = activeSrcs1[0]?.unit || '';
-            const flagDisp1 = flagU1 === '秒' ? `${activeSrcs1[0]?.val ?? ''}秒` : flagU1 === '個' ? `${activeSrcs1[0]?.val ?? ''}個` : flagU1 === '段階' ? `${activeSrcs1[0]?.val ?? ''}段階` : flagU1 === 'burst' ? `B${activeSrcs1[0]?.val ?? ''}` : '持続';
+            const flagDisp1 = flagU1 === '秒' ? `${activeSrcs1[0]?.val ?? ''}秒` : flagU1 === '発' ? `${activeSrcs1[0]?.val ?? ''}発` : flagU1 === '回' ? `${activeSrcs1[0]?.val ?? ''}回` : flagU1 === '個' ? `${activeSrcs1[0]?.val ?? ''}個` : flagU1 === '段階' ? `${activeSrcs1[0]?.val ?? ''}段階` : flagU1 === 'burst' ? `B${activeSrcs1[0]?.val ?? ''}` : '持続';
             totalText = `<span class="buff-entry-total flag" style="color:#ff3c6e;text-shadow:0 0 8px rgba(255,60,110,0.4);">${flagDisp1}</span>`;
           }
         } else if(isFlag) {
@@ -3291,7 +3337,7 @@ function buildCharCard(char, filledTeam) {
             }
           } else {
             const flagU2 = activeSrcs2[0]?.unit || '';
-            const flagDisp2 = flagU2 === '秒' ? `${activeSrcs2[0]?.val ?? ''}秒` : flagU2 === '個' ? `${activeSrcs2[0]?.val ?? ''}個` : flagU2 === '段階' ? `${activeSrcs2[0]?.val ?? ''}段階` : flagU2 === 'burst' ? `B${activeSrcs2[0]?.val ?? ''}` : '持続';
+            const flagDisp2 = flagU2 === '秒' ? `${activeSrcs2[0]?.val ?? ''}秒` : flagU2 === '発' ? `${activeSrcs2[0]?.val ?? ''}発` : flagU2 === '回' ? `${activeSrcs2[0]?.val ?? ''}回` : flagU2 === '個' ? `${activeSrcs2[0]?.val ?? ''}個` : flagU2 === '段階' ? `${activeSrcs2[0]?.val ?? ''}段階` : flagU2 === 'burst' ? `B${activeSrcs2[0]?.val ?? ''}` : '持続';
             totalText = `<span class="buff-entry-total flag" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${flagDisp2}</span>`;
           }
         } else if(isEnemy) {
@@ -3375,7 +3421,7 @@ function buildCharCard(char, filledTeam) {
             valText = silenceLabels[initSliderVal] || `${src.val}個`;
           } else if(isFlag) {
             const sU = src.unit || '';
-            valText = sU === '秒' ? `${src.val}秒` : sU === '個' ? `${src.val}個` : sU === '段階' ? `${src.val}段階` : sU === 'burst' ? `B${src.val}` : '持続';
+            valText = sU === '秒' ? `${src.val}秒` : sU === '発' ? `${src.val}発` : sU === '回' ? `${src.val}回` : sU === '個' ? `${src.val}個` : sU === '段階' ? `${src.val}段階` : sU === 'burst' ? `B${src.val}` : '持続';
           }
           else if(isEnemy)            valText = `${fmt(src.val)}${src.unit || '%'}`;
           else if(src._mergedDown)      valText = src.unit === '秒' ? `-${fmt(src.val)}秒` : `-${fmt(src.val)}${src.unit || '%'}`;
@@ -3450,7 +3496,7 @@ function buildCharCard(char, filledTeam) {
               const silenceLabels = ['3個', '2個', '1個', '騒音公害'];
               return silenceLabels[initSliderVal] || `${initVal}個`;
             }
-            if(isFlag) { const iU = u || ''; return iU === '秒' ? `${initVal}秒` : iU === '個' ? `${initVal}個` : iU === '段階' ? `${initVal}段階` : iU === 'burst' ? `B${initVal}` : '持続'; }
+            if(isFlag) { const iU = u || ''; return iU === '秒' ? `${initVal}秒` : iU === '発' ? `${initVal}発` : iU === '回' ? `${initVal}回` : iU === '個' ? `${initVal}個` : iU === '段階' ? `${initVal}段階` : iU === 'burst' ? `B${initVal}` : '持続'; }
             if(isEnemy) return `${fmt(initVal)}${u !== '%' ? u : '%'}`;
             if(src._mergedDown) return u === '秒' ? `-${fmt(initVal)}秒` : `-${fmt(initVal)}${u || '%'}`;
             if(DEBUFF_KEYS.has(k)) return u === '秒' ? `-${fmt(initVal)}秒` : `-${fmt(initVal)}%`;
@@ -3519,7 +3565,7 @@ function buildCharCard(char, filledTeam) {
           const casterTotalText = activeCharSrcs.length === 0
             ? `<span class="buff-entry-total" style="color:var(--text-dim);text-shadow:none;">—</span>`
             : isFlag
-            ? (() => { const cU = activeCharSrcs[0]?.unit || ''; const cD = cU === '秒' ? `${activeCharSrcs[0]?.val ?? ''}秒` : cU === '個' ? `${activeCharSrcs[0]?.val ?? ''}個` : cU === '段階' ? `${activeCharSrcs[0]?.val ?? ''}段階` : cU === 'burst' ? `B${activeCharSrcs[0]?.val ?? ''}` : '持続'; return `<span class="buff-entry-total flag" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${cD}</span>`; })()
+            ? (() => { const cU = activeCharSrcs[0]?.unit || ''; const cD = cU === '秒' ? `${activeCharSrcs[0]?.val ?? ''}秒` : cU === '発' ? `${activeCharSrcs[0]?.val ?? ''}発` : cU === '回' ? `${activeCharSrcs[0]?.val ?? ''}回` : cU === '個' ? `${activeCharSrcs[0]?.val ?? ''}個` : cU === '段階' ? `${activeCharSrcs[0]?.val ?? ''}段階` : cU === 'burst' ? `B${activeCharSrcs[0]?.val ?? ''}` : '持続'; return `<span class="buff-entry-total flag" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${cD}</span>`; })()
             : isEnemy
               ? `<span class="buff-entry-total" style="color:${catCol.color};text-shadow:0 0 8px ${catCol.shadow};">${fmt(casterTotal)}${casterU}</span>`
             : DEBUFF_KEYS.has(k)
@@ -3556,7 +3602,7 @@ function buildCharCard(char, filledTeam) {
             const casterInitActive = (src.defaultOff === true || casterExSetOff) ? '0' : '1';
             const casterInitRowClass = (src.defaultOff === true || casterExSetOff) ? 'row-off' : 'row-on';
             const casterInitValText = isFlag
-              ? (() => { const ciU = casterU || ''; return ciU === '秒' ? `${casterInitVal}秒` : ciU === '個' ? `${casterInitVal}個` : ciU === '段階' ? `${casterInitVal}段階` : ciU === 'burst' ? `B${casterInitVal}` : '持続'; })()
+              ? (() => { const ciU = casterU || ''; return ciU === '秒' ? `${casterInitVal}秒` : ciU === '発' ? `${casterInitVal}発` : ciU === '回' ? `${casterInitVal}回` : ciU === '個' ? `${casterInitVal}個` : ciU === '段階' ? `${casterInitVal}段階` : ciU === 'burst' ? `B${casterInitVal}` : '持続'; })()
               : isEnemy
                 ? `${fmt(casterInitVal)}${casterU}`
               : DEBUFF_KEYS.has(k)
@@ -4175,6 +4221,26 @@ function buildCharCard(char, filledTeam) {
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
+  })() : (char.id === 'laplace_uh') ? (() => {
+    const effectiveLaplaceUhMode2 = laplaceUhMode !== null ? laplaceUhMode : 'normal';
+    const isFull   = effectiveLaplaceUhMode2 === 'full';
+    const modeText = isFull ? 'FULL･FULL･CHARGE' : 'NORM';
+    const color    = isFull ? '#ff3c6e' : '#00d4ff';
+    const shadow   = isFull ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const tooltip  = isFull ? 'エレクトリックパワー・フル・フルチャージ状態（タップで切替）' : '通常状態（タップで切替）';
+    const valText  = '<span style="display:block;line-height:1.3;font-size:' + (isFull ? '7px' : '10px') + ';">' + modeText + '</span>';
+    return '<div onclick="toggleLaplaceUhMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
+      '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
+        '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
+        '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
+          '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B3</span>' +
+          '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
+        '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
+      '</div>' +
+    '</div>';
   })() : `<span class="char-card-burst b${char.burst}" style="visibility:hidden;">B${char.burst}</span><div class="char-card-burst-wm b${char.burst}" id="burstwm-${cardId}">${char.burst}</div>`;
 
   return `
@@ -4374,6 +4440,8 @@ function getShortName(name) {
     'ラプンツェル：ピュアグレイス':       'ラプンツェル：PG',
     'エヌ：ミラクルフェアリー':           'エヌ：MF',
     'ルピー：ウィンターショッパー':       'ルピー：WS',
+    'ラプラス：アルティメットヒーロー':   'ラプラス：UH',
+    'マクスウェル：オーディナリーメカニック': 'マクスウェル：OM',
   };
   return SHORT_NAMES[name] || name;
 }
@@ -5119,6 +5187,32 @@ function toggleCinderellaCwMode(e) {
   });
 }
 
+function toggleLaplaceUhMode(e) {
+  e.stopPropagation();
+  const sig = document.getElementById('signal-card-laplace_uh');
+  if(!sig || sig.dataset.switching === '1') return;
+  sig.dataset.switching = '1';
+
+  const current  = laplaceUhMode !== null ? laplaceUhMode : 'normal';
+  const nextMode = current === 'normal' ? 'full' : 'normal';
+
+  const bodyStates = {}, arrowStates = {};
+  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
+  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
+
+  const laplaceUhCharData = NIKKE_DB.find(c => c.id === 'laplace_uh');
+  const nextImgUrl = laplaceUhCharData && laplaceUhCharData.cardBg;
+
+  fireSignalBurst('card-laplace_uh', nextImgUrl, () => {
+    laplaceUhMode = nextMode;
+    renderBuffCards();
+    Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
+    Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
+    const s = document.getElementById('signal-card-laplace_uh');
+    if(s) delete s.dataset.switching;
+  });
+}
+
 // ===== SIGNAL BURST (モード切替用) =====
 function fireSignalBurst(cardId, nextImgUrl, onDone) {
   const sig = document.getElementById('signal-' + cardId);
@@ -5624,7 +5718,7 @@ function recalcEntryTotal(entryId, buffKey) {
       return `<span class="buff-entry-total flag" style="color:${sc};text-shadow:0 0 8px ${sc};">${sd}</span>`;
     }
     if(isFlag) {
-      const fd = u === '秒' ? `${fmt(total)}秒` : u === '個' ? `${fmt(total)}個` : u === '段階' ? `${fmt(total)}段階` : u === 'burst' ? `B${fmt(total)}` : '持続';
+      const fd = u === '秒' ? `${fmt(total)}秒` : u === '発' ? `${fmt(total)}発` : u === '回' ? `${fmt(total)}回` : u === '個' ? `${fmt(total)}個` : u === '段階' ? `${fmt(total)}段階` : u === 'burst' ? `B${fmt(total)}` : '持続';
       const fc = isDebuff ? '#ff3c6e' : catCol.color;
       const fs = isDebuff ? 'rgba(255,60,110,0.4)' : catCol.shadow;
       return `<span class="buff-entry-total flag" style="color:${fc};text-shadow:0 0 8px ${fs};">${fd}</span>`;
