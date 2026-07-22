@@ -1793,6 +1793,7 @@ const BUFF_LABELS = {
   burstReEntryAbista: 'バースト再突入',
   burstReEntryAliceWb:'バースト再突入',
   burstReEntryViper:  'バースト再突入',
+  burstReEntryRupeeX: 'バースト再突入',
   hpDown:   'HP減少',
   focusFire:'射撃集中',
   burstGauge:'バーストチャージ速度',
@@ -1848,7 +1849,7 @@ Object.entries(BUFF_DEBUFF_PAIRS).forEach(([up, down]) => { DEBUFF_BUFF_PAIRS[do
 // バフカテゴリ分類
 const BUFF_CATEGORIES = {
   'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','critDmg','chargeDmg','seqDmg','dotDmg','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
-  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','immobilize','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
+  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','immobilize','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
   'SURVIVAL': ['heal','healHelm','healPower','lifesteal','healRcvUp','healOverTime','decoyHeal','decoyHealOverTime','barrierHealOverTime','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','barrier','barrierShared','barrierInvincible','nextBarrierHp','shelterHpUp','shelterRevive','medkit','medkitMaxUp','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','stunImmune','revive','hpDown'],
   'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown','enemyHealRcvDown','enemyBuffRemove'],
 };
@@ -1860,7 +1861,7 @@ const CAT_COLORS = {
   'SURVIVAL': { color: '#00ff9d', shadow: 'rgba(0,255,157,0.4)' },
   'ENEMY':    { color: '#ff6b6b', shadow: 'rgba(255,107,107,0.4)' },
 };
-const FLAG_BUFFS = new Set(['invincible','barrierInvincible','taunt','immortal','cleanse','debuffImmune','debuffStackDown','buffStackUp','revive','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','focusFire','chargeFixed','reloadFixed','pelletFixed','magazineInfinite','chargeSpdImmuneUp','chargeSpdImmuneDown','shyImmune','stackImmuneUD','elemAdv','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','stun','immobilize','selfStun','decoy','singleTargetExclude','camouflage','envCtrl','battleCtrl','silenceStack','pierce','zansMode','normalDmgIgnoreDef','piercingAtk']);
+const FLAG_BUFFS = new Set(['invincible','barrierInvincible','taunt','immortal','cleanse','debuffImmune','debuffStackDown','buffStackUp','revive','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','focusFire','chargeFixed','reloadFixed','pelletFixed','magazineInfinite','chargeSpdImmuneUp','chargeSpdImmuneDown','shyImmune','stackImmuneUD','elemAdv','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','stun','immobilize','selfStun','decoy','singleTargetExclude','camouflage','envCtrl','battleCtrl','silenceStack','pierce','zansMode','normalDmgIgnoreDef','piercingAtk']);
 
 // 条件限定バフ → 親キーへのマージマップ
 const BUFF_MERGE_INTO = {
@@ -1981,6 +1982,7 @@ const BUFF_MERGE_INTO = {
   defDownB: 'defDown',
   trueDmgB: 'trueDmg',
   dotDmgB: 'dotDmg',
+  defUpRupeeX: 'defUp',
 };
 
 // チーム条件判定ヘルパー
@@ -3220,7 +3222,7 @@ function buildCharCard(char, filledTeam) {
 
 
     // バースト再突入グループはval降順でソート
-    const burstReEntryKeys = new Set(['burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper']);
+    const burstReEntryKeys = new Set(['burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX']);
     relevant.sort((a, b) => {
       const aIsBR = burstReEntryKeys.has(a);
       const bIsBR = burstReEntryKeys.has(b);
@@ -4371,6 +4373,7 @@ function getShortName(name) {
     'マルチャーナ：マリンスタディ':       'マルチャーナ：MS',
     'ラプンツェル：ピュアグレイス':       'ラプンツェル：PG',
     'エヌ：ミラクルフェアリー':           'エヌ：MF',
+    'ルピー：ウィンターショッパー':       'ルピー：WS',
   };
   return SHORT_NAMES[name] || name;
 }
