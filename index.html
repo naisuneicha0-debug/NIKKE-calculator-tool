@@ -2420,36 +2420,11 @@ function renderSlots() {
     slot.className = 'slot' + (char ? ' filled' : '');
     slot.onclick = () => char ? removeChar(i) : openPicker(i);
     if(char) {
-      // モードに応じてスロット背景画像を選択（isAlt: cardBgAlt側を選んだかどうか）
-      const slotBgChoice = (() => {
-        if(char.id === 'rapi_rh' && char.cardBgAlt) {
-          const hasB1 = TEAM.filter(Boolean).some(c => c.burst === 1);
-          const mode = rapiSupMode !== null ? rapiSupMode : (hasB1 ? 'normal' : 'support');
-          return mode === 'support' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
-        }
-        if(char.id === 'anisstar' && char.cardBgAlt) {
-          const hasOtherB1 = TEAM.filter(Boolean).some(c => c.burst === 1 && c.id !== 'anisstar');
-          const mode = anisStarMode !== null ? anisStarMode : (hasOtherB1 ? 'team' : 'solo');
-          return mode === 'team' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
-        }
-        if(char.id === 'neon_vi' && char.cardBgAlt) {
-          const mode = neonViMode !== null ? neonViMode : 'normal';
-          return mode === 'ultrafire' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
-        }
-        if(char.id === 'diesel_ws' && char.cardBgAlt) {
-          const mode = dieselWsMode !== null ? dieselWsMode : 'intro';
-          return mode === 'climax' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
-        }
-        if(char.id === 'milk_bb' && char.cardBgAlt) {
-          const mode = milkBbMode !== null ? milkBbMode : 'shy';
-          return mode === 'rage' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
-        }
-        return {url: char.cardBg, isAlt: false};
-      })();
-      const slotBg = slotBgChoice.url;
-      // スロットは縦長(aspect-ratio:0.6)のため横方向が大きくトリミングされる。
-      // 顔が枠外に出る場合はcardBgPosX/cardBgAltPosXで水平フォーカス位置を個別指定できる（未指定時は中央=デフォルト）
-      const slotBgPosX = slotBgChoice.isAlt ? char.cardBgAltPosX : char.cardBgPosX;
+      // スロット（縦長・aspect-ratio:0.6）はモード切替の影響を受けない固定仕様。
+      // モードを持つキャラでも常にcardBgのみ表示（cardBgAltには切り替えない・全キャラ共通ルール、2026-07-23確定）
+      const slotBg = char.cardBg;
+      // 顔が枠外に出る場合はcardBgPosXで水平フォーカス位置を個別指定できる（未指定時は中央=デフォルト）
+      const slotBgPosX = char.cardBgPosX;
       if(slotBg) {
         slot.classList.add('has-bg');
         slot.style.backgroundImage = `url('${slotBg}')`;
