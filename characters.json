@@ -1747,6 +1747,8 @@
     "element": "electric",
     "company": "missilis",
     "squad": "カウンターズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_vi.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_vi_alt.jpg",
     "buffs": {
       "party": {},
       "self": {
