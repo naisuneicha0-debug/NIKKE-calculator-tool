@@ -2420,35 +2420,40 @@ function renderSlots() {
     slot.className = 'slot' + (char ? ' filled' : '');
     slot.onclick = () => char ? removeChar(i) : openPicker(i);
     if(char) {
-      // モードに応じてスロット背景画像を選択
-      const slotBg = (() => {
+      // モードに応じてスロット背景画像を選択（isAlt: cardBgAlt側を選んだかどうか）
+      const slotBgChoice = (() => {
         if(char.id === 'rapi_rh' && char.cardBgAlt) {
           const hasB1 = TEAM.filter(Boolean).some(c => c.burst === 1);
           const mode = rapiSupMode !== null ? rapiSupMode : (hasB1 ? 'normal' : 'support');
-          return mode === 'support' ? char.cardBgAlt : char.cardBg;
+          return mode === 'support' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
         }
         if(char.id === 'anisstar' && char.cardBgAlt) {
           const hasOtherB1 = TEAM.filter(Boolean).some(c => c.burst === 1 && c.id !== 'anisstar');
           const mode = anisStarMode !== null ? anisStarMode : (hasOtherB1 ? 'team' : 'solo');
-          return mode === 'team' ? char.cardBgAlt : char.cardBg;
+          return mode === 'team' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
         }
         if(char.id === 'neon_vi' && char.cardBgAlt) {
           const mode = neonViMode !== null ? neonViMode : 'normal';
-          return mode === 'ultrafire' ? char.cardBgAlt : char.cardBg;
+          return mode === 'ultrafire' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
         }
         if(char.id === 'diesel_ws' && char.cardBgAlt) {
           const mode = dieselWsMode !== null ? dieselWsMode : 'intro';
-          return mode === 'climax' ? char.cardBgAlt : char.cardBg;
+          return mode === 'climax' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
         }
         if(char.id === 'milk_bb' && char.cardBgAlt) {
           const mode = milkBbMode !== null ? milkBbMode : 'shy';
-          return mode === 'rage' ? char.cardBgAlt : char.cardBg;
+          return mode === 'rage' ? {url: char.cardBgAlt, isAlt: true} : {url: char.cardBg, isAlt: false};
         }
-        return char.cardBg;
+        return {url: char.cardBg, isAlt: false};
       })();
+      const slotBg = slotBgChoice.url;
+      // スロットは縦長(aspect-ratio:0.6)のため横方向が大きくトリミングされる。
+      // 顔が枠外に出る場合はcardBgPosX/cardBgAltPosXで水平フォーカス位置を個別指定できる（未指定時は中央=デフォルト）
+      const slotBgPosX = slotBgChoice.isAlt ? char.cardBgAltPosX : char.cardBgPosX;
       if(slotBg) {
         slot.classList.add('has-bg');
         slot.style.backgroundImage = `url('${slotBg}')`;
+        if(slotBgPosX) slot.style.backgroundPosition = `${slotBgPosX} top`;
       }
       const filledForCaution = TEAM.filter(Boolean);
       const hasCaution = getCautionMessages(char, filledForCaution).length > 0;
