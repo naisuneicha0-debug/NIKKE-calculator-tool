@@ -774,9 +774,9 @@
       },
       "self": {
         "chargeFixed": {
-          "val": 1,
-          "condLabel": "S2・チャージ時間1.2秒固定・戦闘開始時・持続",
-          "unit": "持続"
+          "val": 1.2,
+          "condLabel": "S2・戦闘開始時・持続",
+          "unit": "秒"
         },
         "pierce": {
           "val": 5,
@@ -1153,8 +1153,8 @@
         },
         "chargeFixed": {
           "val": 1,
-          "condLabel": "S2・【緩流】ターゲット以外命中時・チャージ時間1秒固定・持続",
-          "unit": "持続",
+          "condLabel": "S2・【緩流】ターゲット以外命中時・持続",
+          "unit": "秒",
           "exclusiveGroup": "riverlelioFlow",
           "defaultOff": true
         },
@@ -1657,8 +1657,8 @@
           "condLabel": "BS・「私だけの星」状態・10秒"
         },
         "chargeFixed": {
-          "val": 10,
-          "condLabel": "BS・10秒（0.7秒固定）",
+          "val": 0.7,
+          "condLabel": "BS・10秒間",
           "unit": "秒"
         },
         "explodeRange": {
@@ -7884,7 +7884,7 @@
         },
         "decoy": {
           "val": 70.34,
-          "condLabel": "S2・戦闘開始時・BS使用時・持続",
+          "condLabel": "S2・戦闘開始時・BS使用時・最終最大HP70.34%・持続",
           "caster": true,
           "hpBased": true
         },
