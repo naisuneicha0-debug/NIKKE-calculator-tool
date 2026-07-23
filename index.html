@@ -2426,10 +2426,13 @@ function renderSlots() {
       const slotBg = char.cardBgSlot || char.cardBg;
       // 顔が枠外に出る場合はcardBgPosXで水平フォーカス位置を個別指定できる（未指定時は中央=デフォルト）
       const slotBgPosX = char.cardBgPosX;
+      // さらに寄せたい場合はcardBgZoomでcover基準からの拡大率を指定できる（例："130%"、未指定時は通常のcover）
+      const slotBgZoom = char.cardBgZoom;
       if(slotBg) {
         slot.classList.add('has-bg');
         slot.style.backgroundImage = `url('${slotBg}')`;
         if(slotBgPosX) slot.style.backgroundPosition = `${slotBgPosX} top`;
+        if(slotBgZoom) slot.style.backgroundSize = `auto ${slotBgZoom}`;
       }
       const filledForCaution = TEAM.filter(Boolean);
       const hasCaution = getCautionMessages(char, filledForCaution).length > 0;
