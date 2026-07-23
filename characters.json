@@ -1639,7 +1639,6 @@
     "squad": "カウンターズ",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anisstar.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anisstar_alt.jpg",
-    "cardBgAltPosX": "69%",
     "buffs": {
       "party": {
         "burstGauge": {
