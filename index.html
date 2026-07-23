@@ -2422,7 +2422,8 @@ function renderSlots() {
     if(char) {
       // スロット（縦長・aspect-ratio:0.6）はモード切替の影響を受けない固定仕様。
       // モードを持つキャラでも常にcardBgのみ表示（cardBgAltには切り替えない・全キャラ共通ルール、2026-07-23確定）
-      const slotBg = char.cardBg;
+      // スロットのみ別画像を使いたい場合はcardBgSlotで個別指定できる（未指定時はcardBgにフォールバック）
+      const slotBg = char.cardBgSlot || char.cardBg;
       // 顔が枠外に出る場合はcardBgPosXで水平フォーカス位置を個別指定できる（未指定時は中央=デフォルト）
       const slotBgPosX = char.cardBgPosX;
       if(slotBg) {
