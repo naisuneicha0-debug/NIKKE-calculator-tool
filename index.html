@@ -4888,6 +4888,7 @@ function toggleRapiMode(e) {
   fireSignalBurst('card-rapi_rh', nextImgUrl, () => {
     rapiSupMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display]) => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-rapi_rh');
@@ -4919,6 +4920,7 @@ function toggleAnisStarMode(e) {
   fireSignalBurst('card-anisstar', nextImgUrlAnis, () => {
     anisStarMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display]) => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-anisstar');
@@ -4947,6 +4949,7 @@ function toggleNeonViMode(e) {
   fireSignalBurst('card-neon_vi', nextImgUrlNeon, () => {
     neonViMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-neon_vi');
@@ -4975,6 +4978,7 @@ function toggleDieselWsMode(e) {
   fireSignalBurst('card-diesel_ws', nextImgUrl, () => {
     dieselWsMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-diesel_ws');
@@ -5003,6 +5007,7 @@ function toggleMilkBbMode(e) {
   fireSignalBurst('card-milk_bb', nextImgUrl, () => {
     milkBbMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-milk_bb');
@@ -5029,6 +5034,7 @@ function toggleGraveMode(e) {
   fireSignalBurst('card-grave', nextImgUrl, () => {
     graveMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-grave');
@@ -5055,6 +5061,7 @@ function toggleRavenMode(e) {
   fireSignalBurst('card-raven', nextImgUrl, () => {
     ravenMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-raven');
@@ -5081,6 +5088,7 @@ function toggleMollyMode(e) {
   fireSignalBurst('card-molly', nextImgUrl, () => {
     mollyMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-molly');
@@ -5108,6 +5116,7 @@ function toggleRedHoodMode(e) {
   fireSignalBurst('card-redhood', nextImgUrl, () => {
     redHoodMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-redhood');
@@ -5161,6 +5170,7 @@ function toggleArcanaFateMode(e) {
   fireSignalBurst('card-arcana_tarot', nextImgUrl, () => {
     arcanaFateMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-arcana_tarot');
@@ -5187,6 +5197,7 @@ function toggleMintMode(e) {
   fireSignalBurst('card-mint', nextImgUrl, () => {
     mintMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-mint');
@@ -5213,6 +5224,7 @@ function toggleCrustMode(e) {
   fireSignalBurst('card-crust', nextImgUrl, () => {
     crustMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-crust');
@@ -5239,6 +5251,7 @@ function toggleBreddyMode(e) {
   fireSignalBurst('card-breddy', nextImgUrl, () => {
     breddyMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-breddy');
@@ -5265,6 +5278,7 @@ function toggleCinderellaCwMode(e) {
   fireSignalBurst('card-cinderella_cw', nextImgUrl, () => {
     cinderellaCwMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-cinderella_cw');
@@ -5291,6 +5305,7 @@ function toggleLaplaceUhMode(e) {
   fireSignalBurst('card-laplace_uh', nextImgUrl, () => {
     laplaceUhMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-laplace_uh');
