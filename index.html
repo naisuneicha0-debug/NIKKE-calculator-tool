@@ -2093,6 +2093,20 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m.id === 'crown');
         break;
       }
+      case 'noMint': {
+        triggered = !filledTeam.some(m => m && m.id === 'mint');
+        break;
+      }
+      case 'noPyrikaPerf': {
+        const pyrikaChar = filledTeam.find(m => m && m.id === 'pyrika');
+        if(!pyrikaChar) {
+          triggered = true;
+        } else {
+          const mode = pyrikaMode !== null ? pyrikaMode : 'norm';
+          triggered = mode !== 'perf';
+        }
+        break;
+      }
       case 'noAnisstar': {
         triggered = !filledTeam.some(m => m && m.id === 'anisstar');
         break;
@@ -5115,6 +5129,7 @@ function togglePyrikaMode(e) {
   fireSignalBurst('card-pyrika', nextImgUrl, () => {
     pyrikaMode = nextMode;
     renderBuffCards();
+    renderSlots();
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-pyrika');
