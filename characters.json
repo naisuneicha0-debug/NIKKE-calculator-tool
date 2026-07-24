@@ -2393,6 +2393,9 @@
     "element": "electric",
     "company": "abnormal",
     "squad": "B.S.T.",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ada.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ada_slot.jpg",
+    "cardBgPosX": "70%",
     "buffs": {
       "party": {},
       "self": {
