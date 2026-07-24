@@ -5031,6 +5031,7 @@
     "squad": "ヘレティック",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/modania.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/modania_slot.jpg",
+    "cardBgGlitch": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/modania_glitch.jpg",
     "buffs": {
       "party": {
         "hitRate": {
