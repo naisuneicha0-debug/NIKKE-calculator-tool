@@ -1606,7 +1606,7 @@
           ・ダメージスキルは計算対象外です。<br>カード下部の<button class="toggle-btn" style="display:inline-block;width:auto;vertical-align:middle;margin:0 3px;border-color:var(--accent4);color:var(--accent4);background:rgba(168,85,247,0.05);">ACTIVE SKILL ▼</button>から対象外スキルを確認できます。
         </div>
         <div class="help-modal-page" data-page="1">
-          ・各バフにはON/OFF機能があります。ステータスを考慮していない為、想定した状況によって切り替えて下さい。<br><br>
+          ・各バフにはON/OFF機能があります。ステータスを考慮していない為、ゲーム内実数値及び想定した状況によって切り替えて下さい。<br><br>
           ・バフ右側に表示される<span class="stack-star"></span>はスタック数を調整する為のスライダーがある事を指します。スタック数に応じて表示されるバフも存在します。<br><br>
           ・<span style="display:inline-block;width:120px;height:16px;vertical-align:middle;margin:0 4px;overflow:hidden;border-radius:3px;">
             <div class="caution-belt" style="width:200px;height:26px;transform:scale(0.6);transform-origin:top left;">
@@ -1622,11 +1622,16 @@
           ・モード切り替えを搭載したニケが存在します。カード左側のボタンをタップする事で切り替えが可能です。一部のニケは特定の条件下で自動で切り替わります。<br><br>
           ・一部のスキルは特定のニケ同士を編成した場合に表示されます。適切な編成を行うと自動で表示されます。
         </div>
+        <div class="help-modal-page" data-page="3">
+          ・表示サイズは390px(約16:9)で最適化されています。<br><br>
+          ・スマートフォン以外の環境(768px、1280px)で表示した場合キャラクター画像の表示に差が生じますが数値計算に影響はありません。
+        </div>
       </div>
       <div class="help-modal-nav">
         <button class="help-nav-arrow" id="formationHelpPrevBtn" onclick="formationHelpPrevPage()">《</button>
         <div class="help-nav-dots" id="formationHelpDots">
           <span class="help-nav-dot active"></span>
+          <span class="help-nav-dot"></span>
           <span class="help-nav-dot"></span>
           <span class="help-nav-dot"></span>
         </div>
@@ -1919,6 +1924,7 @@ const BUFF_MERGE_INTO = {
   elemB:    'elem',
   lifestealB: 'lifesteal',
   elemC:    'elem',
+  elemD:    'elem',
   hpUpB:    'hpUp',
   hpUpC:    'hpUp',
   nextBarrierHpB: 'nextBarrierHp',
