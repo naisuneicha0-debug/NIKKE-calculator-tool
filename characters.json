@@ -2659,6 +2659,7 @@
     "company": "elysion",
     "squad": "トライアングル",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/privaty.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/privaty_slot.jpg",
     "cardBgPosX": "70%",
     "buffs": {
       "party": {
