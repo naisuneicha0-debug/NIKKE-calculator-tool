@@ -1844,6 +1844,8 @@
     "element": "fire",
     "company": "missilis",
     "squad": "ワードレス",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mihara_bc.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mihara_bc_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
