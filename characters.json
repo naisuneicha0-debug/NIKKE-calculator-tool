@@ -2552,6 +2552,8 @@
     "element": "water",
     "company": "pilgrim",
     "squad": "インヘルト",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dorothy_se.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dorothy_se_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
