@@ -764,6 +764,9 @@
     "element": "water",
     "company": "pilgrim",
     "squad": "ゴッデス",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/snowwhite_ha.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/snowwhite_ha_slot.jpg",
+    "cardBgPosX": "70%",
     "buffs": {
       "party": {
         "enemyDmgTaken": {
@@ -1081,6 +1084,9 @@
     "element": "electric",
     "company": "missilis",
     "squad": "スクールサークル",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ain.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ain_slot.jpg",
+    "cardBgPosX": "70%",
     "buffs": {
       "party": {},
       "self": {
@@ -4339,7 +4345,6 @@
         }
       },
       "targeted": {},
-      "self_targeted": {},
       "other": [
         {
           "label": "S1・追加ダメ（アンチA.T.フィールド対象）",
@@ -4408,7 +4413,6 @@
       },
       "party": {},
       "targeted": {},
-      "self_targeted": {},
       "other": [
         {
           "label": "S2・防御無視追加ダメ",
@@ -4465,7 +4469,6 @@
         }
       },
       "targeted": {},
-      "self_targeted": {},
       "other": [
         {
           "label": "S1・フルチャージ攻撃ダメ",
@@ -8091,14 +8094,33 @@
       "self": {
         "critDmg": {
           "val": 16.39,
-          "condLabel": "S1・遮蔽物が撃たれた時20%の確率・10秒間維持"
+          "condLabel": "S1・遮蔽物が攻撃を受けた時・10秒間維持"
         },
         "reload": {
           "val": 12.12,
-          "condLabel": "S1・遮蔽物が撃たれた時20%の確率・10秒間維持"
+          "condLabel": "S1・遮蔽物が攻撃を受けた時・10秒間維持"
+        },
+        "shelter": {
+          "val": 1.5,
+          "condLabel": "S1・発動者最終最大HP基準・遮蔽物HP回復",
+          "caster": true,
+          "hpBased": true
+        },
+        "dmg": {
+          "val": 19.98,
+          "condLabel": "S1・自分の遮蔽物が破壊されていない限り・持続"
+        },
+        "elemAdv": {
+          "val": 1,
+          "unit": "持続",
+          "condLabel": "S1・戦闘開始時・灼熱コードの敵に有利属性ダメージ適用・持続・解除不可"
         },
         "critRate": {
           "val": 13.02,
+          "condLabel": "S2・フルバーストタイム発動時・10秒間維持"
+        },
+        "atk": {
+          "val": 25.01,
           "condLabel": "S2・フルバーストタイム発動時・10秒間維持"
         },
         "atkSpd": {
@@ -8108,20 +8130,48 @@
         "hitRate": {
           "val": 33,
           "condLabel": "BS・15秒間維持"
+        },
+        "atkB": {
+          "val": 20,
+          "condLabel": "BS・15秒間維持"
         }
       },
       "targeted": {
         "maxMagazine": {
           "val": 83.8,
           "target": "weapon:sg",
-          "condLabel": "S2・SG限定・10秒間維持",
+          "condLabel": "S2・SG限定・15秒間維持",
+          "suppressTargetLabel": true
+        },
+        "elem": {
+          "val": 40.02,
+          "target": "weapon:sg&element:water",
+          "condLabel": "S2・フルバーストタイム発動時・水冷コードのSG装備・15秒間維持",
+          "suppressTargetLabel": true
+        },
+        "elemB": {
+          "val": 40.02,
+          "target": "weapon:sg&element:iron",
+          "condLabel": "S2・フルバーストタイム発動時・鉄甲コードのSG装備・15秒間維持",
+          "suppressTargetLabel": true
+        },
+        "elemC": {
+          "val": 60.01,
+          "target": "weapon:sg&element:water",
+          "condLabel": "BS・CT40秒・水冷コードのSG装備・15秒間維持",
+          "suppressTargetLabel": true
+        },
+        "elemD": {
+          "val": 60.01,
+          "target": "weapon:sg&element:iron",
+          "condLabel": "BS・CT40秒・鉄甲コードのSG装備・15秒間維持",
           "suppressTargetLabel": true
         }
       },
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：遮蔽物が撃たれた時20%の確率で自分にクリティカルダメージ16.39%UP＋リロード速度12.12%UP（各10秒）。S2（パッシブ）：フルバーストタイム発動時、自分にクリティカル確率13.02%UP（10秒）。SG所持の味方全体に最大装弾数83.8%UP（10秒）。BS（CT40秒）：自分に攻撃速度66%UP＋命中率33%UP（各15秒）。"
+    "note": "【宝物装着時】S1（パッシブ）：遮蔽物が攻撃を受けた時、自分にクリティカルダメージ16.39%UP＋リロード速度12.12%UP（各10秒）＋発動者最終最大HP1.5%分の遮蔽物HP回復。自分の遮蔽物が破壊されていない限り、自分に攻撃ダメージ19.98%UP（持続）。戦闘開始時、自分に灼熱コードの敵への有利属性ダメージ適用（持続・解除不可）。S2（パッシブ）：フルバーストタイム発動時、自分にクリティカル確率13.02%UP＋攻撃力25.01%UP（各10秒）。SG所持の味方全体に最大装弾数83.8%UP（15秒）。水冷または鉄甲コードのSG所持の味方全体に有利コードの攻撃ダメージ40.02%UP（15秒）。BS（CT40秒）：自分に攻撃速度66%UP＋命中率33%UP＋攻撃力20%UP（各15秒）。水冷または鉄甲コードのSG所持の味方全体に有利コードの攻撃ダメージ60.01%UP（15秒）。水冷/鉄甲のOR条件はtarget構文がANDのみ対応のため、weapon:sg&element:water／weapon:sg&element:ironの2エントリに分けてBUFF_MERGE_INTOで合算表示（elem/elemB/elemC/elemD）。self.dmg（遮蔽物維持条件）は破壊状態のトラッキング機構がないためゆりまん指示により常時ON表示。"
   },
   {
     "id": "julia",
@@ -11805,8 +11855,6 @@
     "element": "wind",
     "company": "missilis",
     "squad": "メティス",
-    "cardBg": null,
-    "cardBgAlt": "",
     "caution": [],
     "buffs": {
       "party": {},
