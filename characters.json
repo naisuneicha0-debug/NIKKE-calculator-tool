@@ -1591,6 +1591,8 @@
     "element": "wind",
     "company": "pilgrim",
     "squad": "ゴッデス",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/huren_bs.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/huren_bs_slot.jpg",
     "buffs": {
       "self": {
         "maxMagazine": {
