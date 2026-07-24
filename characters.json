@@ -1223,6 +1223,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapi_rh.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapi_rh_alt.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapi_rh_slot.jpg",
+    "cardBgGlitch": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapi_rh_glitch.jpg",
     "cardBgPosX": "70%",
     "buffs": {
       "party": {
@@ -1660,6 +1661,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anisstar.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anisstar_alt.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anisstar_slot.jpg",
+    "cardBgGlitch": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anisstar_glitch.jpg",
     "cardBgPosX": "69%",
     "buffs": {
       "party": {
@@ -1774,6 +1776,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_vi.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_vi_alt.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_vi_slot.jpg",
+    "cardBgGlitch": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_vi_glitch.jpg",
     "cardBgPosX": "70%",
     "buffs": {
       "party": {},
