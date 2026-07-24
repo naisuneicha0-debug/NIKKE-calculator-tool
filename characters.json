@@ -5475,7 +5475,9 @@
     "role": "sup",
     "squad": "T.T.STAR",
     "themeColor": null,
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mint.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mint_alt.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mint_slot.jpg",
     "caution": [
       {
         "condition": "noPyrikaPerf",
