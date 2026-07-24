@@ -1763,7 +1763,6 @@
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_vi_alt.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_vi_slot.jpg",
     "cardBgPosX": "70%",
-    "cardBgZoom": "130%",
     "buffs": {
       "party": {},
       "self": {
