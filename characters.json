@@ -2554,6 +2554,7 @@
     "squad": "インヘルト",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dorothy_se.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dorothy_se_slot.jpg",
+    "cardBgGlitch": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dorothy_se_glitch.jpg",
     "buffs": {
       "party": {},
       "self": {
