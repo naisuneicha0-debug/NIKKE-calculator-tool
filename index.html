@@ -3848,6 +3848,10 @@ function buildCharCard(char, filledTeam) {
       const mode = pyrikaMode !== null ? pyrikaMode : 'norm';
       return mode === 'perf' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'mint' && char.cardBgAlt) {
+      const mode = mintMode !== null ? mintMode : 'dance';
+      return mode === 'vocal' ? char.cardBgAlt : char.cardBg;
+    }
     return char.cardBg;
   })();
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
@@ -5204,7 +5208,9 @@ function toggleMintMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const mintCharData = NIKKE_DB.find(c => c.id === 'mint');
-  const nextImgUrl = mintCharData && mintCharData.cardBg;
+  const nextImgUrl = nextMode === 'vocal'
+    ? (mintCharData && mintCharData.cardBgAlt)
+    : (mintCharData && mintCharData.cardBg);
 
   fireSignalBurst('card-mint', nextImgUrl, () => {
     mintMode = nextMode;
