@@ -3846,6 +3846,8 @@ function buildCharCard(char, filledTeam) {
     }
     return char.cardBg;
   })();
+  // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
+  const glitchBg = char.cardBgGlitch || activeBg;
   const headerBgStyle = activeBg
     ? `background-image:url('${activeBg}');background-size:cover;background-position:right top;background-repeat:no-repeat;position:relative;overflow:hidden;`
     : `position:relative;overflow:hidden;`;
@@ -4311,7 +4313,7 @@ function buildCharCard(char, filledTeam) {
         <div class="crt-vignette"></div>
         <div class="crt-overlay"></div>
         <div class="crt-flicker"></div>
-        <div class="signal-layer" id="signal-${cardId}" ${activeBg ? `style="background-image:url('${activeBg}');"` : ''}></div>
+        <div class="signal-layer" id="signal-${cardId}" ${glitchBg ? `style="background-image:url('${glitchBg}');"` : ''}></div>
         ${burstDisplay}
         <div class="char-card-info" style="position:relative;">
           <div style="display:flex;align-items:stretch;padding-top:16px;position:relative;">
