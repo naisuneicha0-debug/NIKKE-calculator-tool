@@ -1497,6 +1497,10 @@
   .signal-layer.firing {
     animation: var(--sig-anim, sig-a) 0.5s steps(1) forwards;
   }
+  /* セピア調キャラ専用：hue-rotateではなくセピアフィルタで発火 */
+  .signal-layer.sepia {
+    filter: sepia(0.9) saturate(1.6) brightness(1.25) contrast(1.05) !important;
+  }
   /* バースト用クローン（独立アニメーション） */
   .sig-burst-clone {
     position: absolute; inset: 0;
@@ -3848,6 +3852,8 @@ function buildCharCard(char, filledTeam) {
   })();
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
   const glitchBg = char.cardBgGlitch || activeBg;
+  // 信号干渉エフェクトの色調（未指定時は従来のランダム虹色hue-rotate・既存キャラは無変更）
+  const signalToneClass = char.signalTone === 'sepia' ? ' sepia' : '';
   const headerBgStyle = activeBg
     ? `background-image:url('${activeBg}');background-size:cover;background-position:right top;background-repeat:no-repeat;position:relative;overflow:hidden;`
     : `position:relative;overflow:hidden;`;
@@ -4313,7 +4319,7 @@ function buildCharCard(char, filledTeam) {
         <div class="crt-vignette"></div>
         <div class="crt-overlay"></div>
         <div class="crt-flicker"></div>
-        <div class="signal-layer" id="signal-${cardId}" ${glitchBg ? `style="background-image:url('${glitchBg}');"` : ''}></div>
+        <div class="signal-layer${signalToneClass}" id="signal-${cardId}" ${glitchBg ? `style="background-image:url('${glitchBg}');"` : ''}></div>
         ${burstDisplay}
         <div class="char-card-info" style="position:relative;">
           <div style="display:flex;align-items:stretch;padding-top:16px;position:relative;">
