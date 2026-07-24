@@ -2050,6 +2050,9 @@
     "element": "iron",
     "company": "abnormal",
     "squad": "空挺部隊",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eve.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eve_slot.jpg",
+    "cardBgPosX": "70%",
     "buffs": {
       "party": {},
       "self": {
