@@ -417,6 +417,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "シージペリラス",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/killerwife.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/killerwife_slot.jpg",
     "buffs": {
       "party": {
         "burstCT": {
