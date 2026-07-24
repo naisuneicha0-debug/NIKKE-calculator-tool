@@ -5029,7 +5029,8 @@
     "element": "fire",
     "company": "pilgrim",
     "squad": "ヘレティック",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/modania.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/modania_slot.jpg",
     "buffs": {
       "party": {
         "hitRate": {
