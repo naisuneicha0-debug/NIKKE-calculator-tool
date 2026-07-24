@@ -3840,6 +3840,10 @@ function buildCharCard(char, filledTeam) {
       const mode = milkBbMode !== null ? milkBbMode : 'shy';
       return mode === 'rage' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'pyrika' && char.cardBgAlt) {
+      const mode = pyrikaMode !== null ? pyrikaMode : 'norm';
+      return mode === 'perf' ? char.cardBgAlt : char.cardBg;
+    }
     return char.cardBg;
   })();
   const headerBgStyle = activeBg
@@ -5138,7 +5142,7 @@ function togglePyrikaMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const pyrikaCharData = NIKKE_DB.find(c => c.id === 'pyrika');
-  const nextImgUrl = pyrikaCharData && pyrikaCharData.cardBg;
+  const nextImgUrl = pyrikaCharData && (nextMode === 'perf' ? (pyrikaCharData.cardBgAlt || pyrikaCharData.cardBg) : pyrikaCharData.cardBg);
 
   fireSignalBurst('card-pyrika', nextImgUrl, () => {
     pyrikaMode = nextMode;
