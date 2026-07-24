@@ -2568,6 +2568,17 @@ function renderBuffCards() {
     recalcEntryTotal(row.dataset.entryid, row.dataset.buffkey);
   });
 
+  // cond-buff-row（other欄）のstackThresholdRefを初期状態でスタックのdefault値に応じて表示切替（ファントムで初実装）
+  document.querySelectorAll('.cond-buff-row[data-stack-threshold-ref]').forEach(row => {
+    const cardEl = row.closest('.char-card');
+    if(!cardEl) return;
+    const refKey = row.dataset.stackThresholdRef;
+    const slider = cardEl.querySelector(`.stack-slider[data-stack-key="${refKey}"]`) || cardEl.querySelector(`.stack-slider[data-rawkey="${refKey}"]`);
+    const threshold = parseInt(row.dataset.stackThreshold);
+    const curVal = slider ? parseInt(slider.value) : 0;
+    row.style.display = curVal >= threshold ? '' : 'none';
+  });
+
   // parentStackスライダーを初期状態で非表示（親スライダーがMaxでない限り）
   document.querySelectorAll('.stack-slider[data-parent-stack]').forEach(slider => {
     const cardEl = slider.closest('.char-card');
@@ -3750,10 +3761,14 @@ function buildCharCard(char, filledTeam) {
     ? allCondBuffs.map(o => {
         const gcMin = o.gcCondMin != null ? ` data-gc-cond-min="${o.gcCondMin}"` : '';
         const gcMax = o.gcCondMax != null ? ` data-gc-cond-max="${o.gcCondMax}"` : '';
-        // gcCondMin/Maxがある場合、初期表示はgoldChipスライダー値(初期1)で判定→デフォルト非表示
-        const gcHide = (o.gcCondMin != null && o.gcCondMin > 1) ? ' style="display:none"' : '';
+        // stackThresholdRef/stackThreshold（other欄の汎用版・任意のスタックキーを参照して閾値以上でON表示）
+        const stRef = o.stackThresholdRef ? ` data-stack-threshold-ref="${o.stackThresholdRef}"` : '';
+        const stThreshold = o.stackThreshold != null ? ` data-stack-threshold="${o.stackThreshold}"` : '';
+        // gcCondMin・stackThresholdいずれも初期スライダー値は左端(1)想定のため、閾値が1より大きければ初期非表示（両属性のstyle重複を避けるため統合判定）
+        const needsHide = (o.gcCondMin != null && o.gcCondMin > 1) || (o.stackThreshold != null && o.stackThreshold > 1);
+        const hideStyle = needsHide ? ' style="display:none"' : '';
         return `
-        <div class="cond-buff-row"${gcMin}${gcMax}${gcHide}>
+        <div class="cond-buff-row"${gcMin}${gcMax}${stRef}${stThreshold}${hideStyle}>
           <div class="cond-buff-row-top">
             <span class="cond-buff-label">${o.label}<span class="cond-buff-src">[${o.src}]</span></span>
             <span class="cond-buff-val">${o.val}${o.unit != null ? o.unit : '%'}</span>
@@ -6151,6 +6166,11 @@ function onStackSlider(slider) {
         thRow.classList.toggle('row-on', isOn);
         thRow.classList.toggle('row-off', !isOn);
         recalcEntryTotal(thRow.dataset.entryid, thRow.dataset.buffkey);
+      });
+      // cond-buff-row（other欄）側も同じ参照キーで表示切替（ファントムで初実装）
+      cardElTh.querySelectorAll(`.cond-buff-row[data-stack-threshold-ref="${myStackKeyTh}"]`).forEach(thCondRow => {
+        const threshold = parseInt(thCondRow.dataset.stackThreshold);
+        thCondRow.style.display = thVal >= threshold ? '' : 'none';
       });
     }
   }
