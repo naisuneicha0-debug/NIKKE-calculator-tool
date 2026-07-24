@@ -694,6 +694,8 @@
     "element": "wind",
     "company": "pilgrim",
     "squad": "オールドテイルズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/littlemermaid.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/littlemermaid_slot.jpg",
     "buffs": {
       "party": {
         "focusFire": {
