@@ -5299,7 +5299,6 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/drake.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/drake_slot.jpg",
     "cardBgPosX": "70%",
-    "cardBg": null,
     "buffs": {
       "party": {
         "hitRate": {
