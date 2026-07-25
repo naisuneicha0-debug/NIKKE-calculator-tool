@@ -8,6 +8,8 @@
     "element": "iron",
     "company": "missilis",
     "squad": "マイティツールズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/liter.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/liter_slot.jpg",
     "buffs": {
       "party": {
         "burstCT": {
