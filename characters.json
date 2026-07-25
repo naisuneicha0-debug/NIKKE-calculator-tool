@@ -115,6 +115,8 @@
     "element": "iron",
     "company": "missilis",
     "squad": "ダージリンパール",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/tia.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/tia_slot.jpg",
     "buffs": {
       "party": {
         "dmg": {
