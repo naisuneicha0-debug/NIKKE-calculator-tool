@@ -3031,6 +3031,8 @@
     "element": "electric",
     "company": "elysion",
     "squad": "スクールサークル",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/zwei.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/zwei_slot.jpg",
     "buffs": {
       "party": {
         "pierceDmgTZ1": {
