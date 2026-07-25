@@ -3907,8 +3907,8 @@
     "element": "wind",
     "company": "tetra",
     "squad": "777",
-    "cardBg": null,
-    "cardBgAlt": "",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/blanc.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/blanc_slot.jpg",
     "caution": [
       {
         "condition": "no777Squad",
