@@ -1151,6 +1151,8 @@
     "element": "wind",
     "company": "pilgrim",
     "squad": "ヘレティック",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/riverlelio.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/riverlelio_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
