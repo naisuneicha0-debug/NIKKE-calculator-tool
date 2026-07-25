@@ -3120,6 +3120,8 @@
     "element": "water",
     "company": "missilis",
     "squad": "アンリミテッド",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/tove.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/tove_slot.jpg",
     "caution": [
       {
         "condition": "noSGInParty",
