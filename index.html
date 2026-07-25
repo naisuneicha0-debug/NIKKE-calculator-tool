@@ -1501,6 +1501,10 @@
   .signal-layer.sepia {
     filter: sepia(0.9) saturate(1.6) brightness(1.25) contrast(1.05) !important;
   }
+  /* 色を焼き込み済みの画像専用：ランダム色相回転を無効化し明度のみ調整 */
+  .signal-layer.fixedtone {
+    filter: brightness(1.08) !important;
+  }
   /* バースト用クローン（独立アニメーション） */
   .sig-burst-clone {
     position: absolute; inset: 0;
@@ -3861,7 +3865,7 @@ function buildCharCard(char, filledTeam) {
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
   const glitchBg = char.cardBgGlitch || activeBg;
   // 信号干渉エフェクトの色調（未指定時は従来のランダム虹色hue-rotate・既存キャラは無変更）
-  const signalToneClass = char.signalTone === 'sepia' ? ' sepia' : '';
+  const signalToneClass = char.signalTone === 'sepia' ? ' sepia' : (char.signalTone === 'fixed' ? ' fixedtone' : '');
   const headerBgStyle = activeBg
     ? `background-image:url('${activeBg}');background-size:cover;background-position:right top;background-repeat:no-repeat;position:relative;overflow:hidden;`
     : `position:relative;overflow:hidden;`;
