@@ -4986,7 +4986,8 @@
     "element": "electric",
     "company": "tetra",
     "squad": "カウンターズ",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anis_ss.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anis_ss_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
