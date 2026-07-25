@@ -4466,7 +4466,8 @@
     "element": "electric",
     "company": "elysion",
     "squad": "エクスターナー",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/maiden_ir.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/maiden_ir_slot.jpg",
     "buffs": {
       "self": {
         "hpUpOnly": {
