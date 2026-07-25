@@ -8102,6 +8102,8 @@
     "element": "iron",
     "company": "elysion",
     "squad": "アカデミア",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marciana_ms.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marciana_ms_slot.jpg",
     "buffs": {
       "party": {
         "enemyAtkDown": {
