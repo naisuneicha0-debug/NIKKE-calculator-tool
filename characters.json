@@ -2634,6 +2634,7 @@
     "element": "iron",
     "company": "abnormal",
     "squad": "空挺部隊",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/raven.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/raven_alt.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/raven_slot.jpg",
     "buffs": {
