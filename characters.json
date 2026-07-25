@@ -7462,7 +7462,8 @@
     "element": "water",
     "company": "elysion",
     "squad": "ベストセラー",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/phantom.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/phantom_slot.jpg",
     "buffs": {
       "party": {
         "defDown": {
