@@ -1325,6 +1325,8 @@
     "element": "wind",
     "company": "pilgrim",
     "squad": "パイオニア",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nayuta.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nayuta_slot.jpg",
     "buffs": {
       "party": {
         "coreDmg": {
