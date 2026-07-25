@@ -63,6 +63,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dorothy.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dorothy_slot.jpg",
     "cardBgGlitch": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dorothy_glitch.jpg",
+    "signalTone": "fixed",
     "buffs": {
       "party": {
         "burstCT": {
