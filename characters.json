@@ -1522,6 +1522,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "ベストセラー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/arcana.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/arcana_slot.jpg",
     "caution": [
       {
         "condition": "noSG",
