@@ -7986,6 +7986,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cinderella_cw.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cinderella_cw_alt.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cinderella_cw_slot.jpg",
+    "cardBgPicker": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cinderella_cw_picker.jpg",
     "buffs": {
       "party": {
         "burstGaugeInstant": {
