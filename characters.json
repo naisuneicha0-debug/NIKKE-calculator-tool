@@ -335,6 +335,8 @@
     "element": "electric",
     "company": "missilis",
     "squad": "ボタニックガーデン",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/trina.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/trina_slot.jpg",
     "buffs": {
       "party": {
         "dmg": {
@@ -4020,7 +4022,8 @@
     "element": "iron",
     "company": "missilis",
     "squad": "マイティツールズ",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/senti.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/senti_slot.jpg",
     "buffs": {
       "party": {
         "heal": {
@@ -4142,7 +4145,8 @@
     "element": "water",
     "company": "missilis",
     "squad": "エレクトリックショック",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eleg_bs.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eleg_bs_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -4202,7 +4206,9 @@
     "weapon": "sr",
     "element": "water",
     "role": "atk",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy_slot.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy_alt.jpg",
     "buffs": {
       "self": {
         "atk": {
@@ -6473,7 +6479,9 @@
     "element": "electric",
     "company": "elysion",
     "squad": "ベストセラー",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/arcana_tarot.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/arcana_tarot_slot.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/arcana_tarot_alt.jpg",
     "caution": [
       {
         "condition": "noB3Elec",
@@ -6952,6 +6960,8 @@
     "element": "water",
     "company": "tetra",
     "squad": "エキゾチック",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/viper.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/viper_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
