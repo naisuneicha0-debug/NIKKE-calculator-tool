@@ -1040,6 +1040,8 @@
     "element": "iron",
     "company": "tetra",
     "squad": "メイド・フォー・ユー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ade_ab.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ade_ab_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
@@ -4072,7 +4074,8 @@
     "element": "electric",
     "company": "abnormal",
     "squad": "B.S.T.",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/jill.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/jill_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -4449,7 +4452,8 @@
     "element": "iron",
     "company": "abnormal",
     "squad": "喫茶リコリコ",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/chisato.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/chisato_slot.jpg",
     "buffs": {
       "self": {
         "atk": {
