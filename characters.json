@@ -2506,6 +2506,9 @@
     "element": "iron",
     "company": "tetra",
     "squad": "カフェ・スウィーティー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/milk_bb.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/milk_bb_alt.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/milk_bb_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
