@@ -4123,7 +4123,7 @@ function buildCharCard(char, filledTeam) {
   })() : (char.id === 'molly') ? (() => {
     const mode    = effectiveMollyMode || 'normal';
     const isResist = mode === 'resist';
-    const valLines = isResist ? ['RESIST'] : ['NORMAL'];
+    const valLines = isResist ? ['RESIST'] : ['NORM'];
     const valText  = valLines.map(l => `<span style="display:block;line-height:1.4;">${l}</span>`).join('');
     const color    = isResist ? '#ffd400' : '#00d4ff';
     const shadow   = isResist ? '0 0 8px rgba(255,212,0,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
@@ -4709,7 +4709,7 @@ function renderCharList() {
     item.className = 'char-item';
     item.onclick = () => { TEAM[pickerSlotIdx] = c; closePicker(); checkModeChangeAndRender(); };
     if(c.cardBg) {
-      const pickerBg = (c.id === 'rapi_rh' || c.id === 'anisstar') && c.cardBgAlt
+      const pickerBg = (c.id === 'rapi_rh' || c.id === 'anisstar' || c.id === 'molly') && c.cardBgAlt
         ? c.cardBgAlt
         : c.cardBg;
       item.style.backgroundImage = `url('${pickerBg}')`;
