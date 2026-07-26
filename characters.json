@@ -2950,6 +2950,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "アンリミテッド",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/alice.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/alice_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -3004,6 +3006,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "インフィニティレール",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/bridget_st.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/bridget_st_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
@@ -7324,7 +7328,8 @@
     "element": "wind",
     "company": "missilis",
     "squad": "M.M.R.",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mana.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mana_slot.jpg",
     "buffs": {
       "party": {
         "heal": {
