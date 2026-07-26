@@ -7983,6 +7983,9 @@
     "element": "iron",
     "company": "pilgrim",
     "squad": "オールドテイルズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cinderella_cw.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cinderella_cw_alt.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cinderella_cw_slot.jpg",
     "buffs": {
       "party": {
         "burstGaugeInstant": {
