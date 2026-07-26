@@ -653,6 +653,8 @@
     "element": "electric",
     "company": "elysion",
     "squad": "イージス",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mast.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mast_slot.jpg",
     "buffs": {
       "party": {},
       "self": {},
@@ -3342,7 +3344,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "アブソルート",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/emma_tu.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/emma_tu_slot.jpg",
     "cardBgAlt": "",
     "caution": [
       {
@@ -9595,6 +9598,8 @@
     "element": "water",
     "company": "abnormal",
     "squad": "デビルハンター",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/makima.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/makima_slot.jpg",
     "buffs": {
       "party": {
         "reload": {
