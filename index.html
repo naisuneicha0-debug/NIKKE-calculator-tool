@@ -4713,9 +4713,12 @@ function renderCharList() {
     item.className = 'char-item';
     item.onclick = () => { TEAM[pickerSlotIdx] = c; closePicker(); checkModeChangeAndRender(); };
     if(c.cardBg) {
-      const pickerBg = (c.id === 'rapi_rh' || c.id === 'anisstar' || c.id === 'molly') && c.cardBgAlt
-        ? c.cardBgAlt
-        : c.cardBg;
+      // ピッカー専用画像はcardBgPickerで個別指定できる（未指定時は既存ロジック=cardBgAlt優先キャラ or cardBg）
+      const pickerBg = c.cardBgPicker
+        ? c.cardBgPicker
+        : (c.id === 'rapi_rh' || c.id === 'anisstar' || c.id === 'molly') && c.cardBgAlt
+          ? c.cardBgAlt
+          : c.cardBg;
       item.style.backgroundImage = `url('${pickerBg}')`;
       item.style.backgroundSize = 'cover';
       item.style.backgroundPosition = 'right top';
