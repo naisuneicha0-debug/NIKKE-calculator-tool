@@ -7056,6 +7056,8 @@
     "element": "wind",
     "company": "pilgrim",
     "squad": "インヘルト",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/noah.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/noah_slot.jpg",
     "buffs": {
       "party": {
         "dmgReduce": {
@@ -8445,6 +8447,8 @@
     "element": "wind",
     "company": "elysion",
     "squad": "オーバー・ザ・ホライズン",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sora.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sora_slot.jpg",
     "buffs": {
       "party": {
         "hpReserve": {
@@ -9276,6 +9280,8 @@
     "element": "electric",
     "company": "tetra",
     "squad": "リワインド",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/clay.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/clay_slot.jpg",
     "buffs": {
       "party": {
         "trueDmg": {
