@@ -4562,8 +4562,8 @@
     "weapon": "smg",
     "element": "water",
     "role": "atk",
-    "cardBg": null,
-    "image": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/quency_eq.png",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/quency_eq.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/quency_eq_slot.jpg",
     "buffs": {
       "self": {
         "hitRate": {
