@@ -6575,6 +6575,7 @@
     "squad": "クッキングオイル",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/crust.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/crust_alt.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/crust_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
