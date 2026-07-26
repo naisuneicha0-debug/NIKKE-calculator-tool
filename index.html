@@ -2369,6 +2369,8 @@ function slotCompanyIcon(company, size, uid) {
 // ============================================================
 // ===== HELPERS =====
 const el = id => document.getElementById(id);
+// ひらがな→カタカナ正規化（名前検索でひらがな入力もヒットさせるため）
+const toKatakana = str => str.replace(/[\u3041-\u3096]/g, ch => String.fromCharCode(ch.charCodeAt(0) + 0x60));
 const fmt = v => {
   if(typeof v !== 'number') return v;
   return v % 1 === 0 ? v.toFixed(0) : v.toFixed(2);
@@ -4677,7 +4679,7 @@ function renderCharList() {
     if(filterState.element.size > 0 && !filterState.element.has(c.element))   return false;
     if(filterState.company.size > 0 && !filterState.company.has(c.company))   return false;
     if(filterState.squad.size   > 0 && !filterState.squad.has(c.squad))       return false;
-    if(search && !c.name.toLowerCase().includes(search))                       return false;
+    if(search && !toKatakana(c.name.toLowerCase()).includes(toKatakana(search)))                       return false;
     return true;
   });
 
