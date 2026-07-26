@@ -2978,7 +2978,7 @@ function buildCharCard(char, filledTeam) {
   const mollyChar = filledTeam.find(c => c.id === 'molly');
   const effectiveMollyMode = (() => {
     if(!mollyChar) return null;
-    return mollyMode !== null ? mollyMode : 'resist';
+    return mollyMode !== null ? mollyMode : 'normal';
   })();
 
   // ===== レッドフード モード判定 =====
@@ -3861,7 +3861,7 @@ function buildCharCard(char, filledTeam) {
       return mode === 'an' ? char.cardBgAlt : char.cardBg;
     }
     if(char.id === 'molly' && char.cardBgAlt) {
-      const mode = mollyMode !== null ? mollyMode : 'resist';
+      const mode = mollyMode !== null ? mollyMode : 'normal';
       return mode === 'normal' ? char.cardBgAlt : char.cardBg;
     }
     return char.cardBg;
@@ -3870,8 +3870,10 @@ function buildCharCard(char, filledTeam) {
   const glitchBg = char.cardBgGlitch || activeBg;
   // 信号干渉エフェクトの色調（未指定時は従来のランダム虹色hue-rotate・既存キャラは無変更）
   const signalToneClass = char.signalTone === 'sepia' ? ' sepia' : (char.signalTone === 'fixed' ? ' fixedtone' : '');
+  // ヘッダー画像の縦フォーカス位置。cardBgPosYで個別指定できる（未指定時はtop=デフォルト、既存キャラは無変更）
+  const headerBgPosY = char.cardBgPosY || 'top';
   const headerBgStyle = activeBg
-    ? `background-image:url('${activeBg}');background-size:cover;background-position:right top;background-repeat:no-repeat;position:relative;overflow:hidden;`
+    ? `background-image:url('${activeBg}');background-size:cover;background-position:right ${headerBgPosY};background-repeat:no-repeat;position:relative;overflow:hidden;`
     : `position:relative;overflow:hidden;`;
   const headerOverlay = activeBg
     ? `<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,7,14,0.85) 0%,rgba(6,7,14,0.5) 60%,rgba(6,7,14,0.2) 100%);pointer-events:none;"></div>`
@@ -4119,7 +4121,7 @@ function buildCharCard(char, filledTeam) {
         </div>
       </div>`;
   })() : (char.id === 'molly') ? (() => {
-    const mode    = effectiveMollyMode || 'resist';
+    const mode    = effectiveMollyMode || 'normal';
     const isResist = mode === 'resist';
     const valLines = isResist ? ['RESIST'] : ['NORMAL'];
     const valText  = valLines.map(l => `<span style="display:block;line-height:1.4;">${l}</span>`).join('');
@@ -5105,7 +5107,7 @@ function toggleMollyMode(e) {
   if(!sig || sig.dataset.switching === '1') return;
   sig.dataset.switching = '1';
 
-  const current  = mollyMode !== null ? mollyMode : 'resist';
+  const current  = mollyMode !== null ? mollyMode : 'normal';
   const nextMode = current === 'resist' ? 'normal' : 'resist';
 
   const bodyStates = {}, arrowStates = {};
