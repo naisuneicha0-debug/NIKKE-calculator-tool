@@ -2341,6 +2341,9 @@
     "element": "fire",
     "company": "elysion",
     "squad": "インフィニティレール",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/diesel_ws.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/diesel_ws_alt.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/diesel_ws_slot.jpg",
     "buffs": {
       "party": {
         "enemyDmgTaken": {
