@@ -3860,6 +3860,10 @@ function buildCharCard(char, filledTeam) {
       const mode = ravenMode !== null ? ravenMode : 'focus';
       return mode === 'an' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'molly' && char.cardBgAlt) {
+      const mode = mollyMode !== null ? mollyMode : 'resist';
+      return mode === 'normal' ? char.cardBgAlt : char.cardBg;
+    }
     return char.cardBg;
   })();
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
@@ -5109,7 +5113,9 @@ function toggleMollyMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const mollyChar = NIKKE_DB.find(c => c.id === 'molly');
-  const nextImgUrl = mollyChar && mollyChar.cardBg;
+  const nextImgUrl = nextMode === 'normal'
+    ? (mollyChar && mollyChar.cardBgAlt)
+    : (mollyChar && mollyChar.cardBg);
 
   fireSignalBurst('card-molly', nextImgUrl, () => {
     mollyMode = nextMode;
