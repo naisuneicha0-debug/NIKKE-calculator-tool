@@ -9039,6 +9039,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/molly.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/molly_alt.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/molly_slot.jpg",
+    "cardBgPosY": "20%",
     "buffs": {
       "party": {
         "dotDmg": {
