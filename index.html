@@ -3858,6 +3858,10 @@ function buildCharCard(char, filledTeam) {
       const mode = arcanaFateMode !== null ? arcanaFateMode : 'normal';
       return mode === 'fate' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'crust' && char.cardBgAlt) {
+      const mode = crustMode !== null ? crustMode : 'meilard';
+      return mode === 'branching' ? char.cardBgAlt : char.cardBg;
+    }
     if(char.id === 'pyrika' && char.cardBgAlt) {
       const mode = pyrikaMode !== null ? pyrikaMode : 'norm';
       return mode === 'perf' ? char.cardBgAlt : char.cardBg;
@@ -5274,7 +5278,9 @@ function toggleCrustMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const crustCharData = NIKKE_DB.find(c => c.id === 'crust');
-  const nextImgUrl = crustCharData && crustCharData.cardBg;
+  const nextImgUrl = nextMode === 'branching'
+    ? (crustCharData && crustCharData.cardBgAlt)
+    : (crustCharData && crustCharData.cardBg);
 
   fireSignalBurst('card-crust', nextImgUrl, () => {
     crustMode = nextMode;
@@ -5301,7 +5307,9 @@ function toggleBreddyMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const breddyCharData = NIKKE_DB.find(c => c.id === 'breddy');
-  const nextImgUrl = breddyCharData && breddyCharData.cardBg;
+  const nextImgUrl = nextMode === 'recom'
+    ? (breddyCharData && breddyCharData.cardBgAlt)
+    : (breddyCharData && breddyCharData.cardBg);
 
   fireSignalBurst('card-breddy', nextImgUrl, () => {
     breddyMode = nextMode;
