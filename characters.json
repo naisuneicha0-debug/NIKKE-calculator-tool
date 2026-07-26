@@ -5783,7 +5783,8 @@
     "element": "water",
     "company": "elysion",
     "squad": "インフィニティレール",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sorin_ft.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sorin_ft_slot.jpg",
     "buffs": {
       "party": {
         "hpUpOnly": {
