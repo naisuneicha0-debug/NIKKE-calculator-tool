@@ -6659,6 +6659,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "リワインド",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/bay.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/bay_slot.jpg",
     "buffs": {
       "party": {
         "dmgShareDiff": {
@@ -9384,6 +9386,8 @@
     "element": "water",
     "company": "tetra",
     "squad": "ハッピーズー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/leona.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/leona_slot.jpg",
     "buffs": {
       "party": {
         "critRate": {
@@ -9941,6 +9945,8 @@
     "element": "iron",
     "company": "tetra",
     "squad": "タレント",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rupee.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rupee_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
