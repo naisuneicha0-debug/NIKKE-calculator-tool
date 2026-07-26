@@ -3848,6 +3848,14 @@ function buildCharCard(char, filledTeam) {
       const mode = milkBbMode !== null ? milkBbMode : 'shy';
       return mode === 'rage' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'breddy' && char.cardBgAlt) {
+      const mode = breddyMode !== null ? breddyMode : 'habit';
+      return mode === 'recom' ? char.cardBgAlt : char.cardBg;
+    }
+    if(char.id === 'arcana_tarot' && char.cardBgAlt) {
+      const mode = arcanaFateMode !== null ? arcanaFateMode : 'normal';
+      return mode === 'fate' ? char.cardBgAlt : char.cardBg;
+    }
     if(char.id === 'pyrika' && char.cardBgAlt) {
       const mode = pyrikaMode !== null ? pyrikaMode : 'norm';
       return mode === 'perf' ? char.cardBgAlt : char.cardBg;
@@ -5206,7 +5214,9 @@ function toggleArcanaFateMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const arcanaTarotCharData = NIKKE_DB.find(c => c.id === 'arcana_tarot');
-  const nextImgUrl = arcanaTarotCharData && arcanaTarotCharData.cardBg;
+  const nextImgUrl = nextMode === 'fate'
+    ? (arcanaTarotCharData && arcanaTarotCharData.cardBgAlt)
+    : (arcanaTarotCharData && arcanaTarotCharData.cardBg);
 
   fireSignalBurst('card-arcana_tarot', nextImgUrl, () => {
     arcanaFateMode = nextMode;
