@@ -3461,7 +3461,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "アブソルート",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/bestie_tu.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/bestie_tu_slot.jpg",
     "cardBgAlt": "",
     "caution": [
       {
@@ -3838,7 +3839,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "A.C.P.U.",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/miranda.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/miranda_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -5303,7 +5305,8 @@
     "element": "iron",
     "company": "missilis",
     "squad": "メティス",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/laplace.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/laplace_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
