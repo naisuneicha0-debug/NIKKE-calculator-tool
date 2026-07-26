@@ -7876,6 +7876,10 @@
       {
         "condition": "no777Squad",
         "message": "ノワール以外の777部隊のニケを編成してください"
+      },
+      {
+        "condition": "noSG",
+        "message": "ノワール以外のSGニケを編成してください"
       }
     ],
     "buffs": {
