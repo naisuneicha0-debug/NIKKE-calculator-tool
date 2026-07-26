@@ -3864,6 +3864,10 @@ function buildCharCard(char, filledTeam) {
       const mode = mollyMode !== null ? mollyMode : 'normal';
       return mode === 'normal' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'cinderella_cw' && char.cardBgAlt) {
+      const mode = cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
+      return mode === 'snipe' ? char.cardBgAlt : char.cardBg;
+    }
     return char.cardBg;
   })();
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
@@ -4291,8 +4295,8 @@ function buildCharCard(char, filledTeam) {
     const effectiveCinderellaCwMode2 = cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
     const isSnipe  = effectiveCinderellaCwMode2 === 'snipe';
     const modeText = isSnipe ? 'SNIPE' : 'NORM';
-    const color    = isSnipe ? '#ff3c6e' : '#00d4ff';
-    const shadow   = isSnipe ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const color    = '#ff3c6e';
+    const shadow   = '0 0 8px rgba(255,60,110,0.9)';
     const tooltip  = isSnipe ? '狙撃モード状態（タップで切替）' : '通常モード状態（タップで切替）';
     const valText  = '<span style="display:block;line-height:1.4;font-size:10px;">' + modeText + '</span>';
     return '<div onclick="toggleCinderellaCwMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
@@ -5309,7 +5313,9 @@ function toggleCinderellaCwMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const cinderellaCwCharData = NIKKE_DB.find(c => c.id === 'cinderella_cw');
-  const nextImgUrl = cinderellaCwCharData && cinderellaCwCharData.cardBg;
+  const nextImgUrl = nextMode === 'snipe'
+    ? (cinderellaCwCharData && cinderellaCwCharData.cardBgAlt)
+    : (cinderellaCwCharData && cinderellaCwCharData.cardBg);
 
   fireSignalBurst('card-cinderella_cw', nextImgUrl, () => {
     cinderellaCwMode = nextMode;
