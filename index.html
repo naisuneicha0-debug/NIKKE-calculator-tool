@@ -4679,7 +4679,7 @@ function renderCharList() {
     if(filterState.element.size > 0 && !filterState.element.has(c.element))   return false;
     if(filterState.company.size > 0 && !filterState.company.has(c.company))   return false;
     if(filterState.squad.size   > 0 && !filterState.squad.has(c.squad))       return false;
-    if(search && !toKatakana(c.name.toLowerCase()).includes(toKatakana(search)))                       return false;
+    if(search && !toKatakana(c.name.toLowerCase()).startsWith(toKatakana(search)))                       return false;
     return true;
   });
 
