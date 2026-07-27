@@ -8542,6 +8542,8 @@
     "element": "water",
     "company": "abnormal",
     "squad": "WILLE",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sakura_suzuhara.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sakura_suzuhara_slot.jpg",
     "buffs": {
       "party": {},
       "self": {},
@@ -11861,7 +11863,8 @@
     "element": "electric",
     "company": "missilis",
     "squad": "M.M.R.",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/aether.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/aether_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -11964,7 +11967,8 @@
     "element": "wind",
     "company": "elysion",
     "squad": "スカウティング",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/delta.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/delta_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -12101,7 +12105,8 @@
     "element": "iron",
     "company": "abnormal",
     "squad": "NERV",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/misato.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/misato_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
