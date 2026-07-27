@@ -5250,7 +5250,8 @@
     "element": "iron",
     "company": "pilgrim",
     "squad": "パイオニア",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/snowwhite.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/snowwhite_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -6264,7 +6265,8 @@
     "element": "water",
     "company": "tetra",
     "squad": "カフェ・スウィーティー",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/milk.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/milk_slot.jpg",
     "buffs": {
       "party": {
         "critDmg": {
@@ -10116,6 +10118,8 @@
     "element": "water",
     "company": "elysion",
     "squad": "A.C.P.U.",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/poly.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/poly_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
