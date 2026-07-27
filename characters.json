@@ -10517,6 +10517,8 @@
     "element": "wind",
     "company": "missilis",
     "squad": "ライフトニック",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/epinel.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/epinel_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -11065,6 +11067,8 @@
     "element": "wind",
     "company": "abnormal",
     "squad": "デビルハンター",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/himeno.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/himeno_slot.jpg",
     "buffs": {
       "party": {
         "defDown": {
@@ -11899,7 +11903,8 @@
     "element": "water",
     "company": "missilis",
     "squad": "ワードレス",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mihara.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mihara_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
