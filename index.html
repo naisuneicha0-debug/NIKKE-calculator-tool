@@ -211,10 +211,11 @@
   #charPicker .modal { position: relative; }
   .picker-top-btn {
     position: absolute; left: 14px; bottom: 14px; z-index: 50;
-    width: 46px; height: 46px; border-radius: 50%;
+    width: 46px; height: 46px; border-radius: 5px;
     border: 1px solid var(--border2); background: var(--panel2); color: var(--accent);
     font-family: 'Chakra Petch', 'Courier New', monospace; font-size: 20px; font-weight: bold;
-    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+    display: flex; align-items: center; justify-content: center; text-align: center;
     cursor: pointer; letter-spacing: 0;
     transition: border-color 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
     opacity: 0; pointer-events: none;
