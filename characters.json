@@ -6062,7 +6062,8 @@
     "element": "iron",
     "company": "missilis",
     "squad": "エキゾチック",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/jackal.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/jackal_slot.jpg",
     "buffs": {
       "party": {
         "enemyDmgTaken": {
@@ -8337,6 +8338,8 @@
     "element": "iron",
     "company": "missilis",
     "squad": "マスターハンド",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/julia.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/julia_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -11966,7 +11969,8 @@
     "element": "fire",
     "company": "missilis",
     "squad": "エキゾチック",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/crow.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/crow_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
