@@ -5743,7 +5743,8 @@
     "element": "iron",
     "company": "elysion",
     "squad": "ベストセラー",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/label.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/label_slot.jpg",
     "buffs": {
       "party": {
         "dmgReduce": {
@@ -7992,6 +7993,8 @@
     "element": "electric",
     "company": "pilgrim",
     "squad": "インヘルト",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/harran.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/harran_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -8968,6 +8971,8 @@
     "element": "iron",
     "company": "tetra",
     "squad": "カフェ・スウィーティー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/prim.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/prim_slot.jpg",
     "buffs": {
       "party": {
         "defDown": {
@@ -10309,6 +10314,8 @@
     "element": "wind",
     "company": "elysion",
     "squad": "A.C.P.U.",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/kiri.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/kiri_slot.jpg",
     "buffs": {
       "party": {
         "enemyAtkDown": {
