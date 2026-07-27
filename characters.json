@@ -7332,7 +7332,8 @@
     "element": "electric",
     "company": "elysion",
     "squad": "シージペリラス",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/k.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/k_slot.jpg",
     "buffs": {
       "party": {
         "maxMagazineK": {
@@ -10426,6 +10427,8 @@
     "element": "wind",
     "company": "elysion",
     "squad": "シージペリラス",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/d.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/d_slot.jpg",
     "buffs": {
       "party": {
         "burstGaugeInstant": {
@@ -11303,6 +11306,8 @@
     "element": "iron",
     "company": "tetra",
     "squad": "カウンターズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anis.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anis_slot.jpg",
     "buffs": {
       "party": {
         "defDownB": {
@@ -11790,7 +11795,8 @@
     "element": "wind",
     "company": "tetra",
     "squad": "リトルキャノン",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mika.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mika_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
