@@ -2008,6 +2008,8 @@
     "element": "fire",
     "company": "pilgrim",
     "squad": "オールドテイルズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/grave.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/grave_slot.jpg",
     "buffs": {
       "party": {
         "burstGauge": {
@@ -3916,7 +3918,8 @@
     "element": "wind",
     "company": "tetra",
     "squad": "アンダーワールドクイーン",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rosanna_so.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rosanna_so_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -5618,7 +5621,8 @@
     "element": "wind",
     "company": "tetra",
     "squad": "女神戦隊アークレンジャー",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/arcblack.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/arcblack_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -7637,7 +7641,8 @@
     "element": "wind",
     "company": "tetra",
     "squad": "アンダーワールドクイーン",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sakura_bis.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sakura_bis_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
