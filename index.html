@@ -3888,6 +3888,10 @@ function buildCharCard(char, filledTeam) {
       const mode = cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
       return mode === 'snipe' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'laplace_uh' && char.cardBgAlt) {
+      const mode = laplaceUhMode !== null ? laplaceUhMode : 'normal';
+      return mode === 'full' ? char.cardBgAlt : char.cardBg;
+    }
     return char.cardBg;
   })();
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
@@ -5374,7 +5378,7 @@ function toggleLaplaceUhMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const laplaceUhCharData = NIKKE_DB.find(c => c.id === 'laplace_uh');
-  const nextImgUrl = laplaceUhCharData && laplaceUhCharData.cardBg;
+  const nextImgUrl = laplaceUhCharData && (nextMode === 'full' ? laplaceUhCharData.cardBgAlt : laplaceUhCharData.cardBg);
 
   fireSignalBurst('card-laplace_uh', nextImgUrl, () => {
     laplaceUhMode = nextMode;
