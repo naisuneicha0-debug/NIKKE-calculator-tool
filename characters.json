@@ -10655,6 +10655,8 @@
     "element": "water",
     "company": "elysion",
     "squad": "アブソルート",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/bestie.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/bestie_slot.jpg",
     "buffs": {
       "party": {
         "burstTimeDown": {
@@ -10958,6 +10960,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "タレント",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/yan.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/yan_slot.jpg",
     "buffs": {
       "party": {
         "chargeDmg": {
@@ -11356,6 +11360,8 @@
     "element": "water",
     "company": "elysion",
     "squad": "インフィニティレール",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/brid.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/brid_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
