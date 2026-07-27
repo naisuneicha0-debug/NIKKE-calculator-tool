@@ -3892,6 +3892,10 @@ function buildCharCard(char, filledTeam) {
       const mode = laplaceUhMode !== null ? laplaceUhMode : 'normal';
       return mode === 'full' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'grave' && char.cardBgAlt) {
+      const mode = graveMode !== null ? graveMode : 'normal';
+      return mode === 'fullcalc' ? char.cardBgAlt : char.cardBg;
+    }
     return char.cardBg;
   })();
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
@@ -5089,7 +5093,7 @@ function toggleGraveMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const graveCharData = NIKKE_DB.find(c => c.id === 'grave');
-  const nextImgUrl = graveCharData && graveCharData.cardBg;
+  const nextImgUrl = graveCharData && (nextMode === 'fullcalc' ? graveCharData.cardBgAlt : graveCharData.cardBg);
 
   fireSignalBurst('card-grave', nextImgUrl, () => {
     graveMode = nextMode;
