@@ -12394,5 +12394,50 @@
       ]
     },
     "note": "S1（シーケンシャルリミット解除・パッシブ）：フルチャージ攻撃ごとに味方全体、発動者基準の最大HP1%UP（持続・30スタック、caster・hpBased、stack.key\"maxwellOmHpStack\"・max30/default1）。バースト3段階突入時、味方全体に攻撃ダメージ10%UP（5秒間維持）。S2（出力切替シーケンス・パッシブ）：バーストスキル使用時、味方全体に発動者最終最大HPの1%分の攻撃力UP（15秒間維持、caster・hpBased、cinderella/maiden_irと同型）。バーストスキル使用時、自分に【過電流】攻撃力30%UP（持続、ゆりまん確認の上フラット値としてstack機構は使わず実装）。フルチャージ攻撃ごとに味方全体にバーストゲージ7.15%チャージ。BS（メティスバスターバスター・アクティブ・CT20秒）：自分の使用武器変更（メティスバスターバスター）に伴い、過電流の段階別にチャージ時間を固定（1段階以下3秒／2段階2.5秒／3段階2秒／4段階1.5秒／5段階以上0.4秒、既存キーchargeFixed・chargeFixedB〜Eの5トグル・exclusiveGroup\"maxwellOmChargeStage\"で排他択一、riverlelioの緩流と同型。新規マージキー4つ追加：chargeFixedB・C・D・E→chargeFixedへ合算）＋貫通特化（self.pierce・unit発・val1・「1発間維持」、harran/nihilisterと同型）。ダメージ350%・フルチャージダメージ300%・最大装弾数1発は武器の基礎値のためother欄で情報記載のみ。味方全体に攻撃ダメージ25%UP（10秒間維持、dmgBとしてdmgへ合算）。"
+  },
+  {
+    "id": "sorin",
+    "name": "ソリン",
+    "burst": 3,
+    "role": "atk",
+    "weapon": "smg",
+    "element": "iron",
+    "company": "elysion",
+    "squad": "インフィニティレール",
+    "buffs": {
+      "party": {},
+      "self": {
+        "atkSpd": {
+          "val": 7.26,
+          "condLabel": "S1・通常攻撃40回命中時・3秒間維持"
+        },
+        "critRate": {
+          "val": 21.62,
+          "condLabel": "S2・自分のHP100%限定・持続"
+        },
+        "critDmg": {
+          "val": 62.27,
+          "condLabel": "S2・自分のHP100%限定・持続"
+        }
+      },
+      "targeted": {},
+      "other": [
+        {
+          "label": "BSダメージ（攻撃範囲内の敵）",
+          "val": "最終攻撃力×396%",
+          "unit": "",
+          "cond": "バーストスキル・CT40秒",
+          "selfOnly": true
+        },
+        {
+          "label": "BS追加ダメージ（自分のHPが最大の場合・同じ対象）",
+          "val": "最終攻撃力×924%",
+          "unit": "",
+          "cond": "バーストスキル・自分のHPが最大の場合",
+          "selfOnly": true
+        }
+      ]
+    },
+    "note": "S1（パッシブ）：通常攻撃で40回攻撃した時、自分に攻撃速度7.26%UP（3秒間維持）。S2（パッシブ）：自分のHPが最大の時のみ、自分にクリティカル確率21.62%UP・クリティカルダメージ62.27%UP（持続）。BS（アクティブ・CT40秒）：攻撃範囲内の敵に最終攻撃力396%のダメージ＋自分のHPが最大の場合は同じ対象に最終攻撃力924%の追加ダメージ（いずれもother欄）。party/targetedバフなし（自己バフ2種＋ダメージスキルのみのシンプル構成、ブリッドと同型）。新規キーなし（atkSpd/critRate/critDmgとも既存キー流用）。"
   }
 ]
