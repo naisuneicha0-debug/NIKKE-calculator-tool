@@ -7194,6 +7194,8 @@
     "element": "wind",
     "company": "elysion",
     "squad": "インフィニティレール",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/diesel.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/diesel_slot.jpg",
     "buffs": {
       "party": {
         "bulletCharge": {
@@ -9223,6 +9225,8 @@
     "element": "electric",
     "company": "missilis",
     "squad": "ボタニックガーデン",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/flora.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/flora_slot.jpg",
     "buffs": {
       "party": {
         "barrier": {
