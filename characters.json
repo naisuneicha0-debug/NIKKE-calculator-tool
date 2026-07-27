@@ -8941,6 +8941,8 @@
     "element": "water",
     "company": "tetra",
     "squad": "アンリミテッド",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ludmilla.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ludmilla_slot.jpg",
     "buffs": {
       "party": {
         "defDown": {
@@ -9910,6 +9912,8 @@
     "element": "water",
     "company": "tetra",
     "squad": "ライフトニック",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/volkvan.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/volkvan_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -11415,6 +11419,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "カウンターズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapi.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapi_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -11795,7 +11801,8 @@
     "element": "electric",
     "company": "tetra",
     "squad": "リトルキャノン",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/velota.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/velota_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
