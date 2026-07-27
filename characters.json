@@ -2011,6 +2011,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/grave.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/grave_alt.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/grave_slot.jpg",
+    "cardBgGlitch": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/grave_glitch.jpg",
     "buffs": {
       "party": {
         "burstGauge": {
