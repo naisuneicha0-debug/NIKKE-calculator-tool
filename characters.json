@@ -7270,7 +7270,8 @@
     "element": "wind",
     "company": "elysion",
     "squad": "エキゾチック",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eh.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eh_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -7450,7 +7451,8 @@
     "element": "water",
     "company": "elysion",
     "squad": "エクスターナー",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guillotine_ws.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guillotine_ws_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -11026,6 +11028,8 @@
     "element": "wind",
     "company": "abnormal",
     "squad": "空挺部隊",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/lily.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/lily_slot.jpg",
     "buffs": {
       "party": {
         "shelter": {
@@ -11324,6 +11328,8 @@
     "element": "water",
     "company": "elysion",
     "squad": "カウンターズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_bo.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_bo_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
