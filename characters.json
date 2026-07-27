@@ -6919,6 +6919,8 @@
     "element": "electric",
     "company": "tetra",
     "squad": "ハッピーズー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/biscuit.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/biscuit_slot.jpg",
     "buffs": {
       "party": {},
       "self": {},
@@ -8623,6 +8625,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "ライフトニック",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rumani.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rumani_slot.jpg",
     "buffs": {
       "party": {
         "partDmg": {
@@ -8674,6 +8678,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "アンダーワールドクイーン",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sakura.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sakura_slot.jpg",
     "buffs": {
       "party": {
         "defUp": {
