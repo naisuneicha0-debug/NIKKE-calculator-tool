@@ -5676,7 +5676,8 @@
     "element": "iron",
     "company": "missilis",
     "squad": "メティス",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/maxwell.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/maxwell_slot.jpg",
     "buffs": {
       "party": {
         "chargeSpd": {
@@ -9025,6 +9026,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "アブソルート",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/emma.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/emma_slot.jpg",
     "buffs": {
       "party": {
         "heal": {
@@ -10684,6 +10687,8 @@
     "element": "electric",
     "company": "tetra",
     "squad": "アンダーワールドクイーン",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rozanna.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rozanna_slot.jpg",
     "buffs": {
       "party": {
         "enemyBuffRemove": {
