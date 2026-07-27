@@ -202,7 +202,7 @@
     overflow: hidden;
   }
   .modal-title { font-family: 'Orbitron', 'Courier New', monospace; font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--accent); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
-  .modal-filters { flex-shrink: 0; padding-right: 2px; }
+  .modal-filters { flex-shrink: 0; padding-right: 2px; overflow: hidden; transition: max-height 0.25s ease, opacity 0.2s ease; }
   .modal-filters::-webkit-scrollbar { width: 3px; }
   .modal-filters::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
   .modal .search-box { flex-shrink: 0; }
@@ -1670,7 +1670,6 @@
       </div>
       <input type="text" class="search-box" id="charSearch" placeholder="名前で検索..." oninput="renderCharList()">
 
-      <div class="modal-scroll">
       <div class="modal-filters">
       <!-- 段1: ALL NIKKE -->
       <div class="filter-group">
@@ -1738,6 +1737,7 @@
 
       </div><!-- /modal-filters -->
 
+      <div class="modal-scroll">
       <div class="char-list" id="charList"></div>
       </div><!-- /modal-scroll -->
       <div class="picker-top-btn" id="pickerTopBtn" onclick="scrollPickerToTop()" title="最上部へ戻る">↑</div>
@@ -4585,9 +4585,9 @@ function openPicker(idx) {
   // フィルター展開に戻す
   const filters = document.querySelector('.modal-filters');
   if(filters) {
-    filters.style.maxHeight = '';
+    filters.style.maxHeight = filters.dataset.filtersMaxH ? filters.dataset.filtersMaxH + 'px' : '';
     filters.style.opacity   = '';
-    filters.style.overflow  = '';
+    filters.dataset.collapsed = '0';
   }
   el('charList').scrollTop = 0;
   const pickerScrollEl = document.querySelector('#charPicker .modal-scroll');
@@ -4637,25 +4637,30 @@ function renderFormationHelpPage() {
 
 // キャラリストスクロールでフィルター折りたたみ
 function initCharListScroll() {
-  const list    = el('charList');
   const filters = document.querySelector('.modal-filters');
-  if(!list || !filters) return;
+  const scrollContainer = document.querySelector('#charPicker .modal-scroll');
+  if(!scrollContainer || !filters) return;
 
   const filtersMaxH = filters.scrollHeight;
+  filters.style.maxHeight = filtersMaxH + 'px';
+  filters.dataset.filtersMaxH = filtersMaxH;
+  filters.dataset.collapsed = '0';
 
-  list.addEventListener('scroll', () => {
-    const y     = list.scrollTop;
-    const ratio = Math.min(1, y / filtersMaxH);
-    const newH  = filtersMaxH * (1 - ratio);
-    filters.style.maxHeight = newH + 'px';
-    filters.style.opacity   = String(1 - ratio);
-    filters.style.overflow  = 'hidden';
+  // 閾値を超えたら1回だけ折りたたむ/展開する（連続スクラブによるレイアウトスラッシングを回避）
+  const THRESHOLD = 40;
+  scrollContainer.addEventListener('scroll', () => {
+    const shouldCollapse = scrollContainer.scrollTop > THRESHOLD;
+    const isCollapsed = filters.dataset.collapsed === '1';
+    if(shouldCollapse !== isCollapsed) {
+      filters.dataset.collapsed = shouldCollapse ? '1' : '0';
+      filters.style.maxHeight = shouldCollapse ? '0px' : filters.dataset.filtersMaxH + 'px';
+      filters.style.opacity   = shouldCollapse ? '0' : '1';
+    }
   }, { passive: true });
 
-  // 最上部へ戻るボタンの表示/非表示（実際のスクロールコンテナはmodal-scroll）
-  const scrollContainer = document.querySelector('#charPicker .modal-scroll');
+  // 最上部へ戻るボタンの表示/非表示
   const topBtn = el('pickerTopBtn');
-  if(scrollContainer && topBtn) {
+  if(topBtn) {
     scrollContainer.addEventListener('scroll', () => {
       topBtn.classList.toggle('show', scrollContainer.scrollTop > 150);
     }, { passive: true });
