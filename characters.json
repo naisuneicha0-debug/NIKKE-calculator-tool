@@ -6390,7 +6390,8 @@
     "element": "water",
     "company": "elysion",
     "squad": "スカウティング",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/delta_nt.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/delta_nt_slot.jpg",
     "buffs": {
       "party": {
         "enemyDmgTaken": {
@@ -8739,6 +8740,8 @@
     "element": "water",
     "company": "missilis",
     "squad": "ヴェイルド・オーダー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/shiratsuru.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/shiratsuru_slot.jpg",
     "buffs": {
       "party": {
         "hpUp": {
@@ -9382,6 +9385,8 @@
     "element": "wind",
     "company": "tetra",
     "squad": "メイド・フォー・ユー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ade.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ade_slot.jpg",
     "buffs": {
       "party": {
         "debuffImmune": {
@@ -9491,6 +9496,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "ハッピーズー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nero.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nero_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
