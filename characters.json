@@ -9103,6 +9103,8 @@
     "element": "water",
     "company": "missilis",
     "squad": "リコール&リリーズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/n102.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/n102_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
@@ -10238,6 +10240,8 @@
     "element": "fire",
     "company": "missilis",
     "squad": "エレクトリックショック",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/torony.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/torony_slot.jpg",
     "buffs": {
       "party": {
         "defDown": {
@@ -11520,7 +11524,8 @@
     "element": "electric",
     "company": "abnormal",
     "squad": "B.S.T.",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/claire_rf.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/claire_rf_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -12001,7 +12006,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "カウンターズ",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neon_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
