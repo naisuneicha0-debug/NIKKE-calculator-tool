@@ -202,7 +202,7 @@
     overflow: hidden;
   }
   .modal-title { font-family: 'Orbitron', 'Courier New', monospace; font-weight: 700; font-size: 16px; letter-spacing: 2px; color: var(--accent); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; }
-  .modal-filters { flex-shrink: 0; padding-right: 2px; overflow: hidden; transition: max-height 0.25s ease, opacity 0.2s ease; }
+  .modal-filters { flex-shrink: 0; padding-right: 2px; }
   .modal-filters::-webkit-scrollbar { width: 3px; }
   .modal-filters::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
   .modal .search-box { flex-shrink: 0; }
@@ -212,14 +212,14 @@
   .picker-top-btn {
     position: absolute; left: 14px; bottom: 14px; z-index: 50;
     width: 46px; height: 46px; border-radius: 50%;
-    background: rgba(0,212,255,0.92); border: 1px solid var(--accent);
-    color: #060810; font-size: 20px; font-weight: 900;
+    border: 1px solid var(--border2); background: var(--panel2); color: var(--accent);
+    font-family: 'Chakra Petch', 'Courier New', monospace; font-size: 20px; font-weight: bold;
     display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 12px rgba(0,212,255,0.55);
-    cursor: pointer;
+    cursor: pointer; letter-spacing: 0;
+    transition: border-color 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
     opacity: 0; pointer-events: none;
-    transition: opacity 0.2s;
   }
+  .picker-top-btn:hover { border-color: var(--accent); color: var(--accent3); box-shadow: 0 0 8px var(--glow); }
   .picker-top-btn.show { opacity: 1; pointer-events: auto; }
   .modal-close { font-size: 18px; cursor: pointer; color: var(--text-dim); background: none; border: none; }
   .modal-close:hover { color: var(--accent2); }
@@ -1670,6 +1670,7 @@
       </div>
       <input type="text" class="search-box" id="charSearch" placeholder="名前で検索..." oninput="renderCharList()">
 
+      <div class="modal-scroll">
       <div class="modal-filters">
       <!-- 段1: ALL NIKKE -->
       <div class="filter-group">
@@ -1737,7 +1738,6 @@
 
       </div><!-- /modal-filters -->
 
-      <div class="modal-scroll">
       <div class="char-list" id="charList"></div>
       </div><!-- /modal-scroll -->
       <div class="picker-top-btn" id="pickerTopBtn" onclick="scrollPickerToTop()" title="最上部へ戻る">↑</div>
@@ -4585,9 +4585,9 @@ function openPicker(idx) {
   // フィルター展開に戻す
   const filters = document.querySelector('.modal-filters');
   if(filters) {
-    filters.style.maxHeight = filters.dataset.filtersMaxH ? filters.dataset.filtersMaxH + 'px' : '';
+    filters.style.maxHeight = '';
     filters.style.opacity   = '';
-    filters.dataset.collapsed = '0';
+    filters.style.overflow  = '';
   }
   el('charList').scrollTop = 0;
   const pickerScrollEl = document.querySelector('#charPicker .modal-scroll');
@@ -4637,26 +4637,8 @@ function renderFormationHelpPage() {
 
 // キャラリストスクロールでフィルター折りたたみ
 function initCharListScroll() {
-  const filters = document.querySelector('.modal-filters');
   const scrollContainer = document.querySelector('#charPicker .modal-scroll');
-  if(!scrollContainer || !filters) return;
-
-  const filtersMaxH = filters.scrollHeight;
-  filters.style.maxHeight = filtersMaxH + 'px';
-  filters.dataset.filtersMaxH = filtersMaxH;
-  filters.dataset.collapsed = '0';
-
-  // 閾値を超えたら1回だけ折りたたむ/展開する（連続スクラブによるレイアウトスラッシングを回避）
-  const THRESHOLD = 40;
-  scrollContainer.addEventListener('scroll', () => {
-    const shouldCollapse = scrollContainer.scrollTop > THRESHOLD;
-    const isCollapsed = filters.dataset.collapsed === '1';
-    if(shouldCollapse !== isCollapsed) {
-      filters.dataset.collapsed = shouldCollapse ? '1' : '0';
-      filters.style.maxHeight = shouldCollapse ? '0px' : filters.dataset.filtersMaxH + 'px';
-      filters.style.opacity   = shouldCollapse ? '0' : '1';
-    }
-  }, { passive: true });
+  if(!scrollContainer) return;
 
   // 最上部へ戻るボタンの表示/非表示
   const topBtn = el('pickerTopBtn');
