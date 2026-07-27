@@ -9831,6 +9831,8 @@
     "element": "wind",
     "company": "missilis",
     "squad": "リコール&リリーズ",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/n_mf.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/n_mf_slot.jpg",
     "buffs": {
       "party": {
         "healRcvUp": {
@@ -10929,6 +10931,8 @@
     "element": "electric",
     "company": "tetra",
     "squad": "タレント",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rupee_xmas.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rupee_xmas_slot.jpg",
     "buffs": {
       "party": {
         "defUp": {
@@ -12174,6 +12178,9 @@
     "element": "wind",
     "company": "missilis",
     "squad": "メティス",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/laplace_uh.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/laplace_uh_alt.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/laplace_uh_slot.jpg",
     "caution": [],
     "buffs": {
       "party": {},
@@ -12273,7 +12280,8 @@
     "element": "wind",
     "company": "missilis",
     "squad": "メティス",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/maxwell_om.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/maxwell_om_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
