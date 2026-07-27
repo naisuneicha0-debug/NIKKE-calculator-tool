@@ -2987,7 +2987,7 @@ function buildCharCard(char, filledTeam) {
   const redHoodChar = filledTeam.find(c => c.id === 'redhood');
   const effectiveRedHoodMode = (() => {
     if(!redHoodChar) return null;
-    return redHoodMode !== null ? redHoodMode : 'lambda';
+    return redHoodMode !== null ? redHoodMode : 'b1';
   })();
 
   // ===== グレイブ モード判定 =====
@@ -3838,6 +3838,12 @@ function buildCharCard(char, filledTeam) {
       const mode = anisStarMode !== null ? anisStarMode : (hasOtherB1 ? 'team' : 'solo');
       return mode === 'team' ? char.cardBgAlt : char.cardBg;
     }
+    if(char.id === 'redhood' && char.cardBgB1) {
+      const mode = redHoodMode !== null ? redHoodMode : 'b1';
+      if(mode === 'b2') return char.cardBgB2 || char.cardBg;
+      if(mode === 'b3') return char.cardBgB3 || char.cardBg;
+      return char.cardBgB1;
+    }
     if(char.id === 'neon_vi' && char.cardBgAlt) {
       const mode = neonViMode !== null ? neonViMode : 'normal';
       return mode === 'ultrafire' ? char.cardBgAlt : char.cardBg;
@@ -4173,9 +4179,8 @@ function buildCharCard(char, filledTeam) {
         </div>
       </div>`;
   })() : (char.id === 'redhood') ? (() => {
-    const mode = effectiveRedHoodMode || 'lambda';
+    const mode = effectiveRedHoodMode || 'b1';
     const modeMap = {
-      lambda: { top: lambdaSVG(12), sub: '---', color: '#888888', shadow: '0 0 8px rgba(136,136,136,0.6)', tooltip: '未選択（タップで切替）' },
       b1:     { top: lambdaSVG(12), sub: 'B1',  color: '#00ff9d', shadow: '0 0 8px rgba(0,255,157,0.9)',   tooltip: 'ビーストケージ（タップで切替）' },
       b2:     { top: lambdaSVG(12), sub: 'B2',  color: '#ffd400', shadow: '0 0 8px rgba(255,212,0,0.9)',   tooltip: 'ハウリングエンド（タップで切替）' },
       b3:     { top: lambdaSVG(12), sub: 'B3',  color: '#ff3c6e', shadow: '0 0 8px rgba(255,60,110,0.9)',  tooltip: 'レッドウルフ（タップで切替）' },
@@ -5157,8 +5162,8 @@ function toggleRedHoodMode(e) {
   if(!sig || sig.dataset.switching === '1') return;
   sig.dataset.switching = '1';
 
-  const order = ['lambda','b1','b2','b3'];
-  const current = redHoodMode !== null ? redHoodMode : 'lambda';
+  const order = ['b1','b2','b3'];
+  const current = redHoodMode !== null ? redHoodMode : 'b1';
   const nextMode = order[(order.indexOf(current) + 1) % order.length];
 
   const bodyStates = {}, arrowStates = {};
@@ -5166,7 +5171,11 @@ function toggleRedHoodMode(e) {
   document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
 
   const rhChar = NIKKE_DB.find(c => c.id === 'redhood');
-  const nextImgUrl = rhChar && rhChar.cardBg;
+  const nextImgUrl = rhChar && (
+    nextMode === 'b2' ? (rhChar.cardBgB2 || rhChar.cardBg) :
+    nextMode === 'b3' ? (rhChar.cardBgB3 || rhChar.cardBg) :
+    rhChar.cardBgB1
+  );
 
   fireSignalBurst('card-redhood', nextImgUrl, () => {
     redHoodMode = nextMode;
