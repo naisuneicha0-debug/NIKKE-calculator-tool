@@ -4925,7 +4925,8 @@
     "weapon": "mg",
     "element": "water",
     "role": "atk",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ludmila_wo.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ludmila_wo_slot.jpg",
     "image": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ludmila_wo.png",
     "buffs": {
       "self": {
@@ -5952,7 +5953,8 @@
     "element": "iron",
     "company": "tetra",
     "squad": "リトルキャノン",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mika_sb.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mika_sb_slot.jpg",
     "buffs": {
       "party": {
         "dmgReduce": {
@@ -6006,7 +6008,8 @@
     "element": "water",
     "company": "tetra",
     "squad": "セラフィム",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mary_bg.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mary_bg_slot.jpg",
     "buffs": {
       "party": {
         "healOverTime": {
