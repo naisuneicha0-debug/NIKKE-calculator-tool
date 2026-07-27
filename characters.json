@@ -2184,6 +2184,8 @@
     "element": "iron",
     "company": "pilgrim",
     "squad": "ヴァイスリッター",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/chime.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/chime_slot.jpg",
     "caution": [
       {
         "condition": "noCrown",
@@ -3756,7 +3758,8 @@
     "element": "electric",
     "company": "tetra",
     "squad": "プロトコール",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/exia.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/exia_slot.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -4827,7 +4830,8 @@
     "weapon": "sg",
     "element": "iron",
     "role": "atk",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/soda_tb.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/soda_tb_slot.jpg",
     "image": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/soda_tb.png",
     "buffs": {
       "self": {
@@ -6820,6 +6824,8 @@
     "element": "electric",
     "company": "missilis",
     "squad": "エレクトリックショック",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eleg.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eleg_slot.jpg",
     "buffs": {
       "party": {
         "enemyProjectileDmg": {
