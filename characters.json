@@ -2862,6 +2862,11 @@
     "element": "iron",
     "company": "pilgrim",
     "squad": "ゴッデス",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/redhood_b1.jpg",
+    "cardBgB1": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/redhood_b1.jpg",
+    "cardBgB2": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/redhood_b2.jpg",
+    "cardBgB3": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/redhood_b3.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/redhood_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
