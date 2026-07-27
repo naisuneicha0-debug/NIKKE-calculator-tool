@@ -8262,6 +8262,8 @@
     "element": "iron",
     "company": "tetra",
     "squad": "カフェ・スウィーティー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sugar.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sugar_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -8818,6 +8820,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "メイド・フォー・ユー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/soda.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/soda_slot.jpg",
     "buffs": {
       "party": {
         "heal": {
@@ -10598,6 +10602,8 @@
     "element": "electric",
     "company": "elysion",
     "squad": "エクスターナー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/maiden.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/maiden_slot.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -10847,6 +10853,8 @@
     "element": "water",
     "company": "tetra",
     "squad": "セラフィム",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mary.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mary_slot.jpg",
     "buffs": {
       "party": {
         "heal": {
