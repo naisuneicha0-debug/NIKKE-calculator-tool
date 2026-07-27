@@ -5866,7 +5866,8 @@
     "element": "water",
     "company": "tetra",
     "squad": "アンリミテッド",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/alice_wb.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/alice_wb_slot.jpg",
     "buffs": {
       "party": {
         "healAliceWbS1": {
@@ -6108,7 +6109,8 @@
     "element": "iron",
     "company": "pilgrim",
     "squad": "パイオニア",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapunzel.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapunzel_slot.jpg",
     "buffs": {
       "party": {
         "heal": {
@@ -7116,6 +7118,8 @@
     "element": "wind",
     "company": "tetra",
     "squad": "タレント",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dollar.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/dollar_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
