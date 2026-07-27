@@ -8432,6 +8432,10 @@
     "element": "electric",
     "company": "elysion",
     "squad": "エクスターナー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guillotine.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guillotine_slot.jpg",
+    "cardBgGlitch": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guillotine_glitch.jpg",
+    "signalTone": "fixed",
     "buffs": {
       "party": {},
       "self": {
@@ -9959,6 +9963,8 @@
     "element": "iron",
     "company": "tetra",
     "squad": "プロトコール",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/novel.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/novel_slot.jpg",
     "buffs": {
       "party": {
         "defDown": {
@@ -10558,6 +10564,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "トライアングル",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/yuruha.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/yuruha_slot.jpg",
     "buffs": {
       "party": {
         "atk": {
