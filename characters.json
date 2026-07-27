@@ -3241,7 +3241,8 @@
     "element": "fire",
     "company": "elysion",
     "squad": "アブソルート",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/unfa_tu.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/unfa_tu_slot.jpg",
     "cardBgAlt": "",
     "caution": [
       {
@@ -6217,7 +6218,8 @@
     "element": "electric",
     "company": "tetra",
     "squad": "プリマドンナ",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/noise.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/noise_slot.jpg",
     "buffs": {
       "party": {
         "dmgReduce": {
@@ -6308,7 +6310,8 @@
     "element": "wind",
     "company": "missilis",
     "squad": "セラフィム",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/pepper.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/pepper_slot.jpg",
     "buffs": {
       "party": {
         "healRcvUp": {
