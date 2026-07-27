@@ -4976,7 +4976,8 @@
     "weapon": "ar",
     "element": "fire",
     "role": "def",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/2b.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/2b_slot.jpg",
     "image": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/2b.png",
     "buffs": {
       "self": {
@@ -6168,7 +6169,8 @@
     "element": "wind",
     "company": "tetra",
     "squad": "プリマドンナ",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/volume.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/volume_slot.jpg",
     "buffs": {
       "party": {
         "burstCT": {
@@ -8859,6 +8861,8 @@
     "element": "fire",
     "company": "tetra",
     "squad": "メイド・フォー・ユー",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cocoa.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/cocoa_slot.jpg",
     "buffs": {
       "party": {
         "shelter": {
