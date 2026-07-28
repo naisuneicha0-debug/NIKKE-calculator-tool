@@ -4815,8 +4815,8 @@ function renderCharList() {
     if(filterState.squad.size   > 0 && !filterState.squad.has(c.squad))       return false;
     if(search) {
       const key = toKatakana(search);
-      const nameMatch = toKatakana(c.name.toLowerCase()).includes(key);
-      const readingMatch = c.reading && toKatakana(c.reading.toLowerCase()).includes(key);
+      const nameMatch = toKatakana(c.name.toLowerCase()).startsWith(key);
+      const readingMatch = c.reading && c.reading.split(' ').some(w => toKatakana(w.toLowerCase()).startsWith(key));
       if(!nameMatch && !readingMatch) return false;
     }
     return true;
