@@ -2229,6 +2229,14 @@ function getCautionMessages(char, filledTeam) {
         ));
         break;
       }
+      case 'hasEmma': {
+        triggered = !filledTeam.some(m => m && m.id === 'emma_tu');
+        break;
+      }
+      case 'hasUnfa': {
+        triggered = !filledTeam.some(m => m && m.id === 'unfa_tu');
+        break;
+      }
     }
     if(triggered) messages.push(c.message);
   });
