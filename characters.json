@@ -1679,7 +1679,7 @@
       ]
     },
     "note": "Burst中はS1の攻撃回数条件が1/2/3回に短縮",
-    "reading": "ぐれんぶらっくしゃどう"
+    "reading": "ぐれんぶらっくしゃどう ぐれん"
   },
   {
     "id": "anisstar",
@@ -2353,7 +2353,7 @@
     "note": "S1はフルチャージ攻撃時にbarrierDmg（3秒）、コア命中時にpierceDmg（10秒）を全体付与。S2は自分にpierce+atk（5秒）、全体にatk（発動者基準・5秒）。BSは全体にdmg（10秒）。",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mari.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mari_slot.jpg",
-    "reading": "まきなみまりいらすとりあす"
+    "reading": "まきなみまりいらすとりあす まり"
   },
   {
     "id": "diesel_ws",
@@ -3772,7 +3772,7 @@
     },
     "note": "S1：戦闘開始時・FB終了時に自己atk80.04%（5秒）、FB発動時に自己trueDmg35.05%（15秒）。S2：敵全体にenemyDmgTaken10.09%（5秒）＋気絶2秒、味方全体にtrueDmg140.49%（100秒）。BS：自己武器変更・通常攻撃を防御力無視ダメに変更（10秒）、命中敵に被ダメ6.04%UP（5秒）。",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/takina_slot.jpg",
-    "reading": "いのうえたきな"
+    "reading": "いのうえたきな たきな"
   },
   {
     "id": "exia",
@@ -4399,7 +4399,7 @@
     },
     "note": "S1（パッシブ）：通常攻撃50回命中で追加ダメ471.86%。殲滅態勢中は10発ごとに照準線最近の敵2機に15.62%ダメ＋アンチA.T.フィールド付与（0.83%スタック・最大30・30秒）。S2（パッシブ）：殲滅態勢状態でFB発動時にself dmg30.97%UP（10秒）。BS終了後に緊急修復発動→MG立ち上げ速度▼100%（3秒）・残弾▼100%・リロード60%固定（1発）・caster最大HP3.77%持続回復（1秒×3回）。BS（CT40秒）：殲滅態勢付与（9秒）→self normalDmgDown40%・bulletCharge21%・caster atk46.8%・dmg36%UP。9秒後にアンチA.T.フィールド対象敵に殲滅発動（6.62%×スタック数コピー・その後解除）。",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/asuka_w_slot.jpg",
-    "reading": "しきなみあすからんぐれーういれ"
+    "reading": "しきなみあすからんぐれーういれ あすか ういれ"
   },
   {
     "id": "rei_provisional",
@@ -4492,7 +4492,7 @@
     },
     "note": "S1（パッシブ）：通常攻撃18回命中時・アンチA.T.フィールド対象に追加ダメ590.64%＋スタック10増加。通常攻撃7回命中時・攻撃態勢状態なら追加ダメ286.37%。FB発動時・殲滅態勢状態の味方に追加効果適用対象+1・攻撃範囲500%UP・caster atk17.6%UP（9秒）。S2（パッシブ）：FB発動時・直前BSがMGの味方にMG立ち上げ速度100%UP（13秒）。FB発動時・全体caster atk11.61%UP（10秒）。BS（CT40秒）：self dmg35.9%・atk63.36%UP（10秒）、敵全体に最終攻撃力990.2%ダメ。",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rei_provisional_slot.jpg",
-    "reading": "あやなみれいかしょう"
+    "reading": "あやなみれいかしょう れい"
   },
   {
     "id": "chisato",
@@ -4548,7 +4548,7 @@
       "condParty": []
     },
     "note": "S1（パッシブ）：超感覚ゲージ100%で開始・2秒ごとに1%減少・解除不可。ゲージ25%以上でhitRate22.37%・55%以上でtrueDmg48.62%・70%以上でatk53.69%・100%で無敵2秒（射撃予測）が追加スタック。S2（パッシブ）：BS使用後に通常攻撃防御無視化10秒。通常攻撃48回命中で防御無視追加ダメ472.18%。BS（CT40秒）：self atk73.16%UP（10秒）＋超感覚100%チャージ。",
-    "reading": "にしきぎちさと"
+    "reading": "にしきぎちさと ちさと"
   },
   {
     "id": "maiden_ir",
@@ -4783,7 +4783,7 @@
     },
     "note": "S1（パッシブ）：通常100回攻撃時にself elem30.23%（3秒）。通常100回命中時に照準線最近の敵1機に最終攻撃力112.37%ダメ。S2（パッシブ）：戦闘開始時にbarrierDmg700.5%（ラプチャーバリア適用分・持続）。B3突入時に灼熱味方全体へcaster atk25.03%（10秒）。BS（CT40秒）：灼熱味方全体に最終最大HPの13.44%バリア（caster・10秒）・dmg48.02%UP（10秒）・敵全体に最終攻撃力990.2%ダメ。",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rei_slot.jpg",
-    "reading": "あやなみれい"
+    "reading": "あやなみれい れい"
   },
   {
     "id": "asuka",
@@ -4854,7 +4854,7 @@
     },
     "note": "S1（パッシブ）：戦闘開始時にbarrierDmg601.01%（ラプチャーバリア適用分・持続）。回復効果適用時にself atk96.98%（25秒）。S2（パッシブ）：FB時・バリア適用状態ならself elem30.02%（10秒・caster・CAUTION:noBarrier）。FB時に灼熱味方全体へcoreDmg60.07%（10秒）。BS（CT40秒）：self pierce25秒・dmg150.04%・lifesteal3.16%・hitRateUp101.37%（10秒）。",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/asuka_slot.jpg",
-    "reading": "しきなみあすからんぐれー"
+    "reading": "しきなみあすからんぐれー あすか"
   },
   {
     "id": "soda_tb",
@@ -8627,7 +8627,7 @@
       "other": []
     },
     "note": "S1（パッシブ）：通常攻撃が120回命中するごとに対象（敵）に受けるダメージ17.18%UP（5秒）。S2（パッシブ）：通常攻撃で60回攻撃するごとに残りHP割合最低の味方2機に受けるHP回復量15.18%UP（10秒）。通常攻撃で120回攻撃するごとに残りHP割合最低の味方2機に受けるダメージ14.97%ダウン（10秒）。BS（CT40秒）：残りHP割合最低の味方2機に発動者基準の最終最大HP10.03%持続回復（1秒間隔・10秒間維持）。",
-    "reading": "すずはらさくら"
+    "reading": "すずはらさくら さくら"
   },
   {
     "id": "rapunzel_pg",
@@ -12249,7 +12249,7 @@
       "other": []
     },
     "note": "キャラ名を「ミサト」から公式表記「葛城ミサト」に修正。S1（射撃マニュアル・パッシブ・CT無し）：通常攻撃60回ごとに自分に命中率5.04%UP＋【射撃マニュアル】スタック付与（5秒間維持、クレイのヴィクトリークライと同型でstack.key\"misatoManual\"・max3/default1の状態マーカーとして実装）。通常攻撃120回時、残りHP割合最も低い味方1機に発動者最終最大HPの8.04%回復（caster・hpBased、スタック非連動）。S2（回復補助・パッシブ・CT無し）：自分が射撃マニュアル状態（スタック1以上）の時に限り、味方全体にラプチャーバリアへのダメージ150%UP（持続、既存キーbarrierDmg・stackThreshold:1+stackThresholdRef:\"misatoManual\"でスライダー連動、guillotine_wsと同型）。自分が射撃マニュアルのフルスタック状態の時のみ、自分に与える回復量30.05%UP（持続、既存キーhealPower・fullStackOnly+fullStackRef:\"misatoManual\"でスライダー連動、クレイのatkバフと同型）。BS（休息命令・アクティブ・CT40秒）：味方全体に発動者最終最大HPの5.06%持続回復（1秒間隔・5秒間維持、caster・hpBased）。新規キーなし、既存キー・既存機構のみで実装。",
-    "reading": "かつらぎみさと"
+    "reading": "かつらぎみさと みさと"
   },
   {
     "id": "laplace_uh",
