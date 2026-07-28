@@ -3266,8 +3266,8 @@
     "cardBgAlt": "",
     "caution": [
       {
-        "condition": "noAbsoluteSquad",
-        "message": "ウンファ：タクティカル・アップ以外のアブソルート部隊のニケを編成してください"
+        "condition": "hasEmma",
+        "message": "エマ:TUが未編成の為フォーメーションLTが適用されていません"
       }
     ],
     "buffs": {
@@ -3370,8 +3370,8 @@
     "cardBgAlt": "",
     "caution": [
       {
-        "condition": "noAbsoluteSquad",
-        "message": "エマ：タクティカル・アップ以外のアブソルート部隊のニケを編成してください"
+        "condition": "hasUnfa",
+        "message": "ウンファ:TUが未編成の為フォーメーションASが適用されていません"
       }
     ],
     "buffs": {
@@ -3490,8 +3490,12 @@
     "cardBgAlt": "",
     "caution": [
       {
-        "condition": "noAbsoluteSquad",
-        "message": "ベスティー：タクティカル・アップ以外のアブソルート部隊のニケを編成してください"
+        "condition": "hasEmma",
+        "message": "エマ:TUが未編成の為戦場コントロールが適用されていません"
+      },
+      {
+        "condition": "hasUnfa",
+        "message": "ウンファ:TUが未編成の為徹甲炸裂弾が適用されません"
       }
     ],
     "buffs": {
@@ -3514,14 +3518,16 @@
           "val": 20,
           "condLabel": "S2・戦場コントロール中・3秒",
           "syncGroup": "emmaBS",
-          "defaultOff": false
+          "defaultOff": true,
+          "cautionCondition": "hasEmma"
         },
         "explodeDmgBestie": {
           "val": 20,
           "condLabel": "S2・徹甲炸裂弾状態・3秒",
           "showCond": true,
           "syncGroup": "unfaBS",
-          "defaultOff": false
+          "defaultOff": true,
+          "cautionCondition": "hasUnfa"
         },
         "explodeRange": {
           "val": 100,
@@ -3530,7 +3536,6 @@
         "trueDmgBestie": {
           "val": 60,
           "condLabel": "BS・最終攻撃力基準・10秒",
-          "caster": true,
           "showCond": true
         }
       },
