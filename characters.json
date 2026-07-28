@@ -314,7 +314,8 @@
         }
       ]
     },
-    "note": "atk最大5スタック（5秒）。critDmgはHP60%以下条件。critRateはバースト使用時HP50%以下条件。hpDownはS1・通常10回命中時に現在HPの4.01%ダウン。"
+    "note": "atk最大5スタック（5秒）。critDmgはHP60%以下条件。critRateはバースト使用時HP50%以下条件。hpDownはS1・通常10回命中時に現在HPの4.01%ダウン。",
+    "reading": "ぐれん"
   },
   {
     "id": "trina",
@@ -1677,7 +1678,8 @@
         }
       ]
     },
-    "note": "Burst中はS1の攻撃回数条件が1/2/3回に短縮"
+    "note": "Burst中はS1の攻撃回数条件が1/2/3回に短縮",
+    "reading": "ぐれんぶらっくしゃどう"
   },
   {
     "id": "anisstar",
@@ -2296,7 +2298,9 @@
       "condParty": [],
       "other": []
     },
-    "note": "「自分のアイドル」= アニス：スター固定 / S1・S2のバフはアニス：スターのみに付与 / スターゲイザー：BS発動で付与・FB終了時に解除"
+    "note": "「自分のアイドル」= アニス：スター固定 / S1・S2のバフはアニス：スターのみに付与 / スターゲイザー：BS発動で付与・FB終了時に解除",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/abista.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/abista_slot.jpg"
   },
   {
     "id": "mari",
@@ -2346,7 +2350,10 @@
       ],
       "other": []
     },
-    "note": "S1はフルチャージ攻撃時にbarrierDmg（3秒）、コア命中時にpierceDmg（10秒）を全体付与。S2は自分にpierce+atk（5秒）、全体にatk（発動者基準・5秒）。BSは全体にdmg（10秒）。"
+    "note": "S1はフルチャージ攻撃時にbarrierDmg（3秒）、コア命中時にpierceDmg（10秒）を全体付与。S2は自分にpierce+atk（5秒）、全体にatk（発動者基準・5秒）。BSは全体にdmg（10秒）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mari.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/mari_slot.jpg",
+    "reading": "まきなみまりいらすとりあす"
   },
   {
     "id": "diesel_ws",
@@ -3701,7 +3708,7 @@
     "element": "iron",
     "company": "abnormal",
     "squad": "喫茶リコリコ",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/takina.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -3758,7 +3765,9 @@
         }
       ]
     },
-    "note": "S1：戦闘開始時・FB終了時に自己atk80.04%（5秒）、FB発動時に自己trueDmg35.05%（15秒）。S2：敵全体にenemyDmgTaken10.09%（5秒）＋気絶2秒、味方全体にtrueDmg140.49%（100秒）。BS：自己武器変更・通常攻撃を防御力無視ダメに変更（10秒）、命中敵に被ダメ6.04%UP（5秒）。"
+    "note": "S1：戦闘開始時・FB終了時に自己atk80.04%（5秒）、FB発動時に自己trueDmg35.05%（15秒）。S2：敵全体にenemyDmgTaken10.09%（5秒）＋気絶2秒、味方全体にtrueDmg140.49%（100秒）。BS：自己武器変更・通常攻撃を防御力無視ダメに変更（10秒）、命中敵に被ダメ6.04%UP（5秒）。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/takina_slot.jpg",
+    "reading": "いのうえたきな"
   },
   {
     "id": "exia",
@@ -4302,7 +4311,7 @@
     "weapon": "mg",
     "element": "wind",
     "role": "atk",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/asuka_w.jpg",
     "buffs": {
       "self": {
         "normalDmg": {
@@ -4383,7 +4392,9 @@
         }
       }
     },
-    "note": "S1（パッシブ）：通常攻撃50回命中で追加ダメ471.86%。殲滅態勢中は10発ごとに照準線最近の敵2機に15.62%ダメ＋アンチA.T.フィールド付与（0.83%スタック・最大30・30秒）。S2（パッシブ）：殲滅態勢状態でFB発動時にself dmg30.97%UP（10秒）。BS終了後に緊急修復発動→MG立ち上げ速度▼100%（3秒）・残弾▼100%・リロード60%固定（1発）・caster最大HP3.77%持続回復（1秒×3回）。BS（CT40秒）：殲滅態勢付与（9秒）→self normalDmgDown40%・bulletCharge21%・caster atk46.8%・dmg36%UP。9秒後にアンチA.T.フィールド対象敵に殲滅発動（6.62%×スタック数コピー・その後解除）。"
+    "note": "S1（パッシブ）：通常攻撃50回命中で追加ダメ471.86%。殲滅態勢中は10発ごとに照準線最近の敵2機に15.62%ダメ＋アンチA.T.フィールド付与（0.83%スタック・最大30・30秒）。S2（パッシブ）：殲滅態勢状態でFB発動時にself dmg30.97%UP（10秒）。BS終了後に緊急修復発動→MG立ち上げ速度▼100%（3秒）・残弾▼100%・リロード60%固定（1発）・caster最大HP3.77%持続回復（1秒×3回）。BS（CT40秒）：殲滅態勢付与（9秒）→self normalDmgDown40%・bulletCharge21%・caster atk46.8%・dmg36%UP。9秒後にアンチA.T.フィールド対象敵に殲滅発動（6.62%×スタック数コピー・その後解除）。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/asuka_w_slot.jpg",
+    "reading": "しきなみあすからんぐれーういれ"
   },
   {
     "id": "rei_provisional",
@@ -4394,7 +4405,7 @@
     "element": "wind",
     "company": "abnormal",
     "squad": "NERV",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rei_provisional.jpg",
     "caution": [
       {
         "condition": "noAsukaW",
@@ -4474,7 +4485,9 @@
       ],
       "condParty": []
     },
-    "note": "S1（パッシブ）：通常攻撃18回命中時・アンチA.T.フィールド対象に追加ダメ590.64%＋スタック10増加。通常攻撃7回命中時・攻撃態勢状態なら追加ダメ286.37%。FB発動時・殲滅態勢状態の味方に追加効果適用対象+1・攻撃範囲500%UP・caster atk17.6%UP（9秒）。S2（パッシブ）：FB発動時・直前BSがMGの味方にMG立ち上げ速度100%UP（13秒）。FB発動時・全体caster atk11.61%UP（10秒）。BS（CT40秒）：self dmg35.9%・atk63.36%UP（10秒）、敵全体に最終攻撃力990.2%ダメ。"
+    "note": "S1（パッシブ）：通常攻撃18回命中時・アンチA.T.フィールド対象に追加ダメ590.64%＋スタック10増加。通常攻撃7回命中時・攻撃態勢状態なら追加ダメ286.37%。FB発動時・殲滅態勢状態の味方に追加効果適用対象+1・攻撃範囲500%UP・caster atk17.6%UP（9秒）。S2（パッシブ）：FB発動時・直前BSがMGの味方にMG立ち上げ速度100%UP（13秒）。FB発動時・全体caster atk11.61%UP（10秒）。BS（CT40秒）：self dmg35.9%・atk63.36%UP（10秒）、敵全体に最終攻撃力990.2%ダメ。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rei_provisional_slot.jpg",
+    "reading": "あやなみれいかしょう"
   },
   {
     "id": "chisato",
@@ -4529,7 +4542,8 @@
       ],
       "condParty": []
     },
-    "note": "S1（パッシブ）：超感覚ゲージ100%で開始・2秒ごとに1%減少・解除不可。ゲージ25%以上でhitRate22.37%・55%以上でtrueDmg48.62%・70%以上でatk53.69%・100%で無敵2秒（射撃予測）が追加スタック。S2（パッシブ）：BS使用後に通常攻撃防御無視化10秒。通常攻撃48回命中で防御無視追加ダメ472.18%。BS（CT40秒）：self atk73.16%UP（10秒）＋超感覚100%チャージ。"
+    "note": "S1（パッシブ）：超感覚ゲージ100%で開始・2秒ごとに1%減少・解除不可。ゲージ25%以上でhitRate22.37%・55%以上でtrueDmg48.62%・70%以上でatk53.69%・100%で無敵2秒（射撃予測）が追加スタック。S2（パッシブ）：BS使用後に通常攻撃防御無視化10秒。通常攻撃48回命中で防御無視追加ダメ472.18%。BS（CT40秒）：self atk73.16%UP（10秒）＋超感覚100%チャージ。",
+    "reading": "にしきぎちさと"
   },
   {
     "id": "maiden_ir",
@@ -4704,7 +4718,7 @@
     "weapon": "mg",
     "element": "fire",
     "role": "atk",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rei.jpg",
     "image": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rei.png",
     "buffs": {
       "self": {
@@ -4762,7 +4776,9 @@
       ],
       "condParty": []
     },
-    "note": "S1（パッシブ）：通常100回攻撃時にself elem30.23%（3秒）。通常100回命中時に照準線最近の敵1機に最終攻撃力112.37%ダメ。S2（パッシブ）：戦闘開始時にbarrierDmg700.5%（ラプチャーバリア適用分・持続）。B3突入時に灼熱味方全体へcaster atk25.03%（10秒）。BS（CT40秒）：灼熱味方全体に最終最大HPの13.44%バリア（caster・10秒）・dmg48.02%UP（10秒）・敵全体に最終攻撃力990.2%ダメ。"
+    "note": "S1（パッシブ）：通常100回攻撃時にself elem30.23%（3秒）。通常100回命中時に照準線最近の敵1機に最終攻撃力112.37%ダメ。S2（パッシブ）：戦闘開始時にbarrierDmg700.5%（ラプチャーバリア適用分・持続）。B3突入時に灼熱味方全体へcaster atk25.03%（10秒）。BS（CT40秒）：灼熱味方全体に最終最大HPの13.44%バリア（caster・10秒）・dmg48.02%UP（10秒）・敵全体に最終攻撃力990.2%ダメ。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rei_slot.jpg",
+    "reading": "あやなみれい"
   },
   {
     "id": "asuka",
@@ -4773,7 +4789,7 @@
     "weapon": "ar",
     "element": "fire",
     "role": "atk",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/asuka.jpg",
     "image": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/asuka.png",
     "caution": [
       {
@@ -4831,7 +4847,9 @@
       "condSelf": [],
       "condParty": []
     },
-    "note": "S1（パッシブ）：戦闘開始時にbarrierDmg601.01%（ラプチャーバリア適用分・持続）。回復効果適用時にself atk96.98%（25秒）。S2（パッシブ）：FB時・バリア適用状態ならself elem30.02%（10秒・caster・CAUTION:noBarrier）。FB時に灼熱味方全体へcoreDmg60.07%（10秒）。BS（CT40秒）：self pierce25秒・dmg150.04%・lifesteal3.16%・hitRateUp101.37%（10秒）。"
+    "note": "S1（パッシブ）：戦闘開始時にbarrierDmg601.01%（ラプチャーバリア適用分・持続）。回復効果適用時にself atk96.98%（25秒）。S2（パッシブ）：FB時・バリア適用状態ならself elem30.02%（10秒・caster・CAUTION:noBarrier）。FB時に灼熱味方全体へcoreDmg60.07%（10秒）。BS（CT40秒）：self pierce25秒・dmg150.04%・lifesteal3.16%・hitRateUp101.37%（10秒）。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/asuka_slot.jpg",
+    "reading": "しきなみあすからんぐれー"
   },
   {
     "id": "soda_tb",
@@ -6829,7 +6847,9 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：【鬼の気】状態時、通常攻撃15回命中ごとに自分にatk4.22%UP（30スタック・10秒）。BS使用時、味方全体にHP回復均等分配（10秒）。S2（パッシブ）：戦闘開始時、自分に攻撃ダメージ42.24%回復（持続）。戦闘開始時、自分とロケットランチャー所持の最終攻撃力上位2機にHP回復均等分配（持続・RL所持全体表示）。BS（CT20秒）：自分に【鬼の気】クリ率37.8%UP（10秒）。ロケットランチャー所持の味方全体に発動者基準atk50.78%UP（10秒）＋最大装弾数+5発（10秒）。"
+    "note": "S1（パッシブ）：【鬼の気】状態時、通常攻撃15回命中ごとに自分にatk4.22%UP（30スタック・10秒）。BS使用時、味方全体にHP回復均等分配（10秒）。S2（パッシブ）：戦闘開始時、自分に攻撃ダメージ42.24%回復（持続）。戦闘開始時、自分とロケットランチャー所持の最終攻撃力上位2機にHP回復均等分配（持続・RL所持全体表示）。BS（CT20秒）：自分に【鬼の気】クリ率37.8%UP（10秒）。ロケットランチャー所持の味方全体に発動者基準atk50.78%UP（10秒）＋最大装弾数+5発（10秒）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rem.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rem_slot.jpg"
   },
   {
     "id": "eleg",
@@ -7704,7 +7724,7 @@
     "element": "water",
     "company": "abnormal",
     "squad": "エミリア陣営",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/emilia.jpg",
     "buffs": {
       "party": {},
       "self": {
@@ -7750,7 +7770,8 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：フルチャージして攻撃した時、自分にチャージ速度13.01%UP（1発間維持）＋自分の最終最大装弾数1発当たりのチャージダメージ2.01%UP（1発間維持・装弾数は最大50発まで対応するスライダーで調整）。S2（パッシブ）：フルチャージ攻撃が命中した時、対象に発動者基準が与えたダメージ量の58.99%分、本体に固定ダメージ。フルバーストタイムが発動した時、自分に最大装弾数3発UP（10秒間維持）。BS（CT40秒）：自分に爆発範囲101.24%UP（10秒間維持）＋チャージ速度300%ダウン（1発間維持）＋チャージダメージ1300.53%UP（1発間維持）。"
+    "note": "S1（パッシブ）：フルチャージして攻撃した時、自分にチャージ速度13.01%UP（1発間維持）＋自分の最終最大装弾数1発当たりのチャージダメージ2.01%UP（1発間維持・装弾数は最大50発まで対応するスライダーで調整）。S2（パッシブ）：フルチャージ攻撃が命中した時、対象に発動者基準が与えたダメージ量の58.99%分、本体に固定ダメージ。フルバーストタイムが発動した時、自分に最大装弾数3発UP（10秒間維持）。BS（CT40秒）：自分に爆発範囲101.24%UP（10秒間維持）＋チャージ速度300%ダウン（1発間維持）＋チャージダメージ1300.53%UP（1発間維持）。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/emilia_slot.jpg"
   },
   {
     "id": "privaty_um",
@@ -7880,7 +7901,9 @@
         }
       ]
     },
-    "note": "S1は通常攻撃30回命中時、自分にmaxMagazine+25.66%（5秒・最大5スタック）、攻撃範囲内の敵に最終攻撃力188.68%の直接ダメージ。S2は通常攻撃50回命中時、敵全体に最終攻撃力61.69%の直接ダメージ、BS使用時に自分にdmg+21.12%（10秒）。BSは自分にatk+97.2%・magazineInfinite・S2命中回数条件20回緩和を10秒間付与。"
+    "note": "S1は通常攻撃30回命中時、自分にmaxMagazine+25.66%（5秒・最大5スタック）、攻撃範囲内の敵に最終攻撃力188.68%の直接ダメージ。S2は通常攻撃50回命中時、敵全体に最終攻撃力61.69%の直接ダメージ、BS使用時に自分にdmg+21.12%（10秒）。BSは自分にatk+97.2%・magazineInfinite・S2命中回数条件20回緩和を10秒間付与。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/snowwhite_id.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/snowwhite_id_slot.jpg"
   },
   {
     "id": "a2",
@@ -7932,7 +7955,9 @@
         }
       ]
     },
-    "note": "S1はBS使用時にchargeDmg+110.44%・explodeDmg+100.74%（15秒）。S2はフルチャージ攻撃命中時にpartDmg+40.88%（3秒）と追加ダメージ（最終攻撃力30.1%）。BSはBモード発動：atk+15.19%・chargeSpd+35.88%・現在HP3.99%ダウン（1秒間隔）。HP40%以下でBモード解除。"
+    "note": "S1はBS使用時にchargeDmg+110.44%・explodeDmg+100.74%（15秒）。S2はフルチャージ攻撃命中時にpartDmg+40.88%（3秒）と追加ダメージ（最終攻撃力30.1%）。BSはBモード発動：atk+15.19%・chargeSpd+35.88%・現在HP3.99%ダウン（1秒間隔）。HP40%以下でBモード解除。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/a2.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/a2_slot.jpg"
   },
   {
     "id": "noir",
@@ -8596,7 +8621,8 @@
       ],
       "other": []
     },
-    "note": "S1（パッシブ）：通常攻撃が120回命中するごとに対象（敵）に受けるダメージ17.18%UP（5秒）。S2（パッシブ）：通常攻撃で60回攻撃するごとに残りHP割合最低の味方2機に受けるHP回復量15.18%UP（10秒）。通常攻撃で120回攻撃するごとに残りHP割合最低の味方2機に受けるダメージ14.97%ダウン（10秒）。BS（CT40秒）：残りHP割合最低の味方2機に発動者基準の最終最大HP10.03%持続回復（1秒間隔・10秒間維持）。"
+    "note": "S1（パッシブ）：通常攻撃が120回命中するごとに対象（敵）に受けるダメージ17.18%UP（5秒）。S2（パッシブ）：通常攻撃で60回攻撃するごとに残りHP割合最低の味方2機に受けるHP回復量15.18%UP（10秒）。通常攻撃で120回攻撃するごとに残りHP割合最低の味方2機に受けるダメージ14.97%ダウン（10秒）。BS（CT40秒）：残りHP割合最低の味方2機に発動者基準の最終最大HP10.03%持続回復（1秒間隔・10秒間維持）。",
+    "reading": "すずはらさくら"
   },
   {
     "id": "rapunzel_pg",
@@ -8654,7 +8680,9 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：戦闘開始時／BS使用時、自分に発動者基準の最終最大HP20.59%の共用バリア（持続）。フルチャージ状態を1秒以上維持し、自分がバリア適用状態の時に限り、味方全体に攻撃ダメージ10.41%UP（持続）。S2（パッシブ）：フルチャージして攻撃した時、自分に発動者基準の最終最大HP2%回復。フルチャージ状態を1秒以上維持し、自分がバリア適用状態の時に限り、自分に現在HP2%ダウン＋発動者基準の最終最大HPに比例してバリアHP3.16%回復（各1秒間隔・持続）。BS（CT20秒）：自分に最大HP10.13%UP（10秒）。味方全体に攻撃ダメージ15.24%UP（10秒）。"
+    "note": "S1（パッシブ）：戦闘開始時／BS使用時、自分に発動者基準の最終最大HP20.59%の共用バリア（持続）。フルチャージ状態を1秒以上維持し、自分がバリア適用状態の時に限り、味方全体に攻撃ダメージ10.41%UP（持続）。S2（パッシブ）：フルチャージして攻撃した時、自分に発動者基準の最終最大HP2%回復。フルチャージ状態を1秒以上維持し、自分がバリア適用状態の時に限り、自分に現在HP2%ダウン＋発動者基準の最終最大HPに比例してバリアHP3.16%回復（各1秒間隔・持続）。BS（CT20秒）：自分に最大HP10.13%UP（10秒）。味方全体に攻撃ダメージ15.24%UP（10秒）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapunzel_pg.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rapunzel_pg_slot.jpg"
   },
   {
     "id": "rumani",
@@ -9670,7 +9698,9 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：フルチャージして攻撃した時、自分に貫通特化（1発間維持）＋貫通範囲50%UP（1発間維持）。通常攻撃時に2機以上の敵に同時命中した場合、対象に発動者基準の最終攻撃力50.33%の追加ダメージ（otherブロック・selfOnly）。S2（CT10秒・自動発動）：攻撃範囲内の敵全体に発動者基準の最終攻撃力112.64%のダメージ。BS（CT20秒）：攻撃範囲内の敵全体に発動者基準の最終攻撃力158.59%のダメージ＋火傷（毎秒13.19%・10秒間維持）。自分に最大装弾数6発UP（15秒間維持）。party/targetedバフなし（自己バフ＋ダメージスキルのみのキャラ）。"
+    "note": "S1（パッシブ）：フルチャージして攻撃した時、自分に貫通特化（1発間維持）＋貫通範囲50%UP（1発間維持）。通常攻撃時に2機以上の敵に同時命中した場合、対象に発動者基準の最終攻撃力50.33%の追加ダメージ（otherブロック・selfOnly）。S2（CT10秒・自動発動）：攻撃範囲内の敵全体に発動者基準の最終攻撃力112.64%のダメージ。BS（CT20秒）：攻撃範囲内の敵全体に発動者基準の最終攻撃力158.59%のダメージ＋火傷（毎秒13.19%・10秒間維持）。自分に最大装弾数6発UP（15秒間維持）。party/targetedバフなし（自己バフ＋ダメージスキルのみのキャラ）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nihilister.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nihilister_slot.jpg"
   },
   {
     "id": "makima",
@@ -9771,7 +9801,9 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：通常攻撃で60回攻撃した時、自分に最大HPが最も高いニケの最大HPを12.42%コピー（10秒間維持）。実数値計算はしないため単純にself.hpUp12.42%として実装（既存キー再利用・新規キーではない）。S2（アクティブ・CT8秒・自動発動）：最終攻撃力が最も高い味方2機に攻撃力16.11%UP（5秒間維持）。BS（CT20秒）：最終攻撃力が最も高い味方2機に最大HP43.87%UP（5秒間維持）＋発動者基準のクリティカルダメージ29.9%UP（10秒間維持）。"
+    "note": "S1（パッシブ）：通常攻撃で60回攻撃した時、自分に最大HPが最も高いニケの最大HPを12.42%コピー（10秒間維持）。実数値計算はしないため単純にself.hpUp12.42%として実装（既存キー再利用・新規キーではない）。S2（アクティブ・CT8秒・自動発動）：最終攻撃力が最も高い味方2機に攻撃力16.11%UP（5秒間維持）。BS（CT20秒）：最終攻撃力が最も高い味方2機に最大HP43.87%UP（5秒間維持）＋発動者基準のクリティカルダメージ29.9%UP（10秒間維持）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/quency.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/quency_slot.jpg"
   },
   {
     "id": "guilty",
@@ -9835,7 +9867,9 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：通常攻撃で6回攻撃した時、自分に攻撃力が最も高い味方の攻撃力を8.81%コピー（10秒間維持）＋「借りていくよぉ⋯」1スタック（最大5、self.atkに同居）。S2（パッシブ）：通常攻撃で12回攻撃した時、風圧コードの味方全体にスタック可能バフ1個UP＋攻撃力4.13%UP（10秒間維持）。targetedブロック・target:element:wind・suppressTargetLabelで実装（ミカ：スノーバディと同型）。BS（CT20秒）：最終防御力が最も高い敵1機に最終攻撃力284.32%のダメージ。自分が借りていくよぉのフルスタック状態なら、同じ敵に防御力20.25%ダウン（5秒間維持・party.defDownにfullStackOnly/fullStackRef:kariteikuGuiltyで実装、プリム・ココアと同型）＋最終攻撃力277.71%の追加ダメージ（other・条件文はcond欄のみ）。"
+    "note": "S1（パッシブ）：通常攻撃で6回攻撃した時、自分に攻撃力が最も高い味方の攻撃力を8.81%コピー（10秒間維持）＋「借りていくよぉ⋯」1スタック（最大5、self.atkに同居）。S2（パッシブ）：通常攻撃で12回攻撃した時、風圧コードの味方全体にスタック可能バフ1個UP＋攻撃力4.13%UP（10秒間維持）。targetedブロック・target:element:wind・suppressTargetLabelで実装（ミカ：スノーバディと同型）。BS（CT20秒）：最終防御力が最も高い敵1機に最終攻撃力284.32%のダメージ。自分が借りていくよぉのフルスタック状態なら、同じ敵に防御力20.25%ダウン（5秒間維持・party.defDownにfullStackOnly/fullStackRef:kariteikuGuiltyで実装、プリム・ココアと同型）＋最終攻撃力277.71%の追加ダメージ（other・条件文はcond欄のみ）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guilty.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guilty_slot.jpg"
   },
   {
     "id": "n_mf",
@@ -9929,7 +9963,9 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：フルバーストタイムが発動した時、味方全体にクリティカルダメージ26.99%UP（10秒間維持）。S2（パッシブ）：最後の弾丸が命中した時、味方全体にクリティカル確率7.03%UP（5秒間維持）。BS（CT40秒）：味方全体に発動者基準の最終最大HPの37.86%のバリア（10秒間維持）。自分に命中率30.37%UP（15秒間維持）。"
+    "note": "S1（パッシブ）：フルバーストタイムが発動した時、味方全体にクリティカルダメージ26.99%UP（10秒間維持）。S2（パッシブ）：最後の弾丸が命中した時、味方全体にクリティカル確率7.03%UP（5秒間維持）。BS（CT40秒）：味方全体に発動者基準の最終最大HPの37.86%のバリア（10秒間維持）。自分に命中率30.37%UP（15秒間維持）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/aria.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/aria_slot.jpg"
   },
   {
     "id": "volkvan",
@@ -10136,7 +10172,9 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：20回撃たれた時、味方全体にチャージダメージ9.59%倍率UP（20秒間維持）。S2（アクティブ・CT20秒）：最終攻撃力が最も高い味方2機に受けるダメージ28.65%ダウン（10秒間維持）。BS（CT20秒）：味方全体にリロード速度50.91%UP＋クリティカルダメージ28.34%UP（各10秒間維持）。"
+    "note": "S1（パッシブ）：20回撃たれた時、味方全体にチャージダメージ9.59%倍率UP（20秒間維持）。S2（アクティブ・CT20秒）：最終攻撃力が最も高い味方2機に受けるダメージ28.65%ダウン（10秒間維持）。BS（CT20秒）：味方全体にリロード速度50.91%UP＋クリティカルダメージ28.34%UP（各10秒間維持）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/admi.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/admi_slot.jpg"
   },
   {
     "id": "uni",
@@ -10184,7 +10222,9 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：フルバーストタイムが発動した時、味方全体にチャージ速度8.97%UP（10秒間維持）。S2（パッシブ）：フルチャージして攻撃した時、味方全体に防御力2.77%UP＋攻撃ダメージ2.77%回復（各10秒間維持）＋最大装弾数1発UP（5秒間維持）。BS（CT20秒）：攻撃範囲内の敵に最終攻撃力348.73%のダメージ＋移動不可5秒間維持（新規キーimmobilize・CONTROL系・party配置）。"
+    "note": "S1（パッシブ）：フルバーストタイムが発動した時、味方全体にチャージ速度8.97%UP（10秒間維持）。S2（パッシブ）：フルチャージして攻撃した時、味方全体に防御力2.77%UP＋攻撃ダメージ2.77%回復（各10秒間維持）＋最大装弾数1発UP（5秒間維持）。BS（CT20秒）：攻撃範囲内の敵に最終攻撃力348.73%のダメージ＋移動不可5秒間維持（新規キーimmobilize・CONTROL系・party配置）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/uni.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/uni_slot.jpg"
   },
   {
     "id": "poly",
@@ -10364,7 +10404,9 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：戦闘開始時、自分に【ナノコーティング】状態（発動者基準最終最大HP21.12%のバリア・持続）。BS使用時、ナノコーティング状態でなければ同バリアを再付与。S2（パッシブ）：通常攻撃200回攻撃時、ナノコーティング状態なら発動者基準最終最大HPに比例してバリアHP2.85%回復。BS使用時、ナノコーティング状態でなければ次のバリアのHPをUP（1回目17.75%・2回目26.66%・3回目35.53%）。モランのHP閾値バフと同様exclusiveGroup「kiroNextBarrier」で排他択一（1回目がデフォルトON）。BS（アクティブ・CT40秒）：ナノコーティング状態なら敵全体に発動者基準最終最大HP5%を攻撃力換算した1150.84%のダメージ（other欄で表現）。ナノコーティング状態でなければ自分に最大HP48%UP（20秒間維持）。"
+    "note": "S1（パッシブ）：戦闘開始時、自分に【ナノコーティング】状態（発動者基準最終最大HP21.12%のバリア・持続）。BS使用時、ナノコーティング状態でなければ同バリアを再付与。S2（パッシブ）：通常攻撃200回攻撃時、ナノコーティング状態なら発動者基準最終最大HPに比例してバリアHP2.85%回復。BS使用時、ナノコーティング状態でなければ次のバリアのHPをUP（1回目17.75%・2回目26.66%・3回目35.53%）。モランのHP閾値バフと同様exclusiveGroup「kiroNextBarrier」で排他択一（1回目がデフォルトON）。BS（アクティブ・CT40秒）：ナノコーティング状態なら敵全体に発動者基準最終最大HP5%を攻撃力換算した1150.84%のダメージ（other欄で表現）。ナノコーティング状態でなければ自分に最大HP48%UP（20秒間維持）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/kiro.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/kiro_slot.jpg"
   },
   {
     "id": "kiri",
@@ -10538,7 +10580,9 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：フルチャージ攻撃した時、自分に攻撃力6.4%UP（3秒間維持）＋「血の魔人」スタック付与（最大5スタック）。S2（パッシブ）：通常攻撃18回攻撃時、血の魔人フルスタック状態なら自分に爆発範囲38.61%UP（10秒間維持）＋弾丸チャージ100%（戦闘中1回発動）。BS（アクティブ・CT40秒）：最終攻撃力が最も高い敵1機に最終攻撃力1584%のダメージ。血の魔人フルスタック状態なら同じ敵にさらに1584%の追加ダメージ（ギルティ「借りていくよぉ」と同型・other欄で表現）。"
+    "note": "S1（パッシブ）：フルチャージ攻撃した時、自分に攻撃力6.4%UP（3秒間維持）＋「血の魔人」スタック付与（最大5スタック）。S2（パッシブ）：通常攻撃18回攻撃時、血の魔人フルスタック状態なら自分に爆発範囲38.61%UP（10秒間維持）＋弾丸チャージ100%（戦闘中1回発動）。BS（アクティブ・CT40秒）：最終攻撃力が最も高い敵1機に最終攻撃力1584%のダメージ。血の魔人フルスタック状態なら同じ敵にさらに1584%の追加ダメージ（ギルティ「借りていくよぉ」と同型・other欄で表現）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/power.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/power_slot.jpg"
   },
   {
     "id": "epinel",
@@ -10894,7 +10938,9 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：通常攻撃60回攻撃時、味方全体にバーストゲージ2.47%チャージ。デコイが存在する時、自分に発動者基準最終最大HPのデコイ回復2.1%（新規キーdecoyHeal）。S2（パッシブ）：戦闘開始時、自分に【デコイ】発動者基準最終最大HP96%の分身（240秒間維持）。BS（アクティブ・CT20秒）：自分に【ヘイト】敵全体を挑発（5秒間維持）＋被ダメ14.4%ダウン（10秒間維持）。デコイが存在する時、自分に発動者基準最終最大HPのデコイ持続回復2.27%（1秒間隔・10秒間維持・新規キーdecoyHealOverTime）。デコイ回復系は味方への通常回復（heal/healOverTime）とは別物のため新規キーとして分離、既存のhealKeys合算リストにも含めない。"
+    "note": "S1（パッシブ）：通常攻撃60回攻撃時、味方全体にバーストゲージ2.47%チャージ。デコイが存在する時、自分に発動者基準最終最大HPのデコイ回復2.1%（新規キーdecoyHeal）。S2（パッシブ）：戦闘開始時、自分に【デコイ】発動者基準最終最大HP96%の分身（240秒間維持）。BS（アクティブ・CT20秒）：自分に【ヘイト】敵全体を挑発（5秒間維持）＋被ダメ14.4%ダウン（10秒間維持）。デコイが存在する時、自分に発動者基準最終最大HPのデコイ持続回復2.27%（1秒間隔・10秒間維持・新規キーdecoyHealOverTime）。デコイ回復系は味方への通常回復（heal/healOverTime）とは別物のため新規キーとして分離、既存のhealKeys合算リストにも含めない。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rai.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rai_slot.jpg"
   },
   {
     "id": "mary",
@@ -11143,7 +11189,8 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：フルチャージ攻撃が命中した時、対象に防御力6.94%ダウン（3秒間維持）。ENEMY系デバフのためparty配置（トロニーと同型）。S2（アクティブ・CT20秒）：スナイパーライフルを所持する味方全体に攻撃力10.98%UP＋最大装弾数2発UP（各10秒間維持）。BS（アクティブ・CT20秒）：自分を除く最終攻撃力が最も高い味方1機にチャージダメージ23.76%UP＋クリティカル確率16.35%UP（各10秒間維持）。新規キーなし、既存キーのみで実装。"
+    "note": "S1（パッシブ）：フルチャージ攻撃が命中した時、対象に防御力6.94%ダウン（3秒間維持）。ENEMY系デバフのためparty配置（トロニーと同型）。S2（アクティブ・CT20秒）：スナイパーライフルを所持する味方全体に攻撃力10.98%UP＋最大装弾数2発UP（各10秒間維持）。BS（アクティブ・CT20秒）：自分を除く最終攻撃力が最も高い味方1機にチャージダメージ23.76%UP＋クリティカル確率16.35%UP（各10秒間維持）。新規キーなし、既存キーのみで実装。",
+    "reading": "ひめの"
   },
   {
     "id": "shin",
@@ -11201,7 +11248,9 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：最後の弾丸で攻撃した時、自分に最大HPが最も高い味方の最大HPを15.03%コピー（5秒間維持、クエンシーS1と同型・実数値計算せず単純%バフ）＋【ヘイト】敵全体を挑発（5秒間維持）。S2（パッシブ）：フルバーストタイム終了時、自分にバーストゲージチャージ速度16.17%上昇（5秒間維持）。バーストスキル使用時、使用回数別に自分へ効果付与（1回目：攻撃ダメージ15.3%回復、2回目：受けるHP回復量51%上昇、3回目：防御力43.2%）各5秒間維持。原文では「下位効果スタック適用」（3回目に1〜2回目の効果も累積）とあるが、リターのBS使用1/2/3回目と同じく独立3トリガーとして簡略化（累積スタック管理はしない）。BS（アクティブ・CT20秒）：ニケを除いた敵が4機以上の場合、敵全体に受けるダメージ12.23%上昇（5秒間維持）。現ツールに敵数トラッキング機構がないためdefaultOff・condLabelテキストで条件明記のみ（手動トグル想定）。攻撃範囲内の敵に最終攻撃力176.32%のダメージ（other欄）。新規キーなし。"
+    "note": "S1（パッシブ）：最後の弾丸で攻撃した時、自分に最大HPが最も高い味方の最大HPを15.03%コピー（5秒間維持、クエンシーS1と同型・実数値計算せず単純%バフ）＋【ヘイト】敵全体を挑発（5秒間維持）。S2（パッシブ）：フルバーストタイム終了時、自分にバーストゲージチャージ速度16.17%上昇（5秒間維持）。バーストスキル使用時、使用回数別に自分へ効果付与（1回目：攻撃ダメージ15.3%回復、2回目：受けるHP回復量51%上昇、3回目：防御力43.2%）各5秒間維持。原文では「下位効果スタック適用」（3回目に1〜2回目の効果も累積）とあるが、リターのBS使用1/2/3回目と同じく独立3トリガーとして簡略化（累積スタック管理はしない）。BS（アクティブ・CT20秒）：ニケを除いた敵が4機以上の場合、敵全体に受けるダメージ12.23%上昇（5秒間維持）。現ツールに敵数トラッキング機構がないためdefaultOff・condLabelテキストで条件明記のみ（手動トグル想定）。攻撃範囲内の敵に最終攻撃力176.32%のダメージ（other欄）。新規キーなし。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/shin.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/shin_slot.jpg"
   },
   {
     "id": "unhwa",
@@ -11249,7 +11298,9 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：最後の弾丸で攻撃した後、自分にチャージダメージ37.28%UP＋チャージ速度15.53%UP（各2発間維持）。S2（パッシブ）：最後の弾丸で攻撃した後、対象に防御力29%ダウン（5秒間維持、ENEMY系のためparty配置）。BS（アクティブ・CT20秒）：最終攻撃力最も高い敵10機に最終攻撃力85.62%のダメージ（other欄）＋同じ敵に防御力2.43%ダウン（15秒間維持、defDownに合算表示。動的ターゲットのためcondLabelテキストのみで表現・ジャッカル方式）。味方全体にクリティカル確率4.65%UP（15秒間維持）。新規キーなし、既存キーのみで実装。"
+    "note": "S1（パッシブ）：最後の弾丸で攻撃した後、自分にチャージダメージ37.28%UP＋チャージ速度15.53%UP（各2発間維持）。S2（パッシブ）：最後の弾丸で攻撃した後、対象に防御力29%ダウン（5秒間維持、ENEMY系のためparty配置）。BS（アクティブ・CT20秒）：最終攻撃力最も高い敵10機に最終攻撃力85.62%のダメージ（other欄）＋同じ敵に防御力2.43%ダウン（15秒間維持、defDownに合算表示。動的ターゲットのためcondLabelテキストのみで表現・ジャッカル方式）。味方全体にクリティカル確率4.65%UP（15秒間維持）。新規キーなし、既存キーのみで実装。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/unhwa.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/unhwa_slot.jpg"
   },
   {
     "id": "signal",
@@ -11512,7 +11563,7 @@
     "element": "iron",
     "company": "abnormal",
     "squad": "喫茶リコリコ",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/kurumi.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -11549,7 +11600,8 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：通常攻撃36回命中時、対象に【ハッキング】最終攻撃力52.24%の持続ダメージ付与（1秒間隔・5秒間維持）。バーストスキル使用時、敵全体に同様の【ハッキング】52.24%持続ダメージ付与（1秒間隔・6秒間維持）。いずれも自軍への強化ではなく敵への効果のためother（selfOnly）としてACTIVE SKILL欄に記載（ハランと同型）。S2（パッシブ）：FBT持続中に通常攻撃36回命中時、対象がハッキング状態なら最終攻撃力86.17%の追加ダメージ（other・selfOnly）。BS（アクティブ・CT20秒）：敵全体に受けるダメージ18.06%UP（10秒間維持、party.enemyDmgTaken）。新規キーなし。"
+    "note": "S1（パッシブ）：通常攻撃36回命中時、対象に【ハッキング】最終攻撃力52.24%の持続ダメージ付与（1秒間隔・5秒間維持）。バーストスキル使用時、敵全体に同様の【ハッキング】52.24%持続ダメージ付与（1秒間隔・6秒間維持）。いずれも自軍への強化ではなく敵への効果のためother（selfOnly）としてACTIVE SKILL欄に記載（ハランと同型）。S2（パッシブ）：FBT持続中に通常攻撃36回命中時、対象がハッキング状態なら最終攻撃力86.17%の追加ダメージ（other・selfOnly）。BS（アクティブ・CT20秒）：敵全体に受けるダメージ18.06%UP（10秒間維持、party.enemyDmgTaken）。新規キーなし。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/kurumi_slot.jpg"
   },
   {
     "id": "claire_rf",
@@ -11608,7 +11660,7 @@
     "element": "wind",
     "company": "abnormal",
     "squad": "エミリア陣営",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ram.jpg",
     "cardBgAlt": "",
     "caution": [
       {
@@ -11653,7 +11705,8 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：通常攻撃5回命中時、対象に攻撃力7.95%ダウン（5秒間維持、ジャッカルと同型）。FBT終了時、同じ部隊の味方がいれば自分にバーストスキルクールタイム20.16秒短縮（マキマと同型）。S2（アクティブ・CT15秒）：自分に最大HPのみ40.72%UP（10秒間維持）＋HP最も低い味方2機に発動者基準の防御力11.34%UP（5秒間維持）。BS（アクティブ・CT40秒）：味方全体に発動者基準の最終最大HP10.08%バリア（10秒間維持、クレアと同型）。新規キーなし、既存キーのみで実装。"
+    "note": "S1（パッシブ）：通常攻撃5回命中時、対象に攻撃力7.95%ダウン（5秒間維持、ジャッカルと同型）。FBT終了時、同じ部隊の味方がいれば自分にバーストスキルクールタイム20.16秒短縮（マキマと同型）。S2（アクティブ・CT15秒）：自分に最大HPのみ40.72%UP（10秒間維持）＋HP最も低い味方2機に発動者基準の防御力11.34%UP（5秒間維持）。BS（アクティブ・CT40秒）：味方全体に発動者基準の最終最大HP10.08%バリア（10秒間維持、クレアと同型）。新規キーなし、既存キーのみで実装。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/ram_slot.jpg"
   },
   {
     "id": "pascal",
@@ -11664,7 +11717,7 @@
     "element": "iron",
     "company": "abnormal",
     "squad": "機械生命体",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/pascal.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -11694,7 +11747,8 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：10回射撃した時、最終防御力最高の味方1機に発動者基準の最終最大HP6.28%回復。S2（パッシブ）：バースト1段階突入時、現在HP最も低い味方3機に受けるHP回復量38.4%UP（10秒間維持、サクラ鈴原と同型）。BS（アクティブ・CT40秒）：現在HP最も低い味方3機に発動者基準の最終最大HP55.29%回復（healBとしてhealに合算表示、既存エイリアス使用）。新規キーなし、既存キーのみで実装。"
+    "note": "S1（パッシブ）：10回射撃した時、最終防御力最高の味方1機に発動者基準の最終最大HP6.28%回復。S2（パッシブ）：バースト1段階突入時、現在HP最も低い味方3機に受けるHP回復量38.4%UP（10秒間維持、サクラ鈴原と同型）。BS（アクティブ・CT40秒）：現在HP最も低い味方3機に発動者基準の最終最大HP55.29%回復（healBとしてhealに合算表示、既存エイリアス使用）。新規キーなし、既存キーのみで実装。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/pascal_slot.jpg"
   },
   {
     "id": "anchor",
@@ -11705,7 +11759,7 @@
     "element": "wind",
     "company": "elysion",
     "squad": "イージス",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anchor.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -11737,7 +11791,8 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：最後の弾丸命中時、対象を挑発（5秒間維持）＋自分に防御力23.82%UP（5秒間維持）。S2（パッシブ）：戦闘開始時、自分に敵の発射体攻撃時ダメージ25.6%UP（持続）。BS（アクティブ・CT20秒）：敵全体に最終攻撃力304.45%のダメージ（other・selfOnly）。新規キーなし、既存キーのみで実装。"
+    "note": "S1（パッシブ）：最後の弾丸命中時、対象を挑発（5秒間維持）＋自分に防御力23.82%UP（5秒間維持）。S2（パッシブ）：戦闘開始時、自分に敵の発射体攻撃時ダメージ25.6%UP（持続）。BS（アクティブ・CT20秒）：敵全体に最終攻撃力304.45%のダメージ（other・selfOnly）。新規キーなし、既存キーのみで実装。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/anchor_slot.jpg"
   },
   {
     "id": "neve",
@@ -11748,7 +11803,7 @@
     "element": "water",
     "company": "tetra",
     "squad": "アンリミテッド",
-    "cardBg": null,
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neve.jpg",
     "cardBgAlt": "",
     "caution": [],
     "buffs": {
@@ -11784,7 +11839,8 @@
         }
       ]
     },
-    "note": "S1（アクティブ・CT10秒）：HP最も低い敵1機に最終攻撃力145.45%のダメージ（other・selfOnly）。S2（パッシブ）：フルバーストタイム発動時、自分に貫通特化（2発間維持）＋攻撃力124.8%UP（2発間維持、ハランのpierceと同型）。BS（アクティブ・CT40秒）：自分にクリティカル確率31.95%UP＋命中率22.04%UP（各20秒間維持）。新規キーなし、既存キーのみで実装。"
+    "note": "S1（アクティブ・CT10秒）：HP最も低い敵1機に最終攻撃力145.45%のダメージ（other・selfOnly）。S2（パッシブ）：フルバーストタイム発動時、自分に貫通特化（2発間維持）＋攻撃力124.8%UP（2発間維持、ハランのpierceと同型）。BS（アクティブ・CT40秒）：自分にクリティカル確率31.95%UP＋命中率22.04%UP（各20秒間維持）。新規キーなし、既存キーのみで実装。",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/neve_slot.jpg"
   },
   {
     "id": "mika",
@@ -12187,7 +12243,8 @@
       "condParty": [],
       "other": []
     },
-    "note": "キャラ名を「ミサト」から公式表記「葛城ミサト」に修正。S1（射撃マニュアル・パッシブ・CT無し）：通常攻撃60回ごとに自分に命中率5.04%UP＋【射撃マニュアル】スタック付与（5秒間維持、クレイのヴィクトリークライと同型でstack.key\"misatoManual\"・max3/default1の状態マーカーとして実装）。通常攻撃120回時、残りHP割合最も低い味方1機に発動者最終最大HPの8.04%回復（caster・hpBased、スタック非連動）。S2（回復補助・パッシブ・CT無し）：自分が射撃マニュアル状態（スタック1以上）の時に限り、味方全体にラプチャーバリアへのダメージ150%UP（持続、既存キーbarrierDmg・stackThreshold:1+stackThresholdRef:\"misatoManual\"でスライダー連動、guillotine_wsと同型）。自分が射撃マニュアルのフルスタック状態の時のみ、自分に与える回復量30.05%UP（持続、既存キーhealPower・fullStackOnly+fullStackRef:\"misatoManual\"でスライダー連動、クレイのatkバフと同型）。BS（休息命令・アクティブ・CT40秒）：味方全体に発動者最終最大HPの5.06%持続回復（1秒間隔・5秒間維持、caster・hpBased）。新規キーなし、既存キー・既存機構のみで実装。"
+    "note": "キャラ名を「ミサト」から公式表記「葛城ミサト」に修正。S1（射撃マニュアル・パッシブ・CT無し）：通常攻撃60回ごとに自分に命中率5.04%UP＋【射撃マニュアル】スタック付与（5秒間維持、クレイのヴィクトリークライと同型でstack.key\"misatoManual\"・max3/default1の状態マーカーとして実装）。通常攻撃120回時、残りHP割合最も低い味方1機に発動者最終最大HPの8.04%回復（caster・hpBased、スタック非連動）。S2（回復補助・パッシブ・CT無し）：自分が射撃マニュアル状態（スタック1以上）の時に限り、味方全体にラプチャーバリアへのダメージ150%UP（持続、既存キーbarrierDmg・stackThreshold:1+stackThresholdRef:\"misatoManual\"でスライダー連動、guillotine_wsと同型）。自分が射撃マニュアルのフルスタック状態の時のみ、自分に与える回復量30.05%UP（持続、既存キーhealPower・fullStackOnly+fullStackRef:\"misatoManual\"でスライダー連動、クレイのatkバフと同型）。BS（休息命令・アクティブ・CT40秒）：味方全体に発動者最終最大HPの5.06%持続回復（1秒間隔・5秒間維持、caster・hpBased）。新規キーなし、既存キー・既存機構のみで実装。",
+    "reading": "かつらぎみさと"
   },
   {
     "id": "laplace_uh",
@@ -12438,6 +12495,8 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：通常攻撃で40回攻撃した時、自分に攻撃速度7.26%UP（3秒間維持）。S2（パッシブ）：自分のHPが最大の時のみ、自分にクリティカル確率21.62%UP・クリティカルダメージ62.27%UP（持続）。BS（アクティブ・CT40秒）：攻撃範囲内の敵に最終攻撃力396%のダメージ＋自分のHPが最大の場合は同じ対象に最終攻撃力924%の追加ダメージ（いずれもother欄）。party/targetedバフなし（自己バフ2種＋ダメージスキルのみのシンプル構成、ブリッドと同型）。新規キーなし（atkSpd/critRate/critDmgとも既存キー流用）。"
+    "note": "S1（パッシブ）：通常攻撃で40回攻撃した時、自分に攻撃速度7.26%UP（3秒間維持）。S2（パッシブ）：自分のHPが最大の時のみ、自分にクリティカル確率21.62%UP・クリティカルダメージ62.27%UP（持続）。BS（アクティブ・CT40秒）：攻撃範囲内の敵に最終攻撃力396%のダメージ＋自分のHPが最大の場合は同じ対象に最終攻撃力924%の追加ダメージ（いずれもother欄）。party/targetedバフなし（自己バフ2種＋ダメージスキルのみのシンプル構成、ブリッドと同型）。新規キーなし（atkSpd/critRate/critDmgとも既存キー流用）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sorin.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/sorin_slot.jpg"
   }
 ]
