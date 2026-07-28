@@ -1705,13 +1705,6 @@
 
       <div class="modal-scroll">
       <div class="modal-filters">
-      <!-- 段1: ALL NIKKE -->
-      <div class="filter-group">
-        <div class="filter-group-label" onclick="setFilter('all','all')" data-ftype="all" data-filter="all" style="cursor:pointer;user-select:none;" id="allNikkeLabel">
-          ALL NIKKE
-        </div>
-      </div>
-
       <!-- 段2: バースト -->
       <div class="filter-group">
         <div class="filter-group-label collapsible" onclick="toggleFilterGroup(this)">BURST <span class="fg-arrow" style="transform:rotate(180deg)">▲</span></div>
@@ -4734,19 +4727,9 @@ function scrollPickerToTop(e) {
   if(scrollContainer) scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
 }
 function setFilter(type, val) {
-  if(type === 'all') {
-    filterState.showAll = !filterState.showAll;
-    if(filterState.showAll) {
-      // ONにする時は他フィルターをリセット
-      filterState = freshFilterState();
-      filterState.showAll = true;
-    }
-  } else {
-    filterState.showAll = false;
-    if(filterState[type].has(val)) filterState[type].delete(val);
-    else filterState[type].add(val);
-    // 全フィルター空でもshowAllには戻さない（手動でALL NIKKEを押す）
-  }
+  filterState.showAll = false;
+  if(filterState[type].has(val)) filterState[type].delete(val);
+  else filterState[type].add(val);
   updateFilterChips();
   renderCharList();
 }
@@ -4754,8 +4737,7 @@ function updateFilterChips() {
   document.querySelectorAll('.fchip').forEach(chip => {
     const ftype = chip.dataset.ftype;
     const fval  = chip.dataset.filter;
-    if(ftype === 'all') chip.classList.toggle('on', filterState.showAll);
-    else chip.classList.toggle('on', filterState[ftype] && filterState[ftype].has(fval));
+    chip.classList.toggle('on', filterState[ftype] && filterState[ftype].has(fval));
   });
   // カテゴリヘッダー点灯
   document.querySelectorAll('.filter-group-label.collapsible').forEach(lbl => {
@@ -4767,9 +4749,6 @@ function updateFilterChips() {
     lbl.style.color      = anyOn ? 'var(--accent)' : '';
     lbl.style.textShadow = anyOn ? '0 0 8px rgba(0,212,255,0.6)' : '';
   });
-  // ALL NIKKEラベルのON/OFF
-  const label = document.getElementById('allNikkeLabel');
-  if(label) label.style.color = filterState.showAll ? 'var(--accent)' : 'var(--text-dim)';
 }
 function renderCharList() {
   const search = el('charSearch').value.toLowerCase();
@@ -4796,7 +4775,7 @@ function renderCharList() {
 
   const anyFilter = FILTER_KEYS.some(k => filterState[k].size > 0);
   if(!filterState.showAll && !anyFilter && !search) {
-    list.innerHTML = '<div class="empty-team" style="color:var(--text-dim);">フィルターまたはALL NIKKEを選択してください</div>';
+    list.innerHTML = '<div class="empty-team" style="color:var(--text-dim);">フィルターを選択するか、名前で検索してください</div>';
     return;
   }
 
