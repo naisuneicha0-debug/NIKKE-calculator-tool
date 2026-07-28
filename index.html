@@ -220,7 +220,9 @@
     transition: border-color 0.2s, color 0.2s, box-shadow 0.2s, opacity 0.2s;
     opacity: 0; pointer-events: none;
   }
-  .picker-top-btn:hover { border-color: var(--accent); color: var(--accent3); box-shadow: 0 0 8px var(--glow); }
+  @media (hover: hover) {
+    .picker-top-btn:hover { border-color: var(--accent); color: var(--accent3); box-shadow: 0 0 8px var(--glow); }
+  }
   .picker-top-btn.show { opacity: 1; pointer-events: auto; }
   .modal-close { font-size: 18px; cursor: pointer; color: var(--text-dim); background: none; border: none; }
   .modal-close:hover { color: var(--accent2); }
@@ -1574,6 +1576,17 @@
     animation: crt-flicker 3s steps(1) infinite;
     background: transparent;
   }
+  /* ピッカー一覧行のCRT演出はパフォーマンス対策として画面内表示中のみ動かす（.char-item.crt-active時のみ有効） */
+  .char-item .crt-overlay,
+  .char-item .crt-flicker {
+    animation: none;
+  }
+  .char-item.crt-active .crt-overlay {
+    animation: crt-scanline-scroll 0.1s linear infinite;
+  }
+  .char-item.crt-active .crt-flicker {
+    animation: crt-flicker 3s steps(1) infinite;
+  }
 
   /* ビネット（周辺暗化） */
   .crt-vignette {
@@ -1760,7 +1773,7 @@
 
       <div class="char-list" id="charList"></div>
       </div><!-- /modal-scroll -->
-      <div class="picker-top-btn" id="pickerTopBtn" onclick="scrollPickerToTop()" title="最上部へ戻る">↑</div>
+      <div class="picker-top-btn" id="pickerTopBtn" onclick="scrollPickerToTop(event)" title="最上部へ戻る">↑</div>
 
       <!-- 配置先スロット選択オーバーレイ -->
       <div class="slot-placer-overlay" id="slotPlacerOverlay">
@@ -4707,7 +4720,8 @@ function initCharListScroll() {
     }, { passive: true });
   }
 }
-function scrollPickerToTop() {
+function scrollPickerToTop(e) {
+  if(e && e.currentTarget && e.currentTarget.blur) e.currentTarget.blur();
   const scrollContainer = document.querySelector('#charPicker .modal-scroll');
   if(scrollContainer) scrollContainer.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -4753,6 +4767,24 @@ function renderCharList() {
   const search = el('charSearch').value.toLowerCase();
   const list = el('charList');
   list.innerHTML = '';
+
+  // パフォーマンス対策：一覧再描画のたびに古いobserverを破棄し新規作成
+  if(window._charItemObserver) window._charItemObserver.disconnect();
+  const charItemObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const target = entry.target;
+      if(entry.isIntersecting) {
+        if(target.dataset.bgUrl && target.dataset.bgLoaded !== '1') {
+          target.style.backgroundImage = `url('${target.dataset.bgUrl}')`;
+          target.dataset.bgLoaded = '1';
+        }
+        target.classList.add('crt-active');
+      } else {
+        target.classList.remove('crt-active');
+      }
+    });
+  }, { root: document.querySelector('#charPicker .modal-scroll'), rootMargin: '400px 0px' });
+  window._charItemObserver = charItemObserver;
 
   const anyFilter = FILTER_KEYS.some(k => filterState[k].size > 0);
   if(!filterState.showAll && !anyFilter && !search) {
@@ -4828,7 +4860,8 @@ function renderCharList() {
         : (c.id === 'rapi_rh' || c.id === 'anisstar' || c.id === 'molly') && c.cardBgAlt
           ? c.cardBgAlt
           : c.cardBg;
-      item.style.backgroundImage = `url('${pickerBg}')`;
+      // パフォーマンス対策：背景画像は即時設定せず、画面内に入った時点でIntersectionObserverから読み込む
+      item.dataset.bgUrl = pickerBg;
       item.style.backgroundSize = 'cover';
       item.style.backgroundPosition = 'right top';
       item.style.position = 'relative';
@@ -4945,6 +4978,7 @@ function renderCharList() {
         <div class="char-item-tag">${tag}</div>
       </div>`;
     list.appendChild(item);
+    charItemObserver.observe(item);
   });
 }
 
