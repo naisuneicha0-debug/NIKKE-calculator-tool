@@ -4988,6 +4988,39 @@ function sortieShutterHTML(name, slotIdx) {
         <div class="sortie-slot">SLOT ${String(slotIdx + 1).padStart(2, '0')}</div>
       </div>`;
 }
+// ===== ロック中テキストのランダム点滅（J-3：名前とSORTIE表記が完全に独立したランダムタイマーで点滅） =====
+// item要素に直接タイマーIDを保持し、解除時/DOM破棄時に確実に止められるようにする
+function startSortieFlicker(item) {
+  stopSortieFlicker(item); // 念のため既存タイマーをクリアしてから開始
+  item._sortieFlickerTimers = [];
+  const flashEls = (els, duration) => {
+    els.forEach(el => { el.style.transition = 'opacity 0.05s linear'; el.style.opacity = '0.08'; });
+    setTimeout(() => {
+      els.forEach(el => { el.style.opacity = '1'; });
+      setTimeout(() => { els.forEach(el => { el.style.transition = ''; }); }, 60);
+    }, duration);
+  };
+  const schedule = (getEls, minDelay, maxDelay) => {
+    const delay = minDelay + Math.random() * (maxDelay - minDelay);
+    const timerId = setTimeout(() => {
+      // 解除中・削除済み・再ロック済み(別セッション)なら以降のスケジュールを止めて自然終了させる
+      if(!item.isConnected || !item.classList.contains('sortie-locked') ||
+         item.classList.contains('sortie-unlocking-text') || item.classList.contains('sortie-unlocking-corners')) return;
+      const els = getEls().filter(Boolean);
+      if(els.length) flashEls(els, 50 + Math.random() * 70);
+      schedule(getEls, minDelay, maxDelay);
+    }, delay);
+    item._sortieFlickerTimers.push(timerId);
+  };
+  schedule(() => [item.querySelector('.sortie-name-text')], 1200, 3500);
+  schedule(() => [item.querySelector('.sortie-label'), item.querySelector('.sortie-slot')], 1000, 3000);
+}
+function stopSortieFlicker(item) {
+  if(item && item._sortieFlickerTimers) {
+    item._sortieFlickerTimers.forEach(id => clearTimeout(id));
+    item._sortieFlickerTimers = [];
+  }
+}
 // ピッカー上の対象キャラだけをアニメーション付きでロック状態に切り替える
 // （renderCharList()での全再描画だとDOMが作り直されて「最初からロック済み」の見た目になりトランジションが発火しないため、既存DOMに対してクラスを遅延付与する）
 function animateLockPickerItem(charId, slotIdx) {
@@ -5009,6 +5042,7 @@ function animateLockPickerItem(charId, slotIdx) {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       item.classList.add('sortie-locked');
+      startSortieFlicker(item); // ロック確定と同時にランダム点滅を開始
     });
   });
 }
@@ -5018,6 +5052,7 @@ function animateUnlockPickerItem(charId) {
   const item = document.querySelector(`#charList .char-item[data-char-id="${charId}"]`);
   if(!item) return; // ピッカーが閉じている・絞り込みで非表示中なら何もしない（次回描画時は通常＝未ロックで生成される）
   if(!item.classList.contains('sortie-locked')) return; // 既に開いているなら何もしない
+  stopSortieFlicker(item); // 解除シーケンスに入る前にランダム点滅を止める（テキストフェードと競合しないように）
   item.classList.add('sortie-unlocking-text');
   setTimeout(() => {
     item.classList.add('sortie-unlocking-corners');
@@ -5353,6 +5388,7 @@ function renderCharList() {
     }
     list.appendChild(item);
     charItemObserver.observe(item);
+    if(isLocked) startSortieFlicker(item); // 一覧再描画時、既にロック済みで生成されたカードもランダム点滅を開始
   });
 }
 
