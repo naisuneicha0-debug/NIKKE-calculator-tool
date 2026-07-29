@@ -4227,7 +4227,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy_slot.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy_alt.jpg",
-    "cardBgNone": null,
+    "cardBgNone": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy_none.jpg",
     "buffs": {
       "self": {
         "atk": {
