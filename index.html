@@ -395,14 +395,22 @@
   .sortie-corner.tr { top: 7px; right: 7px; border-top: 2px solid var(--good); border-right: 2px solid var(--good); }
   .sortie-corner.bl { bottom: 7px; left: 7px; border-bottom: 2px solid var(--good); border-left: 2px solid var(--good); }
   .sortie-corner.br { bottom: 7px; right: 7px; border-bottom: 2px solid var(--good); border-right: 2px solid var(--good); }
-  .sortie-text {
-    position: absolute; inset: 0; z-index: 12; display: flex; flex-direction: column;
-    align-items: center; justify-content: center; gap: 2px;
-    opacity: 0; transition: opacity 0.3s ease 0.8s; pointer-events: none;
+  .sortie-name {
+    position: absolute; left: 0; right: 0; top: 50%; transform: translateY(-100%) translateY(-7px);
+    text-align: center; z-index: 12; pointer-events: none;
+    opacity: 0; transition: opacity 0.3s ease 0.6s;
   }
-  .char-item.sortie-locked .sortie-text { opacity: 1; }
-  .sortie-label { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 10px; letter-spacing: 3px; color: var(--good); opacity: 0.85; }
-  .sortie-slot { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 20px; letter-spacing: 2px; color: var(--good); text-shadow: 0 0 10px rgba(0,255,157,0.7); }
+  .sortie-bottom {
+    position: absolute; left: 0; right: 0; top: 50%; transform: translateY(5px);
+    text-align: center; z-index: 12; pointer-events: none;
+    display: flex; flex-direction: column; gap: 1px;
+    opacity: 0; transition: opacity 0.3s ease 0.75s;
+  }
+  .char-item.sortie-locked .sortie-name,
+  .char-item.sortie-locked .sortie-bottom { opacity: 1; }
+  .sortie-name-text { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 15px; letter-spacing: 2px; color: var(--good); text-shadow: 0 0 8px rgba(0,255,157,0.6); }
+  .sortie-label { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2.5px; color: var(--good); opacity: 0.75; }
+  .sortie-slot { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; color: var(--good); text-shadow: 0 0 8px rgba(0,255,157,0.6); }
 
   .slotv-ph-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, var(--el-color, var(--accent)) 0%, transparent 65%); opacity: 0.32; }
 
@@ -2754,8 +2762,13 @@ function renderSlots() {
 }
 
 function removeChar(idx) {
+  const removedChar = TEAM[idx];
   TEAM[idx] = null;
   checkModeChangeAndRender();
+  // 他のスロットにも同じキャラがいなければ、ピッカー上のロックを解除
+  if(removedChar && !TEAM.some(m => m && m.id === removedChar.id)) {
+    animateUnlockPickerItem(removedChar.id);
+  }
 }
 
 // ============================================================
@@ -4908,10 +4921,15 @@ function showSlotPlacer(c) {
 function placeCharInSlot(idx) {
   if(!pendingChar) return;
   const placedChar = pendingChar;
+  const previousChar = TEAM[idx]; // 上書きされる旧キャラ（既に埋まっているスロットを選んだ場合）
   TEAM[idx] = placedChar;
   pendingChar = null;
   el('slotPlacerOverlay').classList.remove('show');
   checkModeChangeAndRender();
+  // 上書きで押し出された旧キャラが他のスロットにもいなければ、ピッカー上のロックを解除
+  if(previousChar && previousChar.id !== placedChar.id && !TEAM.some(m => m && m.id === previousChar.id)) {
+    animateUnlockPickerItem(previousChar.id);
+  }
   if(TEAM.every(t => t !== null)) {
     closePicker();
   } else {
@@ -4932,6 +4950,13 @@ function animateLockPickerItem(charId, slotIdx) {
       item.classList.add('sortie-locked');
     });
   });
+}
+// ピッカー上の対象キャラのシャッターロックを解除する（配置解除・上書きで編成から外れた時に使用）
+// クラスを外すだけで既存のtransitionが逆再生され、開くアニメーションが自然に発火する
+function animateUnlockPickerItem(charId) {
+  const item = document.querySelector(`#charList .char-item[data-char-id="${charId}"]`);
+  if(!item) return; // ピッカーが閉じている・絞り込みで非表示中なら何もしない（次回描画時は通常＝未ロックで生成される）
+  item.classList.remove('sortie-locked');
 }
 function cancelSlotPlacement() {
   pendingChar = null;
@@ -5125,7 +5150,8 @@ function renderCharList() {
       <div class="sortie-seam"></div>
       <div class="sortie-scan"></div>
       <div class="sortie-corner tl"></div><div class="sortie-corner tr"></div><div class="sortie-corner bl"></div><div class="sortie-corner br"></div>
-      <div class="sortie-text">
+      <div class="sortie-name"><div class="sortie-name-text">${c.name}</div></div>
+      <div class="sortie-bottom">
         <div class="sortie-label">READY FOR SORTIE</div>
         <div class="sortie-slot">SLOT ${isLocked ? String(lockedSlotIdx + 1).padStart(2, '0') : '--'}</div>
       </div>
