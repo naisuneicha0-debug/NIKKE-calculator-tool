@@ -4968,14 +4968,37 @@ function placeCharInSlot(idx) {
     animateLockPickerItem(placedChar.id, idx); // 配置済みニケをシャッター演出付きでロック表示に反映
   }
 }
+// ピッカーカードのシャッター一式HTML（ロック中のキャラにのみ必要な時に生成する。全件常時生成すると187件分のDOM肥大化でピッカーが重くなるため）
+function sortieShutterHTML(name, slotIdx) {
+  return `
+      <div class="sortie-hatch-top"></div><div class="sortie-hatch-bottom"></div>
+      <div class="sortie-seam"></div>
+      <div class="sortie-scan"></div>
+      <div class="sortie-corner tl"></div><div class="sortie-corner tr"></div><div class="sortie-corner bl"></div><div class="sortie-corner br"></div>
+      <div class="sortie-recall-btn"><span class="sortie-recall-label">RECALL</span></div>
+      <div class="sortie-name"><div class="sortie-name-text">${name}</div></div>
+      <div class="sortie-bottom">
+        <div class="sortie-label">READY FOR SORTIE</div>
+        <div class="sortie-slot">SLOT ${String(slotIdx + 1).padStart(2, '0')}</div>
+      </div>`;
+}
 // ピッカー上の対象キャラだけをアニメーション付きでロック状態に切り替える
 // （renderCharList()での全再描画だとDOMが作り直されて「最初からロック済み」の見た目になりトランジションが発火しないため、既存DOMに対してクラスを遅延付与する）
 function animateLockPickerItem(charId, slotIdx) {
   const item = document.querySelector(`#charList .char-item[data-char-id="${charId}"]`);
   if(!item) return; // 現在の絞り込み結果に表示されていない場合は次回一覧描画時に通常反映される
-  const slotEl = item.querySelector('.sortie-slot');
-  if(slotEl) slotEl.textContent = 'SLOT ' + String(slotIdx + 1).padStart(2, '0');
-  if(item.classList.contains('sortie-locked')) return; // 既にロック済み表示ならアニメ不要
+  if(item.classList.contains('sortie-locked')) {
+    const slotEl = item.querySelector('.sortie-slot');
+    if(slotEl) slotEl.textContent = 'SLOT ' + String(slotIdx + 1).padStart(2, '0');
+    return; // 既にロック済み表示ならアニメ不要
+  }
+  // シャッター要素が未生成（＝これまで未ロックだった）場合はこの時点で注入する
+  if(!item.querySelector('.sortie-hatch-top')) {
+    const c = NIKKE_DB.find(x => x.id === charId);
+    item.insertAdjacentHTML('beforeend', sortieShutterHTML(c ? c.name : '', slotIdx));
+    const recallBtn = item.querySelector('.sortie-recall-btn');
+    if(recallBtn) recallBtn.onclick = (e) => { e.stopPropagation(); recallCharFromPicker(charId); };
+  }
   // 1フレーム待ってからクラス付与し、閉じるトランジションを確実に発火させる
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
@@ -5210,16 +5233,7 @@ function renderCharList() {
     item.innerHTML = `
       <div class="crt-vignette"></div><div class="crt-overlay"></div><div class="crt-flicker"></div>
       ${c.cardBg ? `<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,7,14,0.7) 0%,rgba(6,7,14,0.4) 100%);pointer-events:none;"></div>` : '<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,212,255,0.08),transparent);pointer-events:none;"></div>'}
-      <div class="sortie-hatch-top"></div><div class="sortie-hatch-bottom"></div>
-      <div class="sortie-seam"></div>
-      <div class="sortie-scan"></div>
-      <div class="sortie-corner tl"></div><div class="sortie-corner tr"></div><div class="sortie-corner bl"></div><div class="sortie-corner br"></div>
-      <div class="sortie-recall-btn"><span class="sortie-recall-label">RECALL</span></div>
-      <div class="sortie-name"><div class="sortie-name-text">${c.name}</div></div>
-      <div class="sortie-bottom">
-        <div class="sortie-label">READY FOR SORTIE</div>
-        <div class="sortie-slot">SLOT ${isLocked ? String(lockedSlotIdx + 1).padStart(2, '0') : '--'}</div>
-      </div>
+      ${isLocked ? sortieShutterHTML(c.name, lockedSlotIdx) : ''}
       <span class="char-burst b${c.burst}" style="visibility:hidden;">${c.id === 'redhood' ? 'Λ' : 'B' + c.burst}</span><div class="char-burst-wm b${c.burst}${c.id === 'redhood' ? ' rh' : ''}">${c.id === 'redhood' ? lambdaSVG(36) : c.burst}</div>
       <div style="flex:1; min-width:0; position:relative; display:flex; flex-direction:column; justify-content:center; gap:4px;">
         <div class="char-item-name">${c.name}</div>
