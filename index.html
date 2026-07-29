@@ -1910,6 +1910,8 @@ const BUFF_LABELS = {
   pellet:       'ペレット数',
   seqDmg:   '順番攻撃ダメ',
   dotDmg:   '持続ダメ',
+  aftertasteUp: 'あと味効果',
+  unstableEnergyUp: '不安定エネルギー倍率',
   chargeFixed:'チャージ時間固定',
   chargeSpdFixed:'チャージ速度',
   reloadFixed:'リロード速度固定',
@@ -1954,7 +1956,7 @@ Object.entries(BUFF_DEBUFF_PAIRS).forEach(([up, down]) => { DEBUFF_BUFF_PAIRS[do
 
 // バフカテゴリ分類
 const BUFF_CATEGORIES = {
-  'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','critDmg','chargeDmg','seqDmg','dotDmg','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
+  'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','critDmg','chargeDmg','seqDmg','dotDmg','aftertasteUp','unstableEnergyUp','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
   'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','immobilize','forcedMove','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
   'SURVIVAL': ['heal','healHelm','healPower','lifesteal','healRcvUp','healOverTime','decoyHeal','decoyHealOverTime','barrierHealOverTime','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','barrier','barrierShared','barrierInvincible','nextBarrierHp','shelterHpUp','shelterRevive','medkit','medkitMaxUp','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','stunImmune','revive','hpDown'],
   'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown','enemyHealRcvDown','enemyBuffRemove'],
@@ -3132,6 +3134,12 @@ function buildCharCard(char, filledTeam) {
       if(src.id === 'rapi_rh' && rapiPartySupport.has(k) && effectiveRapiMode !== 'support') return;
       // レッドフードのpartyバフはB1時のみ
       if(src.id === 'redhood' && effectiveRedHoodMode !== 'b1') return;
+      // ブレッディ partyバフのhabit/recom/none制御
+      if(src.id === 'breddy' && typeof v === 'object' && v !== null) {
+        if(v.breddyHabitOnly && effectiveBreddyMode !== 'habit') return;
+        if(v.breddyRecomOnly && effectiveBreddyMode !== 'recom') return;
+        if(v.breddyHideNone && effectiveBreddyMode === 'none') return;
+      }
       // ディーゼルWSのsilenceStackはクライマックス時のみ
       if(src.id === 'diesel_ws' && k === 'silenceStack' && effectiveDieselWsMode !== 'climax') return;
       // excludeSelf: 発動者自身はスキップ
@@ -3197,6 +3205,7 @@ function buildCharCard(char, filledTeam) {
         if(src.id === 'breddy') {
           if(entry.breddyHabitOnly && effectiveBreddyMode !== 'habit') return;
           if(entry.breddyRecomOnly && effectiveBreddyMode !== 'recom') return;
+          if(entry.breddyHideNone && effectiveBreddyMode === 'none') return;
         }
         // プリカ partyバフのperformanceOnly制御
         if(src.id === 'pyrika') {
@@ -3285,6 +3294,7 @@ function buildCharCard(char, filledTeam) {
     if(char.id === 'breddy') {
       if(v && v.breddyHabitOnly && effectiveBreddyMode !== 'habit') return;
       if(v && v.breddyRecomOnly && effectiveBreddyMode !== 'recom') return;
+      if(v && v.breddyHideNone && effectiveBreddyMode === 'none') return;
     }
     // プリカ selfバフのperformanceOnly制御
     if(char.id === 'pyrika') {
@@ -3809,6 +3819,7 @@ function buildCharCard(char, filledTeam) {
     if(char.id === 'breddy') {
       if(o.breddyHabitOnly && effectiveBreddyMode !== 'habit') return;
       if(o.breddyRecomOnly && effectiveBreddyMode !== 'recom') return;
+      if(o.breddyHideNone && effectiveBreddyMode === 'none') return;
     }
     // シンデレラ：クリスタルウェーブ アクティブスキル/武器スペックのモード制御
     if(char.id === 'cinderella_cw') {
@@ -3917,7 +3928,9 @@ function buildCharCard(char, filledTeam) {
     }
     if(char.id === 'breddy' && char.cardBgAlt) {
       const mode = breddyMode !== null ? breddyMode : 'habit';
-      return mode === 'recom' ? char.cardBgAlt : char.cardBg;
+      if(mode === 'recom') return char.cardBgAlt;
+      if(mode === 'none') return char.cardBgNone || char.cardBg;
+      return char.cardBg;
     }
     if(char.id === 'arcana_tarot' && char.cardBgAlt) {
       const mode = arcanaFateMode !== null ? arcanaFateMode : 'normal';
@@ -4282,11 +4295,12 @@ function buildCharCard(char, filledTeam) {
   })() : (char.id === 'breddy') ? (() => {
     const mode = effectiveBreddyMode || 'habit';
     const isHabit = mode === 'habit';
-    const valLines = isHabit ? ['♥'] : ['♡'];
+    const isNone  = mode === 'none';
+    const valLines = isNone ? ['---'] : (isHabit ? ['ADCV♡'] : ['RCMD♡']);
     const valText  = valLines.map(l => '<span style="display:block;line-height:1.4;">' + l + '</span>').join('');
-    const color    = '#ff3c6e';
-    const shadow   = '0 0 8px rgba(255,60,110,0.9)';
-    const tooltip  = isHabit ? 'やみつきの味状態（タップで切替）' : 'オススメの味状態（タップで切替）';
+    const color    = isNone ? '#6b7684' : '#ff3c6e';
+    const shadow   = isNone ? '0 0 8px rgba(107,118,132,0.6)' : '0 0 8px rgba(255,60,110,0.9)';
+    const tooltip  = isNone ? '未発動状態（タップで切替）' : (isHabit ? 'やみつきの味状態（タップで切替）' : 'オススメの味状態（タップで切替）');
     return '<div onclick="toggleBreddyMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
       '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
@@ -4295,7 +4309,7 @@ function buildCharCard(char, filledTeam) {
           '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B3</span>' +
           '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
         '</div>' +
-        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:22px;font-weight:bold;letter-spacing:1px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:12px;font-weight:bold;letter-spacing:0.5px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
@@ -5420,7 +5434,8 @@ function toggleBreddyMode(e) {
   sig.dataset.switching = '1';
 
   const current  = breddyMode !== null ? breddyMode : 'habit';
-  const nextMode = current === 'habit' ? 'recom' : 'habit';
+  const breddyModeOrder = ['habit', 'recom', 'none'];
+  const nextMode = breddyModeOrder[(breddyModeOrder.indexOf(current) + 1) % breddyModeOrder.length];
 
   const bodyStates = {}, arrowStates = {};
   document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
@@ -5429,7 +5444,9 @@ function toggleBreddyMode(e) {
   const breddyCharData = NIKKE_DB.find(c => c.id === 'breddy');
   const nextImgUrl = nextMode === 'recom'
     ? (breddyCharData && breddyCharData.cardBgAlt)
-    : (breddyCharData && breddyCharData.cardBg);
+    : nextMode === 'none'
+      ? (breddyCharData && (breddyCharData.cardBgNone || breddyCharData.cardBg))
+      : (breddyCharData && breddyCharData.cardBg);
 
   fireSignalBurst('card-breddy', nextImgUrl, () => {
     breddyMode = nextMode;
