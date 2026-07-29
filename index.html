@@ -5080,8 +5080,8 @@ function renderCharList() {
     const roleColor  = c.role === 'atk' ? '#ff3c6e' : c.role === 'def' ? '#ff8c42' : '#00ff9d';
     const compLabel  = COMPANY_LABELS[c.company] || '';
     const squadLabel = c.squad || '';
-    // 他スロットに同じニケが既に編成済みかを判定（編集中の自スロットは対象外）
-    const lockedSlotIdx = TEAM.findIndex((m, i) => m && m.id === c.id && i !== pickerSlotIdx);
+    // 他スロットに同じニケが既に編成済みかを判定（配置UIは任意スロットへ配置可能なため、TEAM内の存在有無のみで判定）
+    const lockedSlotIdx = TEAM.findIndex(m => m && m.id === c.id);
     const isLocked = lockedSlotIdx !== -1;
     const item = document.createElement('div');
     item.className = 'char-item' + (isLocked ? ' sortie-locked' : '');
