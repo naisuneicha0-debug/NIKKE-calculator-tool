@@ -2247,6 +2247,13 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m.id === 'unfa_tu');
         break;
       }
+      case 'breddyNoneMode': {
+        // ブレッディ：分配ダメ/持続ダメ両方の保有者が編成にいない(=---モード)時のみ発動。
+        // ADCV(habit)/RCMD(recom)いずれかのモードになっていればコーション解消。
+        const { hasDot, hasDist } = breddyDetectAutoBuffs(filledTeam, char);
+        triggered = !hasDot && !hasDist;
+        break;
+      }
     }
     if(triggered) messages.push(c.message);
   });
