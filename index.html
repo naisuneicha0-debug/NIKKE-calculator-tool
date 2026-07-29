@@ -2481,6 +2481,59 @@ function matchTarget(target, char, filledTeam, src) {
   return matchSingleTarget(type, val, char, filledTeam, src);
 }
 
+// ブレッディ専用：編成内に「分配ダメ(distDmg)」「持続ダメ(dotDmg)」バフ持ちがいるか判定
+// （やみつき/オススメ/---モードの自動切替に使用。2026-07-29実装）
+function breddyDetectAutoBuffs(filledTeam, breddyChar) {
+  let hasDot = false, hasDist = false;
+  const crustChar = filledTeam.find(c => c.id === 'crust');
+  const effectiveCrustModeForBreddy = crustChar ? (crustMode !== null ? crustMode : 'meilard') : null;
+
+  filledTeam.forEach(src => {
+    if(!src || src === breddyChar) return;
+
+    // party（全体）バフ
+    Object.entries(src.buffs.party || {}).forEach(([k, v]) => {
+      const mergedKey = BUFF_MERGE_INTO[k] || k;
+      if(mergedKey !== 'dotDmg' && mergedKey !== 'distDmg') return;
+      if(typeof v === 'object' && v !== null) {
+        if(v.squadOnly && breddyChar.squad !== src.squad) return;
+        if(v.elementOnly && breddyChar.element !== v.elementOnly) return;
+        if(v.targetOnly && breddyChar.id !== v.targetOnly) return;
+        if(v.weaponOnly && breddyChar.weapon !== v.weaponOnly) return;
+        if(v.requireSrc && !filledTeam.some(c => c.id === v.requireSrc)) return;
+        if(src.id === 'crust' && v.crustMeilardOnly && effectiveCrustModeForBreddy !== 'meilard') return;
+        if(src.id === 'crust' && v.crustBranchingOnly && effectiveCrustModeForBreddy !== 'branching') return;
+      }
+      if(mergedKey === 'dotDmg') hasDot = true;
+      if(mergedKey === 'distDmg') hasDist = true;
+    });
+
+    // targeted（対象条件付き）バフ
+    Object.entries(src.buffs.targeted || {}).forEach(([k, entry]) => {
+      if(!entry) return;
+      const mergedKey = BUFF_MERGE_INTO[k] || k;
+      if(mergedKey !== 'dotDmg' && mergedKey !== 'distDmg') return;
+      if(entry.excludeSelf && breddyChar === src) return;
+      if(entry.requireSrcBack) {
+        const srcIdx = TEAM.indexOf(src);
+        if(srcIdx !== 1 && srcIdx !== 3) return;
+      }
+      if(entry.requireSrcAdjacent) {
+        const srcIdx = TEAM.indexOf(src);
+        const hasLeft  = srcIdx > 0 && TEAM[srcIdx - 1] !== null;
+        const hasRight = srcIdx < 4 && TEAM[srcIdx + 1] !== null;
+        if(!hasLeft || !hasRight) return;
+      }
+      if(matchTarget(entry.target, breddyChar, filledTeam, src)) {
+        if(mergedKey === 'dotDmg') hasDot = true;
+        if(mergedKey === 'distDmg') hasDist = true;
+      }
+    });
+  });
+
+  return { hasDot, hasDist };
+}
+
 // ============================================================
 // UI RENDER: 編成スロット描画
 // ============================================================
@@ -3058,11 +3111,18 @@ function buildCharCard(char, filledTeam) {
     return graveMode !== null ? graveMode : 'normal';
   })();
 
-  // ===== ブレッディ モード判定 =====
+  // ===== ブレッディ モード判定（2026-07-29〜：編成の分配ダメ/持続ダメ保有状況で自動判定） =====
   const breddyChar = filledTeam.find(c => c.id === 'breddy');
   const effectiveBreddyMode = (() => {
     if(!breddyChar) return null;
-    return breddyMode !== null ? breddyMode : 'habit';
+    const { hasDot, hasDist } = breddyDetectAutoBuffs(filledTeam, breddyChar);
+    if(hasDot && hasDist) {
+      // 両方のバフ持ちが編成されてる場合のみ手動選択可（habit/recomのみ、noneは選ばせない）
+      return breddyMode === 'recom' ? 'recom' : 'habit';
+    }
+    if(hasDot)  return 'habit';
+    if(hasDist) return 'recom';
+    return 'none';
   })();
 
   const pyrikaChar = TEAM.find(c => c && c.id === 'pyrika');
@@ -3927,7 +3987,9 @@ function buildCharCard(char, filledTeam) {
       return mode === 'rage' ? char.cardBgAlt : char.cardBg;
     }
     if(char.id === 'breddy' && char.cardBgAlt) {
-      const mode = breddyMode !== null ? breddyMode : 'habit';
+      const { hasDot, hasDist } = breddyDetectAutoBuffs(filledTeam, char);
+      const mode = (hasDot && hasDist) ? (breddyMode === 'recom' ? 'recom' : 'habit')
+        : hasDot ? 'habit' : hasDist ? 'recom' : 'none';
       if(mode === 'recom') return char.cardBgAlt;
       if(mode === 'none') return char.cardBgNone || char.cardBg;
       return char.cardBg;
@@ -4296,12 +4358,19 @@ function buildCharCard(char, filledTeam) {
     const mode = effectiveBreddyMode || 'habit';
     const isHabit = mode === 'habit';
     const isNone  = mode === 'none';
+    const { hasDot, hasDist } = breddyDetectAutoBuffs(filledTeam, char);
+    const isLocked = !(hasDot && hasDist);
     const valLines = isNone ? ['---'] : (isHabit ? ['ADCV♡'] : ['RCMD♡']);
     const valText  = valLines.map(l => '<span style="display:block;line-height:1.4;">' + l + '</span>').join('');
     const color    = isNone ? '#6b7684' : '#ff3c6e';
     const shadow   = isNone ? '0 0 8px rgba(107,118,132,0.6)' : '0 0 8px rgba(255,60,110,0.9)';
-    const tooltip  = isNone ? '未発動状態（タップで切替）' : (isHabit ? 'やみつきの味状態（タップで切替）' : 'オススメの味状態（タップで切替）');
-    return '<div onclick="toggleBreddyMode(event)" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
+    const tooltip  = isNone
+      ? '未発動状態（編成に分配ダメ/持続ダメ持ちがいないため自動）'
+      : isLocked
+        ? (isHabit ? 'やみつきの味状態（持続ダメ持ち編成により自動）' : 'オススメの味状態（分配ダメ持ち編成により自動）')
+        : (isHabit ? 'やみつきの味状態（タップで切替）' : 'オススメの味状態（タップで切替）');
+    const cursorStyle = isLocked ? 'default' : 'pointer';
+    return '<div onclick="toggleBreddyMode(event)" title="' + tooltip + '" style="position:relative;cursor:' + cursorStyle + ';user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
       '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
         '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
@@ -5431,11 +5500,19 @@ function toggleBreddyMode(e) {
   e.stopPropagation();
   const sig = document.getElementById('signal-card-breddy');
   if(!sig || sig.dataset.switching === '1') return;
+
+  // 編成に分配ダメ/持続ダメ両方の保有者がいる時だけ手動でhabit/recomを切替可能。
+  // 片方のみ・どちらもいない場合は編成のみで自動決定されるためタップ無効。
+  const filledTeamNow = TEAM.filter(Boolean);
+  const breddyCharInTeam = filledTeamNow.find(c => c.id === 'breddy');
+  if(!breddyCharInTeam) return;
+  const { hasDot, hasDist } = breddyDetectAutoBuffs(filledTeamNow, breddyCharInTeam);
+  if(!(hasDot && hasDist)) return;
+
   sig.dataset.switching = '1';
 
   const current  = breddyMode !== null ? breddyMode : 'habit';
-  const breddyModeOrder = ['habit', 'recom', 'none'];
-  const nextMode = breddyModeOrder[(breddyModeOrder.indexOf(current) + 1) % breddyModeOrder.length];
+  const nextMode = current === 'habit' ? 'recom' : 'habit';
 
   const bodyStates = {}, arrowStates = {};
   document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
@@ -5444,9 +5521,7 @@ function toggleBreddyMode(e) {
   const breddyCharData = NIKKE_DB.find(c => c.id === 'breddy');
   const nextImgUrl = nextMode === 'recom'
     ? (breddyCharData && breddyCharData.cardBgAlt)
-    : nextMode === 'none'
-      ? (breddyCharData && (breddyCharData.cardBgNone || breddyCharData.cardBg))
-      : (breddyCharData && breddyCharData.cardBg);
+    : (breddyCharData && breddyCharData.cardBg);
 
   fireSignalBurst('card-breddy', nextImgUrl, () => {
     breddyMode = nextMode;
