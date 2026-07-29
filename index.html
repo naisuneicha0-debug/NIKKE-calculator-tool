@@ -412,6 +412,38 @@
   .sortie-label { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 9px; letter-spacing: 2.5px; color: var(--good); opacity: 0.75; }
   .sortie-slot { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 14px; letter-spacing: 1.5px; color: var(--good); text-shadow: 0 0 8px rgba(0,255,157,0.6); }
 
+  /* ===== 解除シーケンス（U-6：テキスト消滅→L字フラッシュ消滅→シャッター開放） ===== */
+  /* フェーズ1：テキストだけ即座にフェードアウト（ハッチ・シーム・コーナーはまだ維持） */
+  .char-item.sortie-locked.sortie-unlocking-text .sortie-name,
+  .char-item.sortie-locked.sortie-unlocking-text .sortie-bottom { opacity: 0; transition: opacity 0.18s ease; }
+  /* フェーズ2：シームは遅延なしで即座に退縮、L字ブラケットはフラッシュしながら消える */
+  .char-item.sortie-locked.sortie-unlocking-corners .sortie-seam { transform: translateY(-50%) scaleX(0); transition: transform 0.2s ease; }
+  @keyframes sortieCornerPulseOut {
+    0%   { opacity: 1; transform: scale(1);    filter: brightness(1); }
+    30%  { opacity: 1; transform: scale(1.3);  filter: brightness(2.4); }
+    100% { opacity: 0; transform: scale(0.85); filter: brightness(1); }
+  }
+  .char-item.sortie-locked.sortie-unlocking-corners .sortie-corner { animation: sortieCornerPulseOut 0.28s ease forwards; }
+  /* フェーズ3：上記完了後にsortie-lockedクラス自体を外す→ハッチが開くtransitionが発火 */
+
+  /* ===== ピッカーカード内RECALLボタン（左下ブラケットの右横・横長長方形） ===== */
+  .sortie-recall-btn {
+    position: absolute; z-index: 30; bottom: 8px; left: 24px;
+    width: 58px; height: 18px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s ease 0.75s, border-color 0.15s, box-shadow 0.15s;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    background: var(--panel2); border: 1px solid var(--good); border-radius: 4px; color: var(--good);
+  }
+  .char-item.sortie-locked .sortie-recall-btn { opacity: 1; pointer-events: auto; }
+  .char-item.sortie-locked.sortie-unlocking-text .sortie-recall-btn,
+  .char-item.sortie-locked.sortie-unlocking-corners .sortie-recall-btn { opacity: 0; pointer-events: none; transition: opacity 0.2s ease; }
+  .sortie-recall-btn:hover { box-shadow: 0 0 8px rgba(0,255,157,0.5); }
+  .sortie-recall-btn:active { background: rgba(0,255,157,0.1); }
+  .sortie-recall-label { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 9px; letter-spacing: 1.5px; }
+  .sortie-recall-label.blinking { animation: sortieLabelBlink 0.16s steps(1) 5; }
+  @keyframes sortieLabelBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.12; } }
+
   .slotv-ph-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, var(--el-color, var(--accent)) 0%, transparent 65%); opacity: 0.32; }
 
   .slotv-rail { position: absolute; left: 4px; top: 4px; z-index: 6; display: flex; flex-direction: column; gap: 5px; }
@@ -4952,11 +4984,43 @@ function animateLockPickerItem(charId, slotIdx) {
   });
 }
 // ピッカー上の対象キャラのシャッターロックを解除する（配置解除・上書きで編成から外れた時に使用）
-// クラスを外すだけで既存のtransitionが逆再生され、開くアニメーションが自然に発火する
+// U-6シーケンス：①名前/SORTIE文字が即フェードアウト →②シームが退縮しL字ブラケットがフラッシュしながら消える →③ハッチが開く
 function animateUnlockPickerItem(charId) {
   const item = document.querySelector(`#charList .char-item[data-char-id="${charId}"]`);
   if(!item) return; // ピッカーが閉じている・絞り込みで非表示中なら何もしない（次回描画時は通常＝未ロックで生成される）
-  item.classList.remove('sortie-locked');
+  if(!item.classList.contains('sortie-locked')) return; // 既に開いているなら何もしない
+  item.classList.add('sortie-unlocking-text');
+  setTimeout(() => {
+    item.classList.add('sortie-unlocking-corners');
+    setTimeout(() => {
+      item.classList.remove('sortie-locked', 'sortie-unlocking-text', 'sortie-unlocking-corners');
+    }, 280);
+  }, 200);
+}
+// ピッカーカード上のRECALLボタンから直接その場でニケを編成解除する
+// ボタンラベルを「OK」に切り替えて点滅させてから、実際の編成解除＋シャッター解除アニメーションを行う
+function recallCharFromPicker(charId) {
+  const slotIdx = TEAM.findIndex(m => m && m.id === charId);
+  if(slotIdx === -1) return; // 既に編成されていない場合は何もしない
+  const item = document.querySelector(`#charList .char-item[data-char-id="${charId}"]`);
+  const label = item ? item.querySelector('.sortie-recall-label') : null;
+  const doRecall = () => {
+    TEAM[slotIdx] = null;
+    checkModeChangeAndRender();
+    animateUnlockPickerItem(charId);
+  };
+  if(label) {
+    const original = label.textContent;
+    label.textContent = 'OK';
+    label.classList.add('blinking');
+    setTimeout(() => {
+      label.classList.remove('blinking');
+      label.textContent = original;
+      doRecall();
+    }, 450);
+  } else {
+    doRecall();
+  }
 }
 function cancelSlotPlacement() {
   pendingChar = null;
@@ -5150,6 +5214,7 @@ function renderCharList() {
       <div class="sortie-seam"></div>
       <div class="sortie-scan"></div>
       <div class="sortie-corner tl"></div><div class="sortie-corner tr"></div><div class="sortie-corner bl"></div><div class="sortie-corner br"></div>
+      <div class="sortie-recall-btn"><span class="sortie-recall-label">RECALL</span></div>
       <div class="sortie-name"><div class="sortie-name-text">${c.name}</div></div>
       <div class="sortie-bottom">
         <div class="sortie-label">READY FOR SORTIE</div>
@@ -5262,6 +5327,10 @@ function renderCharList() {
         </div>
         <div class="char-item-tag">${tag}</div>
       </div>`;
+    const recallBtn = item.querySelector('.sortie-recall-btn');
+    if(recallBtn) {
+      recallBtn.onclick = (e) => { e.stopPropagation(); recallCharFromPicker(c.id); };
+    }
     list.appendChild(item);
     charItemObserver.observe(item);
   });
