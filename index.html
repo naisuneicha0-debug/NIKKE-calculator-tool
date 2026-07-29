@@ -1673,6 +1673,12 @@
   .char-item.crt-active .crt-flicker {
     animation: crt-flicker 3s steps(1) infinite;
   }
+  /* シャッターロック中はキャラ画像自体が不透明なハッチの下に完全に隠れるため、
+     その下でCRTスキャンライン/フリッカーを回し続けるのは無駄。ロック中は停止する */
+  .char-item.crt-active.sortie-locked .crt-overlay,
+  .char-item.crt-active.sortie-locked .crt-flicker {
+    animation: none;
+  }
 
   /* ビネット（周辺暗化） */
   .crt-vignette {
