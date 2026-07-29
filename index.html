@@ -358,6 +358,52 @@
     opacity: 0.5;
   }
 
+  /* ===== ピッカー：編成済みニケのシャッターロック演出 ===== */
+  .char-item.sortie-locked { cursor: default; }
+  .char-item.sortie-locked:hover { border-color: var(--border); background: var(--panel2); }
+  .sortie-hatch-top, .sortie-hatch-bottom {
+    position: absolute; left: 0; right: 0; height: 50%;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 24px),
+      linear-gradient(180deg, #141b34 0%, #0a0e1e 100%);
+    z-index: 10;
+    transition: transform 0.55s cubic-bezier(.65,0,.35,1);
+    pointer-events: none;
+  }
+  .sortie-hatch-top { top: 0; transform: translateY(-100%); }
+  .sortie-hatch-bottom { bottom: 0; transform: translateY(100%); }
+  .char-item.sortie-locked .sortie-hatch-top { transform: translateY(0); }
+  .char-item.sortie-locked .sortie-hatch-bottom { transform: translateY(0); }
+  .sortie-seam {
+    position: absolute; left: 0; right: 0; top: 50%; height: 2px; z-index: 11;
+    background: var(--accent); box-shadow: 0 0 8px var(--accent), 0 0 16px var(--accent);
+    transform: translateY(-50%) scaleX(0); transition: transform 0.25s ease 0.5s;
+    pointer-events: none;
+  }
+  .char-item.sortie-locked .sortie-seam { transform: translateY(-50%) scaleX(1); }
+  .sortie-scan {
+    position: absolute; left: 0; right: 0; top: 0; height: 2px; z-index: 12;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    box-shadow: 0 0 10px var(--accent);
+    opacity: 0; pointer-events: none;
+  }
+  .char-item.sortie-locked .sortie-scan { animation: sortieScanSweep 0.6s ease-out 0.55s; }
+  @keyframes sortieScanSweep { 0% { top: 0; opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+  .sortie-corner { position: absolute; width: 12px; height: 12px; z-index: 12; opacity: 0; transition: opacity 0.2s ease 0.75s; pointer-events: none; }
+  .char-item.sortie-locked .sortie-corner { opacity: 1; }
+  .sortie-corner.tl { top: 7px; left: 7px; border-top: 2px solid var(--good); border-left: 2px solid var(--good); }
+  .sortie-corner.tr { top: 7px; right: 7px; border-top: 2px solid var(--good); border-right: 2px solid var(--good); }
+  .sortie-corner.bl { bottom: 7px; left: 7px; border-bottom: 2px solid var(--good); border-left: 2px solid var(--good); }
+  .sortie-corner.br { bottom: 7px; right: 7px; border-bottom: 2px solid var(--good); border-right: 2px solid var(--good); }
+  .sortie-text {
+    position: absolute; inset: 0; z-index: 12; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 2px;
+    opacity: 0; transition: opacity 0.3s ease 0.8s; pointer-events: none;
+  }
+  .char-item.sortie-locked .sortie-text { opacity: 1; }
+  .sortie-label { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 10px; letter-spacing: 3px; color: var(--good); opacity: 0.85; }
+  .sortie-slot { font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 20px; letter-spacing: 2px; color: var(--good); text-shadow: 0 0 10px rgba(0,255,157,0.7); }
+
   .slotv-ph-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, var(--el-color, var(--accent)) 0%, transparent 65%); opacity: 0.32; }
 
   .slotv-rail { position: absolute; left: 4px; top: 4px; z-index: 6; display: flex; flex-direction: column; gap: 5px; }
@@ -4865,7 +4911,11 @@ function placeCharInSlot(idx) {
   pendingChar = null;
   el('slotPlacerOverlay').classList.remove('show');
   checkModeChangeAndRender();
-  if(TEAM.every(t => t !== null)) closePicker();
+  if(TEAM.every(t => t !== null)) {
+    closePicker();
+  } else {
+    renderCharList(); // 配置済みニケをピッカー上でロック表示に反映
+  }
 }
 function cancelSlotPlacement() {
   pendingChar = null;
@@ -5030,9 +5080,12 @@ function renderCharList() {
     const roleColor  = c.role === 'atk' ? '#ff3c6e' : c.role === 'def' ? '#ff8c42' : '#00ff9d';
     const compLabel  = COMPANY_LABELS[c.company] || '';
     const squadLabel = c.squad || '';
+    // 他スロットに同じニケが既に編成済みかを判定（編集中の自スロットは対象外）
+    const lockedSlotIdx = TEAM.findIndex((m, i) => m && m.id === c.id && i !== pickerSlotIdx);
+    const isLocked = lockedSlotIdx !== -1;
     const item = document.createElement('div');
-    item.className = 'char-item';
-    item.onclick = () => showSlotPlacer(c);
+    item.className = 'char-item' + (isLocked ? ' sortie-locked' : '');
+    item.onclick = () => { if(!isLocked) showSlotPlacer(c); };
     if(c.cardBg) {
       // ピッカー専用画像はcardBgPickerで個別指定できる（未指定時は既存ロジック=cardBgAlt優先キャラ or cardBg）
       const pickerBg = c.cardBgPicker
@@ -5050,6 +5103,15 @@ function renderCharList() {
     item.innerHTML = `
       <div class="crt-vignette"></div><div class="crt-overlay"></div><div class="crt-flicker"></div>
       ${c.cardBg ? `<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,7,14,0.7) 0%,rgba(6,7,14,0.4) 100%);pointer-events:none;"></div>` : '<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,212,255,0.08),transparent);pointer-events:none;"></div>'}
+      ${isLocked ? `
+      <div class="sortie-hatch-top"></div><div class="sortie-hatch-bottom"></div>
+      <div class="sortie-seam"></div>
+      <div class="sortie-scan"></div>
+      <div class="sortie-corner tl"></div><div class="sortie-corner tr"></div><div class="sortie-corner bl"></div><div class="sortie-corner br"></div>
+      <div class="sortie-text">
+        <div class="sortie-label">READY FOR SORTIE</div>
+        <div class="sortie-slot">SLOT ${String(lockedSlotIdx + 1).padStart(2, '0')}</div>
+      </div>` : ''}
       <span class="char-burst b${c.burst}" style="visibility:hidden;">${c.id === 'redhood' ? 'Λ' : 'B' + c.burst}</span><div class="char-burst-wm b${c.burst}${c.id === 'redhood' ? ' rh' : ''}">${c.id === 'redhood' ? lambdaSVG(36) : c.burst}</div>
       <div style="flex:1; min-width:0; position:relative; display:flex; flex-direction:column; justify-content:center; gap:4px;">
         <div class="char-item-name">${c.name}</div>
