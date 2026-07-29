@@ -2556,6 +2556,12 @@ function breddyDetectAutoBuffs(filledTeam, breddyChar) {
   let hasDot = false, hasDist = false;
   const crustChar = filledTeam.find(c => c.id === 'crust');
   const effectiveCrustModeForBreddy = crustChar ? (crustMode !== null ? crustMode : 'meilard') : null;
+  const anisChar = filledTeam.find(c => c.id === 'anisstar');
+  const effectiveAnisModeForBreddy = anisChar
+    ? (anisStarMode !== null ? anisStarMode : (filledTeam.some(c => c.burst === 1 && c.id !== 'anisstar') ? 'team' : 'solo'))
+    : null;
+  const dieselWsChar = filledTeam.find(c => c.id === 'diesel_ws');
+  const effectiveDieselWsModeForBreddy = dieselWsChar ? (dieselWsMode !== null ? dieselWsMode : 'intro') : null;
 
   filledTeam.forEach(src => {
     if(!src || src === breddyChar) return;
@@ -2597,6 +2603,34 @@ function breddyDetectAutoBuffs(filledTeam, breddyChar) {
         if(mergedKey === 'dotDmg') hasDot = true;
         if(mergedKey === 'distDmg') hasDist = true;
       }
+    });
+
+    // condParty（条件付き全体バフ）※メインループのcondParty判定ロジックと同一にする必要あり
+    (src.buffs.condParty || []).forEach(entry => {
+      if(!entry) return;
+      const mergedKey = BUFF_MERGE_INTO[entry.key] || entry.key;
+      if(mergedKey !== 'dotDmg' && mergedKey !== 'distDmg') return;
+      let met = false;
+      if(entry.condition === 'hasBarrier') met = true; // 簡易判定：breddy視点のバリア有無までは判定せず暫定でtrue扱い
+      if(entry.condition === 'drunk') met = true;
+      if(entry.condition === 'drunk_burst') met = true;
+      if(entry.condition === 'always') met = true;
+      if(entry.condition === 'noIegisSquad') met = true;
+      if(entry.condition === 'hasEmma')  met = filledTeam.some(m => m && m.id === 'emma_tu');
+      if(entry.condition === 'hasUnfa')  met = filledTeam.some(m => m && m.id === 'unfa_tu');
+      if(entry.condition === 'has777Squad') met = filledTeam.some(m => m && m.id !== src.id && m.squad === '777');
+      if(src.id === 'anisstar') {
+        if(entry.anisMode === 'solo' && effectiveAnisModeForBreddy !== 'solo') met = false;
+        if(entry.anisMode === 'team' && effectiveAnisModeForBreddy !== 'team') met = false;
+      }
+      if(src.id === 'diesel_ws') {
+        if(entry.dieselWsMode === 'intro'  && effectiveDieselWsModeForBreddy !== 'intro')  met = false;
+        if(entry.dieselWsMode === 'climax' && effectiveDieselWsModeForBreddy !== 'climax') met = false;
+      }
+      if(!met) return;
+      if(entry.excludeSelf && breddyChar === src) return;
+      if(mergedKey === 'dotDmg') hasDot = true;
+      if(mergedKey === 'distDmg') hasDist = true;
     });
   });
 
