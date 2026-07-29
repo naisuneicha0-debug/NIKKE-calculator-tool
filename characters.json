@@ -2123,6 +2123,10 @@
           "val": 50,
           "condLabel": "BS・エグゾスパインMk2・S2攻撃力50%→100%（+50%）・10秒"
         },
+        "unstableEnergyUp": {
+          "val": 100,
+          "condLabel": "BS・エグゾスパインMk2・不安定エネルギー攻撃倍率240%→480%・10秒"
+        },
         "maxMagazine": {
           "val": 25,
           "condLabel": "S2・戦闘開始時・持続"
@@ -2152,31 +2156,10 @@
           "selfOnly": true
         },
         {
-          "label": "S1・不安定エネルギー（Mk2時）",
-          "val": 240,
-          "unit": "%",
-          "cond": "BS・エグゾスパインMk2・不安定エネルギー+240%追加（合計480%）・10秒",
-          "selfOnly": true
-        },
-        {
           "label": "BS・カウンターチェーン",
           "val": 457.14,
           "unit": "%",
           "cond": "BS・ランダム敵に457.14%×6回",
-          "selfOnly": true
-        },
-        {
-          "label": "BS・不安定エネルギー倍率UP",
-          "val": 100,
-          "unit": "%",
-          "cond": "BS・エグゾスパインMk2・不安定エネルギー攻撃倍率+100%（240%→480%）・10秒",
-          "selfOnly": true
-        },
-        {
-          "label": "BS・S2攻撃力倍率UP",
-          "val": 100,
-          "unit": "%",
-          "cond": "BS・エグゾスパインMk2・S2攻撃力増加倍率+100%（50%→100%）・10秒",
           "selfOnly": true
         }
       ]
@@ -4244,6 +4227,7 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy_slot.jpg",
     "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/breddy_alt.jpg",
+    "cardBgNone": null,
     "buffs": {
       "self": {
         "atk": {
@@ -4252,7 +4236,8 @@
         },
         "chargeSpdDown": {
           "val": 20,
-          "condLabel": "S1・やみつき/オススメ状態時・50秒・解除不可"
+          "condLabel": "S1・やみつき/オススメ状態時・50秒・解除不可",
+          "breddyHideNone": true
         },
         "dmg": {
           "val": 60.19,
@@ -4267,6 +4252,11 @@
           "val": 70.09,
           "condLabel": "BS・オススメ状態・10秒",
           "breddyRecomOnly": true
+        },
+        "aftertasteUp": {
+          "val": 349.8,
+          "condLabel": "BS・やみつき状態・10秒",
+          "breddyHabitOnly": true
         }
       },
       "targeted": {},
@@ -4286,14 +4276,6 @@
           "cond": "オススメ状態・フルチャージ命中時・最終攻撃力基準",
           "selfOnly": true,
           "breddyRecomOnly": true
-        },
-        {
-          "label": "BS・あと味効果UP",
-          "val": 349.8,
-          "unit": "%",
-          "cond": "やみつき状態・10秒",
-          "selfOnly": true,
-          "breddyHabitOnly": true
         }
       ],
       "condParty": [],
