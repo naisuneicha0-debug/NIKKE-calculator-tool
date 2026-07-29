@@ -1622,6 +1622,21 @@
 </head>
 <body>
 
+<div id="assetLoadingOverlay" style="position:fixed;inset:0;z-index:99999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;">
+  <div style="font-family:'Orbitron','Chakra Petch',monospace;font-size:13px;letter-spacing:3px;color:var(--text-dim);">NIKKE BUFF CHECKER</div>
+  <div style="position:relative;width:140px;height:140px;">
+    <svg width="140" height="140" style="transform:rotate(-90deg);display:block;">
+      <circle cx="70" cy="70" r="60" fill="none" stroke="var(--border2)" stroke-width="4"/>
+      <circle id="assetLoadingRing" cx="70" cy="70" r="60" fill="none" stroke="var(--accent)" stroke-width="4" stroke-linecap="round" style="filter:drop-shadow(0 0 6px var(--accent));transition:stroke-dashoffset 0.15s linear;" stroke-dasharray="377" stroke-dashoffset="377"/>
+    </svg>
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <div id="assetLoadingPct" style="font-family:'Orbitron',monospace;font-size:26px;font-weight:700;color:var(--text);">0</div>
+      <div style="font-size:9px;color:var(--text-dim);letter-spacing:2px;margin-top:2px;">PERCENT</div>
+    </div>
+  </div>
+  <div id="assetLoadingCount" class="ptitle ptitle-en" style="margin-bottom:0;">LOADING <span id="assetLoadingCountNum" style="font-size:14px;letter-spacing:1px;">0 / 0</span></div>
+</div>
+
 <div class="scan"></div>
 <div class="wrap">
   <header>
@@ -2287,6 +2302,60 @@ function makePilgrimSVG(uid, w, h, bg){
 }
 
 let NIKKE_DB = [];
+
+// ===== 全画像プリロード用ローディング画面（2026-07-29実装） =====
+// 対象は選択画面（ピッカー）で実際に表示される画像のみ（renderPicker側のpickerBg決定ロジックと同一にする必要あり）
+function collectAllImageUrls(db) {
+  const urls = new Set();
+  db.forEach(c => {
+    if(!c.cardBg) return;
+    const pickerBg = c.cardBgPicker
+      ? c.cardBgPicker
+      : (c.id === 'rapi_rh' || c.id === 'anisstar' || c.id === 'molly') && c.cardBgAlt
+        ? c.cardBgAlt
+        : c.cardBg;
+    if(pickerBg) urls.add(pickerBg);
+  });
+  return Array.from(urls);
+}
+
+function updateAssetLoadingUI(loaded, total) {
+  const pct = total > 0 ? Math.floor(loaded / total * 100) : 100;
+  const ring = document.getElementById('assetLoadingRing');
+  const circumference = 377; // 2*PI*60（r=60のリングと一致）
+  if(ring) ring.style.strokeDashoffset = circumference - (circumference * pct / 100);
+  const pctEl = document.getElementById('assetLoadingPct');
+  if(pctEl) pctEl.textContent = pct;
+  const countEl = document.getElementById('assetLoadingCountNum');
+  if(countEl) countEl.textContent = `${loaded} / ${total}`;
+}
+
+function preloadAllImages(urls, onProgress) {
+  return new Promise(resolve => {
+    if(urls.length === 0) { onProgress(0, 0); resolve(); return; }
+    let loaded = 0;
+    const total = urls.length;
+    urls.forEach(url => {
+      const img = new Image();
+      const done = () => {
+        loaded++;
+        onProgress(loaded, total);
+        if(loaded >= total) resolve();
+      };
+      img.onload = done;
+      img.onerror = done; // 読み込み失敗でも止まらないようカウントする
+      img.src = url;
+    });
+  });
+}
+
+function hideAssetLoadingOverlay() {
+  const overlay = document.getElementById('assetLoadingOverlay');
+  if(!overlay) return;
+  overlay.style.transition = 'opacity 0.3s ease';
+  overlay.style.opacity = '0';
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+}
 
 async function loadDB() {
   try {
@@ -6519,7 +6588,15 @@ function toggleFilterGroup(labelEl) {
 // INIT: 初期化
 // ============================================================
 // ===== INIT =====
-(async () => { await loadDB(); loadTeam(); renderSlots(); })();
+(async () => {
+  await loadDB();
+  const imgUrls = collectAllImageUrls(NIKKE_DB);
+  updateAssetLoadingUI(0, imgUrls.length);
+  await preloadAllImages(imgUrls, updateAssetLoadingUI);
+  loadTeam();
+  renderSlots();
+  hideAssetLoadingOverlay();
+})();
 
 </script>
 </body>
