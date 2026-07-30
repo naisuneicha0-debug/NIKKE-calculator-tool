@@ -4508,8 +4508,8 @@ function buildCharCard(char, filledTeam) {
   })() : (char.id === 'grave') ? (() => {
     const mode = effectiveGraveMode || 'normal';
     const isFullcalc = mode === 'fullcalc';
-    const valLines = isFullcalc ? ['FULL','CALC'] : ['NORMAL'];
-    const valText  = valLines.map(l => `<span style="display:block;line-height:1.4;">${l}</span>`).join('');
+    const valLines = isFullcalc ? ['FULL','CALC'] : ['NORM'];
+    const valText  = valLines.map(l => `<span style="display:block;line-height:1.4;font-size:10px;">${l}</span>`).join('');
     const color    = isFullcalc ? '#ff3c6e' : '#00d4ff';
     const shadow   = isFullcalc ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
     const tooltip  = isFullcalc ? '完全計算状態（タップで切替）' : '通常状態（タップで切替）';
@@ -4577,7 +4577,7 @@ function buildCharCard(char, filledTeam) {
     const mode    = effectiveMollyMode || 'normal';
     const isResist = mode === 'resist';
     const valLines = isResist ? ['RESIST'] : ['NORM'];
-    const valText  = valLines.map(l => `<span style="display:block;line-height:1.4;">${l}</span>`).join('');
+    const valText  = valLines.map(l => `<span style="display:block;line-height:1.4;font-size:10px;">${l}</span>`).join('');
     const color    = isResist ? '#ff3c6e' : '#00d4ff';
     const shadow   = isResist ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
     const tooltip  = isResist ? 'resist（タップで切替）' : 'normal（タップで切替）';
