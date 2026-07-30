@@ -449,7 +449,7 @@
      ロック演出完了(約1.15秒)+0.5秒でスタンプ出現→3秒保持→ノイズと共に消失。
      シャッターロック自体はスタンプ消失後も維持される（編成解除されるまで別演出）。 */
   .court-stamp-anchor{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:40; pointer-events:none; }
-  .court-stamp{ opacity:0; position:relative; }
+  .court-stamp{ opacity:0; position:relative; transform:rotate(-10deg); }
   .court-stamp .frame{
     position:relative; padding:10px 23px 9px;
     border:2.5px solid var(--red);
@@ -491,12 +491,11 @@
     0%{ opacity:0.8; width:10px; height:10px; }
     100%{ opacity:0; width:150px; height:150px; }
   }
-  .court-stamp.a-in{ animation: stampInImpact 0.22s cubic-bezier(.25,1.6,.4,1) forwards; }
+  .court-stamp.a-in{ animation: stampInImpact 0.16s steps(1) forwards; }
   @keyframes stampInImpact{
-    0%{ opacity:0; transform:rotate(-10deg) scale(2.3); filter:brightness(2.2); }
-    55%{ opacity:1; transform:rotate(-10deg) scale(0.9); filter:brightness(1.5); }
-    78%{ transform:rotate(-10deg) scale(1.05); filter:brightness(1.05); }
-    100%{ opacity:1; transform:rotate(-10deg) scale(1); filter:brightness(1); }
+    0%{ opacity:0; filter:brightness(1); }
+    35%{ opacity:1; filter:brightness(2.6); }
+    100%{ opacity:1; filter:brightness(1); }
   }
   .char-item.stamp-shake{ animation: stampCardShake 0.22s linear; }
   @keyframes stampCardShake{
