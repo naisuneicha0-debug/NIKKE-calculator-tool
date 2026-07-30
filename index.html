@@ -5003,6 +5003,11 @@ function openPicker(idx) {
   const pickerTopBtnEl = el('pickerTopBtn');
   if(pickerTopBtnEl) pickerTopBtnEl.classList.remove('show');
   el('charPicker').classList.add('show');
+  // 内訳画面（バフカード）はピッカーの下に完全に隠れて見えなくなるため、
+  // 表示中は display:none にして大量のアニメーション（武器アイコンSVG・CAUTIONティッカー・スキャン演出等）の
+  // 描画負荷を止める。ピッカーを閉じるまで再開しない
+  const buffPanelEl = el('buffPanel');
+  if(buffPanelEl) buffPanelEl.style.display = 'none';
   // スクロールリスナーは初回のみ登録
   if(!el('charList').dataset.scrollInit) {
     initCharListScroll();
@@ -5014,6 +5019,9 @@ function closePicker() {
   pickerSlotIdx = -1;
   pendingChar = null;
   el('slotPlacerOverlay').classList.remove('show');
+  // 内訳画面（バフカード）の表示・アニメーションを再開する
+  const buffPanelEl = el('buffPanel');
+  if(buffPanelEl) buffPanelEl.style.display = '';
 }
 
 // ===== 配置先スロット選択 =====
