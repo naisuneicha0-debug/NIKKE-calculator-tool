@@ -519,6 +519,63 @@
 
   .slotv-ph-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, var(--el-color, var(--accent)) 0%, transparent 65%); opacity: 0.32; }
 
+  /* ===== インフィニティレール部隊限定：駅電光掲示板風シャッター演出 =====
+     ロック演出完了(約1.15秒)+0.3秒でEXPRESS+時刻・Rapid NEXT・経路表示が現れ、
+     上段のみ右→左に1回スクロールした後、点滅しながら退場して通常の名前/SLOT表示へ切り替わる。
+     色は既存シャッターロックと同じ緑(--good)に統一。 */
+  .char-item.rail-pending .sortie-name, .char-item.rail-pending .sortie-bottom{
+    opacity: 0 !important;
+    transition: none !important;
+  }
+  .rail-board{
+    position:absolute; inset:0; z-index:13; pointer-events:none;
+    display:flex; flex-direction:column; justify-content:center;
+    opacity:0;
+  }
+  .rail-board.show{ animation: railBoardFade .25s ease-out forwards; }
+  .rail-board.hide{ animation: railBoardFadeOut .4s steps(1) forwards; }
+  @keyframes railBoardFade{ from{opacity:0;} to{opacity:1;} }
+  @keyframes railBoardFadeOut{
+    0%{opacity:1;} 15%{opacity:0.15;} 30%{opacity:1;} 45%{opacity:0.1;}
+    60%{opacity:0.8;} 75%{opacity:0.05;} 100%{opacity:0;}
+  }
+  .rail-row{ position:relative; height:50%; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
+  .rail-row.top{ padding:5px 10px 2px 24px; }
+  .rail-row.bottom{ padding:3px 10px 5px 24px; justify-content:center; gap:4px; }
+  .rail-top-meta, .rail-bottom-meta{ display:flex; align-items:center; gap:8px; }
+  .rail-top-meta{ margin-bottom:3px; }
+  .rail-express{
+    display:inline-flex; align-self:flex-start; color:#00190f; background:var(--good);
+    box-shadow:0 0 8px rgba(0,255,157,0.6);
+    font-family:'Chakra Petch', monospace; font-weight:700; font-size:11px; letter-spacing:1.5px;
+    padding:2.5px 7px; text-transform:uppercase; border-radius:2px;
+  }
+  .rail-time{
+    color:var(--good); text-shadow:0 0 5px rgba(0,255,157,0.7);
+    font-family:'Share Tech Mono', 'Courier New', monospace; font-weight:600; font-size:11px; letter-spacing:1px;
+    text-transform:uppercase;
+  }
+  .rail-ticker{ position:relative; width:100%; height:15px; overflow:hidden; }
+  .rail-ticker-text{
+    position:absolute; top:0; left:100%; white-space:nowrap;
+    color:var(--good); text-shadow:0 0 5px rgba(0,255,157,0.7);
+    font-family:'Share Tech Mono', 'Courier New', monospace; font-size:12.5px; letter-spacing:0.5px;
+    animation-name: railScroll; animation-timing-function: linear; animation-fill-mode: forwards;
+    /* animation-durationはJS側で2秒固定を設定 */
+  }
+  @keyframes railScroll{
+    from{ transform:translateX(0); }
+    to{ transform:translateX(calc(-100% - 340px)); }
+  }
+  .rail-dotgrid{
+    position:absolute; inset:0; pointer-events:none; opacity:0.05; z-index:1; color:var(--good);
+    background-image: radial-gradient(currentColor 0.5px, transparent 0.5px);
+    background-size: 3px 3px;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .rail-board, .rail-ticker-text{ animation:none !important; }
+  }
+
   /* ピッカー表示中：内訳画面(バフカード)はレイアウトを保持したままアニメーションだけ止める。
      display:noneにすると offsetWidth/getBoundingClientRect が0になり、名前スクロール判定や
      バースト透かし数字の位置計算が壊れるため使わない */
@@ -5194,6 +5251,66 @@ function scheduleCourtStamp(item) {
     showCourtStamp(item);
   }, 1150 + 500));
 }
+// ===== インフィニティレール部隊限定：駅電光掲示板風シャッター演出 =====
+function clearRailIntro(item) {
+  if(item._railTimers) {
+    item._railTimers.forEach(id => clearTimeout(id));
+    item._railTimers = [];
+  }
+  const board = item.querySelector('.rail-board');
+  if(board) board.remove();
+  item.classList.remove('rail-pending');
+}
+function showRailIntro(item, charName, slotIdx) {
+  const board = document.createElement('div');
+  board.className = 'rail-board';
+  const now = new Date();
+  const timeStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+  board.innerHTML = `
+    <div class="rail-row top">
+      <div class="rail-dotgrid"></div>
+      <div class="rail-top-meta">
+        <span class="rail-express">EXPRESS</span>
+        <span class="rail-time">${timeStr}</span>
+      </div>
+      <div class="rail-ticker"><span class="rail-ticker-text">The AZX for ground will soon arrive on track number ${slotIdx + 1}.</span></div>
+    </div>
+    <div class="rail-row bottom">
+      <div class="rail-bottom-meta">
+        <span class="rail-express">Rapid</span>
+        <span class="rail-time">NEXT</span>
+      </div>
+      <div class="rail-bottom-meta">
+        <span class="rail-time">outpost station → ground</span>
+      </div>
+    </div>`;
+  item.appendChild(board);
+
+  const tickerText = board.querySelector('.rail-ticker-text');
+  const SCROLL_SEC = 2; // 固定2秒でスクロール
+  tickerText.style.animationDuration = SCROLL_SEC + 's';
+  board.classList.add('show');
+
+  item._railTimers.push(setTimeout(() => {
+    board.classList.remove('show');
+    board.classList.add('hide');
+    item._railTimers.push(setTimeout(() => {
+      board.remove();
+      item.classList.remove('rail-pending'); // 通常の名前/SLOT表示へ切り替え
+      startSortieFlicker(item); // ここでランダム点滅を開始（レール演出中は未開始のまま待たせていた）
+    }, 400));
+  }, SCROLL_SEC * 1000 + 100));
+}
+function scheduleRailIntro(item, charName, slotIdx) {
+  clearRailIntro(item);
+  item._railTimers = [];
+  item.classList.add('rail-pending'); // 演出が終わるまで通常の名前/SLOT表示を隠す
+  item._railTimers.push(setTimeout(() => {
+    // ハッチが閉まる演出(0.55秒)完了+0.3秒。その間に編成解除されていたら何もしない
+    if(!item.isConnected || !item.classList.contains('sortie-locked')) return;
+    showRailIntro(item, charName, slotIdx);
+  }, 550 + 300));
+}
 // 進行中の解除シーケンスを中断してロック状態のまま維持する
 // （解除アニメは複数の遅延タイマーでsortie-lockedを最後に外すため、途中で再ロックされた場合に
 //   タイマーを止めないと「編成されているのにシャッターが開いた状態」で固まってしまう）
@@ -5241,7 +5358,13 @@ function animateLockPickerItem(charId, slotIdx) {
       // 遅延中に解除された（＝もう編成されていない）場合はロックを付けない
       if(!TEAM.some(m => m && m.id === charId)) return;
       item.classList.add('sortie-locked');
-      startSortieFlicker(item); // ロック確定と同時にランダム点滅を開始
+      const c = NIKKE_DB.find(x => x.id === charId);
+      if(c && c.squad === 'インフィニティレール') {
+        // インフィニティレール部隊は駅電光掲示板演出が終わるまでランダム点滅を保留する
+        scheduleRailIntro(item, c.name, slotIdx);
+      } else {
+        startSortieFlicker(item); // ロック確定と同時にランダム点滅を開始
+      }
       if(COURT_STAMP_CHAR_IDS.includes(charId)) scheduleCourtStamp(item);
     });
   });
@@ -5254,6 +5377,7 @@ function animateUnlockPickerItem(charId) {
   if(!item.classList.contains('sortie-locked')) return; // 既に開いているなら何もしない
   if(item.classList.contains('sortie-unlocking-text')) return; // 既に解除シーケンス中なら二重起動しない
   clearCourtStamp(item); // 編成解除されるので表示中/予約中のスタンプ演出は即座に打ち切る
+  clearRailIntro(item); // 編成解除されるので表示中/予約中のレール演出も即座に打ち切る
   stopSortieFlicker(item); // 解除シーケンスに入る前にランダム点滅を止める（テキストフェードと競合しないように）
   item._sortieUnlockTimers = [];
   item.classList.add('sortie-unlocking-text');
