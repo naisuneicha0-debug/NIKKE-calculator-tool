@@ -4791,7 +4791,7 @@ function buildCharCard(char, filledTeam) {
 
   return `
     <div class="char-card" id="${cardId}" data-char-id="${char.id}">
-      <div class="char-card-header" id="header-${cardId}" data-has-caution="${cautionMessages.length > 0 ? '1' : '0'}" onclick="scanTap(event,'${cardId}')" style="cursor:pointer;${headerBgStyle}">
+      <div class="char-card-header${cautionMessages.length > 0 ? ' caution-stripes' : ''}" id="header-${cardId}" data-has-caution="${cautionMessages.length > 0 ? '1' : '0'}" onclick="scanTap(event,'${cardId}')" style="cursor:pointer;${headerBgStyle}">
         ${cautionMessages.length > 0 ? `<div class="caution-stripes-belt" id="caution-belt-${cardId}"></div>` : ''}
         ${headerOverlay}
         <div class="crt-vignette"></div>
@@ -4917,10 +4917,10 @@ function buildCharCard(char, filledTeam) {
           </div>
         </div>
         <div class="char-card-actions" style="position:relative;">
-          <span id="arrow-${cardId}" style="font-size:10px;color:var(--text-dim);transition:transform 0.2s;display:inline-block;transform:rotate(0deg);">▼</span>
+          <span id="arrow-${cardId}" style="font-size:10px;color:var(--text-dim);transition:transform 0.2s;display:inline-block;transform:rotate(-90deg);">▼</span>
         </div>
       </div>
-      <div class="char-card-body" id="body-${cardId}">
+      <div class="char-card-body" id="body-${cardId}" style="display:none;">
         <div style="position:relative;">
           ${bodyHtml}
           ${otherHtml}
