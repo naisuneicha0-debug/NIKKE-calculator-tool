@@ -3130,19 +3130,15 @@ function renderBuffCards() {
     });
   });
 
-  // バースト内訳の透かし数字：名前部分の高さと、カード全体（枠）の中間位置に配置
+  // バースト内訳の透かし数字：ヘッダー枠の縦方向の真ん中に配置
   requestAnimationFrame(() => {
     filled.forEach(char => {
       const cardId = 'card-' + char.id;
       const header = document.getElementById('header-' + cardId);
-      const wrap   = document.getElementById('namewrap-' + cardId);
       const wm     = document.getElementById('burstwm-' + cardId);
-      if(!header || !wrap || !wm) return;
+      if(!header || !wm) return;
       const headerRect = header.getBoundingClientRect();
-      const wrapRect   = wrap.getBoundingClientRect();
-      const nameCenterY   = wrapRect.top + wrapRect.height / 2 - headerRect.top;
-      const headerCenterY = headerRect.height / 2;
-      const centerY = (nameCenterY + headerCenterY) / 2;
+      const centerY = headerRect.height / 2;
       wm.style.top = centerY + 'px';
       wm.style.transform = 'translateY(-50%)';
     });
