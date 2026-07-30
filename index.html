@@ -5331,8 +5331,12 @@ function scrollPickerToTop(e) {
 }
 function setFilter(type, val) {
   filterState.showAll = false;
-  if(filterState[type].has(val)) filterState[type].delete(val);
-  else filterState[type].add(val);
+  if(filterState[type].has(val)) {
+    filterState[type].delete(val); // 同じ項目を再タップで解除
+  } else {
+    filterState[type].clear(); // 同じカテゴリ内の他の選択を解除してから選び直す（カテゴリごとに1つのみ選択可能）
+    filterState[type].add(val);
+  }
   updateFilterChips();
   renderCharList();
 }
