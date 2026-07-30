@@ -540,10 +540,11 @@
     60%{opacity:0.8;} 75%{opacity:0.05;} 100%{opacity:0;}
   }
   .rail-row{ position:relative; height:50%; display:flex; flex-direction:column; justify-content:center; overflow:hidden; }
-  .rail-row.top{ padding:5px 10px 2px 24px; }
-  .rail-row.bottom{ padding:3px 10px 5px 24px; justify-content:center; gap:4px; }
-  .rail-top-meta, .rail-bottom-meta{ display:flex; align-items:center; gap:8px; }
-  .rail-top-meta{ margin-bottom:3px; }
+  .rail-row.top{ padding:4px 10px 2px 24px; }
+  .rail-row.bottom{ padding:3px 10px 5px 24px; justify-content:flex-start; gap:4px; }
+  .rail-top-meta{ display:flex; align-items:center; gap:8px; }
+  .rail-bottom-meta{ display:flex; align-items:center; gap:8px; }
+  .rail-time-line{ margin:2px 0 3px; }
   .rail-express{
     display:inline-flex; align-self:flex-start; color:#00190f; background:var(--good);
     box-shadow:0 0 8px rgba(0,255,157,0.6);
@@ -5271,8 +5272,8 @@ function showRailIntro(item, charName, slotIdx) {
       <div class="rail-dotgrid"></div>
       <div class="rail-top-meta">
         <span class="rail-express">EXPRESS</span>
-        <span class="rail-time">${timeStr}　:outpost station → ground</span>
       </div>
+      <div class="rail-time-line"><span class="rail-time">${timeStr}　:outpost station → ground</span></div>
       <div class="rail-ticker"><span class="rail-ticker-text">The AZX for ground will soon arrive on track number ${slotIdx + 1}.</span></div>
     </div>
     <div class="rail-row bottom">
