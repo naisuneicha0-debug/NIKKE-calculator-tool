@@ -519,6 +519,13 @@
 
   .slotv-ph-glow { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, var(--el-color, var(--accent)) 0%, transparent 65%); opacity: 0.32; }
 
+  /* ピッカー表示中：内訳画面(バフカード)はレイアウトを保持したままアニメーションだけ止める。
+     display:noneにすると offsetWidth/getBoundingClientRect が0になり、名前スクロール判定や
+     バースト透かし数字の位置計算が壊れるため使わない */
+  #buffPanel.buff-panel-paused, #buffPanel.buff-panel-paused * {
+    animation-play-state: paused !important;
+  }
+
   .slotv-rail { position: absolute; left: 4px; top: 4px; z-index: 6; display: flex; flex-direction: column; gap: 5px; }
   .slotv-rail svg { display: block; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.8)); }
 
@@ -5004,10 +5011,12 @@ function openPicker(idx) {
   if(pickerTopBtnEl) pickerTopBtnEl.classList.remove('show');
   el('charPicker').classList.add('show');
   // 内訳画面（バフカード）はピッカーの下に完全に隠れて見えなくなるため、
-  // 表示中は display:none にして大量のアニメーション（武器アイコンSVG・CAUTIONティッカー・スキャン演出等）の
-  // 描画負荷を止める。ピッカーを閉じるまで再開しない
+  // 表示中はアニメーションだけ止めて描画負荷を減らす（display:noneにすると名前スクロール判定や
+  // バースト透かし数字の位置計算がoffsetWidth/getBoundingClientRectを0で取得してしまい、
+  // ピッカーを開いたまま追加でキャラを配置した際にそれらの表示が壊れるため、レイアウトは維持したまま
+  // animation-play-stateだけpausedにする）
   const buffPanelEl = el('buffPanel');
-  if(buffPanelEl) buffPanelEl.style.display = 'none';
+  if(buffPanelEl) buffPanelEl.classList.add('buff-panel-paused');
   // スクロールリスナーは初回のみ登録
   if(!el('charList').dataset.scrollInit) {
     initCharListScroll();
@@ -5019,9 +5028,9 @@ function closePicker() {
   pickerSlotIdx = -1;
   pendingChar = null;
   el('slotPlacerOverlay').classList.remove('show');
-  // 内訳画面（バフカード）の表示・アニメーションを再開する
+  // 内訳画面（バフカード）のアニメーションを再開する
   const buffPanelEl = el('buffPanel');
-  if(buffPanelEl) buffPanelEl.style.display = '';
+  if(buffPanelEl) buffPanelEl.classList.remove('buff-panel-paused');
 }
 
 // ===== 配置先スロット選択 =====
