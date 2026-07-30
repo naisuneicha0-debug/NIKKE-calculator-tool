@@ -2742,6 +2742,28 @@ function breddyDetectAutoBuffs(filledTeam, breddyChar) {
   const dieselWsChar = filledTeam.find(c => c.id === 'diesel_ws');
   const effectiveDieselWsModeForBreddy = dieselWsChar ? (dieselWsMode !== null ? dieselWsMode : 'intro') : null;
 
+  // breddyChar視点で実際にバリアを受けているかどうか（メインループのcharHasBarrierと同じ意味合いで判定）
+  const breddyHasBarrier = filledTeam.some(m => {
+    if(!m || m === breddyChar) return false;
+    const partyHasBarrier = Object.entries(m.buffs.party || {}).some(([k, v]) => {
+      if(k !== 'barrier' && k !== 'barrierShared') return false;
+      if(typeof v === 'object' && v !== null) {
+        if(v.excludeSelf && breddyChar === m) return false;
+        if(v.squadOnly && breddyChar.squad !== m.squad) return false;
+        if(v.elementOnly && breddyChar.element !== v.elementOnly && breddyChar !== m) return false;
+        if(v.targetOnly && breddyChar.id !== v.targetOnly && breddyChar !== m) return false;
+        if(v.weaponOnly && breddyChar.weapon !== v.weaponOnly) return false;
+        if(v.requireSrc && !filledTeam.some(c => c.id === v.requireSrc)) return false;
+      }
+      return true;
+    });
+    if(partyHasBarrier) return true;
+    return Object.entries(m.buffs.targeted || {}).some(([k, entry]) => {
+      if(!entry || (k !== 'barrier' && k !== 'barrierShared')) return false;
+      return matchTarget(entry.target, breddyChar, filledTeam, m);
+    });
+  });
+
   filledTeam.forEach(src => {
     if(!src || src === breddyChar) return;
 
@@ -2790,7 +2812,7 @@ function breddyDetectAutoBuffs(filledTeam, breddyChar) {
       const mergedKey = BUFF_MERGE_INTO[entry.key] || entry.key;
       if(mergedKey !== 'dotDmg' && mergedKey !== 'distDmg') return;
       let met = false;
-      if(entry.condition === 'hasBarrier') met = true; // 簡易判定：breddy視点のバリア有無までは判定せず暫定でtrue扱い
+      if(entry.condition === 'hasBarrier') met = breddyHasBarrier; // メインループのcharHasBarrier相当。以前はtrue固定の暫定実装だった（2026-07-30修正）
       if(entry.condition === 'drunk') met = true;
       if(entry.condition === 'drunk_burst') met = true;
       if(entry.condition === 'always') met = true;
