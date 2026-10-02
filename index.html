@@ -2739,6 +2739,9 @@ function slotCompanyIcon(company, size, uid) {
 const el = id => document.getElementById(id);
 // ひらがな→カタカナ正規化（名前検索でひらがな入力もヒットさせるため）
 const toKatakana = str => str.replace(/[\u3041-\u3096]/g, ch => String.fromCharCode(ch.charCodeAt(0) + 0x60));
+// 名前検索用の正規化：全角英数・半角カナを統一(NFKC)→小文字→ひらがなをカタカナ化→空白・コロン・中黒を除去
+// （スマホIMEが付ける前後スペースや、「：」付きの名前をスペース区切り/コロン無しで入力した場合も前方一致できるようにする）
+const normSearch = str => toKatakana(str.normalize('NFKC').toLowerCase()).replace(/[\s:：・]+/g, '');
 const fmt = v => {
   if(typeof v !== 'number') return v;
   return v % 1 === 0 ? v.toFixed(0) : v.toFixed(2);
@@ -5509,7 +5512,7 @@ function updateFilterChips() {
   });
 }
 function renderCharList() {
-  const search = el('charSearch').value.toLowerCase();
+  const search = normSearch(el('charSearch').value);
   const list = el('charList');
   list.innerHTML = '';
 
@@ -5551,9 +5554,9 @@ function renderCharList() {
     if(filterState.company.size > 0 && !filterState.company.has(c.company))   return false;
     if(filterState.squad.size   > 0 && !filterState.squad.has(c.squad))       return false;
     if(search) {
-      const key = toKatakana(search);
-      const nameMatch = toKatakana(c.name.toLowerCase()).startsWith(key);
-      const readingMatch = c.reading && c.reading.split(' ').some(w => toKatakana(w.toLowerCase()).startsWith(key));
+      const key = search;
+      const nameMatch = normSearch(c.name).startsWith(key);
+      const readingMatch = c.reading && c.reading.split(/\s+/).some(w => normSearch(w).startsWith(key));
       if(!nameMatch && !readingMatch) return false;
     }
     return true;
