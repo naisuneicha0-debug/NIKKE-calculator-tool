@@ -2346,6 +2346,8 @@ const BUFF_MERGE_INTO = {
   trueDmgB: 'trueDmg',
   dotDmgB: 'dotDmg',
   defUpRupeeX: 'defUp',
+  defUpB: 'defUp',
+  dmgReduceB: 'dmgReduce',
 };
 
 // チーム条件判定ヘルパー
@@ -2451,6 +2453,10 @@ function getCautionMessages(char, filledTeam) {
       }
       case 'noB3Elec': {
         triggered = !filledTeam.some(m => m && m.id !== char.id && m.burst === 3 && m.element === 'electric');
+        break;
+      }
+      case 'noB3PersonaAlly': {
+        triggered = !filledTeam.some(m => m && m.id !== char.id && m.burst === 3 && m.personaUser);
         break;
       }
       case 'hasHealer': {
@@ -2747,6 +2753,8 @@ function matchSingleTarget(type, val, char, filledTeam, src) {
     case 'burst':    return String(char.burst) === val;
     case 'id':       return char.id === val;
     case 'company':  return char.company === val;
+    case 'squad':    return char.squad === val;
+    case 'persona':  return !!char.personaUser;
     case 'position': {
       const charIdx = TEAM.indexOf(char);
       if(charIdx === -1) return false;
@@ -3116,6 +3124,10 @@ function renderBuffCards() {
     if(cond === 'noEmiliaSquad') {
       const srcCharId = row.dataset.srcCharId;
       hide = !filled.some(m => m && m.id !== srcCharId && m.squad === 'エミリア陣営');
+    }
+    if(cond === 'noB3PersonaAlly') {
+      const srcCharId = row.dataset.srcCharId;
+      hide = !filled.some(m => m && m.id !== srcCharId && m.burst === 3 && m.personaUser);
     }
     if(cond === 'hasHealer') {
       const srcCharId = row.dataset.srcCharId;
@@ -3637,7 +3649,7 @@ function buildCharCard(char, filledTeam) {
         if(src.id === 'arcana_tarot') {
           if(entry.arcanaFateOnly && effectiveArcanaFateMode !== 'fate') return;
         }
-        addBuff(k, val, src.name, buffTag, fullCond, unit, entry.stack || null, entry.caster || false, entry.defaultOff || false, entry.showCond || false, entry.exclusiveGroup || null, entry.syncGroup || null, entry.fullStackOnly || false, entry.fullStackRef || null, null, null, null, null, null, entry.hpBased || false, null, (entry.stackThreshold != null ? entry.stackThreshold : null), entry.stackThresholdRef || null, entry.belowFullStackOnly || false, entry.belowFullStackRef || null);
+        addBuff(k, val, src.name, buffTag, fullCond, unit, entry.stack || null, entry.caster || false, entry.defaultOff || false, entry.showCond || false, entry.exclusiveGroup || null, entry.syncGroup || null, entry.fullStackOnly || false, entry.fullStackRef || null, entry.cautionCondition || null, src.id, null, null, null, entry.hpBased || false, null, (entry.stackThreshold != null ? entry.stackThreshold : null), entry.stackThresholdRef || null, entry.belowFullStackOnly || false, entry.belowFullStackRef || null);
       }
     });
   });
