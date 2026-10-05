@@ -2394,6 +2394,27 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'sg');
         break;
       }
+      case 'noDefender': {
+        // 自分以外に防御型のニケがいない場合に発動（キリ・ビスケット用）
+        triggered = !filledTeam.some(m => m && m !== char && m.role === 'def');
+        break;
+      }
+      case 'noAttacker': {
+        // 自分以外に火力型のニケがいない場合に発動（ビスケット・エヌ：ミラクルフェアリー用）
+        triggered = !filledTeam.some(m => m && m !== char && m.role === 'atk');
+        break;
+      }
+      case 'noRL': {
+        // 自分以外にRLのニケがいない場合に発動（レム用）
+        triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'rl');
+        break;
+      }
+      case 'noPartyHeal': {
+        // 自分以外に「味方全体への回復」を持つニケがいない場合に発動（ネロ用）。
+        // ネロS1のtarget:hasPartyHealと同じ判定＝HP回復均等分配(healShare)のみ・自己回復のみのニケは対象外
+        triggered = !filledTeam.some(m => m && m !== char && matchSingleTarget('hasPartyHeal', null, m, filledTeam, char));
+        break;
+      }
       case 'noWaterElem': {
         // 自分以外に、水冷コードのニケがいない場合に発動（エレグ：ブーム・アンド・ショック用。自分自身は数えない）
         triggered = !filledTeam.some(m => m && m !== char && m.element === 'water');

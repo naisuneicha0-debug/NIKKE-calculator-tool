@@ -6850,9 +6850,15 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：【鬼の気】状態時、通常攻撃15回命中ごとに自分にatk4.22%UP（30スタック・10秒）。BS使用時、味方全体にHP回復均等分配（10秒）。S2（パッシブ）：戦闘開始時、自分に攻撃ダメージ42.24%回復（持続）。戦闘開始時、自分とロケットランチャー所持の最終攻撃力上位2機にHP回復均等分配（持続・RL所持全体表示）。BS（CT20秒）：自分に【鬼の気】クリ率37.8%UP（10秒）。ロケットランチャー所持の味方全体に発動者基準atk50.78%UP（10秒）＋最大装弾数+5発（10秒）。",
+    "note": "S1（パッシブ）：【鬼の気】状態時、通常攻撃15回命中ごとに自分にatk4.22%UP（30スタック・10秒）。BS使用時、味方全体にHP回復均等分配（10秒）。S2（パッシブ）：戦闘開始時、自分に攻撃ダメージ42.24%回復（持続）。戦闘開始時、自分とロケットランチャー所持の最終攻撃力上位2機にHP回復均等分配（持続・RL所持全体表示）。BS（CT20秒）：自分に【鬼の気】クリ率37.8%UP（10秒）。ロケットランチャー所持の味方全体に発動者基準atk50.78%UP（10秒）＋最大装弾数+5発（10秒）。 CAUTION：新規条件noRL（自分以外のRLのニケがPT内にいない時に警告。S2・BSがRL限定のため、いないと効果が無効になる。自分はMGで対象外）。",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rem.jpg",
-    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rem_slot.jpg"
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/rem_slot.jpg",
+    "caution": [
+      {
+        "condition": "noRL",
+        "message": "RLのニケが編成されていません"
+      }
+    ]
   },
   {
     "id": "eleg",
@@ -6968,6 +6974,16 @@
     "squad": "ハッピーズー",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/biscuit.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/biscuit_slot.jpg",
+    "caution": [
+      {
+        "condition": "noAttacker",
+        "message": "火力型のニケが編成されていません"
+      },
+      {
+        "condition": "noDefender",
+        "message": "防御型のニケが編成されていません"
+      }
+    ],
     "buffs": {
       "party": {},
       "self": {},
@@ -7020,7 +7036,7 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：フルバーストタイム終了時、火力型の味方全体に通常攻撃クリ率5.77%UP（10秒）＋発動者基準の最終最大HP1.53%持続回復（1秒間隔・10秒）。S2（パッシブ）：自分以外の防御型のHPが50%以下の対象に無敵5秒（戦闘中2回）＋発動者基準の最終最大HP23.26%回復（戦闘中2回）。BS（CT40秒）：遮蔽物が破壊された味方ランダム2機に遮蔽物HP93.6%で遮蔽物復活。支援型の味方全体に攻撃力43.08%UP＋攻撃ダメ回復55.44%UP（10秒）。"
+    "note": "S1（パッシブ）：フルバーストタイム終了時、火力型の味方全体に通常攻撃クリ率5.77%UP（10秒）＋発動者基準の最終最大HP1.53%持続回復（1秒間隔・10秒）。S2（パッシブ）：自分以外の防御型のHPが50%以下の対象に無敵5秒（戦闘中2回）＋発動者基準の最終最大HP23.26%回復（戦闘中2回）。BS（CT40秒）：遮蔽物が破壊された味方ランダム2機に遮蔽物HP93.6%で遮蔽物復活。支援型の味方全体に攻撃力43.08%UP＋攻撃ダメ回復55.44%UP（10秒）。 CAUTION：新規条件noAttacker/noDefender（それぞれ自分以外の火力型・防御型がPT内にいない時に警告。S1が火力型限定、S2が自分以外の防御型限定のため。火力型・防御型の両方がいない場合は2件とも表示、片方だけいない場合はその分のみ表示）。"
   },
   {
     "id": "viper",
@@ -9581,6 +9597,12 @@
     "squad": "ハッピーズー",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nero.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nero_slot.jpg",
+    "caution": [
+      {
+        "condition": "noPartyHeal",
+        "message": "HP回復を所有するニケが編成されていません"
+      }
+    ],
     "buffs": {
       "party": {},
       "self": {
@@ -9645,7 +9667,7 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：回復効果が発動した時（編成内のニケが回復を発動した時）、その発動した回復バフ持ち本人に受けるダメージ14.14%ダウン（5秒間維持、targetedブロック・target:hasPartyHeal（party回復キー保有者のみに絞り込み）で本人カードにのみ表示）＋自分に受けるダメージ8.43%ダウン（5秒間維持）＋「ネコの恩返し」1スタック（最大5、self.dmgReduceにstack.key:catFavorNeroで付与）。表示条件はcautionCondition:hasHealer（partyブロックのheal系キー保有者チェック、self回復のみ・healShareは対象外）。恩返しスタックスライダーは持続回復／フルチャージ回復等の区別はせず、party回復バフ持ちが編成にいれば常に1〜5可変（ゆりまん指示により簡略化）。S2（パッシブ）：撃たれた時30%の確率で対象（撃った敵）に受けるダメージ8.26%UP（5秒間維持、condParty・enemyDmgTaken）。撃たれた時30%の確率で、自分が【大きくて乱暴なネコ】状態なら対象に発動者基準の最終攻撃力158.05%のダメージ（otherブロック・条件文のみ、状態のリアルタイム判定はしない）。戦闘開始時、自分に発動者基準の最大HP60.28%UP（持続）。BS（CT20秒）：HPが最も高い敵1機に発動者基準の最終攻撃力1104.91%のダメージ。自分に【ヘイト】敵全体を挑発（15秒間維持）。自分がネコの恩返しのフルスタック状態なら、自分に【大きくて乱暴なネコ】受けるHP回復量60.08%UP（15秒間維持、fullStackOnly・fullStackRef:catFavorNeroで恩返しスタックに連動）。index.html側：partyブロックのaddBuff呼び出しでcautionCondition/srcCharIdが渡っていなかった不具合を修正済み。matchSingleTargetにhasPartyHealターゲットタイプを新規追加（party回復キー保有者のみに一致）。"
+    "note": "S1（パッシブ）：回復効果が発動した時（編成内のニケが回復を発動した時）、その発動した回復バフ持ち本人に受けるダメージ14.14%ダウン（5秒間維持、targetedブロック・target:hasPartyHeal（party回復キー保有者のみに絞り込み）で本人カードにのみ表示）＋自分に受けるダメージ8.43%ダウン（5秒間維持）＋「ネコの恩返し」1スタック（最大5、self.dmgReduceにstack.key:catFavorNeroで付与）。表示条件はcautionCondition:hasHealer（partyブロックのheal系キー保有者チェック、self回復のみ・healShareは対象外）。恩返しスタックスライダーは持続回復／フルチャージ回復等の区別はせず、party回復バフ持ちが編成にいれば常に1〜5可変（ゆりまん指示により簡略化）。S2（パッシブ）：撃たれた時30%の確率で対象（撃った敵）に受けるダメージ8.26%UP（5秒間維持、condParty・enemyDmgTaken）。撃たれた時30%の確率で、自分が【大きくて乱暴なネコ】状態なら対象に発動者基準の最終攻撃力158.05%のダメージ（otherブロック・条件文のみ、状態のリアルタイム判定はしない）。戦闘開始時、自分に発動者基準の最大HP60.28%UP（持続）。BS（CT20秒）：HPが最も高い敵1機に発動者基準の最終攻撃力1104.91%のダメージ。自分に【ヘイト】敵全体を挑発（15秒間維持）。自分がネコの恩返しのフルスタック状態なら、自分に【大きくて乱暴なネコ】受けるHP回復量60.08%UP（15秒間維持、fullStackOnly・fullStackRef:catFavorNeroで恩返しスタックに連動）。index.html側：partyブロックのaddBuff呼び出しでcautionCondition/srcCharIdが渡っていなかった不具合を修正済み。matchSingleTargetにhasPartyHealターゲットタイプを新規追加（party回復キー保有者のみに一致）。 CAUTION：新規条件noPartyHeal（自分以外に味方全体への回復を持つニケがPT内にいない時に警告。S1の対象と同じhasPartyHeal判定のため、HP回復均等分配(healShare)のみ・自己回復のみのニケ(ナユタ・レム等)は回復持ちとして数えず、それらだけの編成では警告が出る）。"
   },
   {
     "id": "nihilister",
@@ -9891,6 +9913,12 @@
     "squad": "リコール&リリーズ",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/n_mf.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/n_mf_slot.jpg",
+    "caution": [
+      {
+        "condition": "noAttacker",
+        "message": "火力型のニケが編成されていません"
+      }
+    ],
     "buffs": {
       "party": {
         "healRcvUp": {
@@ -9934,7 +9962,7 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：通常攻撃で3回攻撃した時、支援型の味方全体に攻撃ダメージの6.07%回復（5秒間維持、targeted・target:role:sup、ビスケット等と同型）。S2（パッシブ）：自分のHPが90%以上の時のみ、味方全体に受けるHP回復量23.46%UP（持続、エマと同じ「HP90%以上限定・持続」表現）。最後の弾丸が命中した時、自分のHPが90%以上なら敵全体に受けるHP回復量78.93%ダウン（10秒間維持）。既存キーに敵の被回復量ダウンが無かったため新規キーenemyHealRcvDown（敵回復量▼、ENEMY系カテゴリに追加）を作成。BS（CT60秒）：火力型の味方全体に発動者基準の最終最大HP38.61%回復（10秒間維持）＋攻撃力77.22%UP（10秒間維持）。戦闘不能状態の火力型の味方をランダムで1機、HP99%で復活（戦闘中1回のみ発動）。全てtargetedブロック・target:role:atk・suppressTargetLabelで実装。名前に「：」を含むため短縮名「エヌ：MF」をSHORT_NAMESに登録済み。"
+    "note": "S1（パッシブ）：通常攻撃で3回攻撃した時、支援型の味方全体に攻撃ダメージの6.07%回復（5秒間維持、targeted・target:role:sup、ビスケット等と同型）。S2（パッシブ）：自分のHPが90%以上の時のみ、味方全体に受けるHP回復量23.46%UP（持続、エマと同じ「HP90%以上限定・持続」表現）。最後の弾丸が命中した時、自分のHPが90%以上なら敵全体に受けるHP回復量78.93%ダウン（10秒間維持）。既存キーに敵の被回復量ダウンが無かったため新規キーenemyHealRcvDown（敵回復量▼、ENEMY系カテゴリに追加）を作成。BS（CT60秒）：火力型の味方全体に発動者基準の最終最大HP38.61%回復（10秒間維持）＋攻撃力77.22%UP（10秒間維持）。戦闘不能状態の火力型の味方をランダムで1機、HP99%で復活（戦闘中1回のみ発動）。全てtargetedブロック・target:role:atk・suppressTargetLabelで実装。名前に「：」を含むため短縮名「エヌ：MF」をSHORT_NAMESに登録済み。 CAUTION：新規条件noAttacker（自分以外の火力型のニケがPT内にいない時に警告。BSの回復・復活が火力型限定のため）。"
   },
   {
     "id": "aria",
@@ -10428,6 +10456,12 @@
     "squad": "A.C.P.U.",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/kiri.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/kiri_slot.jpg",
+    "caution": [
+      {
+        "condition": "noDefender",
+        "message": "防御型のニケが編成されていません"
+      }
+    ],
     "buffs": {
       "party": {
         "enemyAtkDown": {
@@ -10467,7 +10501,7 @@
       "condParty": [],
       "other": []
     },
-    "note": "S1（パッシブ）：フルチャージ攻撃命中時、対象に発動者基準攻撃力8.94%ダウン（3秒間維持）。フルチャージして攻撃した時、防御型の味方2機に発動者基準攻撃力5.81%UP（3秒間維持）。S2（パッシブ）：戦闘開始時、防御型の味方2機に最大HP11.63%UP（持続）。BS（アクティブ・CT40秒）：味方全体に発動者基準最終最大HP6.96%回復（1秒間隔・10秒間維持）＋防御型の味方全体にクリティカル確率19.9%UP（10秒間維持）。「防御型の味方2機」はビスケット方式（target:role:def）で表現、人数上限はcondLabelのみで説明。"
+    "note": "S1（パッシブ）：フルチャージ攻撃命中時、対象に発動者基準攻撃力8.94%ダウン（3秒間維持）。フルチャージして攻撃した時、防御型の味方2機に発動者基準攻撃力5.81%UP（3秒間維持）。S2（パッシブ）：戦闘開始時、防御型の味方2機に最大HP11.63%UP（持続）。BS（アクティブ・CT40秒）：味方全体に発動者基準最終最大HP6.96%回復（1秒間隔・10秒間維持）＋防御型の味方全体にクリティカル確率19.9%UP（10秒間維持）。「防御型の味方2機」はビスケット方式（target:role:def）で表現、人数上限はcondLabelのみで説明。 CAUTION：新規条件noDefender（自分以外の防御型のニケがPT内にいない時に警告。S1・S2・BSのバフが全て防御型限定のため、いないと効果が全て無効になる）。"
   },
   {
     "id": "d",
