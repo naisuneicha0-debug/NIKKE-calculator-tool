@@ -4894,11 +4894,11 @@ function buildCharCard(char, filledTeam) {
   })() : (char.id === 'guilty_mb' || char.id === 'shin_sb') ? (() => {
     const bunnyMode = getBunnyModes()[char.id] || 'stance';
     const isEngage = bunnyMode === 'engage';
-    const modeText = isEngage ? 'ENGAGE' : 'STANCE';
-    const color    = isEngage ? '#ff3c6e' : '#00d4ff';
-    const shadow   = isEngage ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const modeText = isEngage ? 'ENGA' : 'STAN';
+    const color    = '#ff3c6e';
+    const shadow   = '0 0 8px rgba(255,60,110,0.9)';
     const tooltip  = isEngage ? 'バニーモード：エンゲージ状態（タップで切替・もう1体のバニーと連動）' : 'バニーモード：スタンス状態（タップで切替・もう1体のバニーと連動）';
-    const valText  = '<span style="display:block;line-height:1.4;font-size:9px;">' + modeText + '</span>';
+    const valText  = '<span style="display:block;line-height:1.4;font-size:10px;">' + modeText + '</span>';
     return '<div onclick="toggleBunnyMode(event,\'' + char.id + '\')" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
       '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
         '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
