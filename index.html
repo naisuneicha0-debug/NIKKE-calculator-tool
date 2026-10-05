@@ -2394,6 +2394,46 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'sg');
         break;
       }
+      case 'noSR': {
+        // 自分以外にSRのニケがいない場合に発動（姫野・D：キラーワイフ用）
+        triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'sr');
+        break;
+      }
+      case 'noSMG': {
+        // 自分以外にSMGのニケがいない場合に発動（ミランダ用）
+        triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'smg');
+        break;
+      }
+      case 'noFireElem': {
+        // 自分以外に灼熱コードのニケがいない場合に発動（綾波レイ用）
+        triggered = !filledTeam.some(m => m && m !== char && m.element === 'fire');
+        break;
+      }
+      case 'noWindElem': {
+        // 自分以外に風圧コードのニケがいない場合に発動（ギルティ用）
+        triggered = !filledTeam.some(m => m && m !== char && m.element === 'wind');
+        break;
+      }
+      case 'noIronElem': {
+        // 自分以外に鉄甲コードのニケがいない場合に発動（ルピー用）
+        triggered = !filledTeam.some(m => m && m !== char && m.element === 'iron');
+        break;
+      }
+      case 'noElecElem': {
+        // 自分以外に電撃コードのニケがいない場合に発動（アニス：スパークリングサマー・メイデン：アイスローズ用）
+        triggered = !filledTeam.some(m => m && m !== char && m.element === 'electric');
+        break;
+      }
+      case 'noWindAR': {
+        // 自分以外に風圧コード・ARのニケがいない場合に発動（アークレンジャー・ブラック用）
+        triggered = !filledTeam.some(m => m && m !== char && m.element === 'wind' && m.weapon === 'ar');
+        break;
+      }
+      case 'noB3Other': {
+        // 自分以外に基本バースト段階Ⅲのニケがいない場合に発動（エイダ・ウォン・リバーレリオ用）
+        triggered = !filledTeam.some(m => m && m !== char && m.burst === 3);
+        break;
+      }
       case 'noDefender': {
         // 自分以外に防御型のニケがいない場合に発動（キリ・ビスケット用）
         triggered = !filledTeam.some(m => m && m !== char && m.role === 'def');
