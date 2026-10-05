@@ -2540,7 +2540,7 @@ function makePilgrimSVG(uid, w, h, bg){
   const clips=PIL_PARTS.filter(p=>p.mode==='clip');
   const fp=fills.flatMap(p=>pilGetPaths(p)).map(d=>`<path d="${d}" fill="${bg}"/>`).join('');
   const cp=clips.flatMap(p=>pilGetPaths(p)).map(d=>`<path d="${d}" fill="#c8d8f0"/>`).join('');
-  return `<svg class="pil-anim" width="${w}" height="${h}" viewBox="30 10 140 279" style="display:block;"><defs><clipPath id="pil-${uid}"><polygon points="${op}"/></clipPath></defs><polygon points="${op}" fill="#c8d8f0"/><g clip-path="url(#pil-${uid})">${fp}${cp}</g></svg>`;
+  return `<svg class="pil-anim" width="${w}" height="${h}" viewBox="30 2 140 296" style="display:block;"><defs><clipPath id="pil-${uid}"><polygon points="${op}"/></clipPath></defs><polygon points="${op}" fill="#c8d8f0"/><g clip-path="url(#pil-${uid})">${fp}${cp}</g></svg>`;
 }
 
 let NIKKE_DB = [];
