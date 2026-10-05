@@ -2639,7 +2639,7 @@ let cinderellaCwMode = null;
 let mollyMode = null;
 let laplaceUhMode = null;
 // バニーモード（スタンス/エンゲージ）：ギルティ：マイティバニー／シン：スウィフトバニー用。初期はスタンス。
-// 2体を同時に編成した場合は連動し、常にギルティ側を基準にシンが反対のモードになる（片方を切り替えると相方も反転）
+// 2体を同時に編成した場合は連動し、常に同じモードになる（片方を切り替えると相方も同じモードに切り替わる。基準はギルティ側）
 let guiltyMbMode = null;
 let shinSbMode = null;
 function getBunnyModes() {
@@ -2648,14 +2648,13 @@ function getBunnyModes() {
   const out = { guilty_mb: null, shin_sb: null };
   if(hasG) out.guilty_mb = guiltyMbMode !== null ? guiltyMbMode : 'stance';
   if(hasS) out.shin_sb   = shinSbMode   !== null ? shinSbMode   : 'stance';
-  if(hasG && hasS) out.shin_sb = out.guilty_mb === 'stance' ? 'engage' : 'stance';
+  if(hasG && hasS) out.shin_sb = out.guilty_mb;
   return out;
 }
 function setBunnyMode(charId, mode) {
-  const opp = mode === 'stance' ? 'engage' : 'stance';
   const both = TEAM.some(c => c && c.id === 'guilty_mb') && TEAM.some(c => c && c.id === 'shin_sb');
-  if(charId === 'guilty_mb') { guiltyMbMode = mode; if(both) shinSbMode = opp; }
-  else                       { shinSbMode   = mode; if(both) guiltyMbMode = opp; }
+  if(charId === 'guilty_mb') { guiltyMbMode = mode; if(both) shinSbMode = mode; }
+  else                       { shinSbMode   = mode; if(both) guiltyMbMode = mode; }
 }
 function loadTeam() {
   // 開発中はローカルストレージ無効
