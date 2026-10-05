@@ -182,7 +182,7 @@
     "caution": [
       {
         "condition": "notBack",
-        "message": "後列（スロット2・4）に配置してください"
+        "message": "後列（スロット2・4）に配置されていません"
       },
       {
         "condition": "noAdjacent",
@@ -322,11 +322,11 @@
     "caution": [
       {
         "condition": "noElecAR",
-        "message": "電撃・ARのニケが編成されていません"
+        "message": "電撃コード・ARのニケが編成されていません"
       },
       {
         "condition": "elecARNotSlot1",
-        "message": "電撃・ARのニケが最左に編成されていません"
+        "message": "電撃コード・ARのニケが最左に編成されていません"
       }
     ],
     "name": "トリナ",
@@ -1538,7 +1538,7 @@
     "caution": [
       {
         "condition": "noSG",
-        "message": "アルカナ：フォーチュンメイト以外のSGのニケを編成して下さい"
+        "message": "アルカナ:フォーチュンメイト以外のSGのニケが編成されていません"
       }
     ],
     "buffs": {
@@ -2231,7 +2231,7 @@
     "caution": [
       {
         "condition": "noAnisstar",
-        "message": "アニス：スターが編成されていません"
+        "message": "アニス:スターが編成されていません"
       }
     ],
     "buffs": {
@@ -3168,7 +3168,7 @@
     "caution": [
       {
         "condition": "noSGInParty",
-        "message": "SGニケが編成されていません"
+        "message": "SGのニケが編成されていません"
       }
     ],
     "buffs": {
@@ -3975,7 +3975,7 @@
     "caution": [
       {
         "condition": "no777Squad",
-        "message": "ブラン以外の777部隊のニケを編成して下さい"
+        "message": "ブラン以外の777部隊のニケが編成されていません"
       }
     ],
     "buffs": {
@@ -4168,7 +4168,7 @@
     "caution": [
       {
         "condition": "noWaterElem",
-        "message": "エレグ：ブーム・アンド・ショック以外の水冷コードのニケを編成して下さい"
+        "message": "エレグ:ブーム・アンド・ショック以外の水冷コードのニケが編成されていません"
       }
     ],
     "buffs": {
@@ -4412,7 +4412,7 @@
     "caution": [
       {
         "condition": "noAsukaW",
-        "message": "式波・アスカ・ラングレー：WILLEが編成されていません"
+        "message": "式波・アスカ・ラングレー:WILLEが編成されていません"
       },
       {
         "condition": "noMGInParty",
@@ -6545,7 +6545,7 @@
     "caution": [
       {
         "condition": "noB3Elec",
-        "message": "アルカナ以外のB3・電撃のニケを編成して下さい"
+        "message": "アルカナ以外の基本バースト段階Ⅲ・電撃コードのニケが編成されていません"
       }
     ],
     "buffs": {
@@ -7976,11 +7976,11 @@
     "caution": [
       {
         "condition": "no777Squad",
-        "message": "ノワール以外の777部隊のニケを編成して下さい"
+        "message": "ノワール以外の777部隊のニケが編成されていません"
       },
       {
         "condition": "noSG",
-        "message": "ノワール以外のSGニケを編成して下さい"
+        "message": "ノワール以外のSGのニケが編成されていません"
       }
     ],
     "buffs": {
@@ -8317,7 +8317,7 @@
     "caution": [
       {
         "condition": "noWaterIronSG",
-        "message": "シュガー以外の水冷コードまたは鉄甲コードのSGのニケを編成して下さい"
+        "message": "シュガー以外の水冷コード・SGまたは鉄甲コード・SGのニケが編成されていません"
       }
     ],
     "buffs": {
@@ -11674,7 +11674,7 @@
     "caution": [
       {
         "condition": "noEmiliaSquad",
-        "message": "ラム以外のエミリア陣営のニケを編成して下さい"
+        "message": "ラム以外のエミリア陣営のニケが編成されていません"
       }
     ],
     "buffs": {
@@ -12522,7 +12522,7 @@
     "caution": [
       {
         "condition": "noB3PersonaAlly",
-        "message": "クイーン以外に基本バースト段階Ⅲのペルソナを所有するニケを編成して下さい"
+        "message": "クイーン以外の基本バースト段階Ⅲ・ペルソナを所有するニケが編成されていません"
       }
     ],
     "buffs": {
@@ -12622,7 +12622,7 @@
     "caution": [
       {
         "condition": "noB3PersonaAlly",
-        "message": "天城雪子以外に基本バースト段階Ⅲのペルソナを所有するニケを編成して下さい"
+        "message": "天城雪子以外の基本バースト段階Ⅲ・ペルソナを所有するニケが編成されていません"
       }
     ],
     "buffs": {
