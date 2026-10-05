@@ -2638,6 +2638,25 @@ let crustMode = null;
 let cinderellaCwMode = null;
 let mollyMode = null;
 let laplaceUhMode = null;
+// バニーモード（スタンス/エンゲージ）：ギルティ：マイティバニー／シン：スウィフトバニー用。初期はスタンス。
+// 2体を同時に編成した場合は連動し、常にギルティ側を基準にシンが反対のモードになる（片方を切り替えると相方も反転）
+let guiltyMbMode = null;
+let shinSbMode = null;
+function getBunnyModes() {
+  const hasG = TEAM.some(c => c && c.id === 'guilty_mb');
+  const hasS = TEAM.some(c => c && c.id === 'shin_sb');
+  const out = { guilty_mb: null, shin_sb: null };
+  if(hasG) out.guilty_mb = guiltyMbMode !== null ? guiltyMbMode : 'stance';
+  if(hasS) out.shin_sb   = shinSbMode   !== null ? shinSbMode   : 'stance';
+  if(hasG && hasS) out.shin_sb = out.guilty_mb === 'stance' ? 'engage' : 'stance';
+  return out;
+}
+function setBunnyMode(charId, mode) {
+  const opp = mode === 'stance' ? 'engage' : 'stance';
+  const both = TEAM.some(c => c && c.id === 'guilty_mb') && TEAM.some(c => c && c.id === 'shin_sb');
+  if(charId === 'guilty_mb') { guiltyMbMode = mode; if(both) shinSbMode = opp; }
+  else                       { shinSbMode   = mode; if(both) guiltyMbMode = opp; }
+}
 function loadTeam() {
   // 開発中はローカルストレージ無効
   TEAM = [null,null,null,null,null];
@@ -3521,6 +3540,9 @@ function buildCharCard(char, filledTeam) {
     return cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
   })();
 
+  // ===== ギルティ：マイティバニー／シン：スウィフトバニー バニーモード判定 =====
+  const bunnyModes = getBunnyModes();
+
   // ===== ラプラス：アルティメットヒーロー モード判定 =====
   const laplaceUhChar = TEAM.find(c => c && c.id === 'laplace_uh');
   const effectiveLaplaceUhMode = (() => {
@@ -3741,6 +3763,11 @@ function buildCharCard(char, filledTeam) {
     if(char.id === 'cinderella_cw') {
       if(v && v.cinderellaCwSnipeOnly && effectiveCinderellaCwMode !== 'snipe') return;
       if(v && v.cinderellaCwNormalOnly && effectiveCinderellaCwMode !== 'normal') return;
+    }
+    // ギルティ：マイティバニー／シン：スウィフトバニー selfバフのバニーモード制御
+    if(char.id === 'guilty_mb' || char.id === 'shin_sb') {
+      if(v && v.bunnyStanceOnly && bunnyModes[char.id] !== 'stance') return;
+      if(v && v.bunnyEngageOnly && bunnyModes[char.id] !== 'engage') return;
     }
     // ラプラス：アルティメットヒーロー selfバフのモード制御
     if(char.id === 'laplace_uh') {
@@ -4263,6 +4290,11 @@ function buildCharCard(char, filledTeam) {
       if(o.cinderellaCwSnipeOnly && effectiveCinderellaCwMode !== 'snipe') return;
       if(o.cinderellaCwNormalOnly && effectiveCinderellaCwMode !== 'normal') return;
     }
+    // ギルティ：マイティバニー／シン：スウィフトバニー アクティブスキル/追加ダメージのバニーモード制御
+    if(char.id === 'guilty_mb' || char.id === 'shin_sb') {
+      if(o.bunnyStanceOnly && bunnyModes[char.id] !== 'stance') return;
+      if(o.bunnyEngageOnly && bunnyModes[char.id] !== 'engage') return;
+    }
     allCondBuffs.push({ ...o, src: char.name });
   });
   // crossOther: 他キャラから自分のカードに表示されるアクティブスキル情報
@@ -4398,6 +4430,9 @@ function buildCharCard(char, filledTeam) {
     if(char.id === 'cinderella_cw' && char.cardBgAlt) {
       const mode = cinderellaCwMode !== null ? cinderellaCwMode : 'normal';
       return mode === 'snipe' ? char.cardBgAlt : char.cardBg;
+    }
+    if((char.id === 'guilty_mb' || char.id === 'shin_sb') && char.cardBgAlt) {
+      return getBunnyModes()[char.id] === 'engage' ? char.cardBgAlt : char.cardBg;
     }
     if(char.id === 'laplace_uh' && char.cardBgAlt) {
       const mode = laplaceUhMode !== null ? laplaceUhMode : 'normal';
@@ -4857,6 +4892,26 @@ function buildCharCard(char, filledTeam) {
         '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
       '</div>' +
     '</div>';
+  })() : (char.id === 'guilty_mb' || char.id === 'shin_sb') ? (() => {
+    const bunnyMode = getBunnyModes()[char.id] || 'stance';
+    const isEngage = bunnyMode === 'engage';
+    const modeText = isEngage ? 'ENGAGE' : 'STANCE';
+    const color    = isEngage ? '#ff3c6e' : '#00d4ff';
+    const shadow   = isEngage ? '0 0 8px rgba(255,60,110,0.9)' : '0 0 8px rgba(0,212,255,0.9)';
+    const tooltip  = isEngage ? 'バニーモード：エンゲージ状態（タップで切替・もう1体のバニーと連動）' : 'バニーモード：スタンス状態（タップで切替・もう1体のバニーと連動）';
+    const valText  = '<span style="display:block;line-height:1.4;font-size:9px;">' + modeText + '</span>';
+    return '<div onclick="toggleBunnyMode(event,\'' + char.id + '\')" title="' + tooltip + '" style="position:relative;cursor:pointer;user-select:none;flex-shrink:0;width:54px;z-index:25;align-self:stretch;">' +
+      '<div style="width:54px;height:100%;min-height:136px;padding:12px 4px;background:#080c18;border:1px solid #1a2240;border-radius:3px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;position:relative;overflow:hidden;transition:border-color 0.15s,box-shadow 0.15s;">' +
+        '<div style="position:absolute;inset:0;border-radius:3px;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);pointer-events:none;z-index:2;"></div>' +
+        '<div style="position:absolute;top:-100%;left:0;right:0;height:30%;background:linear-gradient(to bottom,transparent,rgba(255,255,255,0.04),transparent);animation:scan 3s linear infinite;z-index:3;pointer-events:none;"></div>' +
+        '<div style="display:flex;flex-direction:column;align-items:center;gap:0;z-index:4;position:relative;flex-shrink:0;">' +
+          '<span style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-size:13px;font-weight:900;letter-spacing:1px;color:' + color + ';text-shadow:' + shadow + ';display:block;height:20px;line-height:20px;text-align:center;">B3</span>' +
+          '<div style="width:80%;height:1px;background:#1a2240;margin-top:6px;"></div>' +
+        '</div>' +
+        '<div style="font-family:\'Chakra Petch\',\'Courier New\',monospace;font-weight:bold;letter-spacing:0.5px;z-index:4;position:relative;color:' + color + ';text-shadow:' + shadow + ';text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;flex:1;justify-content:center;">' + valText + '</div>' +
+        '<div style="width:80%;height:1px;background:#1a2240;z-index:4;position:relative;flex-shrink:0;"></div>' +
+      '</div>' +
+    '</div>';
   })() : (char.id === 'laplace_uh') ? (() => {
     const effectiveLaplaceUhMode2 = laplaceUhMode !== null ? laplaceUhMode : 'normal';
     const isFull   = effectiveLaplaceUhMode2 === 'full';
@@ -5061,6 +5116,8 @@ function getShortName(name) {
     'ソーダ：トゥインクルバニー':         'ソーダ：TB',
     'ルドミラ：ウィンターオーナー':       'ルドミラ：WO',
     'クエンシー：エスケープクイーン':     'クエンシー：EQ',
+    'ギルティ：マイティバニー':           'ギルティ：MB',
+    'シン：スウィフトバニー':             'シン：SB',
     'アニス：スパークリングサマー':       'アニス：SS',
     'ソリン：フロストチケット':           'ソリン：FT',
     'アリス：ワンダーランドバニー':       'アリス：WB',
@@ -6248,6 +6305,33 @@ function toggleCinderellaCwMode(e) {
     Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-cinderella_cw');
+    if(s) delete s.dataset.switching;
+  });
+}
+
+function toggleBunnyMode(e, charId) {
+  e.stopPropagation();
+  const sig = document.getElementById('signal-card-' + charId);
+  if(!sig || sig.dataset.switching === '1') return;
+  sig.dataset.switching = '1';
+
+  const current  = getBunnyModes()[charId] || 'stance';
+  const nextMode = current === 'stance' ? 'engage' : 'stance';
+
+  const bodyStates = {}, arrowStates = {};
+  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
+  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
+
+  const bunnyCharData = NIKKE_DB.find(c => c.id === charId);
+  const nextImgUrl = bunnyCharData && (nextMode === 'engage' ? (bunnyCharData.cardBgAlt || bunnyCharData.cardBg) : bunnyCharData.cardBg);
+
+  fireSignalBurst('card-' + charId, nextImgUrl, () => {
+    setBunnyMode(charId, nextMode);
+    renderBuffCards();
+    renderSlots();
+    Object.entries(bodyStates).forEach(([id, display])   => { const el=document.getElementById(id); if(el) el.style.display=display; });
+    Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
+    const s = document.getElementById('signal-card-' + charId);
     if(s) delete s.dataset.switching;
   });
 }
