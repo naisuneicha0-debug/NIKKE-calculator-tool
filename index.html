@@ -2394,6 +2394,11 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'sg');
         break;
       }
+      case 'noWaterElem': {
+        // 自分以外に、水冷コードのニケがいない場合に発動（エレグ：ブーム・アンド・ショック用。自分自身は数えない）
+        triggered = !filledTeam.some(m => m && m !== char && m.element === 'water');
+        break;
+      }
       case 'noWaterIronSG': {
         // 自分以外に、水冷または鉄甲コードのSGニケがいない場合に発動（シュガー用。自分自身は数えない）
         triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'sg' && (m.element === 'water' || m.element === 'iron'));

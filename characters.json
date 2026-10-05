@@ -1538,7 +1538,7 @@
     "caution": [
       {
         "condition": "noSG",
-        "message": "アルカナ：フォーチュンメイト以外のSGのニケを編成してください"
+        "message": "アルカナ：フォーチュンメイト以外のSGのニケを編成して下さい"
       }
     ],
     "buffs": {
@@ -3250,7 +3250,7 @@
     "caution": [
       {
         "condition": "hasEmma",
-        "message": "エマ:TUが未編成の為フォーメーションLTが適用されていません"
+        "message": "エマ:TUが未編成の為フォーメーションLTが適用されません"
       }
     ],
     "buffs": {
@@ -3354,7 +3354,7 @@
     "caution": [
       {
         "condition": "hasUnfa",
-        "message": "ウンファ:TUが未編成の為フォーメーションASが適用されていません"
+        "message": "ウンファ:TUが未編成の為フォーメーションASが適用されません"
       }
     ],
     "buffs": {
@@ -3474,7 +3474,7 @@
     "caution": [
       {
         "condition": "hasEmma",
-        "message": "エマ:TUが未編成の為戦場コントロールが適用されていません"
+        "message": "エマ:TUが未編成の為戦場コントロールが適用されません"
       },
       {
         "condition": "hasUnfa",
@@ -3975,7 +3975,7 @@
     "caution": [
       {
         "condition": "no777Squad",
-        "message": "ブラン以外の777部隊のニケを編成してください"
+        "message": "ブラン以外の777部隊のニケを編成して下さい"
       }
     ],
     "buffs": {
@@ -4165,6 +4165,12 @@
     "squad": "エレクトリックショック",
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eleg_bs.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/eleg_bs_slot.jpg",
+    "caution": [
+      {
+        "condition": "noWaterElem",
+        "message": "エレグ：ブーム・アンド・ショック以外の水冷コードのニケを編成して下さい"
+      }
+    ],
     "buffs": {
       "party": {},
       "self": {
@@ -4213,7 +4219,7 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：戦闘開始・6秒ループでランダム敵1機に【憑依】付与。憑依中に味方累計100回攻撃命中でキャプチャー数+1（最大13）。キャプチャー1以上で水冷味方全体にcaster基準atk16.2%UP、4以上でさらにelem35%UP（持続）。S2（パッシブ）：BS使用後にself atk40%UP（10秒）。キャプチャー最大時に追加キャプチャー発動で敵全体に攻撃力1100%ダメ。BS（CT40秒）：キャプチャー13未満→ランダム敵に800%×6回・キャプチャー6減少、13（最大）→800%×13回・キャプチャー9減少。"
+    "note": "S1（パッシブ）：戦闘開始・6秒ループでランダム敵1機に【憑依】付与。憑依中に味方累計100回攻撃命中でキャプチャー数+1（最大13）。キャプチャー1以上で水冷味方全体にcaster基準atk16.2%UP、4以上でさらにelem35%UP（持続）。S2（パッシブ）：BS使用後にself atk40%UP（10秒）。キャプチャー最大時に追加キャプチャー発動で敵全体に攻撃力1100%ダメ。BS（CT40秒）：キャプチャー13未満→ランダム敵に800%×6回・キャプチャー6減少、13（最大）→800%×13回・キャプチャー9減少。 CAUTION：新規条件noWaterElem（PT内にエレグ：ブーム・アンド・ショック以外の水冷コードのニケがいない時に警告。S1の味方バフ(水冷限定)の対象がいない状態を示す。自分自身は水冷だが数えない）。"
   },
   {
     "id": "breddy",
@@ -6539,7 +6545,7 @@
     "caution": [
       {
         "condition": "noB3Elec",
-        "message": "アルカナ以外のB3・電撃のニケを編成してください"
+        "message": "アルカナ以外のB3・電撃のニケを編成して下さい"
       }
     ],
     "buffs": {
@@ -7970,11 +7976,11 @@
     "caution": [
       {
         "condition": "no777Squad",
-        "message": "ノワール以外の777部隊のニケを編成してください"
+        "message": "ノワール以外の777部隊のニケを編成して下さい"
       },
       {
         "condition": "noSG",
-        "message": "ノワール以外のSGニケを編成してください"
+        "message": "ノワール以外のSGニケを編成して下さい"
       }
     ],
     "buffs": {
@@ -8311,7 +8317,7 @@
     "caution": [
       {
         "condition": "noWaterIronSG",
-        "message": "シュガー以外の水冷コードまたは鉄甲コードのショットガンを所持するニケを編成してください"
+        "message": "シュガー以外の水冷コードまたは鉄甲コードのSGのニケを編成して下さい"
       }
     ],
     "buffs": {
@@ -8797,7 +8803,7 @@
     "caution": [
       {
         "condition": "hasHealer",
-        "message": "HP回復を持つニケが編成されていると誓約違反立証が蓄積します"
+        "message": "HP回復を所有するニケが編成されているため、誓約違反立証が蓄積します"
       }
     ],
     "name": "シラツル",
@@ -11668,7 +11674,7 @@
     "caution": [
       {
         "condition": "noEmiliaSquad",
-        "message": "ラム以外のエミリア陣営のニケを編成してください"
+        "message": "ラム以外のエミリア陣営のニケを編成して下さい"
       }
     ],
     "buffs": {
@@ -12516,7 +12522,7 @@
     "caution": [
       {
         "condition": "noB3PersonaAlly",
-        "message": "クイーン以外に基本バースト段階Ⅲのペルソナ持ちニケを編成してください"
+        "message": "クイーン以外に基本バースト段階Ⅲのペルソナを所有するニケを編成して下さい"
       }
     ],
     "buffs": {
@@ -12616,7 +12622,7 @@
     "caution": [
       {
         "condition": "noB3PersonaAlly",
-        "message": "天城雪子以外に基本バースト段階Ⅲのペルソナ持ちニケを編成してください"
+        "message": "天城雪子以外に基本バースト段階Ⅲのペルソナを所有するニケを編成して下さい"
       }
     ],
     "buffs": {
