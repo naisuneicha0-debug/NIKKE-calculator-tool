@@ -182,7 +182,7 @@
     "caution": [
       {
         "condition": "notBack",
-        "message": "後列（スロット2・4）に配置されていません"
+        "message": "後列（スロット2・4）に編成されていません"
       },
       {
         "condition": "noAdjacent",
