@@ -12849,9 +12849,10 @@
     "element": "water",
     "company": "missilis",
     "squad": "リアルカインドネス",
-    "cardBg": null,
-    "cardBgSlot": null,
-    "note": "モード切替キャラ（バニーモード：スタンス⇔エンゲージ、初期＝スタンス）。シン：スウィフトバニーと同時編成時は連動し、常に2体とも同じモードになる（片方を切り替えるともう1体も同じモードに切り替わる・ボタン表示はSTAN／ENGA・色は両モードとも赤）。S1「どうしたらいい…？」（パッシブ）：戦闘開始時に攻撃力20.1%UP（持続）。戦闘開始時・フルチャージ1秒以上維持時にバニーモードを付与／反転し、相方のバニーにも同じモードを付与する（モード自体はバフではないためボタンで表現）。S2「これ…ほどいてもいい？」（パッシブ）：【エンゲージ状態のみ・チェーンリリース】通常攻撃(piercingAtk)とマイティストンプに防御無視ダメージを適用（持続・解除不可）、フルチャージ命中時に最終攻撃力370.08%の防御無視ダメージ（other）。【スタンス状態のみ・チェーンエンハンス】攻撃ダメージ20.45%UP(dmg)・チャージダメージ40%UP(chargeDmg)（持続・解除不可）、フルチャージ命中時に最終攻撃力450.89%の追加ダメージ（other）。BS「やっとほどけたぁ…！」（アクティブ・CT40秒）：マイティストンプに武器変更（チャージ時間1.5秒固定・ダメージ101.3%・フルチャージ250%・維持1発）。追加効果＝チャージダメージ1400%UP（1発間・chargeDmgBに合算）／攻撃ダメージ77.35%UP（10秒・dmgBに合算）。動的トラッキングできない「1発間」等はエーテル方式で常時ON表示。新規フラグ bunnyStanceOnly／bunnyEngageOnly（self/other用）、新規マージキーなし（既存dmgB・chargeDmgB流用）。画像は後日追加予定（cardBg未設定）。",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guilty_mb.jpg",
+    "cardBgAlt": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guilty_mb_alt.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/guilty_mb_slot.jpg",
+    "note": "モード切替キャラ（バニーモード：スタンス⇔エンゲージ、初期＝スタンス）。シン：スウィフトバニーと同時編成時は連動し、常に2体とも同じモードになる（片方を切り替えるともう1体も同じモードに切り替わる・ボタン表示はSTAN／ENGA・色は両モードとも赤）。S1「どうしたらいい…？」（パッシブ）：戦闘開始時に攻撃力20.1%UP（持続）。戦闘開始時・フルチャージ1秒以上維持時にバニーモードを付与／反転し、相方のバニーにも同じモードを付与する（モード自体はバフではないためボタンで表現）。S2「これ…ほどいてもいい？」（パッシブ）：【エンゲージ状態のみ・チェーンリリース】通常攻撃(piercingAtk)とマイティストンプに防御無視ダメージを適用（持続・解除不可）、フルチャージ命中時に最終攻撃力370.08%の防御無視ダメージ（other）。【スタンス状態のみ・チェーンエンハンス】攻撃ダメージ20.45%UP(dmg)・チャージダメージ40%UP(chargeDmg)（持続・解除不可）、フルチャージ命中時に最終攻撃力450.89%の追加ダメージ（other）。BS「やっとほどけたぁ…！」（アクティブ・CT40秒）：マイティストンプに武器変更（チャージ時間1.5秒固定・ダメージ101.3%・フルチャージ250%・維持1発）。追加効果＝チャージダメージ1400%UP（1発間・chargeDmgBに合算）／攻撃ダメージ77.35%UP（10秒・dmgBに合算）。動的トラッキングできない「1発間」等はエーテル方式で常時ON表示。新規フラグ bunnyStanceOnly／bunnyEngageOnly（self/other用）、新規マージキーなし（既存dmgB・chargeDmgB流用）。画像：cardBg＝スタンス用(guilty_mb.jpg)・cardBgAlt＝エンゲージ用(guilty_mb_alt.jpg)・cardBgSlot＝スロット用(guilty_mb_slot.jpg)。",
     "buffs": {
       "party": {},
       "self": {
