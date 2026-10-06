@@ -2856,6 +2856,8 @@ const fmt = v => {
   if(typeof v !== 'number') return v;
   return v % 1 === 0 ? v.toFixed(0) : v.toFixed(2);
 };
+// 符号つき表示：マイナス値は「-20%」、プラス値は「+20%」（マイナス値に「+」を付けて「+-20%」にならないようにする）
+const fmtSigned = (v, unit = '%') => (typeof v === 'number' && v < 0 ? '-' + fmt(Math.abs(v)) : '+' + fmt(v)) + unit;
 
 // 単一条件の判定
 function matchSingleTarget(type, val, char, filledTeam, src) {
@@ -4123,7 +4125,7 @@ function buildCharCard(char, filledTeam) {
           else if(k === 'burstCT' || k === 'skillCT') valText = src.val < 0 ? `+${fmt(Math.abs(src.val))}秒` : `-${fmt(src.val)}秒`;
           else if(k === 'chargeSpdFixed' || k === 'envCtrC') valText = `-${fmt(src.val)}${u}`;
           else if(u === '持続')       valText = '持続';
-          else if(u !== '%')          valText = `+${fmt(src.val)}${u}`;
+          else if(u !== '%')          valText = fmtSigned(src.val, u);
           else if(src.val < 0)        valText = `-${fmt(Math.abs(src.val))}%`;
           else                        valText = `+${fmt(src.val)}%`;
           const hasCond = !!src.condLabel;
@@ -4196,7 +4198,7 @@ function buildCharCard(char, filledTeam) {
             if(DEBUFF_KEYS.has(k)) return u === '秒' ? `-${fmt(initVal)}秒` : `-${fmt(initVal)}%`;
             if(k === 'burstCT' || k === 'skillCT') return initVal < 0 ? `+${fmt(Math.abs(initVal))}秒` : `-${fmt(initVal)}秒`;
             if(k === 'chargeSpdFixed' || k === 'envCtrC') return `-${fmt(initVal)}${u}`;
-            if(u !== '%') return `+${fmt(initVal)}${u}`;
+            if(u !== '%') return fmtSigned(initVal, u);
             if(initVal < 0) return `-${fmt(Math.abs(initVal))}%`;
             return `+${fmt(initVal)}%`;
           })();
@@ -4306,8 +4308,8 @@ function buildCharCard(char, filledTeam) {
                   : casterU === '持続'
                     ? '持続'
                     : casterU !== '%'
-                      ? `+${fmt(casterInitVal)}${casterU}`
-                      : `+${fmt(casterInitVal)}%`;
+                      ? fmtSigned(casterInitVal, casterU)
+                      : fmtSigned(casterInitVal);
             const casterStackHtml = casterStackInfo ? (() => {
               const sliderId = `slider-${casterRowId}`;
               const stackValId = `stackval-${casterRowId}`;
@@ -7032,9 +7034,9 @@ function onStackSlider(slider) {
     const isCT = buffKey === 'burstCT' || buffKey === 'skillCT';
     const isDebuffKey = DEBUFF_KEYS.has(buffKey);
     if(isCT)              valEl.textContent = `-${fmt(newVal)}秒`;
-    else if(unit !== '%') valEl.textContent = `+${fmt(newVal)}${unit}`;
+    else if(unit !== '%') valEl.textContent = fmtSigned(newVal, unit);
     else if(isDebuffKey)  valEl.textContent = `-${fmt(newVal)}%`;
-    else                  valEl.textContent = `+${fmt(newVal)}%`;
+    else                  valEl.textContent = fmtSigned(newVal);
   }
 
   // 合計値再計算
@@ -7074,7 +7076,7 @@ function onStackSlider(slider) {
         linkedRow.dataset.val = linkedNewVal;
         linkedRow.dataset.prevStack = stack;
         const linkedValEl = linkedRow.querySelector('.buff-source-val');
-        if(linkedValEl) linkedValEl.textContent = '+' + fmt(linkedNewVal) + '%';
+        if(linkedValEl) linkedValEl.textContent = fmtSigned(linkedNewVal);
         recalcEntryTotal(linkedRow.dataset.entryid, linkedRow.dataset.buffkey);
       });
     }
@@ -7141,7 +7143,7 @@ function onStackSlider(slider) {
             const baseVal = parseFloat(childSlider.dataset.baseval);
             childRow.dataset.val = baseVal;
             const valEl = childRow.querySelector('.buff-source-val');
-            if(valEl) valEl.textContent = '+' + fmt(baseVal) + '%';
+            if(valEl) valEl.textContent = fmtSigned(baseVal);
             recalcEntryTotal(childSlider.dataset.entryid, childSlider.dataset.buffkey);
           }
           // 子stackKeyに紐づくstackLinkedKeyバフ行もOFF＋値を1スタック分にリセット
@@ -7154,7 +7156,7 @@ function onStackSlider(slider) {
               linkedRow.dataset.val = linkedBaseVal;
               linkedRow.dataset.prevStack = 1;
               const linkedValEl = linkedRow.querySelector('.buff-source-val');
-              if(linkedValEl) linkedValEl.textContent = '+' + fmt(linkedBaseVal) + '%';
+              if(linkedValEl) linkedValEl.textContent = fmtSigned(linkedBaseVal);
               recalcEntryTotal(linkedRow.dataset.entryid, linkedRow.dataset.buffkey);
             });
           }
@@ -7174,7 +7176,7 @@ function onStackSlider(slider) {
                 const gBaseVal = parseFloat(grandSlider.dataset.baseval);
                 grandRow.dataset.val = gBaseVal;
                 const gValEl = grandRow.querySelector('.buff-source-val');
-                if(gValEl) gValEl.textContent = '+' + fmt(gBaseVal) + '%';
+                if(gValEl) gValEl.textContent = fmtSigned(gBaseVal);
                 recalcEntryTotal(grandSlider.dataset.entryid, grandSlider.dataset.buffkey);
               }
               // 孫stackKeyに紐づくstackLinkedKeyバフ行もOFF
@@ -7188,7 +7190,7 @@ function onStackSlider(slider) {
                   linkedRow.dataset.val = linkedBaseVal;
                   linkedRow.dataset.prevStack = 1;
                   const linkedValEl = linkedRow.querySelector('.buff-source-val');
-                  if(linkedValEl) linkedValEl.textContent = '+' + fmt(linkedBaseVal) + '%';
+                  if(linkedValEl) linkedValEl.textContent = fmtSigned(linkedBaseVal);
                   recalcEntryTotal(linkedRow.dataset.entryid, linkedRow.dataset.buffkey);
                 });
               }
