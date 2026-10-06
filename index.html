@@ -2537,7 +2537,7 @@ function getCautionMessages(char, filledTeam) {
           (m.buffs.condParty||[]).some(e => {
             if(!healKeys.includes(e.key)) return false;
             // アニス：スターの「みんなの星」限定回復は、実際に他のB1がいる場合のみカウント
-            if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filledTeam.some(x => x && x.id !== m.id && x.burst === 1);
+            if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filledTeam.some(x => x && x.id !== m.id && isBaseB1(x));
             return true;
           }) ||
           Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k)) ||
@@ -2713,6 +2713,9 @@ let mollyMode = null;
 let laplaceUhMode = null;
 // バニーモード（スタンス/エンゲージ）：ギルティ：マイティバニー／シン：スウィフトバニー用。初期はスタンス。
 // 2体を同時に編成した場合は連動し、常に同じモードになる（片方を切り替えると相方も同じモードに切り替わる。基準はギルティ側）
+// 「基本バースト段階がⅠの味方」判定（図鑑表記上のバースト段階がⅠ）。全バースト段階対応のレッドフード(基本段階λ)は含めない。
+// ティア・アリス：ワンダーランドバニー（Ⅰ→Ⅰ再突入）は基本段階Ⅰなので含める。ラピ：レッドフードは基本段階Ⅲ。
+const isBaseB1 = c => !!c && c.burst === 1 && c.id !== 'redhood';
 let guiltyMbMode = null;
 let shinSbMode = null;
 function getBunnyModes() {
@@ -2912,7 +2915,7 @@ function breddyDetectAutoBuffs(filledTeam, breddyChar) {
   const effectiveCrustModeForBreddy = crustChar ? (crustMode !== null ? crustMode : 'meilard') : null;
   const anisChar = filledTeam.find(c => c.id === 'anisstar');
   const effectiveAnisModeForBreddy = anisChar
-    ? (anisStarMode !== null ? anisStarMode : (filledTeam.some(c => c.burst === 1 && c.id !== 'anisstar') ? 'team' : 'solo'))
+    ? (anisStarMode !== null ? anisStarMode : (filledTeam.some(c => isBaseB1(c) && c.id !== 'anisstar') ? 'team' : 'solo'))
     : null;
   const dieselWsChar = filledTeam.find(c => c.id === 'diesel_ws');
   const effectiveDieselWsModeForBreddy = dieselWsChar ? (dieselWsMode !== null ? dieselWsMode : 'intro') : null;
@@ -3246,7 +3249,7 @@ function renderBuffCards() {
         Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)) ||
         (m.buffs.condParty||[]).some(e => {
           if(!healKeys.includes(e.key)) return false;
-          if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filled.some(x => x && x.id !== m.id && x.burst === 1);
+          if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filled.some(x => x && x.id !== m.id && isBaseB1(x));
           return true;
         }) ||
         Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k)) ||
@@ -3261,7 +3264,7 @@ function renderBuffCards() {
         Object.keys({...(m.buffs.self||{}), ...(m.buffs.party||{})}).some(k => healKeys.includes(k)) ||
         (m.buffs.condParty||[]).some(e => {
           if(!healKeys.includes(e.key)) return false;
-          if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filled.some(x => x && x.id !== m.id && x.burst === 1);
+          if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filled.some(x => x && x.id !== m.id && isBaseB1(x));
           return true;
         }) ||
         Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k))
@@ -3532,7 +3535,7 @@ function buildCharCard(char, filledTeam) {
   const effectiveRapiMode = (() => {
     if(!rapiChar) return null;
     if(rapiSupMode !== null) return rapiSupMode;
-    const hasB1 = filledTeam.some(c => c.burst === 1);
+    const hasB1 = filledTeam.some(c => isBaseB1(c));
     return hasB1 ? 'normal' : 'support';
   })();
 
@@ -3542,7 +3545,7 @@ function buildCharCard(char, filledTeam) {
   const effectiveAnisMode = (() => {
     if(!anisChar) return null;
     if(anisStarMode !== null) return anisStarMode;
-    const hasOtherB1 = filledTeam.some(c => c.burst === 1 && c.id !== 'anisstar');
+    const hasOtherB1 = filledTeam.some(c => isBaseB1(c) && c.id !== 'anisstar');
     return hasOtherB1 ? 'team' : 'solo';
   })();
 
@@ -4456,12 +4459,12 @@ function buildCharCard(char, filledTeam) {
   // モードに応じてヘッダー背景画像を選択（ラピ・アニスはcardBgAltを切替）
   const activeBg = (() => {
     if(char.id === 'rapi_rh' && char.cardBgAlt) {
-      const hasB1 = filledTeam.some(c => c.burst === 1);
+      const hasB1 = filledTeam.some(c => isBaseB1(c));
       const mode = rapiSupMode !== null ? rapiSupMode : (hasB1 ? 'normal' : 'support');
       return mode === 'support' ? char.cardBgAlt : char.cardBg;
     }
     if(char.id === 'anisstar' && char.cardBgAlt) {
-      const hasOtherB1 = filledTeam.some(c => c.burst === 1 && c.id !== 'anisstar');
+      const hasOtherB1 = filledTeam.some(c => isBaseB1(c) && c.id !== 'anisstar');
       const mode = anisStarMode !== null ? anisStarMode : (hasOtherB1 ? 'team' : 'solo');
       return mode === 'team' ? char.cardBgAlt : char.cardBg;
     }
@@ -5884,7 +5887,7 @@ function toggleRapiMode(e) {
   sig.dataset.switching = '1';
 
   const filledTeam = TEAM.filter(Boolean);
-  const hasB1 = filledTeam.some(c => c.burst === 1);
+  const hasB1 = filledTeam.some(c => isBaseB1(c));
   const current = rapiSupMode !== null ? rapiSupMode : (hasB1 ? 'normal' : 'support');
   const nextMode = current === 'support' ? 'normal' : 'support';
 
@@ -5917,7 +5920,7 @@ function toggleAnisStarMode(e) {
   sig.dataset.switching = '1';
 
   const filledTeam = TEAM.filter(Boolean);
-  const hasOtherB1 = filledTeam.some(c => c.burst === 1 && c.id !== 'anisstar');
+  const hasOtherB1 = filledTeam.some(c => isBaseB1(c) && c.id !== 'anisstar');
   const current = anisStarMode !== null ? anisStarMode : (hasOtherB1 ? 'team' : 'solo');
   const nextMode = current === 'solo' ? 'team' : 'solo';
 
@@ -6448,7 +6451,7 @@ function checkModeChangeAndRender() {
   // ラピのモード変化チェック
   const rapiInTeam = filled.find(c => c.id === 'rapi_rh');
   if(rapiInTeam) {
-    const hasB1 = filled.some(c => c.burst === 1);
+    const hasB1 = filled.some(c => isBaseB1(c));
     const autoMode = hasB1 ? 'normal' : 'support';
     const prevMode = rapiInTeam._lastMode;
     // _lastModeが未設定（初回編成）は即セットのみ・エフェクトなし
@@ -6468,7 +6471,7 @@ function checkModeChangeAndRender() {
   // アニスのモード変化チェック
   const anisInTeam = filled.find(c => c.id === 'anisstar');
   if(anisInTeam) {
-    const hasOtherB1 = filled.some(c => c.burst === 1 && c.id !== 'anisstar');
+    const hasOtherB1 = filled.some(c => isBaseB1(c) && c.id !== 'anisstar');
     const autoMode = hasOtherB1 ? 'team' : 'solo';
     const prevMode = anisInTeam._lastMode;
     if(prevMode === undefined) {
