@@ -2449,10 +2449,10 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m !== char && m.weapon === 'rl');
         break;
       }
-      case 'noPartyHeal': {
-        // 自分以外に「味方全体への回復」を持つニケがいない場合に発動（ネロ用）。
-        // ネロS1のtarget:hasPartyHealと同じ判定＝HP回復均等分配(healShare)のみ・自己回復のみのニケは対象外
-        triggered = !filledTeam.some(m => m && m !== char && matchSingleTarget('hasPartyHeal', null, m, filledTeam, char));
+      case 'noHealToSelf': {
+        // 自分に回復を与えうるニケがいない場合に発動（ネロ用）。ネロS1のtarget:healsSrcと同じ判定（canHealTarget）＝
+        // HP回復均等分配(healShare)のみ・自己回復のみ・ネロが対象に当てはまらない限定回復のニケは数えない
+        triggered = !filledTeam.some(m => m && canHealTarget(m, char, filledTeam));
         break;
       }
       case 'noWaterElem': {
@@ -2859,6 +2859,30 @@ const fmt = v => {
 // 符号つき表示：マイナス値は「-20%」、プラス値は「+20%」（マイナス値に「+」を付けて「+-20%」にならないようにする）
 const fmtSigned = (v, unit = '%') => (typeof v === 'number' && v < 0 ? '-' + fmt(Math.abs(v)) : '+' + fmt(v)) + unit;
 
+// 「healerの回復が、targetに適用されうるか」判定（ネロS1「回復効果が適用されると」用）
+// 数える：味方全体の回復／条件を満たす条件付き回復／対象に当てはまる限定回復（動的な選択＝HP最低・攻撃力最高などは対象になりうるため数える）／デルタの救急キット
+// 数えない：自己回復のみ（selfブロック）・HP回復均等分配(healShare)・対象にtargetが当てはまらない限定回復
+const HEAL_EFFECT_KEYS = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
+function canHealTarget(healer, target, filledTeam) {
+  if(!healer || !target || healer === target) return false;
+  const b = healer.buffs || {};
+  if(Object.keys(b.party || {}).some(k => HEAL_EFFECT_KEYS.includes(k))) return true;
+  if((b.condParty || []).some(e => {
+    if(!HEAL_EFFECT_KEYS.includes(e.key)) return false;
+    // アニス：スターの「みんなの星」限定回復は、実際に他のB1がいる場合のみ
+    if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filledTeam.some(x => x && x.id !== healer.id && isBaseB1(x));
+    // アンカー：イノセントメイドの「イージス味方在籍時」の回復は、イージス部隊の味方がいる場合のみ
+    if(e.condition === 'noIegisSquad') return filledTeam.some(x => x && x.id !== healer.id && x.squad === 'イージス');
+    return true;
+  })) return true;
+  if(Object.entries(b.targeted || {}).some(([k, v]) => {
+    if(!HEAL_EFFECT_KEYS.includes(k) || !v || typeof v !== 'object') return false;
+    if(!v.target) return true;
+    return matchTarget(v.target, target, filledTeam, healer);
+  })) return true;
+  return !!(b.self && b.self.medkit);
+}
+
 // 単一条件の判定
 function matchSingleTarget(type, val, char, filledTeam, src) {
   switch(type) {
@@ -2885,10 +2909,9 @@ function matchSingleTarget(type, val, char, filledTeam, src) {
       if(srcIdx === -1 || charIdx === -1) return false;
       return Math.abs(srcIdx - charIdx) === 1;
     }
-    case 'hasPartyHeal': {
-      // party（全体）対象の回復バフを持つキャラのみ（self限定・healShareは対象外）
-      const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
-      return Object.keys(char.buffs.party || {}).some(k => healKeys.includes(k));
+    case 'healsSrc': {
+      // srcに回復を与えうるキャラ（canHealTarget参照）。ネロS1の「回復してくれたニケ本人」の対象判定
+      return canHealTarget(char, src, filledTeam);
     }
     default: return true;
   }
@@ -3257,6 +3280,11 @@ function renderBuffCards() {
         Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k)) ||
         !!(m.buffs.self && m.buffs.self.medkit)
       ));
+    }
+    if(cond === 'healToSelf') {
+      // 自分（バフの持ち主）に回復を与えうるニケがいなければ非表示（ネロS1の8.43%・ネコの恩返しスタック）
+      const srcChar = filled.find(m => m && m.id === row.dataset.srcCharId);
+      hide = !srcChar || !filled.some(m => m && canHealTarget(m, srcChar, filled));
     }
     if(cond === 'hasSelfHealer') {
       // 自己回復（self）or 全体回復（party/condParty/targeted）どちらかを持っていれば「自分が回復を受けた」に該当（healShareは対象外）

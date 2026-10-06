@@ -9679,7 +9679,7 @@
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/nero_slot.jpg",
     "caution": [
       {
-        "condition": "noPartyHeal",
+        "condition": "noHealToSelf",
         "message": "HP回復を所有するニケが編成されていません"
       }
     ],
@@ -9688,8 +9688,8 @@
       "self": {
         "dmgReduce": {
           "val": 8.43,
-          "condLabel": "S1・味方が回復効果を発動した時・5秒間維持",
-          "cautionCondition": "hasHealer",
+          "condLabel": "S1・ネロに回復効果が適用された時・5秒間維持",
+          "cautionCondition": "healToSelf",
           "stack": {
             "key": "catFavorNero",
             "max": 5,
@@ -9717,8 +9717,8 @@
       "targeted": {
         "dmgReduce": {
           "val": 14.14,
-          "target": "hasPartyHeal",
-          "condLabel": "S1・味方が回復効果を発動した時・発動した回復バフ持ち本人が対象・5秒間維持",
+          "target": "healsSrc",
+          "condLabel": "S1・ネロに回復効果が適用された時・回復してくれたニケ本人が対象・5秒間維持",
           "suppressTargetLabel": true
         }
       },
@@ -9747,7 +9747,7 @@
         }
       ]
     },
-    "note": "S1（パッシブ）：回復効果が発動した時（編成内のニケが回復を発動した時）、その発動した回復バフ持ち本人に受けるダメージ14.14%ダウン（5秒間維持、targetedブロック・target:hasPartyHeal（party回復キー保有者のみに絞り込み）で本人カードにのみ表示）＋自分に受けるダメージ8.43%ダウン（5秒間維持）＋「ネコの恩返し」1スタック（最大5、self.dmgReduceにstack.key:catFavorNeroで付与）。表示条件はcautionCondition:hasHealer（partyブロックのheal系キー保有者チェック、self回復のみ・healShareは対象外）。恩返しスタックスライダーは持続回復／フルチャージ回復等の区別はせず、party回復バフ持ちが編成にいれば常に1〜5可変（ゆりまん指示により簡略化）。S2（パッシブ）：撃たれた時30%の確率で対象（撃った敵）に受けるダメージ8.26%UP（5秒間維持、condParty・enemyDmgTaken）。撃たれた時30%の確率で、自分が【大きくて乱暴なネコ】状態なら対象に発動者基準の最終攻撃力158.05%のダメージ（otherブロック・条件文のみ、状態のリアルタイム判定はしない）。戦闘開始時、自分に発動者基準の最大HP60.28%UP（持続）。BS（CT20秒）：HPが最も高い敵1機に発動者基準の最終攻撃力1104.91%のダメージ。自分に【ヘイト】敵全体を挑発（15秒間維持）。自分がネコの恩返しのフルスタック状態なら、自分に【大きくて乱暴なネコ】受けるHP回復量60.08%UP（15秒間維持、fullStackOnly・fullStackRef:catFavorNeroで恩返しスタックに連動）。index.html側：partyブロックのaddBuff呼び出しでcautionCondition/srcCharIdが渡っていなかった不具合を修正済み。matchSingleTargetにhasPartyHealターゲットタイプを新規追加（party回復キー保有者のみに一致）。 CAUTION：新規条件noPartyHeal（自分以外に味方全体への回復を持つニケがPT内にいない時に警告。S1の対象と同じhasPartyHeal判定のため、HP回復均等分配(healShare)のみ・自己回復のみのニケ(ナユタ・レム等)は回復持ちとして数えず、それらだけの編成では警告が出る）。"
+    "note": "S1（パッシブ）：回復効果が発動した時（編成内のニケが回復を発動した時）、その発動した回復バフ持ち本人に受けるダメージ14.14%ダウン（5秒間維持、targetedブロック・target:hasPartyHeal（party回復キー保有者のみに絞り込み）で本人カードにのみ表示）＋自分に受けるダメージ8.43%ダウン（5秒間維持）＋「ネコの恩返し」1スタック（最大5、self.dmgReduceにstack.key:catFavorNeroで付与）。表示条件はcautionCondition:hasHealer（partyブロックのheal系キー保有者チェック、self回復のみ・healShareは対象外）。恩返しスタックスライダーは持続回復／フルチャージ回復等の区別はせず、party回復バフ持ちが編成にいれば常に1〜5可変（ゆりまん指示により簡略化）。S2（パッシブ）：撃たれた時30%の確率で対象（撃った敵）に受けるダメージ8.26%UP（5秒間維持、condParty・enemyDmgTaken）。撃たれた時30%の確率で、自分が【大きくて乱暴なネコ】状態なら対象に発動者基準の最終攻撃力158.05%のダメージ（otherブロック・条件文のみ、状態のリアルタイム判定はしない）。戦闘開始時、自分に発動者基準の最大HP60.28%UP（持続）。BS（CT20秒）：HPが最も高い敵1機に発動者基準の最終攻撃力1104.91%のダメージ。自分に【ヘイト】敵全体を挑発（15秒間維持）。自分がネコの恩返しのフルスタック状態なら、自分に【大きくて乱暴なネコ】受けるHP回復量60.08%UP（15秒間維持、fullStackOnly・fullStackRef:catFavorNeroで恩返しスタックに連動）。index.html側：partyブロックのaddBuff呼び出しでcautionCondition/srcCharIdが渡っていなかった不具合を修正済み。matchSingleTargetにhasPartyHealターゲットタイプを新規追加（party回復キー保有者のみに一致）。 CAUTION：新規条件noPartyHeal（自分以外に味方全体への回復を持つニケがPT内にいない時に警告。S1の対象と同じhasPartyHeal判定のため、HP回復均等分配(healShare)のみ・自己回復のみのニケ(ナユタ・レム等)は回復持ちとして数えず、それらだけの編成では警告が出る）。 【2026-10-06改訂】回復効果の判定を、ネロに回復が適用されうるか（canHealTarget）に統一：味方全体の回復・条件を満たす条件付き回復（アニス：スターは他にB1がいる時、アンカーはイージス味方在籍時）・対象にネロが当てはまる限定回復（動的な選択＝HP最低/攻撃力最高/防御力最高などは対象になりうるため数える、ビスケットS2＝自分以外の防御型は対象、フローラ＝両隣は隣にいる時のみ）・デルタの救急キットを数え、自己回復のみ・HP回復均等分配（ナユタ・レム）・ネロが当てはまらない限定回復（エイダ＝B3限定、エヌ＝支援型/火力型限定、ビスケットS1/BS＝火力型/支援型限定）は数えない。S1の14.14%（targeted.dmgReduce・target:healsSrc＝新ターゲットタイプ、旧hasPartyHeal）・8.43%の行の表示（cautionCondition:healToSelf）・CAUTION（noHealToSelf、旧noPartyHeal）の3つを同じ判定に統一。"
   },
   {
     "id": "nihilister",
