@@ -2081,7 +2081,7 @@ const BUFF_LABELS = {
   piercingAtk:'通常攻撃防御無視化',
   normalDmgIgnoreDef:'通常ダメ防御無視化',
   explodeRangeB:'爆発範囲',
-  elemAdv:  '有利属性適用',
+  elemAdv:  '有利コード適用',
   grenadeCD:'粘着榴弾発動条件緩和',
   distDmg:  '分配ダメ',
   reload:   'リロード速度',
@@ -2109,8 +2109,8 @@ const BUFF_LABELS = {
   dmgShareDiffShelter: '遮蔽被ダメ偏差分配',
   barrier:      'バリア',
   barrierShared:'共用バリア',
-  shelter:  '遮蔽HP回復',
-  shelterHpUp: '遮蔽物HP増加',
+  shelter:  '遮蔽物HP回復',
+  shelterHpUp: '遮蔽物最大HP',
   shelterRevive: '遮蔽物復活',
   invincible:'無敵',
   barrierInvincible:'バリア無敵',
@@ -3719,7 +3719,7 @@ function buildCharCard(char, filledTeam) {
       if(src.id === 'crust' && typeof v === 'object' && v !== null && v.crustMeilardOnly && effectiveCrustMode !== 'meilard') return;
       if(src.id === 'crust' && typeof v === 'object' && v !== null && v.crustBranchingOnly && effectiveCrustMode !== 'branching') return;
       if(typeof v === 'object' && v !== null && 'val' in v) {
-        addBuff(k, v.val, src.name, 'party', v.condLabel || '', v.unit, v.stack || null, v.caster || false, v.defaultOff || false, v.showCond || false, v.exclusiveGroup || null, v.syncGroup || null, v.fullStackOnly || false, v.fullStackRef || null, v.cautionCondition || null, src.id, null, null, null, v.hpBased || false, null, null, null, v.belowFullStackOnly || false, v.belowFullStackRef || null);
+        addBuff(k, v.val, src.name, 'party', v.condLabel || '', v.unit, v.stack || null, v.caster || false, (v.defaultOff || (v.defaultOffWithSrc && TEAM.some(m => m && m.id === v.defaultOffWithSrc)) || false), v.showCond || false, v.exclusiveGroup || null, v.syncGroup || null, v.fullStackOnly || false, v.fullStackRef || null, v.cautionCondition || null, src.id, null, null, null, v.hpBased || false, null, null, null, v.belowFullStackOnly || false, v.belowFullStackRef || null);
       } else {
         addBuff(k, v, src.name, 'party', '');
       }
