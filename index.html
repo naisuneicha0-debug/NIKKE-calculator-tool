@@ -2531,18 +2531,8 @@ function getCautionMessages(char, filledTeam) {
         break;
       }
       case 'hasHealer': {
-        const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
-        triggered = filledTeam.some(m => m && m !== char && (
-          Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)) ||
-          (m.buffs.condParty||[]).some(e => {
-            if(!healKeys.includes(e.key)) return false;
-            // アニス：スターの「みんなの星」限定回復は、実際に他のB1がいる場合のみカウント
-            if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filledTeam.some(x => x && x.id !== m.id && isBaseB1(x));
-            return true;
-          }) ||
-          Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k)) ||
-          !!(m.buffs.self && m.buffs.self.medkit) // デルタ：ニンジャシーフの忍法救急キットは自己ブロックだが実質味方全体還元
-        ));
+        // 自分以外の回復が自分に届く場合（シラツル用）。canHealTargetで判定
+        triggered = filledTeam.some(m => m && canHealTarget(m, char, filledTeam));
         break;
       }
       case 'hasEmma': {
@@ -3268,18 +3258,9 @@ function renderBuffCards() {
       hide = !filled.some(m => m && m.id !== srcCharId && m.burst === 3 && m.personaUser);
     }
     if(cond === 'hasHealer') {
-      const srcCharId = row.dataset.srcCharId;
-      const healKeys = ['heal', 'healB', 'healOverTime', 'lifesteal', 'medkit', 'healHelm'];
-      hide = !filled.some(m => m && m.id !== srcCharId && (
-        Object.keys(m.buffs.party||{}).some(k => healKeys.includes(k)) ||
-        (m.buffs.condParty||[]).some(e => {
-          if(!healKeys.includes(e.key)) return false;
-          if(e.anisMode === 'team') return anisStarMode !== null ? anisStarMode === 'team' : filled.some(x => x && x.id !== m.id && isBaseB1(x));
-          return true;
-        }) ||
-        Object.keys(m.buffs.targeted||{}).some(k => healKeys.includes(k)) ||
-        !!(m.buffs.self && m.buffs.self.medkit)
-      ));
+      // シラツル：自分以外の回復が自分に届かなければ非表示
+      const srcChar = filled.find(m => m && m.id === row.dataset.srcCharId);
+      hide = !srcChar || !filled.some(m => m && canHealTarget(m, srcChar, filled));
     }
     if(cond === 'healToSelf') {
       // 自分（バフの持ち主）に回復を与えうるニケがいなければ非表示（ネロS1の8.43%・ネコの恩返しスタック）
