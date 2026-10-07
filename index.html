@@ -3140,6 +3140,9 @@ function renderBuffCards() {
     ? `<div class="fb-warn">⚠ B${missingBursts.join(' / B')}が不足しています — フルバーストできません</div>`
     : '';
 
+  // 描画前のカード画像（＝モード）を記録。描画後に変わっていたら切替演出を流す（自動切替・連動切替も含む）
+  const prevModeBgs = snapshotModeBgs();
+
   const cards = filled.map(char => buildCharCard(char, filled, TEAM)).join('');
 
   cont.innerHTML = `<div class="buff-cards">${cards}</div>${fbWarn}`;
@@ -3463,6 +3466,45 @@ function renderBuffCards() {
     const entryId = totalEl.id.slice('total-'.length);
     const m = entryId.match(/^.+?-(?:ATTACK|CONTROL|SURVIVAL|ENEMY)-([A-Za-z0-9_]+)/);
     if(m) recalcEntryTotal(entryId, m[1]);
+  });
+
+  // モードが自動で変わった（編成変化・連動など）カードにも切替演出を流す
+  playAutoModeSwitchBursts(prevModeBgs);
+}
+
+// ===== モード自動切替の演出 =====
+// カードのヘッダー画像（data-mode-bg）が描画の前後で変わったキャラ＝モードが切り替わったキャラ
+function snapshotModeBgs() {
+  const snap = {};
+  document.querySelectorAll('.char-card-header[data-mode-bg]').forEach(h => {
+    const cardId = h.id.replace(/^header-/, '');
+    const sig = document.getElementById('signal-' + cardId);
+    snap[cardId] = {
+      bg: h.dataset.modeBg,
+      hdr: h.style.backgroundImage,
+      sig: sig ? sig.style.backgroundImage : '',
+      busy: !!(sig && sig.dataset.switching === '1') // 自前のトグル演出中は二重に流さない
+    };
+  });
+  return snap;
+}
+function playAutoModeSwitchBursts(prevSnap) {
+  document.querySelectorAll('.char-card-header[data-mode-bg]').forEach(h => {
+    const cardId = h.id.replace(/^header-/, '');
+    const prev = prevSnap[cardId];
+    if(!prev || prev.busy || !h.dataset.modeBg || prev.bg === h.dataset.modeBg) return;
+    const sig = document.getElementById('signal-' + cardId);
+    if(!sig || sig.dataset.switching === '1') return;
+    sig.dataset.switching = '1';
+    const nextHdr = h.style.backgroundImage, nextSig = sig.style.backgroundImage;
+    // 描画済みの新画像をいったん旧画像に戻し、演出の中盤で新画像に切り替える
+    h.style.backgroundImage = prev.hdr;
+    sig.style.backgroundImage = prev.sig;
+    fireSignalBurst(cardId, h.dataset.modeBg, () => {
+      const h2 = document.getElementById('header-' + cardId), s2 = document.getElementById('signal-' + cardId);
+      if(h2) h2.style.backgroundImage = nextHdr;
+      if(s2) { s2.style.backgroundImage = nextSig; delete s2.dataset.switching; }
+    });
   });
 }
 
@@ -5046,7 +5088,7 @@ function buildCharCard(char, filledTeam) {
 
   return `
     <div class="char-card" id="${cardId}" data-char-id="${char.id}">
-      <div class="char-card-header${cautionMessages.length > 0 ? ' caution-stripes' : ''}" id="header-${cardId}" data-has-caution="${cautionMessages.length > 0 ? '1' : '0'}" onclick="scanTap(event,'${cardId}')" style="cursor:pointer;${headerBgStyle}">
+      <div class="char-card-header${cautionMessages.length > 0 ? ' caution-stripes' : ''}" id="header-${cardId}" data-mode-bg="${activeBg || ''}" data-has-caution="${cautionMessages.length > 0 ? '1' : '0'}" onclick="scanTap(event,'${cardId}')" style="cursor:pointer;${headerBgStyle}">
         ${cautionMessages.length > 0 ? `<div class="caution-stripes-belt" id="caution-belt-${cardId}"></div>` : ''}
         ${headerOverlay}
         <div class="crt-vignette"></div>
@@ -6366,6 +6408,17 @@ function toggleBunnyMode(e, charId) {
   const bunnyCharData = NIKKE_DB.find(c => c.id === charId);
   const nextImgUrl = bunnyCharData && (nextMode === 'engage' ? (bunnyCharData.cardBgAlt || bunnyCharData.cardBg) : bunnyCharData.cardBg);
 
+  // 連動する相方（同時編成時）にも同じ演出を同時に流す。切替自体は下の1回の再描画でまとめて反映される
+  const partnerId = charId === 'guilty_mb' ? 'shin_sb' : 'guilty_mb';
+  const partnerSig = document.getElementById('signal-card-' + partnerId);
+  const partnerData = NIKKE_DB.find(c => c.id === partnerId);
+  const partnerLinked = !!partnerSig && partnerSig.dataset.switching !== '1' && !!partnerData && TEAM.some(m => m && m.id === partnerId);
+  if(partnerLinked) {
+    partnerSig.dataset.switching = '1';
+    const partnerNextImg = nextMode === 'engage' ? (partnerData.cardBgAlt || partnerData.cardBg) : partnerData.cardBg;
+    fireSignalBurst('card-' + partnerId, partnerNextImg, () => {});
+  }
+
   fireSignalBurst('card-' + charId, nextImgUrl, () => {
     setBunnyMode(charId, nextMode);
     renderBuffCards();
@@ -6374,6 +6427,8 @@ function toggleBunnyMode(e, charId) {
     Object.entries(arrowStates).forEach(([id, transform]) => { const el=document.getElementById(id); if(el) el.style.transform=transform; });
     const s = document.getElementById('signal-card-' + charId);
     if(s) delete s.dataset.switching;
+    const ps = document.getElementById('signal-card-' + partnerId);
+    if(ps) delete ps.dataset.switching;
   });
 }
 
@@ -6463,7 +6518,7 @@ function fireSignalBurst(cardId, nextImgUrl, onDone) {
 }
 
 // ===== MODE AUTO CHANGE =====
-// 編成変更時にラピ・アニスのモードが変化する場合、エフェクトを発火してから切り替える
+// 編成変更時にラピ・アニスの自動モードが変化する場合の状態更新（手動指定の解除）。演出は描画側で流れる
 function checkModeChangeAndRender() {
   const filled = TEAM.filter(Boolean);
   const tasks = []; // { charId, nextImgUrl, onSwitch }
@@ -6505,33 +6560,10 @@ function checkModeChangeAndRender() {
     }
   }
 
-  // まずスロットを即座に再描画（スロットが空いたことをトリガーにする）
+  // モード状態を先に確定してから1回だけ再描画する。
+  // カード画像が変わったキャラには renderBuffCards 側（playAutoModeSwitchBursts）が切替演出を流す
+  tasks.forEach(task => task.onSwitch());
   renderSlots();
-
-  if(tasks.length === 0) return;
-
-  // モード変化あり → スロット再描画後にエフェクト発火＆モード切替
-  const bodyStates = {}, arrowStates = {};
-  document.querySelectorAll('[id^="body-card-"]').forEach(el => { bodyStates[el.id]  = el.style.display; });
-  document.querySelectorAll('[id^="arrow-card-"]').forEach(el => { arrowStates[el.id] = el.style.transform; });
-
-  tasks.forEach(task => {
-    const sig = document.getElementById('signal-card-' + task.charId);
-    if(!sig || sig.dataset.switching === '1') {
-      task.onSwitch();
-      renderSlots();
-      return;
-    }
-    sig.dataset.switching = '1';
-    fireSignalBurst('card-' + task.charId, task.nextImg, () => {
-      task.onSwitch();
-      renderSlots();
-      Object.entries(bodyStates).forEach(([id, d]) => { const e=document.getElementById(id); if(e) e.style.display=d; });
-      Object.entries(arrowStates).forEach(([id, t]) => { const e=document.getElementById(id); if(e) e.style.transform=t; });
-      const s = document.getElementById('signal-card-' + task.charId);
-      if(s) delete s.dataset.switching;
-    });
-  });
 }
 
 // ===== TEAM OPS =====
