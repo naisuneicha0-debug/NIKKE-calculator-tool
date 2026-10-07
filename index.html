@@ -841,6 +841,7 @@
   .buff-entry-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
   .buff-entry-label { font-size: 16px; color: var(--text); flex-shrink: 0; }
   .stack-star {
+    --c: #7dd3fc;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -848,16 +849,17 @@
     width: 16px;
     height: 16px;
     font-size: 12px;
-    color: #7dd3fc;
+    color: var(--c);
     margin-left: 5px;
     vertical-align: middle;
     top: -2px; /* ✦の字形が下寄りなので、ラベル文字の中心に合わせて少し上げる */
     flex-shrink: 0;
   }
+  .stack-star.neg { --c: #ff3c6e; } /* マイナス（デバフ）のスタックは赤 */
   .stack-star::after {
     content: '\2726';
     font-size: 12px;
-    color: #7dd3fc;
+    color: var(--c);
     position: relative;
     z-index: 1;
   }
@@ -865,10 +867,20 @@
     content: '\2726';
     position: absolute;
     font-size: 12px;
-    color: #7dd3fc;
+    color: var(--c);
     animation: stack-ripple 2s ease-out infinite;
     pointer-events: none;
   }
+  /* スタックが最大になった瞬間：白く強く光ってから落ち着く（1回だけ） */
+  .stack-star.flash::after { animation: stack-neon-flash .9s ease-out; }
+  @keyframes stack-neon-flash {
+    0%   { color: var(--c); filter: none; transform: scale(1); }
+    15%  { color: #fff; filter: drop-shadow(0 0 4px #fff) drop-shadow(0 0 14px var(--c)) drop-shadow(0 0 24px var(--c)); transform: scale(1.7); }
+    100% { color: var(--c); filter: drop-shadow(0 0 5px var(--c)) drop-shadow(0 0 10px var(--c)); transform: scale(1.1); }
+  }
+  /* スタックが最大のまま：ネオンのように光り続ける（波紋は少し速く） */
+  .stack-star.is-max::after { filter: drop-shadow(0 0 5px var(--c)) drop-shadow(0 0 10px var(--c)); transform: scale(1.1); }
+  .stack-star.is-max::before { animation-duration: 1.1s; }
   @keyframes stack-ripple {
     0%   { transform: scale(1); opacity: 0.8; }
     100% { transform: scale(2.4); opacity: 0; }
@@ -1906,7 +1918,7 @@
         </div>
         <div class="help-modal-page" data-page="1">
           ・各バフにはON/OFF機能があります。ステータスを考慮していない為、ゲーム内実数値及び想定した状況によって切り替えて下さい。<br><br>
-          ・バフ右側に表示される<span class="stack-star"></span>はスタック数を調整する為のスライダーがある事を指します。スタック数に応じて表示されるバフも存在します。<br><br>
+          ・バフ右側に表示される<span class="stack-star"></span>はスタック数を調整する為のスライダーがある事を指します。スタック数に応じて表示されるバフも存在します。スタックが最大になると<span class="stack-star is-max"></span>が光り続け、マイナス効果のスタックは<span class="stack-star neg"></span>赤色で表示されます。<br><br>
           ・<span style="display:inline-block;width:120px;height:16px;vertical-align:middle;margin:0 4px;overflow:hidden;border-radius:3px;">
             <div class="caution-belt" style="width:200px;height:26px;transform:scale(0.6);transform-origin:top left;">
               <div class="caution-ticker-wrap"><div class="caution-ticker">
@@ -3592,6 +3604,31 @@ function targetLabelComplex(target) {
   return targetLabel(target);
 }
 
+// スタック調整つきバフ名の横の✦。マイナス（デバフ）のスタックは赤、最初から最大なら光った状態で出す
+function stackStarSpan(srcs, buffKey) {
+  const stackSrcs = srcs.filter(x => x.stack && x.stack.max);
+  const neg = DEBUFF_KEYS.has(buffKey) || stackSrcs.some(x => typeof x.val === 'number' && x.val < 0);
+  const full = stackSrcs.some(x => !x.stack.silence && x.stack.max > 1 && (x.stack.default || 1) >= x.stack.max);
+  return `<span class="stack-star${neg ? ' neg' : ''}${full ? ' is-max' : ''}"></span>`;
+}
+// スタックスライダーの最大判定を✦に反映する。最大になった瞬間（animate=true）だけ1回光らせる
+function refreshStackStars(scope, animate) {
+  (scope || document).querySelectorAll('.buff-entry').forEach(entry => {
+    const star = entry.querySelector('.stack-star');
+    if(!star) return;
+    const atMax = Array.from(entry.querySelectorAll('.stack-slider')).some(sl =>
+      sl.dataset.silence !== '1' && parseInt(sl.max) > 1 && parseInt(sl.value) === parseInt(sl.max));
+    const was = star.classList.contains('is-max');
+    star.classList.toggle('is-max', atMax);
+    if(animate && atMax && !was) {
+      star.classList.remove('flash');
+      void star.offsetWidth;
+      star.classList.add('flash');
+      setTimeout(() => star.classList.remove('flash'), 1000);
+    }
+  });
+}
+
 function buildCharCard(char, filledTeam) {
   // ===== ラピ：レッドフード 戦闘補助モード判定 =====
   // rapiSupMode が null の場合はPT内のB1有無で自動判定
@@ -4296,7 +4333,7 @@ function buildCharCard(char, filledTeam) {
         const entryId = `${char.id}-${catName}-${k}`;
         const totalSpanId = `total-${entryId}`;
         const hasStackSlider = normalSrcs.some(s => s.stack && s.stack.max);
-        const stackStarHtml = hasStackSlider ? '<span class="stack-star"></span>' : '';
+        const stackStarHtml = hasStackSlider ? stackStarSpan(normalSrcs, k) : '';
         bodyHtml += `
           <div class="buff-entry" data-cat="${char.id}-${catName}" onclick="toggleBuffEntry('${entryId}','${catToggleId}')" style="cursor:pointer;">
             <div class="buff-entry-header">
@@ -4410,7 +4447,7 @@ function buildCharCard(char, filledTeam) {
 
           const casterEntryIdLocal = `${char.id}-${catName}-${k}-caster-${charName}`;
           const casterHasStack = charSrcs.some(s => s.stack && s.stack.max);
-          const casterStackStarHtml = casterHasStack ? '<span class="stack-star"></span>' : '';
+          const casterStackStarHtml = casterHasStack ? stackStarSpan(charSrcs, k) : '';
           bodyHtml += `
             <div class="buff-entry" data-cat="${char.id}-${catName}" onclick="toggleBuffEntry('${casterEntryIdLocal}','${catToggleId}')" style="cursor:pointer;">
               <div class="buff-entry-header">
@@ -7339,6 +7376,8 @@ function onStackSlider(slider) {
     }
   }
   }
+  // ✦の最大判定（子スライダーのリセットや連動も済んだ後に反映）
+  refreshStackStars(slider.closest('.char-card'), true);
 }
 
 function toggleCond(cardId) {
