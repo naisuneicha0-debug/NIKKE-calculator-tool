@@ -4027,7 +4027,7 @@ function buildCharCard(char, filledTeam) {
         if(entry.excludeSelf && char === src) return;
         // silenceOnly: 騒音公害時のみ有効 → defaultOff=trueで追加してスライダー連動
         const isDefaultOff = !!(entry.defaultOff || entry.silenceOnly);
-        addBuff(key, val, src.name, 'party', condLabel, unit, entry.stack || null, entry.caster || false, isDefaultOff, false, entry.exclusiveGroup || null, entry.syncGroup || null, false, null, (condition === 'noIegisSquad' || condition === 'noAbsoluteSquad' || condition === 'no777Squad' || condition === 'hasEmma' || condition === 'hasUnfa') ? condition : null, src.id);
+        addBuff(key, val, src.name, 'party', condLabel, unit, entry.stack || null, entry.caster || false, isDefaultOff, true, entry.exclusiveGroup || null, entry.syncGroup || null, false, null, (condition === 'noIegisSquad' || condition === 'noAbsoluteSquad' || condition === 'no777Squad' || condition === 'hasEmma' || condition === 'hasUnfa') ? condition : null, src.id);
       }
     });
   });
@@ -4238,8 +4238,8 @@ function buildCharCard(char, filledTeam) {
           else if(src.val < 0)        valText = `-${fmt(Math.abs(src.val))}%`;
           else                        valText = `+${fmt(src.val)}%`;
           const hasCond = !!src.condLabel;
-          // self → 常に「自己」タグ、condLabelあり → さらに「条件付」追加
-          // party/targeted → 従来通り
+          // 「条件付」の付け方（2026-10-07確定）：状態・HP・編成などの追加条件がある行だけ（データのshowCond＝true）。
+          // 発動タイミング（FB発動時・通常攻撃N回命中時など）は条件に含めない。対象限定（targeted）は常に条件付、condPartyも常に条件付。
           let tagsHtml = '';
           if (src.tag === 'self') {
             tagsHtml = `<span class="buff-source-tag self">自己</span>`;
@@ -4250,7 +4250,7 @@ function buildCharCard(char, filledTeam) {
             if (src.hpBased) tagsHtml += `<span class="buff-source-tag hp-based">最大HP基準</span>`;
           } else {
             tagsHtml = `<span class="buff-source-tag party">全体</span>`;
-            if (hasCond) tagsHtml += `<span class="buff-source-tag targeted">条件付</span>`;
+            if (src.showCond) tagsHtml += `<span class="buff-source-tag targeted">条件付</span>`;
             if (src.hpBased) tagsHtml += `<span class="buff-source-tag hp-based">最大HP基準</span>`;
           }
           const rowId = `row-${char.id}-${catName}-${k}-${srcIdx}`;
@@ -4439,7 +4439,7 @@ function buildCharCard(char, filledTeam) {
             if (src.tag === 'self') casterTags += `<span class="buff-source-tag self">自己</span>`;
             if (src.tag === 'party') casterTags += `<span class="buff-source-tag party">全体</span>`;
             casterTags += `<span class="buff-source-tag" style="background:rgba(255,212,0,0.1);color:var(--accent3);border:1px solid rgba(255,212,0,0.3);">発動者基準</span>`;
-            if (hasCond) casterTags += `<span class="buff-source-tag targeted">条件付</span>`;
+            if (src.showCond) casterTags += `<span class="buff-source-tag targeted">条件付</span>`;
             if (src.hpBased) casterTags += `<span class="buff-source-tag hp-based">最大HP基準</span>`;
             return renderSourceRow({
               rowClass: casterInitRowClass,
