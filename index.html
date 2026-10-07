@@ -3468,7 +3468,8 @@ function renderBuffCards() {
     if(m) recalcEntryTotal(entryId, m[1]);
   });
 
-  // モードが自動で変わった（編成変化・連動など）カードにも切替演出を流す
+  // 演出中のカードの状態を新しいDOMへ引き継いでから、モードが自動で変わった（編成変化・連動など）カードにも切替演出を流す
+  reapplyBurstState();
   playAutoModeSwitchBursts(prevModeBgs);
 }
 
@@ -3488,6 +3489,7 @@ function snapshotModeBgs() {
   });
   return snap;
 }
+const MODE_BURST_HOLD = {}; // 自動切替演出中（切替の瞬間まで旧画像を保つ）のカード
 function playAutoModeSwitchBursts(prevSnap) {
   document.querySelectorAll('.char-card-header[data-mode-bg]').forEach(h => {
     const cardId = h.id.replace(/^header-/, '');
@@ -3500,7 +3502,9 @@ function playAutoModeSwitchBursts(prevSnap) {
     // 描画済みの新画像をいったん旧画像に戻し、演出の中盤で新画像に切り替える
     h.style.backgroundImage = prev.hdr;
     sig.style.backgroundImage = prev.sig;
+    MODE_BURST_HOLD[cardId] = { hdr: prev.hdr, sig: prev.sig };
     fireSignalBurst(cardId, h.dataset.modeBg, () => {
+      delete MODE_BURST_HOLD[cardId];
       const h2 = document.getElementById('header-' + cardId), s2 = document.getElementById('signal-' + cardId);
       if(h2) h2.style.backgroundImage = nextHdr;
       if(s2) { s2.style.backgroundImage = nextSig; delete s2.dataset.switching; }
@@ -6460,22 +6464,29 @@ function toggleLaplaceUhMode(e) {
 }
 
 // ===== SIGNAL BURST (モード切替用) =====
+// 切替待ち（演出開始〜中盤の切替まで）のカード。途中で別カードの切替などで再描画されても、
+// 再描画後の新しいDOMに「演出中」を引き継ぐために使う（reapplyBurstState）
+const BURST_PENDING = {};
 function fireSignalBurst(cardId, nextImgUrl, onDone) {
-  const sig = document.getElementById('signal-' + cardId);
-  if(!sig) { onDone(); return; }
+  const sig0 = document.getElementById('signal-' + cardId);
+  if(!sig0) { onDone(); return; }
 
   const anims = ['sig-a','sig-b','sig-c','sig-d','sig-e'];
   const hues  = [180, 0, 120, 270, 60];
-  const parent = sig.parentElement;
-  // 現在の画像URL
-  const curImg = sig.style.backgroundImage || getComputedStyle(sig).backgroundImage;
   // 次の画像URLをurl()形式に
   const nextImg = nextImgUrl ? `url('${nextImgUrl}')` : null;
 
+  BURST_PENDING[cardId] = true;
   let fireCount = 0;
 
   // 毎回独立したクローン要素を生成して発火→自動削除
+  // ※演出中に他のカードの切替で再描画されてDOMが作り直されても残りの発火が消えないよう、
+  //   親要素・現在の画像は発火のたびに取り直す
   function fireOne() {
+    const sigNow = document.getElementById('signal-' + cardId);
+    const parent = sigNow && sigNow.parentElement;
+    if(!parent) return;
+    const curImg = sigNow.style.backgroundImage || getComputedStyle(sigNow).backgroundImage;
     const clone = document.createElement('div');
     clone.className = 'sig-burst-clone';
 
@@ -6499,7 +6510,7 @@ function fireSignalBurst(cardId, nextImgUrl, onDone) {
     fireCount++;
 
     const ms = parseFloat(dur) * 1000 + 100;
-    setTimeout(() => { try { parent.removeChild(clone); } catch(e){} }, ms);
+    setTimeout(() => { try { if(clone.parentNode) clone.parentNode.removeChild(clone); } catch(e){} }, ms);
   }
 
   // 密集した不規則スケジュール（約2秒間・37発）
@@ -6514,7 +6525,20 @@ function fireSignalBurst(cardId, nextImgUrl, onDone) {
   });
 
   // 中盤（700ms）でこっそり切替
-  setTimeout(() => { onDone(); }, 700);
+  setTimeout(() => { delete BURST_PENDING[cardId]; onDone(); }, 700);
+}
+
+// 再描画でDOMが作り直された後に、切替待ちのカードへ「演出中」フラグを付け直す（連続切替でも演出を飛ばさない・二重タップを防ぐ）
+function reapplyBurstState() {
+  Object.keys(BURST_PENDING).forEach(cardId => {
+    const sig = document.getElementById('signal-' + cardId);
+    if(sig) sig.dataset.switching = '1';
+  });
+  Object.entries(MODE_BURST_HOLD).forEach(([cardId, hold]) => {
+    const h = document.getElementById('header-' + cardId), sig = document.getElementById('signal-' + cardId);
+    if(h) h.style.backgroundImage = hold.hdr;       // 切替の瞬間までは旧画像のまま保つ
+    if(sig) sig.style.backgroundImage = hold.sig;
+  });
 }
 
 // ===== MODE AUTO CHANGE =====
