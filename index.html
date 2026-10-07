@@ -2038,7 +2038,7 @@
 // }
 // target指定:
 //   null              → 全員
-//   'role:atk'        → アタッカーのみ
+//   'role:atk'        → 火力型のみ
 //   'weapon:sg'       → SG装備のみ
 //   'element:electric'→ 電撃属性のみ
 //   'burst:3'         → B3キャラのみ
@@ -3456,6 +3456,13 @@ function renderBuffCards() {
       onlineEl.style.setProperty('--dot-glow',  rgba45);
     }
   });
+
+  // 合計欄を最後に再計算で統一（初回描画の合計と、操作後の再計算の合計がズレないように）
+  document.querySelectorAll('span[id^="total-"]').forEach(totalEl => {
+    const entryId = totalEl.id.slice('total-'.length);
+    const m = entryId.match(/^.+?-(?:ATTACK|CONTROL|SURVIVAL|ENEMY)-([A-Za-z0-9_]+)/);
+    if(m) recalcEntryTotal(entryId, m[1]);
+  });
 }
 
 function initCautionBands(belt) {
@@ -3508,7 +3515,7 @@ function targetLabel(target) {
   if(!target) return '';
   const [type, val] = target.split(':');
   const map = {
-    role:    { atk:'アタッカー限定', sup:'サポーター限定', def:'ディフェンダー限定', heal:'ヒーラー限定' },
+    role:    { atk:'火力型限定', sup:'支援型限定', def:'防御型限定', heal:'ヒーラー限定' },
     weapon:  { ar:'AR限定', smg:'SMG限定', sg:'SG限定', rl:'RL限定', sr:'SR限定', mg:'MG限定' },
     element: { fire:'灼熱限定', water:'水冷限定', wind:'風圧限定', iron:'鉄甲限定', electric:'電撃限定' },
     burst:   { '1':'B1限定', '2':'B2限定', '3':'B3限定' },
@@ -4371,7 +4378,7 @@ function buildCharCard(char, filledTeam) {
   });
 
   if(!hasAny) {
-    bodyHtml = '<div style="font-size:11px; color:var(--text-dim); padding:4px 0;">バフなし（アタッカー専任）</div>';
+    bodyHtml = '<div style="font-size:11px; color:var(--text-dim); padding:4px 0;">バフなし（火力型専任）</div>';
   }
 
   // 条件付きバフセクション（自分のcondSelf＋other＋他キャラのcrossOther）
