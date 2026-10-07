@@ -923,7 +923,7 @@
       "party": {
         "burstCT": {
           "val": 7.48,
-          "condLabel": "S2・FB発動時・熱血状態時",
+          "condLabel": "S2・FB発動時・【熱血】状態時",
           "showCond": true
         },
         "dmgReduce": {
@@ -1035,7 +1035,7 @@
         },
         "invincible": {
           "val": 5,
-          "condLabel": "S2・リラックスフルスタック解除時",
+          "condLabel": "S2・【リラックス】フルスタック解除時",
           "unit": "秒",
           "defaultOff": true,
           "fullStackOnly": true,
@@ -1044,7 +1044,7 @@
         },
         "taunt": {
           "val": 5,
-          "condLabel": "S2・リラックスフルスタック解除時・【ヘイト】",
+          "condLabel": "S2・【リラックス】フルスタック解除時・【ヘイト】",
           "unit": "秒",
           "defaultOff": true,
           "fullStackOnly": true,
@@ -1053,7 +1053,7 @@
         },
         "heal": {
           "val": 5.23,
-          "condLabel": "S2・リラックスフルスタック解除時・最大HPの5.23%",
+          "condLabel": "S2・【リラックス】フルスタック解除時・最大HPの5.23%",
           "caster": true,
           "defaultOff": true,
           "fullStackOnly": true,
@@ -1501,14 +1501,14 @@
           "label": "S1フルチャージ追加ダメージ",
           "val": 150,
           "unit": "%",
-          "cond": "S1・フルチャージ攻撃時・記憶燃焼状態時・敵全体に最終攻撃力の150%",
+          "cond": "S1・フルチャージ攻撃時・【記憶燃焼】状態時・敵全体に最終攻撃力の150%",
           "selfOnly": true
         },
         {
           "label": "S1ターゲット追加ダメージ",
           "val": 380.46,
           "unit": "%",
-          "cond": "S1・フルチャージ攻撃時・記憶燃焼状態時・ターゲット対象なら同敵に最終攻撃力の380.46%の追加ダメージ",
+          "cond": "S1・フルチャージ攻撃時・【記憶燃焼】状態時・ターゲット対象なら同敵に最終攻撃力の380.46%の追加ダメージ",
           "selfOnly": true
         },
         {
@@ -1639,7 +1639,7 @@
         },
         "dmgArcana": {
           "val": 10,
-          "condLabel": "S1・幸せな思い出適用時【青春の記録】・持続",
+          "condLabel": "S1・【幸せな思い出】適用時【青春の記録】・持続",
           "stack": {
             "max": 3,
             "default": 1
@@ -1682,7 +1682,7 @@
         },
         "atkArcana": {
           "val": 13,
-          "condLabel": "S1・FB終了時・SG限定・15秒間維持・大切な思い出スタック数倍",
+          "condLabel": "S1・FB終了時・SG限定・15秒間維持・【大切な思い出】スタック数倍",
           "caster": true,
           "stack": {
             "max": 3,
@@ -2158,12 +2158,12 @@
         },
         "atkGrave2": {
           "val": 20.66,
-          "condLabel": "S2・完全計算中・通常攻撃30回命中・【過熱Ⅱ】・過熱Ⅰ状態の時に限り・持続",
+          "condLabel": "S2・完全計算中・通常攻撃30回命中・【過熱Ⅱ】・【過熱Ⅰ】状態の時に限り・持続",
           "showCond": true
         },
         "dmgGrave": {
           "val": 30.8,
-          "condLabel": "S2・完全計算中・通常攻撃60回命中・【過熱Ⅲ】・過熱Ⅰ・Ⅱ状態の時に限り・持続",
+          "condLabel": "S2・完全計算中・通常攻撃60回命中・【過熱Ⅲ】・【過熱Ⅰ】・【過熱Ⅱ】状態の時に限り・持続",
           "showCond": true
         },
         "hpDown": {
@@ -3375,9 +3375,10 @@
         },
         "trueDmg": {
           "val": 42.24,
-          "condLabel": "S1・カモフラージュ中・持続",
+          "condLabel": "S1・【カモフラージュ】中・持続",
           "caster": true,
-          "syncGroup": "unfaCamo"
+          "syncGroup": "unfaCamo",
+          "showCond": true
         },
         "atk": {
           "val": 42.24,
@@ -3428,7 +3429,7 @@
           "label": "S1・カモフラージュ中：通常攻撃が防御力無視ダメージに変化（持続）",
           "val": "通常攻撃→防御力無視ダメージ変化",
           "unit": "",
-          "cond": "カモフラージュ状態中"
+          "cond": "【カモフラージュ】状態中"
         },
         {
           "label": "アクティブスキル：防御力無視ダメージ",
@@ -4814,7 +4815,7 @@
         },
         "distDmg": {
           "val": 49.58,
-          "condLabel": "S1・ルート探索1段階フルスタック時・持続",
+          "condLabel": "S1・【ルート探索1段階】フルスタック時・持続",
           "fullStackOnly": true,
           "fullStackRef": "routeS2Lv1",
           "defaultOff": true,
@@ -4822,7 +4823,7 @@
         },
         "coreDmg": {
           "val": 25.25,
-          "condLabel": "S1・ルート探索2段階フルスタック時・持続",
+          "condLabel": "S1・【ルート探索2段階】フルスタック時・持続",
           "fullStackOnly": true,
           "fullStackRef": "routeS2Lv2",
           "defaultOff": true,
@@ -4830,7 +4831,7 @@
         },
         "critRate": {
           "val": 16.73,
-          "condLabel": "S1・ルート探索3段階フルスタック時・持続",
+          "condLabel": "S1・【ルート探索3段階】フルスタック時・持続",
           "fullStackOnly": true,
           "fullStackRef": "routeS2Lv3",
           "defaultOff": true,
@@ -6719,14 +6720,14 @@
           "val": 12.25,
           "caster": true,
           "hpBased": true,
-          "condLabel": "S2・通常攻撃200回攻撃時・自分がヘイト状態の場合・10秒間維持",
+          "condLabel": "S2・通常攻撃200回攻撃時・自分が【ヘイト】状態の場合・10秒間維持",
           "exclusiveSet": "deltaStance",
           "setId": "guard",
           "showCond": true
         },
         "nextBarrierHp": {
           "val": 20.13,
-          "condLabel": "BS・自分がヘイト状態の場合・次のバリアのHPを20.13%UP・10秒間維持",
+          "condLabel": "BS・自分が【ヘイト】状態の場合・次のバリアのHPを20.13%UP・10秒間維持",
           "exclusiveSet": "deltaStance",
           "setId": "guard",
           "showCond": true
@@ -6734,14 +6735,14 @@
         "medkit": {
           "val": 165.28,
           "caster": true,
-          "condLabel": "S2・忍法注射器状態時・受けた回復を蓄積し持続後に味方全体へ還元・最大累積量最終攻撃力165.28%・4秒間維持",
+          "condLabel": "S2・【忍法注射器】状態時・受けた回復を蓄積し持続後に味方全体へ還元・最大累積量最終攻撃力165.28%・4秒間維持",
           "exclusiveSet": "deltaStance",
           "setId": "medic",
           "showCond": true
         },
         "medkitMaxUp": {
           "val": 20.13,
-          "condLabel": "BS・忍法注射器状態の場合・救急キット最大蓄積量を20.13%UP・10秒間維持",
+          "condLabel": "BS・【忍法注射器】状態の場合・救急キット最大蓄積量を20.13%UP・10秒間維持",
           "exclusiveSet": "deltaStance",
           "setId": "medic",
           "showCond": true
@@ -7337,7 +7338,7 @@
       "self": {
         "dotDmg": {
           "val": 4.4,
-          "condLabel": "S1・愛嬌状態時に攻撃した時・最大132%UP・10秒間維持",
+          "condLabel": "S1・【愛嬌】状態時に攻撃した時・最大132%UP・10秒間維持",
           "stack": {
             "max": 30,
             "key": "viperCharmStack"
@@ -7348,7 +7349,7 @@
         },
         "hitRateViper": {
           "val": 1.84,
-          "condLabel": "S1・愛嬌状態時に攻撃した時・最大55.2%UP・10秒間維持",
+          "condLabel": "S1・【愛嬌】状態時に攻撃した時・最大55.2%UP・10秒間維持",
           "stack": {
             "max": 30,
             "key": "viperCharmStack"
@@ -7530,11 +7531,13 @@
       "party": {
         "bulletCharge": {
           "val": 86.62,
-          "condLabel": "S2・イチゴキャンディ最大スタック・スタック解除後"
+          "condLabel": "S2・【イチゴキャンディ】最大スタック・スタック解除後",
+          "showCond": true
         },
         "pierceDmg": {
           "val": 30,
-          "condLabel": "S2・イチゴキャンディ最大スタック・スタック解除後・10秒間維持"
+          "condLabel": "S2・【イチゴキャンディ】最大スタック・スタック解除後・10秒間維持",
+          "showCond": true
         }
       },
       "self": {
@@ -7544,7 +7547,7 @@
         },
         "heal": {
           "val": 12.96,
-          "condLabel": "S1・撃たれた時・ヘイト状態・発動者基準の最終最大HP",
+          "condLabel": "S1・撃たれた時・【ヘイト】状態・発動者基準の最終最大HP",
           "defaultOff": true,
           "syncGroup": "dieselHate",
           "showCond": true
@@ -7552,7 +7555,7 @@
         "buffStackUp": {
           "val": 1,
           "unit": "個",
-          "condLabel": "S1・通常攻撃150回命中時・ヘイト状態",
+          "condLabel": "S1・通常攻撃150回命中時・【ヘイト】状態",
           "defaultOff": true,
           "syncGroup": "dieselHate",
           "showCond": true
@@ -7656,14 +7659,14 @@
       "party": {
         "maxMagazineK": {
           "val": -51.13,
-          "condLabel": "S2・【正義の実現】傾く天秤付与時・10秒間維持（同一効果重複不可）",
+          "condLabel": "S2・【正義の実現】【傾く天秤】付与時・10秒間維持（同一効果重複不可）",
           "exclusiveGroup": "maxMagazineDown",
           "defaultOffWithSrc": "privaty",
           "showCond": true
         },
         "dmg": {
           "val": 10.62,
-          "condLabel": "S2・【正義の実現】傾く天秤付与時・10秒間維持",
+          "condLabel": "S2・【正義の実現】【傾く天秤】付与時・10秒間維持",
           "showCond": true
         }
       },
@@ -7917,7 +7920,7 @@
       "self": {
         "hitRate": {
           "val": 25.75,
-          "condLabel": "S1・【怪盗の短剣】通常攻撃命中時（予告状状態ではないラプチャー、または対象がターゲットの場合）・5秒間維持",
+          "condLabel": "S1・【怪盗の短剣】通常攻撃命中時（【予告状】状態ではないラプチャー、または対象がターゲットの場合）・5秒間維持",
           "stack": {
             "max": 3,
             "key": "phantomDaggerStack"
@@ -7926,7 +7929,7 @@
         },
         "dmg": {
           "val": 75.17,
-          "condLabel": "S1・予告状状態の対象に攻撃時・1発間",
+          "condLabel": "S1・【予告状】状態の対象に攻撃時・1発間",
           "showCond": true
         },
         "distDmg": {
@@ -7958,7 +7961,7 @@
           "label": "S2・怪盗の短剣フルスタック時：追加ダメージ",
           "val": "最終攻撃力×84.33%",
           "unit": "",
-          "cond": "怪盗の短剣フルスタック状態なら、スタック解除後予告状状態の対象に最終攻撃力84.33%の追加ダメージ（効果発動後、予告状解除）",
+          "cond": "【怪盗の短剣】フルスタック状態なら、スタック解除後【予告状】状態の対象に最終攻撃力84.33%の追加ダメージ（効果発動後、【予告状】解除）",
           "selfOnly": true,
           "stackThresholdRef": "phantomDaggerStack",
           "stackThreshold": 3
@@ -7967,7 +7970,7 @@
           "label": "S2・怪盗の短剣スタック解除時：敵全体分配ダメージ",
           "val": "最終攻撃力×250%",
           "unit": "",
-          "cond": "怪盗の短剣フルスタック状態なら、スタック解除後敵全体に最終攻撃力250%の分配ダメージ",
+          "cond": "【怪盗の短剣】フルスタック状態なら、スタック解除後敵全体に最終攻撃力250%の分配ダメージ",
           "selfOnly": true,
           "stackThresholdRef": "phantomDaggerStack",
           "stackThreshold": 3
@@ -8004,7 +8007,7 @@
         },
         "dmg": {
           "val": 15.64,
-          "condLabel": "S2・【花の舞】・15秒間維持（パーツ破壊時、花の舞状態なら維持時間+10.02秒延長）",
+          "condLabel": "S2・【花の舞】・15秒間維持（パーツ破壊時、【花の舞】状態なら維持時間+10.02秒延長）",
           "showCond": true
         }
       },
@@ -8022,7 +8025,7 @@
           "label": "S2・桜かんむり：敵への持続ダメージ",
           "val": "最終攻撃力×256%",
           "unit": "",
-          "cond": "最終攻撃力が最も高い敵1機に【桜かんむり】最終攻撃力256%の持続ダメージ（1秒間隔・15秒間維持）。パーツ破壊時、桜かんむり状態の敵全体は維持時間+10.02秒延長",
+          "cond": "最終攻撃力が最も高い敵1機に【桜かんむり】最終攻撃力256%の持続ダメージ（1秒間隔・15秒間維持）。パーツ破壊時、【桜かんむり】状態の敵全体は維持時間+10.02秒延長",
           "selfOnly": true
         },
         {
@@ -8630,7 +8633,7 @@
           "label": "通常攻撃20回命中時・追加ダメージ（高リスク対象）",
           "val": 152.68,
           "unit": "%",
-          "cond": "S1・対象が高リスク対象状態の場合のみ",
+          "cond": "S1・対象が【高リスク対象】状態の場合のみ",
           "selfOnly": true
         },
         {
@@ -8803,7 +8806,7 @@
           "label": "S2・マルカートクリティカル時追加ダメージ（同じ敵）",
           "val": "最終攻撃力×100%",
           "unit": "",
-          "cond": "マルカートがクリティカル命中した時、同じ敵に最終攻撃力100%の追加ダメージ",
+          "cond": "【マルカート】がクリティカル命中した時、同じ敵に最終攻撃力100%の追加ダメージ",
           "selfOnly": true
         },
         {
@@ -9145,7 +9148,7 @@
         },
         "blockDmg": {
           "val": 23.54,
-          "condLabel": "BS・桜茶フルスタック時・30秒間維持",
+          "condLabel": "BS・【桜茶】フルスタック時・30秒間維持",
           "fullStackOnly": true,
           "fullStackRef": "defUp",
           "showCond": true
@@ -9179,7 +9182,7 @@
       "party": {
         "hpUp": {
           "val": 10,
-          "condLabel": "S1・【回復独占誓約】・誓約違反立証フルスタックで自動OFF・持続",
+          "condLabel": "S1・【回復独占誓約】・【誓約違反立証】フルスタックで自動OFF・持続",
           "caster": true,
           "belowFullStackOnly": true,
           "belowFullStackRef": "healPowerShiratsuru",
@@ -9187,7 +9190,7 @@
         },
         "heal": {
           "val": 1.32,
-          "condLabel": "S2・フルチャージ状態で3回攻撃時・回復独占誓約状態限定",
+          "condLabel": "S2・フルチャージ状態で3回攻撃時・【回復独占誓約】状態限定",
           "caster": true,
           "hpBased": true,
           "belowFullStackOnly": true,
@@ -9221,7 +9224,7 @@
         },
         "healOverTime": {
           "val": 0.24,
-          "condLabel": "S2・誓約違反立証フルスタック時のみ・1秒間隔・持続",
+          "condLabel": "S2・【誓約違反立証】フルスタック時のみ・1秒間隔・持続",
           "caster": true,
           "hpBased": true,
           "fullStackOnly": true,
@@ -9261,7 +9264,7 @@
         },
         "healB": {
           "val": 12.71,
-          "condLabel": "S2・メイド精神フルスタック時のみ",
+          "condLabel": "S2・【メイド精神】フルスタック時のみ",
           "caster": true,
           "hpBased": true,
           "fullStackOnly": true,
@@ -9447,14 +9450,14 @@
         },
         "trueDmg": {
           "val": 28.16,
-          "condLabel": "S2・フルチャージ攻撃時・眠いフルスタック（起きた）時・5秒間維持",
+          "condLabel": "S2・フルチャージ攻撃時・眠いフルスタック（【起きた】）時・5秒間維持",
           "fullStackOnly": true,
           "fullStackRef": "sleepyPrim",
           "showCond": true
         },
         "trueDmgB": {
           "val": 49.97,
-          "condLabel": "BS・眠いフルスタック（起きた）時・10秒間維持",
+          "condLabel": "BS・眠いフルスタック（【起きた】）時・10秒間維持",
           "fullStackOnly": true,
           "fullStackRef": "sleepyPrim",
           "showCond": true
@@ -9607,38 +9610,39 @@
       "self": {
         "barrier": {
           "val": 40.12,
-          "condLabel": "S1・戦闘開始時/BS使用時（必死の抵抗状態でない場合）・【必死の抵抗】・持続",
+          "condLabel": "S1・戦闘開始時/BS使用時（【必死の抵抗】状態でない場合）・【必死の抵抗】・持続",
           "caster": true,
           "hpBased": true,
           "showCond": true
         },
         "hpUp": {
           "val": 5.06,
-          "condLabel": "S1・必死の抵抗終了時・持続",
+          "condLabel": "S1・【必死の抵抗】終了時・持続",
           "caster": true,
           "hpBased": true,
           "stack": {
             "key": "hpUpMolly",
             "max": 5,
             "default": 1
-          }
+          },
+          "showCond": true
         },
         "taunt": {
           "val": 4,
           "unit": "秒",
-          "condLabel": "S2・通常攻撃60回命中時・必死の抵抗状態限定・対象に挑発・4秒間維持",
+          "condLabel": "S2・通常攻撃60回命中時・【必死の抵抗】状態限定・対象に挑発・4秒間維持",
           "showCond": true
         },
         "barrierHealOverTime": {
           "val": 15.04,
-          "condLabel": "BS・必死の抵抗状態限定・持続",
+          "condLabel": "BS・【必死の抵抗】状態限定・持続",
           "caster": true,
           "hpBased": true,
           "showCond": true
         },
         "hpUpB": {
           "val": 10.09,
-          "condLabel": "BS・必死の抵抗状態でない場合・10秒間維持",
+          "condLabel": "BS・【必死の抵抗】状態でない場合・10秒間維持",
           "caster": true,
           "hpBased": true,
           "showCond": true
@@ -11175,7 +11179,7 @@
           "label": "BS・追加ダメージ（平常心状態時・同じ敵）",
           "val": 457.87,
           "unit": "%",
-          "cond": "自分が平常心状態なら、同じ敵に最終攻撃力457.87%のダメージ",
+          "cond": "自分が【平常心】状態なら、同じ敵に最終攻撃力457.87%のダメージ",
           "selfOnly": true
         }
       ]
@@ -11225,7 +11229,7 @@
           "label": "BS・追加ダメージ（復讐状態時・同じ敵）",
           "val": 457.87,
           "unit": "%",
-          "cond": "自分が復讐状態なら、同じ敵に最終攻撃力457.87%のダメージ",
+          "cond": "自分が【復讐】状態なら、同じ敵に最終攻撃力457.87%のダメージ",
           "selfOnly": true
         }
       ]
@@ -11288,21 +11292,21 @@
           "label": "BS・状態別追加ダメージ（生存本能1・敵全体）",
           "val": 210.62,
           "unit": "%",
-          "cond": "生存本能1の場合、敵全体に最終攻撃力210.62%のダメージ",
+          "cond": "【生存本能1】の場合、敵全体に最終攻撃力210.62%のダメージ",
           "selfOnly": true
         },
         {
           "label": "BS・状態別追加ダメージ（生存本能2・敵全体）",
           "val": 247.25,
           "unit": "%",
-          "cond": "生存本能2の場合、敵全体に最終攻撃力247.25%のダメージ（生存本能1の効果も維持）",
+          "cond": "【生存本能2】の場合、敵全体に最終攻撃力247.25%のダメージ（【生存本能1】の効果も維持）",
           "selfOnly": true
         },
         {
           "label": "BS・状態別追加ダメージ（生存本能3・敵全体）",
           "val": 302.19,
           "unit": "%",
-          "cond": "生存本能3の場合、敵全体に最終攻撃力302.19%のダメージ（生存本能1・2の効果も維持）",
+          "cond": "【生存本能3】の場合、敵全体に最終攻撃力302.19%のダメージ（【生存本能1】・【生存本能2】の効果も維持）",
           "selfOnly": true
         }
       ]
@@ -11383,7 +11387,7 @@
           "label": "BS・隠れ身状態時追加ダメージ",
           "val": 561.6,
           "unit": "%",
-          "cond": "自分が隠れ身の状態なら、アサルトが命中した対象に最終攻撃力561.6%の追加ダメージ",
+          "cond": "自分が【隠れ身】の状態なら、【アサルト】が命中した対象に最終攻撃力561.6%の追加ダメージ",
           "selfOnly": true
         }
       ]
@@ -11519,7 +11523,7 @@
         },
         "burstGauge": {
           "val": 7.9,
-          "condLabel": "S2・FB終了時・ショッピングフルスタック時・5秒間維持",
+          "condLabel": "S2・FB終了時・【ショッピング】フルスタック時・5秒間維持",
           "defaultOff": true,
           "fullStackOnly": true,
           "fullStackRef": "shoppingRupeeX",
@@ -12963,36 +12967,41 @@
         "chargeFixed": {
           "val": 3,
           "unit": "秒",
-          "condLabel": "BS・CT20秒・過電流1段階以下",
-          "exclusiveGroup": "maxwellOmChargeStage"
+          "condLabel": "BS・CT20秒・【過電流】1段階以下",
+          "exclusiveGroup": "maxwellOmChargeStage",
+          "showCond": true
         },
         "chargeFixedB": {
           "val": 2.5,
           "unit": "秒",
-          "condLabel": "BS・CT20秒・過電流2段階",
+          "condLabel": "BS・CT20秒・【過電流】2段階",
           "exclusiveGroup": "maxwellOmChargeStage",
-          "defaultOff": true
+          "defaultOff": true,
+          "showCond": true
         },
         "chargeFixedC": {
           "val": 2,
           "unit": "秒",
-          "condLabel": "BS・CT20秒・過電流3段階",
+          "condLabel": "BS・CT20秒・【過電流】3段階",
           "exclusiveGroup": "maxwellOmChargeStage",
-          "defaultOff": true
+          "defaultOff": true,
+          "showCond": true
         },
         "chargeFixedD": {
           "val": 1.5,
           "unit": "秒",
-          "condLabel": "BS・CT20秒・過電流4段階",
+          "condLabel": "BS・CT20秒・【過電流】4段階",
           "exclusiveGroup": "maxwellOmChargeStage",
-          "defaultOff": true
+          "defaultOff": true,
+          "showCond": true
         },
         "chargeFixedE": {
           "val": 0.4,
           "unit": "秒",
-          "condLabel": "BS・CT20秒・過電流5段階以上",
+          "condLabel": "BS・CT20秒・【過電流】5段階以上",
           "exclusiveGroup": "maxwellOmChargeStage",
-          "defaultOff": true
+          "defaultOff": true,
+          "showCond": true
         },
         "pierce": {
           "val": 1,
@@ -13290,7 +13299,7 @@
         },
         "piercingAtk": {
           "val": 1,
-          "condLabel": "S2・【チェーンリリース】エンゲージ状態の時のみ・通常攻撃（マイティストンプ含む）を防御無視ダメージとして適用・持続・解除不可",
+          "condLabel": "S2・【チェーンリリース】エンゲージ状態の時のみ・通常攻撃（【マイティストンプ】含む）を防御無視ダメージとして適用・持続・解除不可",
           "bunnyEngageOnly": true,
           "showCond": true
         },
@@ -13381,17 +13390,17 @@
         },
         "normalDmg": {
           "val": 100,
-          "condLabel": "S1・フルチャージした時・スウィフトキャロット状態でない場合・1発間",
+          "condLabel": "S1・フルチャージした時・【スウィフトキャロット】状態でない場合・1発間",
           "showCond": true
         },
         "chargeDmg": {
           "val": 52.12,
-          "condLabel": "S1・フルチャージした時・スウィフトキャロット状態でない場合・1発間",
+          "condLabel": "S1・フルチャージした時・【スウィフトキャロット】状態でない場合・1発間",
           "showCond": true
         },
         "piercingAtk": {
           "val": 1,
-          "condLabel": "S2・【ノイズバレット】エンゲージ状態の時のみ・通常攻撃（スウィフトキャロット含む）を防御無視ダメージとして適用・持続・解除不可",
+          "condLabel": "S2・【ノイズバレット】エンゲージ状態の時のみ・通常攻撃（【スウィフトキャロット】含む）を防御無視ダメージとして適用・持続・解除不可",
           "bunnyEngageOnly": true,
           "showCond": true
         },
@@ -13540,7 +13549,7 @@
           "label": "S1・オーバーオーバードライブ終了時・残弾数",
           "val": "100%減少",
           "unit": "",
-          "cond": "オーバーオーバードライブ状態が終了した時・自分の残弾数が100%減少",
+          "cond": "【オーバーオーバードライブ】状態が終了した時・自分の残弾数が100%減少",
           "selfOnly": true
         },
         {
