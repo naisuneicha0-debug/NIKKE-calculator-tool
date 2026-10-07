@@ -445,7 +445,7 @@
   .sortie-recall-label.blinking { animation: sortieLabelBlink 0.16s steps(1) 5; }
   @keyframes sortieLabelBlink { 0%,100% { opacity: 1; } 50% { opacity: 0.12; } }
 
-  /* ===== コートスタンプ（クエンシー/クエンシー：エスケープクイーン/ギルティ/シン限定演出）=====
+  /* ===== コートスタンプ（リアルカインドネス：クエンシー/クエンシー：エスケープクイーン/ギルティ/シン/ギルティ：マイティバニー/シン：スウィフトバニー限定演出）=====
      ロック演出完了(約1.15秒)+0.5秒でスタンプ出現→3秒保持→ノイズと共に消失。
      シャッターロック自体はスタンプ消失後も維持される（編成解除されるまで別演出）。 */
   .court-stamp-anchor{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; z-index:40; pointer-events:none; }
@@ -5346,9 +5346,9 @@ function stopSortieFlicker(item) {
     if(e) { e.style.opacity = ''; e.style.transition = ''; }
   });
 }
-// ===== コートスタンプ（対象4体限定・ロック演出完了+0.5秒後に出現→3秒保持→ノイズと共に消失） =====
+// ===== コートスタンプ（リアルカインドネスの対象6体限定・ロック演出完了+0.5秒後に出現→3秒保持→ノイズと共に消失） =====
 // シャッターロック自体はこの演出とは独立して維持される（編成解除されるまでロックされたまま）
-const COURT_STAMP_CHAR_IDS = ['quency', 'quency_eq', 'guilty', 'shin'];
+const COURT_STAMP_CHAR_IDS = ['quency', 'quency_eq', 'guilty', 'shin', 'guilty_mb', 'shin_sb'];
 function clearCourtStamp(item) {
   if(item._courtStampTimers) {
     item._courtStampTimers.forEach(id => clearTimeout(id));
