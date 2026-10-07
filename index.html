@@ -909,6 +909,10 @@
   .buff-source-body { display: flex; align-items: center; gap: 6px; padding-left: 14px; flex-wrap: wrap; }
   .buff-source-tags { display: flex; gap: 4px; flex-wrap: wrap; flex-shrink: 0; }
   .buff-source-cond { font-size: 11px; color: var(--warn); padding-left: 14px; line-height: 1.5; }
+  /* 説明文の色：基本は自己＝黄・それ以外（全体・対象限定）＝水色。【】や状態・HPなどの「条件」の部分だけオレンジ */
+  .buff-source-cond.c-self  { color: var(--accent3); }
+  .buff-source-cond.c-other { color: var(--accent); }
+  .buff-source-cond .cond-hl { color: var(--warn); }
 
   /* ========================================
      UI: CAUTION警告表示
@@ -3613,6 +3617,32 @@ function targetLabelComplex(target) {
   return targetLabel(target);
 }
 
+// 説明文のうち「条件」にあたる区切りだけオレンジにするためのHTML生成
+// 条件＝【】／スタック付与・以上／パーツ破壊／N発間／状態・HP・編成・限定などの条件。発動タイミング（S1/S2/BS・FB発動時・命中N回など）は対象外
+const COND_SEG_RX = [
+  /【/, /スタック(を)?付与|スタック以上/, /パーツ破壊/, /\d+発間/, /状態付与/,
+  /状態(時|の|で|限定|中|に|なら|のみ|でない)|状態$|状態・|状態が/,
+  /HP\d+%(以下|以上)|HP(が)?最(大|小|低|も低|も高)の?(場合|時)|HPが最大/,
+  /限定|時のみ|のみ発動/, /場合|なら|でない|ではない/, /いない|いる時|在籍|装備|対象時/,
+  /フルスタック|スタンス|モード/, /\d+%(以上|以下|未満)|\d+(機|体|個)以上|\d+機以下/
+];
+function condLabelHtml(label) {
+  const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const segs = []; let cur = '', depth = 0;
+  for(const ch of String(label || '')) {
+    if('（(【「［['.includes(ch)) depth++;
+    else if('）)】」］]'.includes(ch)) depth = Math.max(0, depth - 1);
+    if(ch === '・' && depth === 0) { segs.push(cur); cur = ''; } else cur += ch;
+  }
+  segs.push(cur);
+  return segs.map(seg => {
+    // 「BS（B3モード）」のようにスキル名の直後の括弧は、括弧の部分だけで判定する
+    const m = seg.match(/^(S1|S2|BS)(（.*）?)$/);
+    const head = m ? m[1] : '', body = m ? m[2] : seg;
+    const hit = COND_SEG_RX.some(rx => rx.test(body));
+    return esc(head) + (hit ? `<span class="cond-hl">${esc(body)}</span>` : esc(body));
+  }).join('・');
+}
 // スタック調整つきバフ名の横の✦。マイナス（デバフ）のスタックは赤、最初から最大なら光った状態で出す
 function stackStarSpan(srcs, buffKey) {
   const stackSrcs = srcs.filter(x => x.stack && x.stack.max);
@@ -4255,8 +4285,7 @@ function buildCharCard(char, filledTeam) {
           }
           const rowId = `row-${char.id}-${catName}-${k}-${srcIdx}`;
           const entryIdForRow = `${char.id}-${catName}-${k}`;
-          const condColor = src.tag === 'self' ? 'var(--accent3)' : 'var(--warn)';
-          const condLine = src.condLabel ? `<div class="buff-source-cond" style="color:${condColor};">[${src.condLabel}]</div>` : '';
+          const condLine = src.condLabel ? `<div class="buff-source-cond ${src.tag === 'self' ? 'c-self' : 'c-other'}">[${condLabelHtml(src.condLabel)}]</div>` : '';
           // スタックスライダー（rawK=マージ前の元キー）
           const stackInfo = src.stack;
           const rawK = src.rawKey || k;
@@ -4393,7 +4422,7 @@ function buildCharCard(char, filledTeam) {
             const condSpan = condText ? ` <span style="color:var(--warn);font-size:9px;">[${condText}]</span>` : '';
             const casterRowId = `row-${char.id}-${catName}-${k}-caster-${charName}-${srcIdx}`;
             const casterEntryIdForRow = `${char.id}-${catName}-${k}-caster-${charName}`;
-            const casterCondLine = condText ? `<div class="buff-source-cond">[${condText}]</div>` : '';
+            const casterCondLine = condText ? `<div class="buff-source-cond ${src.tag === 'self' ? 'c-self' : 'c-other'}">[${condLabelHtml(condText)}]</div>` : '';
             const casterStackInfo = src.stack || null;
             const casterInitVal = casterStackInfo ? src.val * (casterStackInfo.default || 1) : src.val;
             const casterU = src.unit || '%';
