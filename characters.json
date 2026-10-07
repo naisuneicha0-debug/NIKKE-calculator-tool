@@ -3091,11 +3091,11 @@
       "party": {
         "pierceDmgTZ1": {
           "val": 20.13,
-          "condLabel": "S1・FB発動時・1撃間"
+          "condLabel": "S1・FB発動時・1発間"
         },
         "pierceDmgTZ2": {
           "val": 24.99,
-          "condLabel": "S1・FB中通常攻撃時・1撃間",
+          "condLabel": "S1・FB中通常攻撃時・1発間",
           "stack": {
             "max": 3,
             "default": 1
@@ -3133,7 +3133,7 @@
       "self": {
         "pierce": {
           "val": 1,
-          "condLabel": "BS・武器変更・1撃間",
+          "condLabel": "BS・武器変更・1発間",
           "unit": "持続",
           "showCond": true,
           "syncGroup": "tzS2BS",
@@ -7695,7 +7695,7 @@
         },
         "dmg": {
           "val": 75.17,
-          "condLabel": "S1・予告状状態の対象に攻撃時・1発間維持"
+          "condLabel": "S1・予告状状態の対象に攻撃時・1発間"
         },
         "distDmg": {
           "val": 12.86,
@@ -7823,11 +7823,11 @@
       "self": {
         "chargeSpd": {
           "val": 13.01,
-          "condLabel": "S1・フルチャージ攻撃時・1発間維持"
+          "condLabel": "S1・フルチャージ攻撃時・1発間"
         },
         "chargeDmg": {
           "val": 2.01,
-          "condLabel": "S1・フルチャージ攻撃時・自分の最終最大装弾数1発につき2.01%UP（最大50発まで対応）・1発間維持",
+          "condLabel": "S1・フルチャージ攻撃時・自分の最終最大装弾数1発につき2.01%UP（最大50発まで対応）・1発間",
           "stack": {
             "max": 50,
             "key": "emiliaMagazineCount"
@@ -7844,11 +7844,11 @@
         },
         "chargeSpdDown": {
           "val": 300,
-          "condLabel": "BS・1発間維持"
+          "condLabel": "BS・1発間"
         },
         "chargeDmgB": {
           "val": 1300.53,
-          "condLabel": "BS・1発間維持"
+          "condLabel": "BS・1発間"
         }
       },
       "targeted": {},
@@ -8148,7 +8148,7 @@
         "pierce": {
           "val": 1,
           "unit": "発",
-          "condLabel": "S2・フルチャージ攻撃時・1発間維持"
+          "condLabel": "S2・フルチャージ攻撃時・1発間"
         },
         "critRate": {
           "val": 2.95,
@@ -9764,11 +9764,11 @@
         "pierce": {
           "val": 1,
           "unit": "発",
-          "condLabel": "S1・フルチャージして攻撃した時・1発間維持"
+          "condLabel": "S1・フルチャージして攻撃した時・1発間"
         },
         "pierceRange": {
           "val": 50,
-          "condLabel": "S1・フルチャージして攻撃した時・1発間維持"
+          "condLabel": "S1・フルチャージして攻撃した時・1発間"
         },
         "maxMagazine": {
           "val": 6,
@@ -11426,11 +11426,11 @@
       "self": {
         "chargeDmg": {
           "val": 37.28,
-          "condLabel": "S1・最後の弾丸で攻撃した後・2発間維持"
+          "condLabel": "S1・最後の弾丸で攻撃した後・2発間"
         },
         "chargeSpd": {
           "val": 15.53,
-          "condLabel": "S1・最後の弾丸で攻撃した後・2発間維持"
+          "condLabel": "S1・最後の弾丸で攻撃した後・2発間"
         }
       },
       "targeted": {},
@@ -11963,7 +11963,7 @@
         },
         "atk": {
           "val": 124.8,
-          "condLabel": "S2・FB発動時・2発間維持"
+          "condLabel": "S2・FB発動時・2発間"
         },
         "critRate": {
           "val": 31.95,
@@ -12261,7 +12261,7 @@
       "party": {
         "critRate": {
           "val": 45.93,
-          "condLabel": "S2・FB発動時・2発間維持"
+          "condLabel": "S2・FB発動時・2発間"
         }
       },
       "self": {},
@@ -12587,7 +12587,7 @@
         "pierce": {
           "val": 1,
           "unit": "発",
-          "condLabel": "BS・貫通特化・1発間維持"
+          "condLabel": "BS・貫通特化・1発間"
         }
       },
       "targeted": {},
@@ -12880,7 +12880,7 @@
         },
         "chargeDmgB": {
           "val": 1400,
-          "condLabel": "BS・【マイティストンプ】追加効果・1発間維持"
+          "condLabel": "BS・【マイティストンプ】追加効果・1発間"
         },
         "dmgB": {
           "val": 77.35,
@@ -12889,7 +12889,7 @@
         "chargeFixed": {
           "val": 1.5,
           "unit": "秒",
-          "condLabel": "BS・【マイティストンプ】チャージ時間固定・1発間維持"
+          "condLabel": "BS・【マイティストンプ】チャージ時間固定・1発間"
         }
       },
       "targeted": {},
@@ -12950,11 +12950,11 @@
         },
         "normalDmg": {
           "val": 100,
-          "condLabel": "S1・フルチャージした時・スウィフトキャロット状態でない場合・1発間維持"
+          "condLabel": "S1・フルチャージした時・スウィフトキャロット状態でない場合・1発間"
         },
         "chargeDmg": {
           "val": 52.12,
-          "condLabel": "S1・フルチャージした時・スウィフトキャロット状態でない場合・1発間維持"
+          "condLabel": "S1・フルチャージした時・スウィフトキャロット状態でない場合・1発間"
         },
         "piercingAtk": {
           "val": 1,
