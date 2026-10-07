@@ -167,7 +167,7 @@
         },
         "hpUp": {
           "val": 32.75,
-          "condLabel": "S2通常5回命中時・最大HPの32.75%・5秒間維持",
+          "condLabel": "S2・通常攻撃5回命中時・最大HPの32.75%・5秒間維持",
           "caster": true,
           "hpBased": true
         }
@@ -1722,11 +1722,11 @@
       "self": {
         "atk": {
           "val": 40.01,
-          "condLabel": "S1・「私だけの星」状態・持続"
+          "condLabel": "S1・【私だけの星】状態・持続"
         },
         "dmg": {
           "val": 35.2,
-          "condLabel": "BS・「私だけの星」状態・10秒間維持"
+          "condLabel": "BS・【私だけの星】状態・10秒間維持"
         },
         "chargeFixed": {
           "val": 0.7,
@@ -1755,14 +1755,14 @@
           "val": 7.48,
           "condition": "always",
           "anisMode": "solo",
-          "condLabel": "S1・戦闘開始時／FB終了時・「私だけの星」状態"
+          "condLabel": "S1・戦闘開始時/FB終了時・【私だけの星】状態"
         },
         {
           "key": "atk",
           "val": 35.01,
           "condition": "always",
           "anisMode": "solo",
-          "condLabel": "S2・FB発動時・「私だけの星」状態・10秒間維持",
+          "condLabel": "S2・FB発動時・【私だけの星】状態・10秒間維持",
           "caster": true
         },
         {
@@ -1770,14 +1770,14 @@
           "val": 15.02,
           "condition": "always",
           "anisMode": "team",
-          "condLabel": "BS・「みんなの星」状態・10秒間維持"
+          "condLabel": "BS・【みんなの星】状態・10秒間維持"
         },
         {
           "key": "heal",
           "val": 1.26,
           "condition": "always",
           "anisMode": "team",
-          "condLabel": "S2・フルチャージ攻撃時・「みんなの星」状態・発動者最終最大HPの1.26%",
+          "condLabel": "S2・フルチャージ攻撃時・【みんなの星】状態・発動者最終最大HPの1.26%",
           "caster": true
         },
         {
@@ -1827,17 +1827,17 @@
       "self": {
         "invincible": {
           "val": 3,
-          "condLabel": "S1・被弾時・「健康体」状態でない時・3秒間維持・戦闘中5回まで",
+          "condLabel": "S1・被弾時・【健康体】状態でない時・3秒間維持・戦闘中5回まで",
           "unit": "秒"
         },
         "debuffImmune": {
           "val": 3,
-          "condLabel": "S1・被弾時・「健康体」状態でない時・免疫個数∞・3秒間維持・戦闘中5回まで",
+          "condLabel": "S1・被弾時・【健康体】状態でない時・免疫個数∞・3秒間維持・戦闘中5回まで",
           "unit": "秒"
         },
         "healRcvUp": {
           "val": 10.26,
-          "condLabel": "S1・被弾時・「健康体」状態でない時・20秒間維持"
+          "condLabel": "S1・被弾時・【健康体】状態でない時・20秒間維持"
         },
         "atkNeon": {
           "val": 80.04,
@@ -1845,7 +1845,7 @@
         },
         "atkNeon2": {
           "val": 35.05,
-          "condLabel": "S2・FB発動時・「超火力」状態・10秒間維持"
+          "condLabel": "S2・FB発動時・【超火力】状態・10秒間維持"
         },
         "dmgNeon": {
           "val": 110.21,
@@ -1853,7 +1853,7 @@
         },
         "dmgNeon2": {
           "val": 45.03,
-          "condLabel": "BS・「超火力」状態・10秒間維持"
+          "condLabel": "BS・【超火力】状態・10秒間維持"
         },
         "explodeRange": {
           "val": 200,
@@ -1874,7 +1874,7 @@
           "label": "S1・超火力状態フルチャージ追加ダメ",
           "val": 262.79,
           "unit": "%",
-          "cond": "「超火力」状態・フルチャージ攻撃命中時・最終攻撃力の262.79%追加ダメ",
+          "cond": "【超火力】状態・フルチャージ攻撃命中時・最終攻撃力の262.79%追加ダメ",
           "selfOnly": true
         },
         {
@@ -2384,7 +2384,7 @@
       "self": {
         "critDmg": {
           "val": 20.28,
-          "condLabel": "S1・FB初回発動時・イントロ or クライマックス状態付与・持続・解除不可",
+          "condLabel": "S1・FB初回発動時・イントロ/クライマックス状態付与・持続・解除不可",
           "showCond": true
         },
         "dotDmgDW1": {
@@ -2475,12 +2475,12 @@
         },
         "chargeAda": {
           "val": 1500,
-          "condLabel": "BS【特殊改造】・1発間",
+          "condLabel": "BS・【特殊改造】・1発間",
           "showCond": true
         },
         "chargeSpdDown": {
           "val": 300,
-          "condLabel": "BS【特殊改造】・1発間",
+          "condLabel": "BS・【特殊改造】・1発間",
           "unit": "%",
           "showCond": true
         }
@@ -3287,7 +3287,7 @@
       "self": {
         "singleTargetExclude": {
           "val": 1,
-          "condLabel": "S1・BS使用時 or フルチャージFB中・【カモフラージュ】・5秒間維持",
+          "condLabel": "S1・BS使用時/フルチャージFB中・【カモフラージュ】・5秒間維持",
           "syncGroup": "unfaCamo"
         },
         "trueDmg": {
@@ -3951,7 +3951,7 @@
       "party": {
         "partDmg": {
           "val": 24.26,
-          "condLabel": "S1・戦闘開始時 / S2・30秒ごと・15秒間維持"
+          "condLabel": "S1・戦闘開始時/S2・30秒ごと・15秒間維持"
         },
         "atk": {
           "val": 3,
@@ -5754,7 +5754,7 @@
           "label": "バッテリー操作（BS）",
           "val": "",
           "unit": "",
-          "cond": "BS・変身中→バッテリー+50%（変身10秒延長）／非変身→バッテリー+100%即変身・その後-50%（変身10秒スタート）"
+          "cond": "BS・変身中→バッテリー+50%（変身10秒延長）/非変身→バッテリー+100%即変身・その後-50%（変身10秒スタート）"
         }
       ]
     },
@@ -7348,7 +7348,7 @@
         },
         "maxMagazine": {
           "val": 56.7,
-          "condLabel": "S2・通常攻撃70回命中時・10秒間維持・「イチゴキャンディ」最大10スタック",
+          "condLabel": "S2・通常攻撃70回命中時・10秒間維持・【イチゴキャンディ】最大10スタック",
           "stack": {
             "max": 10,
             "key": "dieselCandyStack"
@@ -8233,7 +8233,7 @@
         },
         "coreDmg": {
           "val": 26,
-          "condLabel": "S2・戦闘開始時／狙撃モード解除時・持続（ピンポイント・デストロイ解除）",
+          "condLabel": "S2・戦闘開始時/狙撃モード解除時・持続（ピンポイント・デストロイ解除）",
           "cinderellaCwNormalOnly": true
         },
         "dmgCW2": {
@@ -8747,7 +8747,7 @@
       "self": {
         "barrierShared": {
           "val": 20.59,
-          "condLabel": "S1・戦闘開始時／BS使用時・持続",
+          "condLabel": "S1・戦闘開始時/BS使用時・持続",
           "caster": true,
           "hpBased": true,
           "syncGroup": "rapunzelPgBarrierSustain"
@@ -9320,7 +9320,7 @@
       "self": {
         "barrier": {
           "val": 40.12,
-          "condLabel": "S1・戦闘開始時 or BS使用時（必死の抵抗状態でない場合）・【必死の抵抗】・持続",
+          "condLabel": "S1・戦闘開始時/BS使用時（必死の抵抗状態でない場合）・【必死の抵抗】・持続",
           "caster": true,
           "hpBased": true
         },
@@ -10489,7 +10489,7 @@
       "self": {
         "barrier": {
           "val": 21.12,
-          "condLabel": "S1・戦闘開始時／BS使用時（ナノコーティング状態でない場合）・持続",
+          "condLabel": "S1・戦闘開始時/BS使用時（ナノコーティング状態でない場合）・持続",
           "caster": true,
           "hpBased": true
         },
@@ -10978,7 +10978,7 @@
         "singleTargetExclude": {
           "val": 10,
           "unit": "秒",
-          "condLabel": "S1・通常攻撃120回命中時／S2・戦闘開始時・【隠れ身】・直接攻撃を受けると解除"
+          "condLabel": "S1・通常攻撃120回命中時/S2・戦闘開始時・【隠れ身】・直接攻撃を受けると解除"
         },
         "critRate": {
           "val": 19.34,
@@ -12681,7 +12681,7 @@
         },
         "atk": {
           "val": 50.28,
-          "condLabel": "S1・戦闘開始時／FB終了時・15秒間維持"
+          "condLabel": "S1・戦闘開始時/FB終了時・15秒間維持"
         },
         "dmg": {
           "val": 30,
@@ -12786,7 +12786,7 @@
       "self": {
         "atk": {
           "val": 65.37,
-          "condLabel": "S1・戦闘開始時／FB終了時・15秒間維持"
+          "condLabel": "S1・戦闘開始時/FB終了時・15秒間維持"
         },
         "dmg": {
           "val": 55.31,
