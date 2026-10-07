@@ -26,19 +26,19 @@
         },
         "maxMagazine": {
           "val": 45.17,
-          "condLabel": "BS使用・1回目・5秒"
+          "condLabel": "BS使用・1回目・5秒間維持"
         },
         "critDmg": {
           "val": 12.46,
-          "condLabel": "BS使用・2回目・5秒"
+          "condLabel": "BS使用・2回目・5秒間維持"
         },
         "atk": {
           "val": 14.42,
-          "condLabel": "BS使用・3回目・5秒"
+          "condLabel": "BS使用・3回目・5秒間維持"
         },
         "atkB": {
           "val": 66,
-          "condLabel": "BS・全体・5秒"
+          "condLabel": "BS・全体・5秒間維持"
         },
         "shelter": {
           "val": 52.5,
@@ -78,7 +78,7 @@
       "self": {
         "skillCT": {
           "val": 18,
-          "condLabel": "BS・【発現】状態時・焦土化CT短縮・10秒"
+          "condLabel": "BS・【発現】状態時・焦土化CT短縮・10秒間維持"
         },
         "pierce": {
           "val": 10,
@@ -121,11 +121,11 @@
       "party": {
         "dmg": {
           "val": 32.11,
-          "condLabel": "S1・遮蔽物HP回復時・10秒"
+          "condLabel": "S1・遮蔽物HP回復時・10秒間維持"
         },
         "barrier": {
           "val": 10.21,
-          "condLabel": "S1・遮蔽物HP回復時・最大HPの10.21%・10秒",
+          "condLabel": "S1・遮蔽物HP回復時・最大HPの10.21%・10秒間維持",
           "caster": true,
           "hpBased": true
         },
@@ -138,7 +138,7 @@
       "self": {
         "burstCT": {
           "val": 13,
-          "condLabel": "S1・遮蔽物HP回復時・最大2スタック・12秒",
+          "condLabel": "S1・遮蔽物HP回復時・最大2スタック・12秒間維持",
           "stack": {
             "max": 2,
             "default": 1
@@ -151,7 +151,7 @@
         },
         "barrier": {
           "val": 35.07,
-          "condLabel": "S1・遮蔽物HP回復時・最大HPの35.07%・10秒",
+          "condLabel": "S1・遮蔽物HP回復時・最大HPの35.07%・10秒間維持",
           "caster": true,
           "hpBased": true
         },
@@ -163,11 +163,11 @@
         },
         "lifesteal": {
           "val": 21.96,
-          "condLabel": "BS時・攻撃ダメージの21.96%・10秒"
+          "condLabel": "BS時・攻撃ダメージの21.96%・10秒間維持"
         },
         "hpUp": {
           "val": 32.75,
-          "condLabel": "S2通常5回命中時・最大HPの32.75%・5秒",
+          "condLabel": "S2通常5回命中時・最大HPの32.75%・5秒間維持",
           "caster": true,
           "hpBased": true
         }
@@ -206,7 +206,7 @@
         },
         "hpUpOnly": {
           "val": 5,
-          "condLabel": "S2・フルチャージ8回時・5秒",
+          "condLabel": "S2・フルチャージ8回時・5秒間維持",
           "caster": true
         }
       },
@@ -238,7 +238,7 @@
         "atk": {
           "val": 15.07,
           "target": null,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true
         },
         "hpUp": {
@@ -251,21 +251,21 @@
         "hpUpB": {
           "val": 10.15,
           "target": null,
-          "condLabel": "BS・ソードコイン状態・10秒",
+          "condLabel": "BS・ソードコイン状態・10秒間維持",
           "requireSrcBack": true,
           "caster": true
         },
         "hpUpD": {
           "val": 30.02,
           "target": null,
-          "condLabel": "BS・ダブルソードコイン状態・10秒",
+          "condLabel": "BS・ダブルソードコイン状態・10秒間維持",
           "requireSrcBack": true,
           "caster": true
         },
         "hpUpC": {
           "val": 20.1,
           "target": null,
-          "condLabel": "BS・シールドコイン状態・10秒",
+          "condLabel": "BS・シールドコイン状態・10秒間維持",
           "requireSrcBack": true,
           "caster": true
         }
@@ -290,7 +290,7 @@
       "self": {
         "atk": {
           "val": 23.15,
-          "condLabel": "S1・最大5スタック・5秒",
+          "condLabel": "S1・最大5スタック・5秒間維持",
           "stack": {
             "max": 5,
             "default": 1
@@ -342,17 +342,17 @@
       "party": {
         "dmg": {
           "val": 20.9,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "healOverTime": {
           "val": 4.06,
-          "condLabel": "FB終了時・全体・5秒・最大HPの4.06%",
+          "condLabel": "FB終了時・全体・5秒間維持・最大HPの4.06%",
           "caster": true,
           "hpBased": true
         },
         "hpUpOnlyB": {
           "val": 20.14,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true
         }
       },
@@ -387,23 +387,23 @@
         "dmgElec": {
           "val": 94.15,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "BS・電撃AR限定・スロット1・10秒"
+          "condLabel": "BS・電撃AR限定・スロット1・10秒間維持"
         },
         "reload": {
           "val": 50.82,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "BS・電撃AR限定・スロット1・10秒"
+          "condLabel": "BS・電撃AR限定・スロット1・10秒間維持"
         },
         "maxMagazine": {
           "val": 20,
           "target": "element:electric&weapon:ar",
-          "condLabel": "BS・電撃AR限定・10秒",
+          "condLabel": "BS・電撃AR限定・10秒間維持",
           "unit": "発"
         },
         "hitRate": {
           "val": 45.3,
           "target": "element:electric&weapon:ar",
-          "condLabel": "BS・電撃AR限定・10秒"
+          "condLabel": "BS・電撃AR限定・10秒間維持"
         }
       },
       "other": [
@@ -411,13 +411,13 @@
           "label": "根張り（バーストダメ UP）",
           "val": 435.6,
           "unit": "%",
-          "cond": "敵1機時・「敵全体に」スキルのバーストダメ・5秒"
+          "cond": "敵1機時・「敵全体に」スキルのバーストダメ・5秒間維持"
         },
         {
           "label": "根腐れ（バーストダメ UP）",
           "val": 64.46,
           "unit": "%",
-          "cond": "敵2機以上・「敵全体に」スキルのバーストダメ・5秒"
+          "cond": "敵2機以上・「敵全体に」スキルのバーストダメ・5秒間維持"
         }
       ]
     },
@@ -448,7 +448,7 @@
         },
         "dmg": {
           "val": 5.06,
-          "condLabel": "S2・フルチャージ5回時・10秒"
+          "condLabel": "S2・フルチャージ5回時・10秒間維持"
         }
       },
       "self": {
@@ -462,17 +462,17 @@
         "pierceDmg": {
           "val": 13.55,
           "target": "weapon:sr",
-          "condLabel": "S1・フルBS時・10秒"
+          "condLabel": "S1・フルBS時・10秒間維持"
         },
         "coreDmg": {
           "val": 16.26,
           "target": null,
-          "condLabel": "BS・【ターゲット殲滅】パーツ命中時・10秒"
+          "condLabel": "BS・【ターゲット殲滅】パーツ命中時・10秒間維持"
         },
         "atk": {
           "val": 12.19,
           "target": null,
-          "condLabel": "BS・【ターゲット殲滅】本体命中時・10秒",
+          "condLabel": "BS・【ターゲット殲滅】本体命中時・10秒間維持",
           "caster": true
         }
       },
@@ -513,7 +513,7 @@
       "self": {
         "pierce": {
           "val": 10,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "unit": "秒"
         }
       },
@@ -521,13 +521,13 @@
         "atk": {
           "val": 16.18,
           "target": null,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true
         },
         "coreDmg": {
           "val": 40.07,
           "target": null,
-          "condLabel": "S2・攻撃力最高の味方2機・5秒"
+          "condLabel": "S2・攻撃力最高の味方2機・5秒間維持"
         },
         "heal": {
           "val": 9.58,
@@ -542,7 +542,7 @@
           "key": "coreDmg",
           "val": 85.17,
           "condition": "hasBarrier",
-          "condLabel": "S1・バリア適用時・10秒"
+          "condLabel": "S1・バリア適用時・10秒間維持"
         },
         {
           "key": "atkB",
@@ -571,11 +571,11 @@
       "party": {
         "critDmg": {
           "val": 40.04,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "dmg": {
           "val": 15.04,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "self": {
@@ -616,7 +616,7 @@
           "key": "distDmg",
           "val": 15.03,
           "condition": "drunk",
-          "condLabel": "S2・B3突入・ほろ酔い状態時・スタック×15.03%・10秒",
+          "condLabel": "S2・B3突入・ほろ酔い状態時・スタック×15.03%・10秒間維持",
           "stack": {
             "max": 3,
             "default": 1,
@@ -627,7 +627,7 @@
           "key": "reload",
           "val": 15.04,
           "condition": "drunk",
-          "condLabel": "S2・B3突入・ほろ酔い状態時・スタック×15.04%・10秒",
+          "condLabel": "S2・B3突入・ほろ酔い状態時・スタック×15.04%・10秒間維持",
           "stack": {
             "max": 3,
             "default": 1,
@@ -638,7 +638,7 @@
           "key": "atk",
           "val": 20.06,
           "condition": "drunk_burst",
-          "condLabel": "BS・ほろ酔い状態時・スタック×20.06%・10秒",
+          "condLabel": "BS・ほろ酔い状態時・スタック×20.06%・10秒間維持",
           "caster": true,
           "stack": {
             "max": 3,
@@ -674,18 +674,18 @@
         "critRate": {
           "val": 23.56,
           "target": null,
-          "condLabel": "S2・自分＋攻撃力上位2機・戦闘開始時・30秒"
+          "condLabel": "S2・自分＋攻撃力上位2機・戦闘開始時・30秒間維持"
         },
         "hpUpOnly": {
           "val": 86.2,
           "target": null,
-          "condLabel": "BS・自分＋攻撃力上位2機・7秒",
+          "condLabel": "BS・自分＋攻撃力上位2機・7秒間維持",
           "caster": true
         },
         "critDmgB": {
           "val": 25.19,
           "target": null,
-          "condLabel": "BS・自分＋攻撃力上位2機・7秒"
+          "condLabel": "BS・自分＋攻撃力上位2機・7秒間維持"
         }
       },
       "condParty": [],
@@ -694,14 +694,14 @@
           "label": "防御力ダウン（敵）",
           "val": 1.9,
           "unit": "%×50スタック",
-          "cond": "S1・通常攻撃2回クリ命中時・対象敵に・3秒",
+          "cond": "S1・通常攻撃2回クリ命中時・対象敵に・3秒間維持",
           "selfOnly": true
         },
         {
           "label": "毎秒ダメージ（海風対象）",
           "val": 4.52,
           "unit": "%/秒",
-          "cond": "BS・海風状態の対象に・最終攻撃力の4.52%・7秒",
+          "cond": "BS・海風状態の対象に・最終攻撃力の4.52%・7秒間維持",
           "selfOnly": true
         }
       ]
@@ -732,11 +732,11 @@
         },
         "dmg": {
           "val": 4,
-          "condLabel": "S1・FB発動時・10秒"
+          "condLabel": "S1・FB発動時・10秒間維持"
         },
         "dmgB": {
           "val": 10.13,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "burstGaugeInstant": {
           "val": 37,
@@ -761,7 +761,7 @@
       "self": {
         "atk": {
           "val": 17.28,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true
         }
       },
@@ -802,7 +802,7 @@
       "party": {
         "enemyDmgTaken": {
           "val": 4.2,
-          "condLabel": "S1・チャージ中0.2秒ごと・ロックオン状態の敵全体・4秒",
+          "condLabel": "S1・チャージ中0.2秒ごと・ロックオン状態の敵全体・4秒間維持",
           "unit": "%"
         }
       },
@@ -819,15 +819,15 @@
         },
         "atk": {
           "val": 46.84,
-          "condLabel": "S2・フルチャージ時・5秒"
+          "condLabel": "S2・フルチャージ時・5秒間維持"
         },
         "atkSW": {
           "val": 73.92,
-          "condLabel": "S2・B3突入時・10秒"
+          "condLabel": "S2・B3突入時・10秒間維持"
         },
         "partDmg": {
           "val": 62.64,
-          "condLabel": "S2・フルチャージ時・5秒"
+          "condLabel": "S2・フルチャージ時・5秒間維持"
         },
         "seqDmg": {
           "val": 158.4,
@@ -835,7 +835,7 @@
         },
         "dmg": {
           "val": 84.48,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "defUp": {
           "val": 42.24,
@@ -893,16 +893,16 @@
         },
         "dmgReduce": {
           "val": 35.14,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "defUp": {
           "val": 14.85,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true
         },
         "atk": {
           "val": 42.57,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true
         }
       },
@@ -918,24 +918,24 @@
         },
         "hpUpM1": {
           "val": 91,
-          "condLabel": "S2・HP20%以下時・1回目・3秒",
+          "condLabel": "S2・HP20%以下時・1回目・3秒間維持",
           "exclusiveGroup": "moranHpUp"
         },
         "hpUpM2": {
           "val": 69.84,
-          "condLabel": "S2・HP20%以下時・2回目・3秒",
+          "condLabel": "S2・HP20%以下時・2回目・3秒間維持",
           "exclusiveGroup": "moranHpUp",
           "defaultOff": true
         },
         "hpUpM3": {
           "val": 51.09,
-          "condLabel": "S2・HP20%以下時・3回目・3秒",
+          "condLabel": "S2・HP20%以下時・3回目・3秒間維持",
           "exclusiveGroup": "moranHpUp",
           "defaultOff": true
         },
         "lifesteal": {
           "val": 36.14,
-          "condLabel": "BS・攻撃ダメージの36.14%回復・10秒"
+          "condLabel": "BS・攻撃ダメージの36.14%回復・10秒間維持"
         },
         "taunt": {
           "val": 10,
@@ -972,15 +972,15 @@
       "party": {
         "reload": {
           "val": 44.35,
-          "condLabel": "S1・FB発動時・15秒"
+          "condLabel": "S1・FB発動時・15秒間維持"
         },
         "dmg": {
           "val": 20.99,
-          "condLabel": "S2・回復効果適用時・全体・7秒"
+          "condLabel": "S2・回復効果適用時・全体・7秒間維持"
         },
         "dmgB": {
           "val": 36.24,
-          "condLabel": "BS・15秒"
+          "condLabel": "BS・15秒間維持"
         }
       },
       "self": {
@@ -1022,19 +1022,19 @@
         "atk": {
           "val": 64.51,
           "target": null,
-          "condLabel": "S1・FB発動時・直前BS使用済みの味方・15秒",
+          "condLabel": "S1・FB発動時・直前BS使用済みの味方・15秒間維持",
           "caster": true
         },
         "defUp": {
           "val": 37.44,
           "target": null,
-          "condLabel": "S1・FB発動時・直前BS未使用の味方・15秒",
+          "condLabel": "S1・FB発動時・直前BS未使用の味方・15秒間維持",
           "caster": true
         },
         "barrier": {
           "val": 10.45,
           "target": null,
-          "condLabel": "BS・最大HPの10.45%・15秒",
+          "condLabel": "BS・最大HPの10.45%・15秒間維持",
           "caster": true,
           "hpBased": true
         }
@@ -1059,20 +1059,20 @@
       "party": {
         "atk": {
           "val": 15.2,
-          "condLabel": "S1・フルチャージ適正射程命中時・5秒",
+          "condLabel": "S1・フルチャージ適正射程命中時・5秒間維持",
           "caster": true
         },
         "pierceDmg": {
           "val": 18.36,
-          "condLabel": "S2・フルチャージ適正射程命中時・5秒"
+          "condLabel": "S2・フルチャージ適正射程命中時・5秒間維持"
         },
         "dmg": {
           "val": 55.04,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "pierceDmgB": {
           "val": 10.13,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "self": {
@@ -1093,7 +1093,7 @@
         },
         "rangeUp": {
           "val": 4.44,
-          "condLabel": "S1・フルチャージ攻撃時・10スタック・5秒",
+          "condLabel": "S1・フルチャージ攻撃時・10スタック・5秒間維持",
           "unit": "%",
           "stack": {
             "max": 10,
@@ -1102,7 +1102,7 @@
         },
         "rangeUpB": {
           "val": 55.56,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "unit": "%"
         }
       },
@@ -1129,15 +1129,15 @@
       "self": {
         "atk": {
           "val": 70.12,
-          "condLabel": "S1・B3突入時・10秒"
+          "condLabel": "S1・B3突入時・10秒間維持"
         },
         "chargeB": {
           "val": 140.68,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "trueDmg": {
           "val": 55.3,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "chargeDmg": {
           "val": 80,
@@ -1187,7 +1187,7 @@
       "self": {
         "atk": {
           "val": 160,
-          "condLabel": "S1・FB発動時・3秒"
+          "condLabel": "S1・FB発動時・3秒間維持"
         },
         "dmg": {
           "val": 20.83,
@@ -1200,7 +1200,7 @@
         },
         "dmgC": {
           "val": 50,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "chargeFixed": {
           "val": 1,
@@ -1224,7 +1224,7 @@
         "chargeSpd": {
           "val": 12.74,
           "target": "burst:3",
-          "condLabel": "S1・FB発動時・最終攻撃力最低のB3味方1機・10秒",
+          "condLabel": "S1・FB発動時・最終攻撃力最低のB3味方1機・10秒間維持",
           "caster": true
         }
       },
@@ -1270,22 +1270,22 @@
         },
         "dmg": {
           "val": 8.02,
-          "condLabel": "S1・戦闘補助状態・FB発動時・10秒"
+          "condLabel": "S1・戦闘補助状態・FB発動時・10秒間維持"
         },
         "atkB1": {
           "val": 18.01,
-          "condLabel": "BS（B1モード）・10秒",
+          "condLabel": "BS（B1モード）・10秒間維持",
           "caster": true
         }
       },
       "self": {
         "atk": {
           "val": 95.04,
-          "condLabel": "S1・戦闘補助なし・FB発動時・10秒"
+          "condLabel": "S1・戦闘補助なし・FB発動時・10秒間維持"
         },
         "blockDmg": {
           "val": 48,
-          "condLabel": "S1・戦闘補助なし・FB発動時・阻止部位・10秒"
+          "condLabel": "S1・戦闘補助なし・FB発動時・阻止部位・10秒間維持"
         },
         "burstCT": {
           "val": 20,
@@ -1294,20 +1294,20 @@
         },
         "explodeRange": {
           "val": 100.62,
-          "condLabel": "BS（B1モード）・10秒"
+          "condLabel": "BS（B1モード）・10秒間維持"
         },
         "attachDmgB": {
           "val": 421.2,
-          "condLabel": "BS（B3モード）・10秒"
+          "condLabel": "BS（B3モード）・10秒間維持"
         },
         "grenadeCD": {
           "val": 60,
-          "condLabel": "BS（B3モード）・S2発動条件120→60回・10秒",
+          "condLabel": "BS（B3モード）・S2発動条件120→60回・10秒間維持",
           "unit": "回"
         },
         "explodeRangeB": {
           "val": 100.62,
-          "condLabel": "BS（B3モード）・10秒"
+          "condLabel": "BS（B3モード）・10秒間維持"
         },
         "elemAdv": {
           "val": 1,
@@ -1366,7 +1366,7 @@
       "party": {
         "coreDmg": {
           "val": 25.15,
-          "condLabel": "S1・記憶吸収適用時・5秒"
+          "condLabel": "S1・記憶吸収適用時・5秒間維持"
         },
         "healShare": {
           "val": 5,
@@ -1375,13 +1375,13 @@
         },
         "dmg": {
           "val": 35.45,
-          "condLabel": "BS・15秒"
+          "condLabel": "BS・15秒間維持"
         }
       },
       "self": {
         "immortal": {
           "val": 9,
-          "condLabel": "S1・戦闘開始時・9秒・戦闘中1回",
+          "condLabel": "S1・戦闘開始時・9秒間維持・戦闘中1回",
           "unit": "秒"
         },
         "heal": {
@@ -1417,7 +1417,7 @@
         },
         "chargeFixed": {
           "val": 1.8,
-          "condLabel": "BS・【記憶燃焼】チャージ時間固定・10秒",
+          "condLabel": "BS・【記憶燃焼】チャージ時間固定・10秒間維持",
           "unit": "秒"
         }
       },
@@ -1425,7 +1425,7 @@
         "atk": {
           "val": 30.16,
           "target": null,
-          "condLabel": "S1・記憶吸収適用時・5秒",
+          "condLabel": "S1・記憶吸収適用時・5秒間維持",
           "caster": true
         }
       },
@@ -1449,14 +1449,14 @@
           "label": "記憶燃焼通常ダメージ",
           "val": 275.18,
           "unit": "%",
-          "cond": "BS・【記憶燃焼】中の通常攻撃ダメージ・最終攻撃力の275.18%・10秒",
+          "cond": "BS・【記憶燃焼】中の通常攻撃ダメージ・最終攻撃力の275.18%・10秒間維持",
           "selfOnly": true
         },
         {
           "label": "記憶燃焼フルチャージボーナス",
           "val": 250,
           "unit": "%",
-          "cond": "BS・【記憶燃焼】フルチャージ時ダメージ250%・10秒",
+          "cond": "BS・【記憶燃焼】フルチャージ時ダメージ250%・10秒間維持",
           "selfOnly": true
         },
         {
@@ -1488,7 +1488,7 @@
       "self": {
         "atk": {
           "val": 2.71,
-          "condLabel": "S1・B3突入時・最大HPの2.71%分・10秒",
+          "condLabel": "S1・B3突入時・最大HPの2.71%分・10秒間維持",
           "caster": true,
           "hpBased": true
         },
@@ -1603,13 +1603,13 @@
         "dmgArcana": {
           "val": 55,
           "target": "weapon:sg",
-          "condLabel": "S2・BS使用時・SG限定（自分を除く）・10秒",
+          "condLabel": "S2・BS使用時・SG限定（自分を除く）・10秒間維持",
           "excludeSelf": true,
           "suppressTargetLabel": true
         },
         "atkArcana": {
           "val": 13,
-          "condLabel": "S1・FB終了時・SG限定・15秒・大切な思い出スタック数倍",
+          "condLabel": "S1・FB終了時・SG限定・15秒間維持・大切な思い出スタック数倍",
           "caster": true,
           "stack": {
             "max": 3,
@@ -1647,22 +1647,22 @@
       "self": {
         "maxMagazine": {
           "val": 60,
-          "condLabel": "S2・フルFB発動時・10秒",
+          "condLabel": "S2・フルFB発動時・10秒間維持",
           "unit": "%"
         },
         "bulletCharge": {
           "val": 100,
-          "condLabel": "S2・フルFB発動時・10秒",
+          "condLabel": "S2・フルFB発動時・10秒間維持",
           "unit": "%"
         },
         "atk": {
           "val": 115.12,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "unit": "%"
         },
         "chargeDmg": {
           "val": 169.63,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "unit": "%"
         }
       },
@@ -1716,7 +1716,7 @@
         },
         "dmg": {
           "val": 34.0,
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         }
       },
       "self": {
@@ -1726,27 +1726,27 @@
         },
         "dmg": {
           "val": 35.2,
-          "condLabel": "BS・「私だけの星」状態・10秒"
+          "condLabel": "BS・「私だけの星」状態・10秒間維持"
         },
         "chargeFixed": {
           "val": 0.7,
-          "condLabel": "BS・10秒間",
+          "condLabel": "BS・10秒間維持",
           "unit": "秒"
         },
         "explodeRange": {
           "val": 100,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "defUp": {
           "val": 55.01,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "targeted": {
         "explodeDmg": {
           "val": 92.03,
           "target": null,
-          "condLabel": "S2・FB発動時・アニスより防御力低い味方対象・10秒"
+          "condLabel": "S2・FB発動時・アニスより防御力低い味方対象・10秒間維持"
         }
       },
       "condParty": [
@@ -1762,7 +1762,7 @@
           "val": 35.01,
           "condition": "always",
           "anisMode": "solo",
-          "condLabel": "S2・FB発動時・「私だけの星」状態・10秒",
+          "condLabel": "S2・FB発動時・「私だけの星」状態・10秒間維持",
           "caster": true
         },
         {
@@ -1770,7 +1770,7 @@
           "val": 15.02,
           "condition": "always",
           "anisMode": "team",
-          "condLabel": "BS・「みんなの星」状態・10秒"
+          "condLabel": "BS・「みんなの星」状態・10秒間維持"
         },
         {
           "key": "heal",
@@ -1801,7 +1801,7 @@
           "label": "BS・自動攻撃（シューティングスター）",
           "val": 40.01,
           "unit": "%",
-          "cond": "BS中・0.25秒間隔・ランダム対象・10秒",
+          "cond": "BS中・0.25秒間隔・ランダム対象・10秒間維持",
           "selfOnly": true
         }
       ]
@@ -1827,37 +1827,37 @@
       "self": {
         "invincible": {
           "val": 3,
-          "condLabel": "S1・被弾時・「健康体」状態でない時・3秒・戦闘中5回まで",
+          "condLabel": "S1・被弾時・「健康体」状態でない時・3秒間維持・戦闘中5回まで",
           "unit": "秒"
         },
         "debuffImmune": {
           "val": 3,
-          "condLabel": "S1・被弾時・「健康体」状態でない時・免疫個数∞・3秒・戦闘中5回まで",
+          "condLabel": "S1・被弾時・「健康体」状態でない時・免疫個数∞・3秒間維持・戦闘中5回まで",
           "unit": "秒"
         },
         "healRcvUp": {
           "val": 10.26,
-          "condLabel": "S1・被弾時・「健康体」状態でない時・20秒"
+          "condLabel": "S1・被弾時・「健康体」状態でない時・20秒間維持"
         },
         "atkNeon": {
           "val": 80.04,
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         },
         "atkNeon2": {
           "val": 35.05,
-          "condLabel": "S2・FB発動時・「超火力」状態・10秒"
+          "condLabel": "S2・FB発動時・「超火力」状態・10秒間維持"
         },
         "dmgNeon": {
           "val": 110.21,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "dmgNeon2": {
           "val": 45.03,
-          "condLabel": "BS・「超火力」状態・10秒"
+          "condLabel": "BS・「超火力」状態・10秒間維持"
         },
         "explodeRange": {
           "val": 200,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "targeted": {},
@@ -1904,7 +1904,7 @@
       "self": {
         "dotDmg": {
           "val": 59.98,
-          "condLabel": "S2・B3突入時・10秒"
+          "condLabel": "S2・B3突入時・10秒間維持"
         }
       },
       "targeted": {},
@@ -1928,7 +1928,7 @@
           "label": "BS・プリング・チェーン（持続ダメ）",
           "val": 50.05,
           "unit": "%",
-          "cond": "BS・チェーンバインド状態の敵に持続ダメ・スタック数コピー・10秒・解除不可",
+          "cond": "BS・チェーンバインド状態の敵に持続ダメ・スタック数コピー・10秒間維持・解除不可",
           "selfOnly": true
         }
       ]
@@ -1956,24 +1956,24 @@
       "party": {
         "healRcvUp": {
           "val": 30.96,
-          "condLabel": "S1・FB発動1回目・5秒"
+          "condLabel": "S1・FB発動1回目・5秒間維持"
         },
         "hitRate": {
           "val": 10.13,
-          "condLabel": "S2・FB終了1回目・10秒"
+          "condLabel": "S2・FB終了1回目・10秒間維持"
         },
         "atk": {
           "val": 35.02,
-          "condLabel": "S2・FB終了2回目・10秒",
+          "condLabel": "S2・FB終了2回目・10秒間維持",
           "caster": true
         },
         "reload": {
           "val": 40.04,
-          "condLabel": "S2・FB終了3回目・15秒"
+          "condLabel": "S2・FB終了3回目・15秒間維持"
         },
         "distDmg": {
           "val": 30.4,
-          "condLabel": "S1・FB発動2回目・10秒"
+          "condLabel": "S1・FB発動2回目・10秒間維持"
         },
         "debuffStackDown": {
           "val": 1,
@@ -1988,12 +1988,12 @@
         },
         "atkAnchor": {
           "val": 30.09,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true
         },
         "hpReserve": {
           "val": 60.19,
-          "condLabel": "BS・超過HP回復量を保存・25秒",
+          "condLabel": "BS・超過HP回復量を保存・25秒間維持",
           "caster": true,
           "hpBased": true
         }
@@ -2005,7 +2005,7 @@
           "key": "healOverTime",
           "val": 3.04,
           "condition": "noIegisSquad",
-          "condLabel": "S1・FB発動時・イージス味方在籍時・発動者最大HP基準・1秒毎・8秒",
+          "condLabel": "S1・FB発動時・イージス味方在籍時・発動者最大HP基準・1秒毎・8秒間維持",
           "unit": "%",
           "caster": true,
           "defaultOff": true
@@ -2040,15 +2040,15 @@
         },
         "dmg": {
           "val": 48.2,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "pierceDmgB": {
           "val": 39.98,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "maxMagazine": {
           "val": 3,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "unit": "発"
         }
       },
@@ -2081,7 +2081,7 @@
         },
         "hpDown": {
           "val": 1,
-          "condLabel": "BS・完全計算中・現在HP毎秒1%減少・10秒"
+          "condLabel": "BS・完全計算中・現在HP毎秒1%減少・10秒間維持"
         },
         "magazineInfinite": {
           "val": 10,
@@ -2095,11 +2095,11 @@
         },
         "pierceDmg": {
           "val": 52.8,
-          "condLabel": "BS・完全計算中・10秒"
+          "condLabel": "BS・完全計算中・10秒間維持"
         },
         "critRate": {
           "val": 85.19,
-          "condLabel": "BS・完全計算中・10秒"
+          "condLabel": "BS・完全計算中・10秒間維持"
         }
       },
       "targeted": {},
@@ -2133,11 +2133,11 @@
         },
         "atkEve": {
           "val": 50,
-          "condLabel": "BS・エグゾスパインMk2・S2攻撃力50%→100%（+50%）・10秒"
+          "condLabel": "BS・エグゾスパインMk2・S2攻撃力50%→100%（+50%）・10秒間維持"
         },
         "unstableEnergyUp": {
           "val": 100,
-          "condLabel": "BS・エグゾスパインMk2・不安定エネルギー攻撃倍率240%→480%・10秒"
+          "condLabel": "BS・エグゾスパインMk2・不安定エネルギー攻撃倍率240%→480%・10秒間維持"
         },
         "maxMagazine": {
           "val": 25,
@@ -2156,7 +2156,7 @@
           "key": "enemyDmgTaken",
           "val": 10,
           "condition": "always",
-          "condLabel": "S1・不安定エネルギー命中時・電撃コード対象に・10秒"
+          "condLabel": "S1・不安定エネルギー命中時・電撃コード対象に・10秒間維持"
         }
       ],
       "other": [
@@ -2199,7 +2199,7 @@
       "party": {
         "maxMagazine": {
           "val": 20,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "burstReEntryChime": {
           "val": 2,
@@ -2218,12 +2218,12 @@
         "normalDmg": {
           "val": 46.22,
           "target": "id:crown",
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         },
         "dmgB": {
           "val": 92.44,
           "target": "id:crown",
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "condParty": [],
@@ -2257,7 +2257,7 @@
       "self": {
         "healOverTime": {
           "val": 3.52,
-          "condLabel": "S1・FB終了時・1秒毎・10秒",
+          "condLabel": "S1・FB終了時・1秒毎・10秒間維持",
           "caster": true,
           "hpBased": true
         },
@@ -2310,15 +2310,15 @@
       "party": {
         "barrierDmg": {
           "val": 100.09,
-          "condLabel": "S1・フルチャージ攻撃時・3秒"
+          "condLabel": "S1・フルチャージ攻撃時・3秒間維持"
         },
         "pierceDmg": {
           "val": 40.99,
-          "condLabel": "S1・コア命中時・10秒"
+          "condLabel": "S1・コア命中時・10秒間維持"
         },
         "dmg": {
           "val": 40.99,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "self": {
@@ -2330,7 +2330,7 @@
         },
         "atk": {
           "val": 30.78,
-          "condLabel": "S2・5秒"
+          "condLabel": "S2・5秒間維持"
         }
       },
       "targeted": {},
@@ -2339,7 +2339,7 @@
           "key": "atk",
           "val": 30.78,
           "condition": "always",
-          "condLabel": "S2・5秒",
+          "condLabel": "S2・5秒間維持",
           "caster": true
         }
       ],
@@ -2366,7 +2366,7 @@
       "party": {
         "enemyDmgTaken": {
           "val": 25.09,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "silenceStack": {
           "val": 3,
@@ -2389,22 +2389,22 @@
         },
         "dotDmgDW1": {
           "val": 60.19,
-          "condLabel": "S1・FB発動時・イントロ状態・10秒",
+          "condLabel": "S1・FB発動時・イントロ状態・10秒間維持",
           "showCond": true
         },
         "dotDmgDW2": {
           "val": 235.03,
-          "condLabel": "S1・FB発動時・クライマックス状態・10秒",
+          "condLabel": "S1・FB発動時・クライマックス状態・10秒間維持",
           "showCond": true
         },
         "dotDmgDW3": {
           "val": 68.04,
-          "condLabel": "S2・パーツ破壊時・15秒",
+          "condLabel": "S2・パーツ破壊時・15秒間維持",
           "showCond": true
         },
         "dotDmgDW4": {
           "val": 318.14,
-          "condLabel": "S2・フルチャージ攻撃時・2スタック・3秒",
+          "condLabel": "S2・フルチャージ攻撃時・2スタック・3秒間維持",
           "showCond": true
         }
       },
@@ -2415,7 +2415,7 @@
           "val": -100,
           "condition": "always",
           "dieselWsMode": "climax",
-          "condLabel": "BS・騒音公害時・ディーゼル:ウィンタースイーツを除く全体・1秒",
+          "condLabel": "BS・騒音公害時・ディーゼル:ウィンタースイーツを除く全体・1秒間維持",
           "silenceOnly": true,
           "defaultOff": true,
           "excludeSelf": true
@@ -2426,19 +2426,19 @@
           "label": "S2・FB発動時：ターゲットに持続ダメ",
           "val": "最終攻撃力×63.33%",
           "unit": "",
-          "cond": "1秒間隔・9秒間"
+          "cond": "1秒間隔・9秒間維持"
         },
         {
           "label": "BS：全体に持続ダメ",
           "val": "最終攻撃力×18.43%",
           "unit": "",
-          "cond": "1秒間隔・9秒間"
+          "cond": "1秒間隔・9秒間維持"
         },
         {
           "label": "BS：ターゲットに持続ダメ（追加）",
           "val": "最終攻撃力×181.2%",
           "unit": "",
-          "cond": "1秒間隔・9秒間"
+          "cond": "1秒間隔・9秒間維持"
         }
       ]
     },
@@ -2467,11 +2467,11 @@
       "self": {
         "atkAda": {
           "val": 40,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "trueDmgAda": {
           "val": 42,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "chargeAda": {
           "val": 1500,
@@ -2489,18 +2489,18 @@
         "atk": {
           "val": 60,
           "target": "burst:3",
-          "condLabel": "S1・FB発動時・直前BS使用済みのB3に・10秒",
+          "condLabel": "S1・FB発動時・直前BS使用済みのB3に・10秒間維持",
           "caster": true
         },
         "trueDmg": {
           "val": 50,
           "target": "burst:3",
-          "condLabel": "S1・FB発動時・直前BS使用済みのB3に・10秒"
+          "condLabel": "S1・FB発動時・直前BS使用済みのB3に・10秒間維持"
         },
         "lifesteal": {
           "val": 10,
           "target": "burst:3",
-          "condLabel": "S1・FB発動時・直前BS使用済みのB3に・攻撃ダメの10%回復・10秒"
+          "condLabel": "S1・FB発動時・直前BS使用済みのB3に・攻撃ダメの10%回復・10秒間維持"
         }
       },
       "condParty": [],
@@ -2515,7 +2515,7 @@
           "label": "S2・BS使用時：閃光手榴弾発動間隔短縮",
           "val": 1,
           "unit": "秒",
-          "cond": "10秒"
+          "cond": "10秒間維持"
         }
       ]
     },
@@ -2544,7 +2544,7 @@
         },
         "atk": {
           "val": 118.7,
-          "condLabel": "S1・羞恥心状態付与時・40秒",
+          "condLabel": "S1・羞恥心状態付与時・40秒間維持",
           "showCond": true
         },
         "pierceDmgMilk1": {
@@ -2560,11 +2560,11 @@
         },
         "pierceDmgMilk2": {
           "val": 117.64,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "atkMilk": {
           "val": 220,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "targeted": {},
@@ -2656,15 +2656,15 @@
         },
         "atkSpd": {
           "val": 65,
-          "condLabel": "BS・15秒"
+          "condLabel": "BS・15秒間維持"
         },
         "atkDorothy2": {
           "val": 88.12,
-          "condLabel": "BS・15秒"
+          "condLabel": "BS・15秒間維持"
         },
         "pelletDorothy": {
           "val": 5,
-          "condLabel": "BS・ペレット数5個UP・15秒",
+          "condLabel": "BS・ペレット数5個UP・15秒間維持",
           "unit": "個",
           "showCond": true
         }
@@ -2692,28 +2692,28 @@
       "self": {
         "atk": {
           "val": 47.52,
-          "condLabel": "FB発動時・10秒",
+          "condLabel": "FB発動時・10秒間維持",
           "caster": true,
           "showCond": true
         },
         "partDmg": {
           "val": 21.12,
-          "condLabel": "S2・戦闘開始時・5秒",
+          "condLabel": "S2・戦闘開始時・5秒間維持",
           "showCond": true
         },
         "partDmgRaven2": {
           "val": 21.12,
-          "condLabel": "S2・FB発動時・5秒",
+          "condLabel": "S2・FB発動時・5秒間維持",
           "showCond": true
         },
         "dotDmgRaven1": {
           "val": 47.32,
-          "condLabel": "S2・パーツ破壊時・ANモードでない場合・15秒",
+          "condLabel": "S2・パーツ破壊時・ANモードでない場合・15秒間維持",
           "showCond": true
         },
         "dotDmgRaven2": {
           "val": 89.44,
-          "condLabel": "BS・一点集中解除・10秒",
+          "condLabel": "BS・一点集中解除・10秒間維持",
           "showCond": true
         }
       },
@@ -2724,7 +2724,7 @@
           "label": "持続ダメージ付与",
           "val": "68.46",
           "unit": "%",
-          "cond": "S1・フルチャージ攻撃時・最も近い敵1機・1秒間隔・10スタック・5秒"
+          "cond": "S1・フルチャージ攻撃時・最も近い敵1機・1秒間隔・10スタック・5秒間維持"
         }
       ]
     },
@@ -2746,15 +2746,15 @@
       "party": {
         "atk": {
           "val": 23.61,
-          "condLabel": "FB発動時・10秒"
+          "condLabel": "FB発動時・10秒間維持"
         },
         "reload": {
           "val": 51.16,
-          "condLabel": "FB発動時・10秒"
+          "condLabel": "FB発動時・10秒間維持"
         },
         "dmg": {
           "val": 20.16,
-          "condLabel": "FB発動時・10秒"
+          "condLabel": "FB発動時・10秒間維持"
         },
         "stun": {
           "val": 3,
@@ -2764,25 +2764,25 @@
         "enemyDmgTaken": {
           "val": 10.01,
           "target": null,
-          "condLabel": "S2・最後の弾丸命中時・10秒"
+          "condLabel": "S2・最後の弾丸命中時・10秒間維持"
         },
         "maxMagazine": {
           "val": -50.66,
-          "condLabel": "FB発動時・10秒",
+          "condLabel": "FB発動時・10秒間維持",
           "exclusiveGroup": "maxMagazineDown"
         }
       },
       "self": {
         "elem": {
           "val": 130,
-          "condLabel": "BS・有利属性攻撃ダメ▲・10秒"
+          "condLabel": "BS・有利属性攻撃ダメ▲・10秒間維持"
         }
       },
       "targeted": {
         "enemyAtkDown": {
           "val": 5.02,
           "target": null,
-          "condLabel": "BS・ターゲット指定状態の敵・10秒"
+          "condLabel": "BS・ターゲット指定状態の敵・10秒間維持"
         }
       },
       "condParty": [],
@@ -2824,7 +2824,7 @@
       "party": {
         "critRate": {
           "val": 14.64,
-          "condLabel": "S1・最後の弾丸命中時・5秒"
+          "condLabel": "S1・最後の弾丸命中時・5秒間維持"
         },
         "blockDmg": {
           "val": 3.08,
@@ -2832,11 +2832,11 @@
         },
         "dmg": {
           "val": 27.87,
-          "condLabel": "FB発動時・10秒"
+          "condLabel": "FB発動時・10秒間維持"
         },
         "lifesteal": {
           "val": 54.45,
-          "condLabel": "BS・攻撃ダメージの54.45%回復・10秒"
+          "condLabel": "BS・攻撃ダメージの54.45%回復・10秒間維持"
         },
         "burstGaugeInstant": {
           "val": 14.31,
@@ -2886,19 +2886,19 @@
       "party": {
         "atk": {
           "val": 77.55,
-          "condLabel": "BS（ビーストケージ）・10秒",
+          "condLabel": "BS（ビーストケージ）・10秒間維持",
           "caster": true
         },
         "defUp": {
           "val": 50.68,
-          "condLabel": "S2・BS（ビーストケージ）発動時・10秒",
+          "condLabel": "S2・BS（ビーストケージ）発動時・10秒間維持",
           "caster": true
         }
       },
       "self": {
         "chargeSpd": {
           "val": 3.81,
-          "condLabel": "S1・通常攻撃時・5秒",
+          "condLabel": "S1・通常攻撃時・5秒間維持",
           "showCond": true,
           "stack": {
             "max": 10,
@@ -2924,7 +2924,7 @@
         },
         "lifesteal": {
           "val": 23.04,
-          "condLabel": "S2・BS（ハウリングエンド）発動時・10秒",
+          "condLabel": "S2・BS（ハウリングエンド）発動時・10秒間維持",
           "showCond": true
         },
         "taunt": {
@@ -2935,7 +2935,7 @@
         },
         "healRcvUp": {
           "val": 74.88,
-          "condLabel": "BS（ハウリングエンド）・10秒",
+          "condLabel": "BS（ハウリングエンド）・10秒間維持",
           "showCond": true
         },
         "burstCTRH2": {
@@ -2946,18 +2946,18 @@
         },
         "atkRH": {
           "val": 71.42,
-          "condLabel": "S2・BS（レッドウルフ）発動時・10秒",
+          "condLabel": "S2・BS（レッドウルフ）発動時・10秒間維持",
           "caster": true,
           "showCond": true
         },
         "pierceRange": {
           "val": 100,
-          "condLabel": "BS（レッドウルフ）・10秒",
+          "condLabel": "BS（レッドウルフ）・10秒間維持",
           "showCond": true
         },
         "chargeSpdRH": {
           "val": 100.8,
-          "condLabel": "BS（レッドウルフ）・10秒",
+          "condLabel": "BS（レッドウルフ）・10秒間維持",
           "showCond": true
         }
       },
@@ -2997,24 +2997,24 @@
         },
         "chargeSpd": {
           "val": 80.15,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "atk": {
           "val": 55.12,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "targeted": {
         "chargeSpd": {
           "val": 11.67,
           "target": null,
-          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒",
+          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒間維持",
           "caster": true
         },
         "chargeDmg": {
           "val": 7,
           "target": null,
-          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒",
+          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒間維持",
           "caster": true
         }
       },
@@ -3038,7 +3038,7 @@
       "party": {
         "atk": {
           "val": 66.52,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true,
           "excludeSelf": true
         }
@@ -3050,13 +3050,13 @@
           "key": "enemyDmgTaken",
           "val": 15.12,
           "condition": "always",
-          "condLabel": "S1・FB発動時・風圧コードの敵全体・10秒"
+          "condLabel": "S1・FB発動時・風圧コードの敵全体・10秒間維持"
         },
         {
           "key": "enemyDmgTakenBrid",
           "val": 12.12,
           "condition": "always",
-          "condLabel": "S2・通常攻撃10回攻撃時・風圧コード最低HP敵1機・10秒"
+          "condLabel": "S2・通常攻撃10回攻撃時・風圧コード最低HP敵1機・10秒間維持"
         }
       ],
       "other": [
@@ -3103,15 +3103,15 @@
         },
         "pierceDmgTZ3": {
           "val": 10.06,
-          "condLabel": "S1・FB発動時・10秒"
+          "condLabel": "S1・FB発動時・10秒間維持"
         },
         "critRateTZ1": {
           "val": 18.63,
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         },
         "critRateTZ2": {
           "val": 15,
-          "condLabel": "S2・貫通学概論状態・通常攻撃時・5秒",
+          "condLabel": "S2・貫通学概論状態・通常攻撃時・5秒間維持",
           "defaultOff": true,
           "syncGroup": "tzS2BS",
           "stack": {
@@ -3121,7 +3121,7 @@
         },
         "pierceDmgTZ4": {
           "val": 25.03,
-          "condLabel": "BS・貫通学概論・10秒",
+          "condLabel": "BS・貫通学概論・10秒間維持",
           "defaultOff": true,
           "syncGroup": "tzS2BS"
         },
@@ -3194,7 +3194,7 @@
       "party": {
         "maxMagazineTove": {
           "val": 2,
-          "condLabel": "S1・応急改造スタック・代用弾丸適用時・5秒",
+          "condLabel": "S1・応急改造スタック・代用弾丸適用時・5秒間維持",
           "unit": "発",
           "stack": {
             "max": 3,
@@ -3203,7 +3203,7 @@
         },
         "critDmg": {
           "val": 5.24,
-          "condLabel": "S1・代用弾丸適用時・5秒"
+          "condLabel": "S1・代用弾丸適用時・5秒間維持"
         },
         "critRate": {
           "val": 10.08,
@@ -3232,13 +3232,13 @@
         "atkToveSG": {
           "val": 24.21,
           "target": "weapon:sg",
-          "condLabel": "BS・SG限定・15秒",
+          "condLabel": "BS・SG限定・15秒間維持",
           "caster": true
         },
         "atkToveAll": {
           "val": 2.32,
           "target": null,
-          "condLabel": "BS・15秒",
+          "condLabel": "BS・15秒間維持",
           "caster": true
         }
       },
@@ -3287,7 +3287,7 @@
       "self": {
         "singleTargetExclude": {
           "val": 1,
-          "condLabel": "S1・BS使用時 or フルチャージFB中・【カモフラージュ】・5秒",
+          "condLabel": "S1・BS使用時 or フルチャージFB中・【カモフラージュ】・5秒間維持",
           "syncGroup": "unfaCamo"
         },
         "trueDmg": {
@@ -3326,7 +3326,7 @@
           "key": "apShell",
           "val": 10,
           "condition": "always",
-          "condLabel": "BS・敵被ダメ▲・10秒",
+          "condLabel": "BS・敵被ダメ▲・10秒間維持",
           "unit": "秒",
           "defaultOff": false,
           "syncGroup": "unfaBS"
@@ -3335,7 +3335,7 @@
           "key": "enemyDmgTaken",
           "val": 27.87,
           "condition": "always",
-          "condLabel": "BS・徹甲炸裂弾状態・10秒",
+          "condLabel": "BS・徹甲炸裂弾状態・10秒間維持",
           "unit": "%",
           "defaultOff": false,
           "syncGroup": "unfaBS"
@@ -3422,7 +3422,7 @@
         },
         "battleCtrl": {
           "val": 10,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "unit": "秒",
           "syncGroup": "emmaBS"
         },
@@ -3440,7 +3440,7 @@
         "atk": {
           "val": 40.07,
           "target": null,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "caster": true,
           "syncGroup": "emmaBS"
         }
@@ -3468,7 +3468,7 @@
           "key": "healRcvUp",
           "val": 29.04,
           "condition": "always",
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "unit": "%",
           "defaultOff": false,
           "syncGroup": "emmaBS"
@@ -3518,14 +3518,14 @@
         },
         "atkBestie": {
           "val": 20,
-          "condLabel": "S2・戦場コントロール中・3秒",
+          "condLabel": "S2・戦場コントロール中・3秒間維持",
           "syncGroup": "emmaBS",
           "defaultOff": true,
           "cautionCondition": "hasEmma"
         },
         "explodeDmgBestie": {
           "val": 20,
-          "condLabel": "S2・徹甲炸裂弾状態・3秒",
+          "condLabel": "S2・徹甲炸裂弾状態・3秒間維持",
           "showCond": true,
           "syncGroup": "unfaBS",
           "defaultOff": true,
@@ -3533,11 +3533,11 @@
         },
         "explodeRange": {
           "val": 100,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "trueDmgBestie": {
           "val": 60,
-          "condLabel": "BS・最終攻撃力基準・10秒",
+          "condLabel": "BS・最終攻撃力基準・10秒間維持",
           "showCond": true
         }
       },
@@ -3613,7 +3613,7 @@
         },
         "dmgBS": {
           "val": 34.52,
-          "condLabel": "BS・10秒間",
+          "condLabel": "BS・10秒間維持",
           "showCond": true
         },
         "pouch": {
@@ -3638,7 +3638,7 @@
           "label": "使用武器変更",
           "val": 0,
           "unit": "",
-          "cond": "BS・10秒間",
+          "cond": "BS・10秒間維持",
           "selfOnly": true
         }
       ]
@@ -3679,7 +3679,7 @@
           "key": "enemyDmgTaken",
           "val": 5.64,
           "condition": "always",
-          "condLabel": "S2・電撃コードの敵対象・5秒・最大5スタック",
+          "condLabel": "S2・電撃コードの敵対象・5秒間維持・最大5スタック",
           "unit": "%",
           "defaultOff": false,
           "stack": {
@@ -3722,17 +3722,17 @@
       "party": {
         "trueDmg": {
           "val": 140.49,
-          "condLabel": "S2・全体・100秒"
+          "condLabel": "S2・全体・100秒間維持"
         }
       },
       "self": {
         "atk": {
           "val": 80.04,
-          "condLabel": "S1・戦闘開始時・FB終了時・5秒"
+          "condLabel": "S1・戦闘開始時・FB終了時・5秒間維持"
         },
         "trueDmg": {
           "val": 35.05,
-          "condLabel": "S1・FB発動時・15秒"
+          "condLabel": "S1・FB発動時・15秒間維持"
         }
       },
       "targeted": {},
@@ -3741,7 +3741,7 @@
           "key": "enemyDmgTaken",
           "val": 10.09,
           "condition": "always",
-          "condLabel": "S2・敵全体・5秒",
+          "condLabel": "S2・敵全体・5秒間維持",
           "unit": "%",
           "defaultOff": false
         },
@@ -3749,7 +3749,7 @@
           "key": "stun",
           "val": 2,
           "condition": "always",
-          "condLabel": "S2・敵全体・2秒",
+          "condLabel": "S2・敵全体・2秒間維持",
           "unit": "秒",
           "defaultOff": false
         },
@@ -3757,7 +3757,7 @@
           "key": "enemyDmgTaken",
           "val": 6.04,
           "condition": "always",
-          "condLabel": "BS・命中した敵・5秒",
+          "condLabel": "BS・命中した敵・5秒間維持",
           "unit": "%",
           "defaultOff": false
         }
@@ -3767,7 +3767,7 @@
           "label": "BS・使用武器変更＋通常攻撃→防御力無視ダメ変化",
           "val": "最終攻撃力×200.64%",
           "unit": "",
-          "cond": "自己・10秒間",
+          "cond": "自己・10秒間維持",
           "selfOnly": true
         }
       ]
@@ -3794,11 +3794,11 @@
       "self": {
         "atk": {
           "val": 28,
-          "condLabel": "S2・フルチャージ命中時・5秒"
+          "condLabel": "S2・フルチャージ命中時・5秒間維持"
         },
         "reload": {
           "val": 95,
-          "condLabel": "S1・FB発動時・固定・10秒"
+          "condLabel": "S1・FB発動時・固定・10秒間維持"
         }
       },
       "targeted": {},
@@ -3807,7 +3807,7 @@
           "key": "atk",
           "val": 5.8,
           "condition": "always",
-          "condLabel": "S2・ハッキングコード収集状態・最後の弾命中時・電撃コードの味方・15秒・最大5スタック",
+          "condLabel": "S2・ハッキングコード収集状態・最後の弾命中時・電撃コードの味方・15秒間維持・最大5スタック",
           "unit": "%",
           "caster": true,
           "defaultOff": false,
@@ -3821,7 +3821,7 @@
           "key": "defDown",
           "val": 2.71,
           "condition": "always",
-          "condLabel": "BS・防御最高の敵10機・5秒",
+          "condLabel": "BS・防御最高の敵10機・5秒間維持",
           "unit": "%",
           "defaultOff": false
         },
@@ -3829,7 +3829,7 @@
           "key": "enemyDmgTaken",
           "val": 18.04,
           "condition": "always",
-          "condLabel": "BS・ハッキングコード収集状態フルスタック時・同じ敵・10秒",
+          "condLabel": "BS・ハッキングコード収集状態フルスタック時・同じ敵・10秒間維持",
           "unit": "%",
           "defaultOff": false,
           "syncGroup": "exiaHacking"
@@ -3838,7 +3838,7 @@
           "key": "enemyAtkDown",
           "val": 13.77,
           "condition": "always",
-          "condLabel": "S1・ハッキングコード収集状態・最後の弾命中時・対象敵・5秒",
+          "condLabel": "S1・ハッキングコード収集状態・最後の弾命中時・対象敵・5秒間維持",
           "unit": "%",
           "defaultOff": false,
           "syncGroup": "exiaHacking"
@@ -3847,7 +3847,7 @@
           "key": "defDown",
           "val": 13.77,
           "condition": "always",
-          "condLabel": "S1・ハッキングコード収集状態・最後の弾命中時・対象敵・5秒",
+          "condLabel": "S1・ハッキングコード収集状態・最後の弾命中時・対象敵・5秒間維持",
           "unit": "%",
           "defaultOff": false,
           "syncGroup": "exiaHacking"
@@ -3886,36 +3886,36 @@
       "party": {
         "hitRate": {
           "val": 5.44,
-          "condLabel": "S1・通常攻撃30回命中時・全体・5秒"
+          "condLabel": "S1・通常攻撃30回命中時・全体・5秒間維持"
         },
         "critDmg": {
           "val": 32.99,
-          "condLabel": "S2・FB発動時・全体・10秒"
+          "condLabel": "S2・FB発動時・全体・10秒間維持"
         }
       },
       "self": {
         "atk": {
           "val": 50.06,
-          "condLabel": "S1・通常攻撃30回命中時・5秒"
+          "condLabel": "S1・通常攻撃30回命中時・5秒間維持"
         },
         "critRate": {
           "val": 30.1,
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         },
         "dmg": {
           "val": 23.7,
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         }
       },
       "targeted": {
         "atk": {
           "val": 40.4,
-          "condLabel": "BS・攻撃力最高の味方2機・10秒",
+          "condLabel": "BS・攻撃力最高の味方2機・10秒間維持",
           "excludeSelf": true
         },
         "critDmg": {
           "val": 56.23,
-          "condLabel": "BS・攻撃力最高の味方2機・10秒",
+          "condLabel": "BS・攻撃力最高の味方2機・10秒間維持",
           "excludeSelf": true
         },
         "critRate": {
@@ -3926,7 +3926,7 @@
         "hitRate": {
           "val": 3.79,
           "target": "weapon:smg",
-          "condLabel": "S1・通常攻撃30回命中時・SMG持ち味方・5秒"
+          "condLabel": "S1・通常攻撃30回命中時・SMG持ち味方・5秒間維持"
         }
       },
       "condParty": [],
@@ -3951,11 +3951,11 @@
       "party": {
         "partDmg": {
           "val": 24.26,
-          "condLabel": "S1・戦闘開始時 / S2・30秒ごと・15秒"
+          "condLabel": "S1・戦闘開始時 / S2・30秒ごと・15秒間維持"
         },
         "atk": {
           "val": 3,
-          "condLabel": "S1・パーツ破壊時・30秒・最大5スタック",
+          "condLabel": "S1・パーツ破壊時・30秒間維持・最大5スタック",
           "caster": true,
           "stack": {
             "max": 5,
@@ -3964,11 +3964,11 @@
         },
         "dotDmg": {
           "val": 20.32,
-          "condLabel": "BS・全体・10秒"
+          "condLabel": "BS・全体・10秒間維持"
         },
         "enemyDmgTaken": {
           "val": 32.23,
-          "condLabel": "BS・敵全体・10秒"
+          "condLabel": "BS・敵全体・10秒間維持"
         }
       },
       "self": {},
@@ -4006,25 +4006,25 @@
       "party": {
         "barrierShared": {
           "val": 11.8,
-          "condLabel": "S1・通常攻撃120回攻撃時・5秒",
+          "condLabel": "S1・通常攻撃120回攻撃時・5秒間維持",
           "caster": true,
           "hpBased": true
         },
         "healOverTime": {
           "val": 3.68,
-          "condLabel": "S2・FB終了時・1秒間隔・5秒",
+          "condLabel": "S2・FB終了時・1秒間隔・5秒間維持",
           "caster": true,
           "hpBased": true
         },
         "healOverTimeB": {
           "val": 3.84,
-          "condLabel": "BS・1秒間隔・8秒",
+          "condLabel": "BS・1秒間隔・8秒間維持",
           "caster": true,
           "hpBased": true
         },
         "enemyDmgTaken": {
           "val": 39.26,
-          "condLabel": "BS・敵全体・10秒"
+          "condLabel": "BS・敵全体・10秒間維持"
         }
       },
       "self": {
@@ -4041,12 +4041,12 @@
       "targeted": {
         "immortal": {
           "val": 10,
-          "condLabel": "BS・自分除くHP最低の味方1機・10秒",
+          "condLabel": "BS・自分除くHP最低の味方1機・10秒間維持",
           "excludeSelf": true
         },
         "hpUp": {
           "val": 31.68,
-          "condLabel": "BS・自分除くHP最低の味方1機・10秒",
+          "condLabel": "BS・自分除くHP最低の味方1機・10秒間維持",
           "excludeSelf": true
         }
       },
@@ -4076,13 +4076,13 @@
         },
         "barrier": {
           "val": 7,
-          "condLabel": "S2・CT9秒・5秒",
+          "condLabel": "S2・CT9秒・5秒間維持",
           "caster": true,
           "hpBased": true
         },
         "defDown": {
           "val": 14.54,
-          "condLabel": "BS・残HP最低の敵5機・10秒"
+          "condLabel": "BS・残HP最低の敵5機・10秒間維持"
         }
       },
       "self": {
@@ -4092,7 +4092,7 @@
         },
         "hpUp": {
           "val": 5,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "targeted": {},
@@ -4136,15 +4136,15 @@
         },
         "trueDmg": {
           "val": 34.99,
-          "condLabel": "S1・BS使用後・10秒"
+          "condLabel": "S1・BS使用後・10秒間維持"
         },
         "atk": {
           "val": 40.03,
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         },
         "reload": {
           "val": 99.96,
-          "condLabel": "BS・リロ速固定・10秒"
+          "condLabel": "BS・リロ速固定・10秒間維持"
         },
         "magazineDown": {
           "val": 100,
@@ -4152,15 +4152,15 @@
         },
         "hitRate": {
           "val": 80.78,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "dmg": {
           "val": 75,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "piercingAtk": {
           "val": 10,
-          "condLabel": "BS・通常攻撃を防御無視ダメとして適用・10秒",
+          "condLabel": "BS・通常攻撃を防御無視ダメとして適用・10秒間維持",
           "unit": "秒"
         }
       },
@@ -4171,7 +4171,7 @@
           "label": "【硫酸弾】持続ダメ（初弾命中・対象）",
           "val": 192,
           "unit": "%",
-          "cond": "S2・最終攻撃力基準・1秒間隔・30秒",
+          "cond": "S2・最終攻撃力基準・1秒間隔・30秒間維持",
           "selfOnly": true
         }
       ]
@@ -4200,7 +4200,7 @@
       "self": {
         "atk": {
           "val": 40,
-          "condLabel": "S2・BS使用後・10秒"
+          "condLabel": "S2・BS使用後・10秒間維持"
         }
       },
       "targeted": {
@@ -4272,30 +4272,30 @@
       "self": {
         "atk": {
           "val": 70.01,
-          "condLabel": "S1・FB発動時・10秒"
+          "condLabel": "S1・FB発動時・10秒間維持"
         },
         "chargeSpdDown": {
           "val": 20,
-          "condLabel": "S1・やみつき/オススメ状態時・50秒・解除不可",
+          "condLabel": "S1・やみつき/オススメ状態時・50秒間維持・解除不可",
           "breddyHideNone": true
         },
         "dmg": {
           "val": 60.19,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "dmgB": {
           "val": 60.01,
-          "condLabel": "S2・オススメ状態・5秒",
+          "condLabel": "S2・オススメ状態・5秒間維持",
           "breddyRecomOnly": true
         },
         "atkB": {
           "val": 70.09,
-          "condLabel": "BS・オススメ状態・10秒",
+          "condLabel": "BS・オススメ状態・10秒間維持",
           "breddyRecomOnly": true
         },
         "aftertasteUp": {
           "val": 349.8,
-          "condLabel": "BS・やみつき状態・10秒",
+          "condLabel": "BS・やみつき状態・10秒間維持",
           "breddyHabitOnly": true
         }
       },
@@ -4305,7 +4305,7 @@
           "label": "S2・あと味（持続ダメ）",
           "val": 150.04,
           "unit": "%",
-          "cond": "やみつき状態・フルチャージ3回命中時・最終攻撃力基準・1秒間隔・5秒",
+          "cond": "やみつき状態・フルチャージ3回命中時・最終攻撃力基準・1秒間隔・5秒間維持",
           "selfOnly": true,
           "breddyHabitOnly": true
         },
@@ -4322,7 +4322,7 @@
       "party": {
         "enemyDmgTaken": {
           "val": 10.2,
-          "condLabel": "S2・やみつき状態・5秒",
+          "condLabel": "S2・やみつき状態・5秒間維持",
           "breddyHabitOnly": true
         }
       }
@@ -4343,29 +4343,29 @@
       "self": {
         "normalDmg": {
           "val": -40,
-          "condLabel": "BS・殲滅態勢中・9秒"
+          "condLabel": "BS・殲滅態勢中・9秒間維持"
         },
         "bulletCharge": {
           "val": 21,
-          "condLabel": "BS・殲滅態勢中・9秒",
+          "condLabel": "BS・殲滅態勢中・9秒間維持",
           "unit": "%"
         },
         "atk": {
           "val": 46.8,
-          "condLabel": "BS・殲滅態勢中・9秒",
+          "condLabel": "BS・殲滅態勢中・9秒間維持",
           "caster": true
         },
         "dmg": {
           "val": 36,
-          "condLabel": "BS・殲滅態勢中・9秒"
+          "condLabel": "BS・殲滅態勢中・9秒間維持"
         },
         "dmgB": {
           "val": 30.97,
-          "condLabel": "S2・殲滅態勢状態・FB発動時・10秒"
+          "condLabel": "S2・殲滅態勢状態・FB発動時・10秒間維持"
         },
         "mgStartup": {
           "val": -100,
-          "condLabel": "S2・緊急修復・BS終了後・3秒"
+          "condLabel": "S2・緊急修復・BS終了後・3秒間維持"
         },
         "magazineDown": {
           "val": 100,
@@ -4378,7 +4378,7 @@
         },
         "healOverTime": {
           "val": 3.77,
-          "condLabel": "S2・緊急修復・BS終了後・1秒間隔・3秒",
+          "condLabel": "S2・緊急修復・BS終了後・1秒間隔・3秒間維持",
           "caster": true,
           "hpBased": true
         }
@@ -4411,7 +4411,7 @@
       "party": {
         "enemyDmgTaken": {
           "val": 0.83,
-          "condLabel": "S1・アンチA.T.フィールド・10発ごと・30スタック・30秒",
+          "condLabel": "S1・アンチA.T.フィールド・10発ごと・30スタック・30秒間維持",
           "stack": {
             "max": 30,
             "default": 1
@@ -4459,29 +4459,29 @@
       "self": {
         "dmg": {
           "val": 35.9,
-          "condLabel": "BS使用時・10秒",
+          "condLabel": "BS使用時・10秒間維持",
           "caster": true
         },
         "atk": {
           "val": 63.36,
-          "condLabel": "BS使用時・10秒",
+          "condLabel": "BS使用時・10秒間維持",
           "caster": true
         }
       },
       "party": {
         "atk": {
           "val": 11.61,
-          "condLabel": "FB発動時・10秒",
+          "condLabel": "FB発動時・10秒間維持",
           "caster": true
         },
         "mgStartup": {
           "val": 100,
-          "condLabel": "FB発動時・直前BSがMGの味方のみ・13秒",
+          "condLabel": "FB発動時・直前BSがMGの味方のみ・13秒間維持",
           "weaponOnly": "mg"
         },
         "atkB": {
           "val": 17.6,
-          "condLabel": "FB発動時・殲滅態勢状態の味方のみ・9秒",
+          "condLabel": "FB発動時・殲滅態勢状態の味方のみ・9秒間維持",
           "caster": true,
           "targetOnly": "asuka_w"
         }
@@ -4544,16 +4544,16 @@
         "invincible": {
           "val": 2,
           "unit": "秒",
-          "condLabel": "S1・射撃予測・ゲージ100%・2秒"
+          "condLabel": "S1・射撃予測・ゲージ100%・2秒間維持"
         },
         "atkB": {
           "val": 73.16,
-          "condLabel": "BS使用時・10秒"
+          "condLabel": "BS使用時・10秒間維持"
         },
         "piercingAtk": {
           "val": 10,
           "unit": "秒",
-          "condLabel": "S2・BS使用後・通常攻撃防御無視化・10秒"
+          "condLabel": "S2・BS使用後・通常攻撃防御無視化・10秒間維持"
         }
       },
       "party": {},
@@ -4593,15 +4593,15 @@
       "self": {
         "hpUpOnly": {
           "val": 6.34,
-          "condLabel": "S1・フルチャージ6回・最大10スタック・15秒"
+          "condLabel": "S1・フルチャージ6回・最大10スタック・15秒間維持"
         },
         "elem": {
           "val": 31.68,
-          "condLabel": "S2・MP消費時・10秒"
+          "condLabel": "S2・MP消費時・10秒間維持"
         },
         "atk": {
           "val": 3.2,
-          "condLabel": "S2・MP消費時・最終最大HPの3.2%分・10秒",
+          "condLabel": "S2・MP消費時・最終最大HPの3.2%分・10秒間維持",
           "caster": true,
           "hpBased": true
         }
@@ -4609,13 +4609,13 @@
       "party": {
         "elem": {
           "val": 40.9,
-          "condLabel": "S2・MPチャージ時・10秒",
+          "condLabel": "S2・MPチャージ時・10秒間維持",
           "elementOnly": "electric",
           "excludeSelf": true
         },
         "atk": {
           "val": 20.9,
-          "condLabel": "S2・MPチャージ時・10秒",
+          "condLabel": "S2・MPチャージ時・10秒間維持",
           "caster": true,
           "elementOnly": "electric",
           "excludeSelf": true
@@ -4657,12 +4657,12 @@
       "self": {
         "hitRate": {
           "val": 1.36,
-          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索1段階】・2秒・最大10スタック",
+          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索1段階】・2秒間維持・最大10スタック",
           "stackLinkedKey": "routeS2Lv1"
         },
         "atk": {
           "val": 2.45,
-          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索1段階】・2秒・最大10スタック",
+          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索1段階】・2秒間維持・最大10スタック",
           "stack": {
             "max": 10,
             "default": 1,
@@ -4671,14 +4671,14 @@
         },
         "hitRateLv2": {
           "val": 2.71,
-          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索2段階】・1段階フルスタック時のみ・1秒・最大10スタック",
+          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索2段階】・1段階フルスタック時のみ・1秒間維持・最大10スタック",
           "defaultOff": true,
           "stackLinkedKey": "routeS2Lv2",
           "parentStack": "routeS2Lv1"
         },
         "atkLv2": {
           "val": 4.9,
-          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索2段階】・1段階フルスタック時のみ・1秒・最大10スタック",
+          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索2段階】・1段階フルスタック時のみ・1秒間維持・最大10スタック",
           "stack": {
             "max": 10,
             "default": 1,
@@ -4688,14 +4688,14 @@
         },
         "hitRateLv3": {
           "val": 4.08,
-          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索3段階】・2段階フルスタック時のみ・0.5秒・最大5スタック",
+          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索3段階】・2段階フルスタック時のみ・0.5秒間維持・最大5スタック",
           "defaultOff": true,
           "stackLinkedKey": "routeS2Lv3",
           "parentStack": "routeS2Lv2"
         },
         "atkLv3": {
           "val": 7.36,
-          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索3段階】・2段階フルスタック時のみ・0.5秒・最大5スタック",
+          "condLabel": "S2・通常攻撃2回攻撃時・【ルート探索3段階】・2段階フルスタック時のみ・0.5秒間維持・最大5スタック",
           "stack": {
             "max": 5,
             "default": 1,
@@ -4726,11 +4726,11 @@
         },
         "dmg": {
           "val": 57.08,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "reload": {
           "val": 25.87,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "party": {},
@@ -4757,7 +4757,7 @@
       "self": {
         "elem": {
           "val": 30.23,
-          "condLabel": "S1・通常攻撃100回攻撃時・3秒"
+          "condLabel": "S1・通常攻撃100回攻撃時・3秒間維持"
         },
         "barrierDmg": {
           "val": 700.5,
@@ -4768,21 +4768,21 @@
       "targeted": {
         "atk": {
           "val": 25.03,
-          "condLabel": "S2・B3突入時・灼熱限定・10秒",
+          "condLabel": "S2・B3突入時・灼熱限定・10秒間維持",
           "caster": true,
           "target": "element:fire",
           "suppressTargetLabel": true
         },
         "dmg": {
           "val": 48.02,
-          "condLabel": "BS・灼熱限定・10秒",
+          "condLabel": "BS・灼熱限定・10秒間維持",
           "caster": true,
           "target": "element:fire",
           "suppressTargetLabel": true
         },
         "barrier": {
           "val": 13.44,
-          "condLabel": "BS・灼熱限定・最終最大HPの13.44%・10秒",
+          "condLabel": "BS・灼熱限定・最終最大HPの13.44%・10秒間維持",
           "caster": true,
           "hpBased": true,
           "target": "element:fire",
@@ -4844,11 +4844,11 @@
         },
         "atk": {
           "val": 96.98,
-          "condLabel": "S1・回復効果適用時・25秒"
+          "condLabel": "S1・回復効果適用時・25秒間維持"
         },
         "elem": {
           "val": 30.02,
-          "condLabel": "S2・FB時・バリア適用状態の場合・10秒",
+          "condLabel": "S2・FB時・バリア適用状態の場合・10秒間維持",
           "defaultOff": true,
           "caster": true,
           "showCond": true,
@@ -4857,26 +4857,26 @@
         "pierce": {
           "val": 25,
           "unit": "秒",
-          "condLabel": "BS・貫通特化・25秒"
+          "condLabel": "BS・貫通特化・25秒間維持"
         },
         "dmg": {
           "val": 150.04,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "lifesteal": {
           "val": 3.16,
-          "condLabel": "BS・攻撃ダメの3.16%回復・吸血・10秒"
+          "condLabel": "BS・攻撃ダメの3.16%回復・吸血・10秒間維持"
         },
         "hitRate": {
           "val": 101.37,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "party": {},
       "targeted": {
         "coreDmg": {
           "val": 60.07,
-          "condLabel": "S2・FB時・灼熱限定・10秒",
+          "condLabel": "S2・FB時・灼熱限定・10秒間維持",
           "target": "element:fire",
           "suppressTargetLabel": true
         }
@@ -4929,13 +4929,13 @@
         },
         "hitRate": {
           "val": 38.91,
-          "condLabel": "BS・ゴールデンチップ20以上・15秒",
+          "condLabel": "BS・ゴールデンチップ20以上・15秒間維持",
           "defaultOff": true,
           "gcThreshold": 20
         },
         "atk": {
           "val": 65.25,
-          "condLabel": "BS・ゴールデンチップ30以上・15秒",
+          "condLabel": "BS・ゴールデンチップ30以上・15秒間維持",
           "defaultOff": true,
           "gcThreshold": 30
         }
@@ -4943,7 +4943,7 @@
       "party": {
         "dmg": {
           "val": 10.51,
-          "condLabel": "S1・FB中・通常攻撃3回攻撃ごと・自分除く最終攻撃力最高の味方1機・2秒",
+          "condLabel": "S1・FB中・通常攻撃3回攻撃ごと・自分除く最終攻撃力最高の味方1機・2秒間維持",
           "caster": true
         }
       },
@@ -4996,15 +4996,15 @@
       "self": {
         "critRate": {
           "val": 14.6,
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         },
         "atk": {
           "val": 62.54,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "reload": {
           "val": 67.2,
-          "condLabel": "BS・20秒"
+          "condLabel": "BS・20秒間維持"
         },
         "bulletCharge": {
           "val": 20,
@@ -5015,7 +5015,7 @@
       "party": {
         "enemyDmgTaken": {
           "val": 12.56,
-          "condLabel": "S1・通常攻撃60回命中ごと・対象敵・3秒"
+          "condLabel": "S1・通常攻撃60回命中ごと・対象敵・3秒間維持"
         }
       },
       "targeted": {}
@@ -5135,27 +5135,27 @@
         },
         "reloadBS": {
           "val": 27.72,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "elem": {
           "val": 42.24,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "maxMagazine": {
           "val": -73.92,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "targeted": {
         "atk": {
           "val": 55.31,
-          "condLabel": "FB発動時・10秒",
+          "condLabel": "FB発動時・10秒間維持",
           "caster": true,
           "target": "element:electric"
         },
         "reload": {
           "val": 49.28,
-          "condLabel": "FB発動時・10秒",
+          "condLabel": "FB発動時・10秒間維持",
           "target": "element:electric"
         }
       },
@@ -5190,7 +5190,7 @@
       "party": {
         "hitRate": {
           "val": 8.56,
-          "condLabel": "FB発動時・全体・15秒"
+          "condLabel": "FB発動時・全体・15秒間維持"
         },
         "burstTimeUp": {
           "val": 5,
@@ -5201,7 +5201,7 @@
       "self": {
         "critDmg": {
           "val": 14.25,
-          "condLabel": "S1・200発命中ごと・10秒",
+          "condLabel": "S1・200発命中ごと・10秒間維持",
           "stack": {
             "key": "modaniaS1",
             "max": 5
@@ -5209,19 +5209,19 @@
         },
         "atk": {
           "val": 29.38,
-          "condLabel": "S2・200発命中時・命中率増加状態・10秒"
+          "condLabel": "S2・200発命中時・命中率増加状態・10秒間維持"
         },
         "magazineInfinite": {
           "val": 1,
-          "condLabel": "BS・殲滅モード中・15秒"
+          "condLabel": "BS・殲滅モード中・15秒間維持"
         },
         "zansMode": {
           "val": 1,
-          "condLabel": "BS・15秒・照準拡張・照準内オートエイム・全敵単一対象化"
+          "condLabel": "BS・15秒間維持・照準拡張・照準内オートエイム・全敵単一対象化"
         },
         "maxMagazine": {
           "val": -5.04,
-          "condLabel": "S1・200発命中ごと・10秒",
+          "condLabel": "S1・200発命中ごと・10秒間維持",
           "stackLinkedKey": "modaniaS1"
         }
       },
@@ -5263,7 +5263,7 @@
       "party": {
         "enemyDmgTaken": {
           "val": 39.96,
-          "condLabel": "BS・マーキング1状態・5秒"
+          "condLabel": "BS・マーキング1状態・5秒間維持"
         },
         "burstTimeDown": {
           "val": 5,
@@ -5274,15 +5274,15 @@
       "self": {
         "critRate": {
           "val": 6.26,
-          "condLabel": "S1・BS1回目以降・ターゲットマーキング1・45秒"
+          "condLabel": "S1・BS1回目以降・ターゲットマーキング1・45秒間維持"
         },
         "critDmg": {
           "val": 18.03,
-          "condLabel": "S1・BS2回目以降・ターゲットマーキング2・45秒"
+          "condLabel": "S1・BS2回目以降・ターゲットマーキング2・45秒間維持"
         },
         "atk": {
           "val": 17.28,
-          "condLabel": "S1・BS3回目以降・ターゲットマーキング3・45秒"
+          "condLabel": "S1・BS3回目以降・ターゲットマーキング3・45秒間維持"
         }
       },
       "targeted": {},
@@ -5338,11 +5338,11 @@
       "self": {
         "atk": {
           "val": 8.28,
-          "condLabel": "S1・通常攻撃30回命中ごと・5秒"
+          "condLabel": "S1・通常攻撃30回命中ごと・5秒間維持"
         },
         "critRate": {
           "val": 26.1,
-          "condLabel": "S2・FB中・10秒"
+          "condLabel": "S2・FB中・10秒間維持"
         }
       },
       "targeted": {},
@@ -5398,7 +5398,7 @@
       "self": {
         "explodeRange": {
           "val": 3.57,
-          "condLabel": "S1・フルチャージ攻撃ごと・【ヒーロービジョン】スタック付与・15秒",
+          "condLabel": "S1・フルチャージ攻撃ごと・【ヒーロービジョン】スタック付与・15秒間維持",
           "stack": {
             "key": "laplaceS1",
             "max": 5
@@ -5406,12 +5406,12 @@
         },
         "pierce": {
           "val": 10,
-          "condLabel": "BS・貫通特化・10秒",
+          "condLabel": "BS・貫通特化・10秒間維持",
           "unit": "秒"
         },
         "normalDmgIgnoreDef": {
           "val": 10,
-          "condLabel": "BS・BSスキルダメ対象・10秒",
+          "condLabel": "BS・BSスキルダメ対象・10秒間維持",
           "unit": "秒"
         }
       },
@@ -5481,32 +5481,32 @@
       "party": {
         "hitRate": {
           "val": 20.09,
-          "condLabel": "S1・FB発動時・10秒"
+          "condLabel": "S1・FB発動時・10秒間維持"
         },
         "atk": {
           "val": 11.85,
-          "condLabel": "S1・FB発動時・10秒"
+          "condLabel": "S1・FB発動時・10秒間維持"
         }
       },
       "self": {
         "maxMagazine": {
           "val": 72.18,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "dmg": {
           "val": 31.68,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "targeted": {
         "atkSG": {
           "val": 63.88,
-          "condLabel": "S1・FB発動時・10秒",
+          "condLabel": "S1・FB発動時・10秒間維持",
           "target": "weapon:sg"
         },
         "maxMagazineSG": {
           "val": 50.14,
-          "condLabel": "S1・FB発動時・10秒",
+          "condLabel": "S1・FB発動時・10秒間維持",
           "target": "weapon:sg"
         }
       },
@@ -5562,27 +5562,27 @@
       "party": {
         "explodeDmg": {
           "val": 20,
-          "condLabel": "S1・フルチャージ攻撃時・3秒"
+          "condLabel": "S1・フルチャージ攻撃時・3秒間維持"
         },
         "pierceDmg": {
           "val": 13.09,
-          "condLabel": "S1・フルチャージ攻撃時・3秒"
+          "condLabel": "S1・フルチャージ攻撃時・3秒間維持"
         },
         "healOverTime": {
           "val": 3.04,
-          "condLabel": "BS・25秒・解除不可",
+          "condLabel": "BS・25秒間維持・解除不可",
           "performanceOnly": true,
           "caster": true,
           "hpBased": true
         },
         "chargeDmg": {
           "val": 25,
-          "condLabel": "BS・25秒・解除不可",
+          "condLabel": "BS・25秒間維持・解除不可",
           "performanceOnly": true
         },
         "dmg": {
           "val": 25.01,
-          "condLabel": "S2・シンガロング適用時・パフォーマンス状態・10秒",
+          "condLabel": "S2・シンガロング適用時・パフォーマンス状態・10秒間維持",
           "performanceOnly": true,
           "requireSrc": "mint"
         }
@@ -5590,12 +5590,12 @@
       "self": {
         "atk": {
           "val": 20,
-          "condLabel": "S1・フルチャージ攻撃時・3秒",
+          "condLabel": "S1・フルチャージ攻撃時・3秒間維持",
           "caster": true
         },
         "hpUp": {
           "val": 19.98,
-          "condLabel": "S2・FB発動時・10秒"
+          "condLabel": "S2・FB発動時・10秒間維持"
         },
         "healRcvUp": {
           "val": 49.92,
@@ -5641,42 +5641,42 @@
       "party": {
         "atk": {
           "val": 45.02,
-          "condLabel": "ボーカルエフェクト付与・フルチャージ攻撃時・3秒",
+          "condLabel": "ボーカルエフェクト付与・フルチャージ攻撃時・3秒間維持",
           "caster": true,
           "mintVocalOnly": true
         },
         "healOverTime": {
           "val": 1.8,
-          "condLabel": "ダンスエフェクト付与・フルチャージ攻撃時・3秒",
+          "condLabel": "ダンスエフェクト付与・フルチャージ攻撃時・3秒間維持",
           "hpBased": true,
           "mintDanceOnly": true
         },
         "critRate": {
           "val": 19.94,
-          "condLabel": "S2・FB突入時・ボーカル状態・10秒",
+          "condLabel": "S2・FB突入時・ボーカル状態・10秒間維持",
           "mintVocalOnly": true
         },
         "explodeDmg": {
           "val": 50,
-          "condLabel": "S2・FB突入時・ボーカル状態・10秒",
+          "condLabel": "S2・FB突入時・ボーカル状態・10秒間維持",
           "mintVocalOnly": true
         },
         "pierceDmg": {
           "val": 32.72,
-          "condLabel": "S2・FB突入時・ボーカル状態・10秒",
+          "condLabel": "S2・FB突入時・ボーカル状態・10秒間維持",
           "mintVocalOnly": true
         },
         "dmg": {
           "val": 30.02,
-          "condLabel": "BS・シンガロング・10秒"
+          "condLabel": "BS・シンガロング・10秒間維持"
         },
         "maxMagazine": {
           "val": 40,
-          "condLabel": "BS・シンガロング・10秒"
+          "condLabel": "BS・シンガロング・10秒間維持"
         },
         "critDmg": {
           "val": 45.05,
-          "condLabel": "BS・シンガロング・10秒"
+          "condLabel": "BS・シンガロング・10秒間維持"
         }
       },
       "self": {},
@@ -5715,14 +5715,14 @@
         },
         "dotDmg": {
           "val": 135.83,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         }
       },
       "targeted": {
         "dotDmgFBT": {
           "val": 77.5,
           "target": "element:wind&weapon:ar",
-          "condLabel": "S2・風圧AR限定・FB時・10秒"
+          "condLabel": "S2・風圧AR限定・FB時・10秒間維持"
         }
       },
       "other": [
@@ -5730,7 +5730,7 @@
           "label": "持続ダメ（通常攻撃30回ごと）",
           "val": 59.6,
           "unit": "%",
-          "cond": "S1・通常攻撃30回ごと・self・5秒"
+          "cond": "S1・通常攻撃30回ごと・self・5秒間維持"
         },
         {
           "label": "攻撃力（変身中）",
@@ -5748,7 +5748,7 @@
           "label": "持続ダメ・最大HP最高の敵1機",
           "val": 266.69,
           "unit": "%",
-          "cond": "BS（CT40秒）・最終攻撃力266.69%・1秒間隔・10秒"
+          "cond": "BS（CT40秒）・最終攻撃力266.69%・1秒間隔・10秒間維持"
         },
         {
           "label": "バッテリー操作（BS）",
@@ -5776,11 +5776,11 @@
       "party": {
         "chargeSpd": {
           "val": 4.48,
-          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒"
+          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒間維持"
         },
         "atk": {
           "val": 43.1,
-          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒"
+          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒間維持"
         }
       },
       "self": {
@@ -5842,11 +5842,11 @@
       "party": {
         "dmgReduce": {
           "val": 70.4,
-          "condLabel": "S2・戦闘開始1回・電撃コード敵限定・5秒"
+          "condLabel": "S2・戦闘開始1回・電撃コード敵限定・5秒間維持"
         },
         "atk": {
           "val": 80.36,
-          "condLabel": "BS・妄想共有状態・10秒",
+          "condLabel": "BS・妄想共有状態・10秒間維持",
           "defaultOff": true,
           "syncGroup": "labelBsSync",
           "excludeSelf": true
@@ -5882,14 +5882,14 @@
         },
         "hpUp": {
           "val": 20.26,
-          "condLabel": "BS・10秒",
+          "condLabel": "BS・10秒間維持",
           "defaultOff": true,
           "syncGroup": "labelBsSync"
         },
         "barrierInvincible": {
           "val": 10,
           "unit": "秒",
-          "condLabel": "BS・バリアに無敵付与・10秒",
+          "condLabel": "BS・バリアに無敵付与・10秒間維持",
           "defaultOff": true,
           "syncGroup": "labelBsSync"
         }
@@ -5982,7 +5982,7 @@
         },
         "blockDmg": {
           "val": 2,
-          "condLabel": "S1・ニンジンパーティー・5秒",
+          "condLabel": "S1・ニンジンパーティー・5秒間維持",
           "stack": {
             "key": "blockDmgAliceWb",
             "max": 5
@@ -5990,15 +5990,15 @@
         },
         "burstGauge": {
           "val": 10,
-          "condLabel": "S2・FB終了時・5秒"
+          "condLabel": "S2・FB終了時・5秒間維持"
         },
         "maxMagazine": {
           "val": 40,
-          "condLabel": "S2・FB発動時・15秒"
+          "condLabel": "S2・FB発動時・15秒間維持"
         },
         "bulletCharge": {
           "val": 40,
-          "condLabel": "S2・FB発動時・15秒"
+          "condLabel": "S2・FB発動時・15秒間維持"
         },
         "heal": {
           "val": 27,
@@ -6008,7 +6008,7 @@
         },
         "healRcvUp": {
           "val": 150,
-          "condLabel": "BS・ニンジンパーティーフルスタック時・15秒",
+          "condLabel": "BS・ニンジンパーティーフルスタック時・15秒間維持",
           "fullStackOnly": true,
           "fullStackRef": "blockDmgAliceWb"
         },
@@ -6048,7 +6048,7 @@
       "party": {
         "dmgReduce": {
           "val": 2,
-          "condLabel": "S1・通常攻撃120回・整理整頓・15秒",
+          "condLabel": "S1・通常攻撃120回・整理整頓・15秒間維持",
           "stack": {
             "key": "dmgReduceMikaSb",
             "max": 10
@@ -6062,7 +6062,7 @@
         },
         "buffStackUp": {
           "val": 1,
-          "condLabel": "S2・通常攻撃150回・バフ効果スキルスタック・15秒",
+          "condLabel": "S2・通常攻撃150回・バフ効果スキルスタック・15秒間維持",
           "unit": "個"
         },
         "cleanse": {
@@ -6072,7 +6072,7 @@
         },
         "atk": {
           "val": 39.93,
-          "condLabel": "BS・5秒",
+          "condLabel": "BS・5秒間維持",
           "caster": true
         }
       },
@@ -6620,7 +6620,7 @@
         "dmg": {
           "val": 180,
           "target": "burst:3&element:electric",
-          "condLabel": "S1・FB終了時・運命の輪状態・直前にBSを使用したB3電撃の味方・【魔術師のカード】・15秒",
+          "condLabel": "S1・FB終了時・運命の輪状態・直前にBSを使用したB3電撃の味方・【魔術師のカード】・15秒間維持",
           "arcanaFateOnly": true,
           "caster": true,
           "suppressTargetLabel": true
@@ -6628,7 +6628,7 @@
         "atk": {
           "val": 180,
           "target": "burst:3&element:electric",
-          "condLabel": "S2・FB終了時・運命の輪状態・直前にBSを使用したB3電撃の味方・【力のカード】・15秒",
+          "condLabel": "S2・FB終了時・運命の輪状態・直前にBSを使用したB3電撃の味方・【力のカード】・15秒間維持",
           "caster": true,
           "arcanaFateOnly": true,
           "suppressTargetLabel": true
@@ -6636,19 +6636,19 @@
         "dmgTarotFate": {
           "val": 10,
           "target": "element:electric",
-          "condLabel": "BS・電撃コードの味方全体・【運命の輪のカード】・10秒",
+          "condLabel": "BS・電撃コードの味方全体・【運命の輪のカード】・10秒間維持",
           "arcanaFateOnly": true
         }
       },
       "party": {
         "atk": {
           "val": 5,
-          "condLabel": "S1・FB終了時・味方全体・10秒",
+          "condLabel": "S1・FB終了時・味方全体・10秒間維持",
           "caster": true
         },
         "dmg": {
           "val": 7.5,
-          "condLabel": "S2・FB終了時・味方全体・10秒"
+          "condLabel": "S2・FB終了時・味方全体・10秒間維持"
         },
         "burstCT": {
           "val": 6,
@@ -6657,13 +6657,13 @@
         },
         "atkTarotDeath": {
           "val": 50,
-          "condLabel": "S2・FB終了時・運命の輪状態・味方全体・【死神のカード】・5秒",
+          "condLabel": "S2・FB終了時・運命の輪状態・味方全体・【死神のカード】・5秒間維持",
           "caster": true,
           "arcanaFateOnly": true
         },
         "enemyDmgTakenTarot": {
           "val": 10,
-          "condLabel": "BS・敵全体・【審判のカード】・10秒",
+          "condLabel": "BS・敵全体・【審判のカード】・10秒間維持",
           "arcanaFateOnly": true
         }
       },
@@ -6703,25 +6703,25 @@
       "party": {
         "atk": {
           "val": 10,
-          "condLabel": "S1・通常攻撃3回・メイラード・10秒",
+          "condLabel": "S1・通常攻撃3回・メイラード・10秒間維持",
           "caster": true,
           "crustMeilardOnly": true
         },
         "atkBranching": {
           "val": 10,
-          "condLabel": "S1・フルチャージ攻撃3回・ブランチング・10秒",
+          "condLabel": "S1・フルチャージ攻撃3回・ブランチング・10秒間維持",
           "caster": true,
           "crustBranchingOnly": true
         },
         "defUp": {
           "val": 10,
-          "condLabel": "S2・通常攻撃3回・10秒",
+          "condLabel": "S2・通常攻撃3回・10秒間維持",
           "caster": true,
           "crustMeilardOnly": true
         },
         "defUpBranching": {
           "val": 10,
-          "condLabel": "S2・フルチャージ攻撃3回・10秒",
+          "condLabel": "S2・フルチャージ攻撃3回・10秒間維持",
           "caster": true,
           "crustBranchingOnly": true
         },
@@ -6739,21 +6739,21 @@
         },
         "atkB": {
           "val": 20,
-          "condLabel": "S2・FB発動時・メイラード/ブランチング対象・10秒",
+          "condLabel": "S2・FB発動時・メイラード/ブランチング対象・10秒間維持",
           "caster": true
         },
         "dmg": {
           "val": 20,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "distDmg": {
           "val": 60,
-          "condLabel": "BS・メイラード状態・10秒",
+          "condLabel": "BS・メイラード状態・10秒間維持",
           "crustMeilardOnly": true
         },
         "dotDmg": {
           "val": 10,
-          "condLabel": "BS・ブランチング状態・10秒",
+          "condLabel": "BS・ブランチング状態・10秒間維持",
           "crustBranchingOnly": true
         }
       },
@@ -7280,15 +7280,15 @@
         },
         "atkB": {
           "val": 7.72,
-          "condLabel": "S2・BS使用・1回目・5秒"
+          "condLabel": "S2・BS使用・1回目・5秒間維持"
         },
         "critRate": {
           "val": 4.21,
-          "condLabel": "S2・BS使用・2回目・5秒"
+          "condLabel": "S2・BS使用・2回目・5秒間維持"
         },
         "critDmg": {
           "val": 13.22,
-          "condLabel": "S2・BS使用・3回目・5秒"
+          "condLabel": "S2・BS使用・3回目・5秒間維持"
         }
       },
       "self": {},
@@ -7640,13 +7640,13 @@
           "val": 10.14,
           "target": "element:water",
           "suppressTargetLabel": true,
-          "condLabel": "BS・水冷限定・10秒"
+          "condLabel": "BS・水冷限定・10秒間維持"
         },
         "elemB": {
           "val": 18.75,
           "target": "element:water",
           "suppressTargetLabel": true,
-          "condLabel": "BS・水冷限定・10秒"
+          "condLabel": "BS・水冷限定・10秒間維持"
         }
       },
       "condParty": [],
@@ -7677,7 +7677,7 @@
       "party": {
         "defDown": {
           "val": 32.19,
-          "condLabel": "S1・【予告状】通常攻撃命中時・5秒"
+          "condLabel": "S1・【予告状】通常攻撃命中時・5秒間維持"
         },
         "enemyDmgTaken": {
           "val": 18,
@@ -7956,11 +7956,11 @@
         },
         "dmg": {
           "val": 21.12,
-          "condLabel": "S2・BS使用時・10秒"
+          "condLabel": "S2・BS使用時・10秒間維持"
         },
         "atk": {
           "val": 97.2,
-          "condLabel": "BS・10秒"
+          "condLabel": "BS・10秒間維持"
         },
         "magazineInfinite": {
           "val": 10,
@@ -8012,15 +8012,15 @@
       "self": {
         "chargeDmg": {
           "val": 110.44,
-          "condLabel": "S1・BS使用時・15秒"
+          "condLabel": "S1・BS使用時・15秒間維持"
         },
         "explodeRange": {
           "val": 100.74,
-          "condLabel": "S1・BS使用時・15秒"
+          "condLabel": "S1・BS使用時・15秒間維持"
         },
         "partDmg": {
           "val": 40.88,
-          "condLabel": "S2・フルチャージ攻撃命中時・3秒"
+          "condLabel": "S2・フルチャージ攻撃命中時・3秒間維持"
         },
         "hpDown": {
           "val": 3.99,
@@ -11591,7 +11591,7 @@
           "label": "BSダメージ（使用武器変更）",
           "val": "最終攻撃力×33%",
           "unit": "",
-          "cond": "BS・CT40秒・使用武器変更・7秒間",
+          "cond": "BS・CT40秒・使用武器変更・7秒間維持",
           "selfOnly": true
         },
         {
