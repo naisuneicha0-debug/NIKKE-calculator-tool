@@ -390,7 +390,7 @@
         "hpUpOnlyElec": {
           "val": 44.98,
           "target": "element:electric&weapon:ar",
-          "condLabel": "S2・電撃AR限定・戦闘開始時・自分生存時・持続",
+          "condLabel": "S2・電撃コード・AR限定・戦闘開始時・自分生存時・持続",
           "caster": true,
           "showCond": true,
           "suppressTargetLabel": true
@@ -398,7 +398,7 @@
         "invincible": {
           "val": 2,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "S2・スロット1の電撃AR限定・戦闘開始時",
+          "condLabel": "S2・スロット1の電撃コード・AR限定・戦闘開始時",
           "unit": "秒",
           "showCond": true,
           "suppressTargetLabel": true
@@ -406,21 +406,21 @@
         "dmgElec": {
           "val": 94.15,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "BS・電撃AR限定・スロット1・10秒間維持",
+          "condLabel": "BS・電撃コード・AR限定・スロット1・10秒間維持",
           "showCond": true,
           "suppressTargetLabel": true
         },
         "reload": {
           "val": 50.82,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "BS・電撃AR限定・スロット1・10秒間維持",
+          "condLabel": "BS・電撃コード・AR限定・スロット1・10秒間維持",
           "showCond": true,
           "suppressTargetLabel": true
         },
         "maxMagazine": {
           "val": 20,
           "target": "element:electric&weapon:ar",
-          "condLabel": "BS・電撃AR限定・10秒間維持",
+          "condLabel": "BS・電撃コード・AR限定・10秒間維持",
           "unit": "発",
           "showCond": true,
           "suppressTargetLabel": true
@@ -428,7 +428,7 @@
         "hitRate": {
           "val": 45.3,
           "target": "element:electric&weapon:ar",
-          "condLabel": "BS・電撃AR限定・10秒間維持",
+          "condLabel": "BS・電撃コード・AR限定・10秒間維持",
           "showCond": true,
           "suppressTargetLabel": true
         }
@@ -4334,7 +4334,7 @@
       "targeted": {
         "atk": {
           "val": 16.2,
-          "condLabel": "S1・水冷限定・幽霊キャプチャー数1以上・持続",
+          "condLabel": "S1・水冷コード限定・幽霊キャプチャー数1以上・持続",
           "caster": true,
           "target": "element:water",
           "suppressTargetLabel": true,
@@ -4342,7 +4342,7 @@
         },
         "elem": {
           "val": 35,
-          "condLabel": "S1・水冷限定・幽霊キャプチャー数4以上・持続",
+          "condLabel": "S1・水冷コード限定・幽霊キャプチャー数4以上・持続",
           "target": "element:water",
           "suppressTargetLabel": true,
           "showCond": true
@@ -4928,7 +4928,7 @@
       "targeted": {
         "atk": {
           "val": 25.03,
-          "condLabel": "S2・B3突入時・灼熱限定・10秒間維持",
+          "condLabel": "S2・B3突入時・灼熱コード限定・10秒間維持",
           "caster": true,
           "target": "element:fire",
           "suppressTargetLabel": true,
@@ -4936,7 +4936,7 @@
         },
         "dmg": {
           "val": 48.02,
-          "condLabel": "BS・灼熱限定・10秒間維持",
+          "condLabel": "BS・灼熱コード限定・10秒間維持",
           "caster": true,
           "target": "element:fire",
           "suppressTargetLabel": true,
@@ -4944,7 +4944,7 @@
         },
         "barrier": {
           "val": 13.44,
-          "condLabel": "BS・灼熱限定・最終最大HPの13.44%・10秒間維持",
+          "condLabel": "BS・灼熱コード限定・最終最大HPの13.44%・10秒間維持",
           "caster": true,
           "hpBased": true,
           "target": "element:fire",
@@ -5039,7 +5039,7 @@
       "targeted": {
         "coreDmg": {
           "val": 60.07,
-          "condLabel": "S2・FB発動時・灼熱限定・10秒間維持",
+          "condLabel": "S2・FB発動時・灼熱コード限定・10秒間維持",
           "target": "element:fire",
           "suppressTargetLabel": true,
           "showCond": true
@@ -5915,7 +5915,7 @@
         "dotDmgFBT": {
           "val": 77.5,
           "target": "element:wind&weapon:ar",
-          "condLabel": "S2・風圧AR限定・FB発動時・10秒間維持",
+          "condLabel": "S2・風圧コード・AR限定・FB発動時・10秒間維持",
           "showCond": true,
           "suppressTargetLabel": true
         }
@@ -6228,7 +6228,7 @@
       "targeted": {
         "buffStackUp": {
           "val": 1,
-          "condLabel": "S1・通常攻撃90回・水冷限定",
+          "condLabel": "S1・通常攻撃90回・水冷コード限定",
           "unit": "個",
           "target": "element:water",
           "suppressTargetLabel": true,
@@ -6344,28 +6344,28 @@
       "targeted": {
         "elem": {
           "val": 20.85,
-          "condLabel": "S2・BS使用時・水冷限定・3秒間維持・1回目",
+          "condLabel": "S2・BS使用時・水冷コード限定・3秒間維持・1回目",
           "target": "element:water",
           "suppressTargetLabel": true,
           "showCond": true
         },
         "elemB": {
           "val": 13.88,
-          "condLabel": "S2・BS使用時・水冷限定・5秒間維持・2回目",
+          "condLabel": "S2・BS使用時・水冷コード限定・5秒間維持・2回目",
           "target": "element:water",
           "suppressTargetLabel": true,
           "showCond": true
         },
         "elemC": {
           "val": 8.36,
-          "condLabel": "S2・BS使用時・水冷限定・10秒間維持・3回目",
+          "condLabel": "S2・BS使用時・水冷コード限定・10秒間維持・3回目",
           "target": "element:water",
           "suppressTargetLabel": true,
           "showCond": true
         },
         "atk": {
           "val": 23.23,
-          "condLabel": "BS・水冷限定・3秒間維持",
+          "condLabel": "BS・水冷コード限定・3秒間維持",
           "target": "element:water",
           "suppressTargetLabel": true,
           "showCond": true
@@ -6851,7 +6851,7 @@
         "dmg": {
           "val": 180,
           "target": "burst:3&element:electric",
-          "condLabel": "S1・FB終了時・【運命の輪】状態・直前にBSを使用したB3電撃の味方・【魔術師のカード】・15秒間維持",
+          "condLabel": "S1・FB終了時・【運命の輪】状態・直前にBSを使用したB3・電撃コードの味方・【魔術師のカード】・15秒間維持",
           "arcanaFateOnly": true,
           "caster": true,
           "suppressTargetLabel": true,
@@ -6860,7 +6860,7 @@
         "atk": {
           "val": 180,
           "target": "burst:3&element:electric",
-          "condLabel": "S2・FB終了時・【運命の輪】状態・直前にBSを使用したB3電撃の味方・【力のカード】・15秒間維持",
+          "condLabel": "S2・FB終了時・【運命の輪】状態・直前にBSを使用したB3・電撃コードの味方・【力のカード】・15秒間維持",
           "caster": true,
           "arcanaFateOnly": true,
           "suppressTargetLabel": true,
@@ -6918,7 +6918,7 @@
           "label": "【魔術師のカード】対象スキル2CT短縮",
           "val": 75,
           "unit": "%",
-          "cond": "S1・FB終了時・【運命の輪】状態・直前にBSを使用したB3電撃の味方・15秒（対象キャラの元CT秒数に依存するため秒数表示不可）",
+          "cond": "S1・FB終了時・【運命の輪】状態・直前にBSを使用したB3・電撃コードの味方・15秒（対象キャラの元CT秒数に依存するため秒数表示不可）",
           "selfOnly": true
         }
       ]
@@ -7903,7 +7903,7 @@
           "val": 1.16,
           "target": "element:water",
           "suppressTargetLabel": true,
-          "condLabel": "S1・勇者レベルアップ時・水冷限定・レベル数分UP・持続",
+          "condLabel": "S1・勇者レベルアップ時・水冷コード限定・レベル数分UP・持続",
           "stack": {
             "max": 11,
             "stackSync": "guillotineHeroLevel",
@@ -7916,7 +7916,7 @@
           "target": "element:water",
           "caster": true,
           "suppressTargetLabel": true,
-          "condLabel": "S1・勇者レベルアップ時・水冷限定・レベル数分UP・持続",
+          "condLabel": "S1・勇者レベルアップ時・水冷コード限定・レベル数分UP・持続",
           "stack": {
             "max": 11,
             "stackSync": "guillotineHeroLevel",
@@ -7928,14 +7928,14 @@
           "val": 10.14,
           "target": "element:water",
           "suppressTargetLabel": true,
-          "condLabel": "BS・水冷限定・10秒間維持",
+          "condLabel": "BS・水冷コード限定・10秒間維持",
           "showCond": true
         },
         "elemB": {
           "val": 18.75,
           "target": "element:water",
           "suppressTargetLabel": true,
-          "condLabel": "BS・水冷限定・10秒間維持",
+          "condLabel": "BS・水冷コード限定・10秒間維持",
           "showCond": true
         }
       },
@@ -9823,7 +9823,7 @@
           "val": 1,
           "unit": "個",
           "target": "element:electric",
-          "condLabel": "S1・通常攻撃100回・電撃限定",
+          "condLabel": "S1・通常攻撃100回・電撃コード限定",
           "suppressTargetLabel": true,
           "showCond": true
         },

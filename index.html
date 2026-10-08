@@ -3589,7 +3589,7 @@ function targetLabel(target) {
   const map = {
     role:    { atk:'火力型限定', sup:'支援型限定', def:'防御型限定', heal:'ヒーラー限定' },
     weapon:  { ar:'AR限定', smg:'SMG限定', sg:'SG限定', rl:'RL限定', sr:'SR限定', mg:'MG限定' },
-    element: { fire:'灼熱限定', water:'水冷限定', wind:'風圧限定', iron:'鉄甲限定', electric:'電撃限定' },
+    element: { fire:'灼熱コード限定', water:'水冷コード限定', wind:'風圧コード限定', iron:'鉄甲コード限定', electric:'電撃コード限定' },
     burst:   { '1':'B1限定', '2':'B2限定', '3':'B3限定' },
     company: { elysion:'エリシオン限定', missilis:'ミシリス限定', tetra:'テトラ限定', pilgrim:'ピルグリム限定', abnormal:'アブノーマル限定' },
   };
@@ -3612,7 +3612,23 @@ function targetLabel(target) {
 function targetLabelComplex(target) {
   if(!target) return '';
   if(target.includes('&')) {
-    return target.split('&').map(cond => targetLabel(cond)).join(' + ');
+    const parts = target.split('&');
+    // 位置・属性・武器・役割・バースト・会社だけの組み合わせは「電撃コード・AR限定」の形（属性は「〇〇コード」、重ねる時は「・」）
+    const ORDER = ['position', 'element', 'weapon', 'role', 'burst', 'company'];
+    const NOUN = {
+      position: { slot1:'最左スロット', back:'後列', front:'前列' },
+      element:  { fire:'灼熱コード', water:'水冷コード', wind:'風圧コード', iron:'鉄甲コード', electric:'電撃コード' },
+      weapon:   { ar:'AR', smg:'SMG', sg:'SG', rl:'RL', sr:'SR', mg:'MG' },
+      role:     { atk:'火力型', sup:'支援型', def:'防御型' },
+      burst:    { '1':'B1', '2':'B2', '3':'B3' },
+      company:  { elysion:'エリシオン', missilis:'ミシリス', tetra:'テトラ', pilgrim:'ピルグリム', abnormal:'アブノーマル' }
+    };
+    const toks = parts.map(p => { const [t, v] = p.split(':'); return (NOUN[t] && NOUN[t][v]) ? { t, n: NOUN[t][v] } : null; });
+    if(toks.every(Boolean)) {
+      toks.sort((a, b) => ORDER.indexOf(a.t) - ORDER.indexOf(b.t));
+      return toks.map(x => x.n).join('・') + '限定';
+    }
+    return parts.map(cond => targetLabel(cond)).join(' + ');
   }
   return targetLabel(target);
 }
@@ -3633,7 +3649,12 @@ const COND_SEG_RX = [
 function condLabelHtml(label) {
   const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   const segs = []; let cur = '', depth = 0;
-  for(const ch of String(label || '')) {
+  // 「電撃コード・AR限定」「B3・電撃コードの味方」の「・」は区切りではなく、1つの対象の書き方（AND）なので分けない
+  const GLUE = '\uE000';
+  const text = String(label || '')
+    .replace(/コード・(?=(AR|SG|SMG|RL|SR|MG))/g, 'コード' + GLUE)
+    .replace(/(B[123])・(?=(電撃|水冷|灼熱|風圧|鉄甲)コード)/g, '$1' + GLUE);
+  for(const ch of text) {
     if('（(【「［['.includes(ch)) depth++;
     else if('）)】」］]'.includes(ch)) depth = Math.max(0, depth - 1);
     if(ch === '・' && depth === 0) { segs.push(cur); cur = ''; } else cur += ch;
@@ -3645,7 +3666,7 @@ function condLabelHtml(label) {
     const head = m ? m[1] : '', body = m ? m[2] : seg;
     const hit = COND_SEG_RX.some(rx => rx.test(body));
     return esc(head) + (hit ? `<span class="cond-hl">${esc(body)}</span>` : esc(body));
-  }).join('・');
+  }).join('・').split(GLUE).join('・');
 }
 // スタック調整つきバフ名の横の✦。マイナス（デバフ）のスタックは赤、最初から最大なら光った状態で出す
 function stackStarSpan(srcs, buffKey) {
