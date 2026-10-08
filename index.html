@@ -2407,6 +2407,11 @@ function getCautionMessages(char, filledTeam) {
         triggered = !hasLeft && !hasRight;
         break;
       }
+      case 'noRightAdjacent': {
+        // 右隣（1つ右のスロット）にニケがいない（ベロータ：パンプキンウィッチ用）
+        triggered = !(charIdx < 4 && TEAM[charIdx + 1]);
+        break;
+      }
       case 'noElecAR': {
         const hasElecAR = filledTeam.some(m => m && m.element === 'electric' && m.weapon === 'ar');
         triggered = !hasElecAR;
@@ -2920,6 +2925,14 @@ function matchSingleTarget(type, val, char, filledTeam, src) {
       const charIdx = TEAM.indexOf(char);
       if(srcIdx === -1 || charIdx === -1) return false;
       return Math.abs(srcIdx - charIdx) === 1;
+    }
+    case 'rightAdjacent': {
+      // srcの1つ右のスロットにいるキャラだけ（ベロータ：パンプキンウィッチの「自分の右隣の味方1機」）
+      if(!src) return false;
+      const srcIdx2  = TEAM.indexOf(src);
+      const charIdx2 = TEAM.indexOf(char);
+      if(srcIdx2 === -1 || charIdx2 === -1) return false;
+      return charIdx2 === srcIdx2 + 1;
     }
     case 'healsSrc': {
       // srcに回復を与えうるキャラ（canHealTarget参照）。ネロS1の「回復してくれたニケ本人」の対象判定
@@ -3605,6 +3618,7 @@ function targetLabel(target) {
     return `位置限定(${val})`;
   }
   if(type === 'adjacent') return '両隣2機限定';
+  if(type === 'rightAdjacent') return '右隣1機限定';
   return (map[type] && map[type][val]) || target;
 }
 
@@ -5339,6 +5353,7 @@ function getShortName(name) {
     'クエンシー：エスケープクイーン':     'クエンシー：EQ',
     'ギルティ：マイティバニー':           'ギルティ：MB',
     'ドレイク：グレイトヴィラン':         'ドレイク：GV',
+    'ベロータ：パンプキンウィッチ':       'ベロータ：PW',
     'シン：スウィフトバニー':             'シン：SB',
     'アニス：スパークリングサマー':       'アニス：SS',
     'ソリン：フロストチケット':           'ソリン：FT',

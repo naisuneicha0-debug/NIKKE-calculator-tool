@@ -13621,5 +13621,80 @@
         }
       ]
     }
+  },
+  {
+    "id": "velota_pw",
+    "caution": [
+      {
+        "condition": "noRightAdjacent",
+        "message": "右隣にニケが編成されていません"
+      }
+    ],
+    "name": "ベロータ：パンプキンウィッチ",
+    "burst": 2,
+    "role": "sup",
+    "weapon": "rl",
+    "element": "water",
+    "company": "tetra",
+    "squad": "リトルキャノン",
+    "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/velota_pw.jpg",
+    "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/velota_pw_slot.jpg",
+    "buffs": {
+      "party": {
+        "enemyDmgTaken": {
+          "val": 10.56,
+          "condLabel": "S2・フルチャージ攻撃命中時・【おばけの仮装】状態時・【おばけのイタズラ】・10秒間維持",
+          "showCond": true
+        }
+      },
+      "self": {
+        "singleTargetExclude": {
+          "val": 10,
+          "unit": "秒",
+          "condLabel": "S1・FB発動時・【おばけの仮装】・直接攻撃を受けると解除・10秒間維持",
+          "showCond": true
+        },
+        "hpUp": {
+          "val": 15.84,
+          "condLabel": "S1・FB発動時・【イタズラ準備】・10秒間維持",
+          "showCond": true
+        }
+      },
+      "targeted": {
+        "atk": {
+          "val": 44.88,
+          "target": "rightAdjacent",
+          "condLabel": "S1・右隣1機限定・FB発動時・10秒間維持",
+          "suppressTargetLabel": true,
+          "caster": true,
+          "showCond": true
+        },
+        "dotDmg": {
+          "val": 19.97,
+          "target": "rightAdjacent",
+          "condLabel": "S2・右隣1機限定・フルチャージ攻撃時・5秒間維持",
+          "suppressTargetLabel": true,
+          "showCond": true
+        },
+        "atkB": {
+          "val": 47.52,
+          "target": "rightAdjacent",
+          "condLabel": "BS・右隣1機限定・10秒間維持",
+          "suppressTargetLabel": true,
+          "caster": true,
+          "showCond": true
+        },
+        "dotDmgB": {
+          "val": 27.23,
+          "target": "rightAdjacent",
+          "condLabel": "BS・右隣1機限定・10秒間維持",
+          "suppressTargetLabel": true,
+          "showCond": true
+        }
+      },
+      "condParty": [],
+      "other": []
+    },
+    "note": "S1（パッシブ）：FBT発動時、自分に【おばけの仮装】単一攻撃の対象から除外（直接攻撃を受けると解除・10秒間維持）＋【イタズラ準備】最大HP15.84%UP（10秒間維持）。さらに自分の右隣の味方1機にスキル発動者基準で攻撃力44.88%UP（10秒間維持）。S2（パッシブ）：フルチャージ攻撃が命中した時、自分がおばけの仮装状態なら、対象に【おばけのイタズラ】受けるダメージ10.56%UP（10秒間維持・ENEMY系のためparty.enemyDmgTakenに配置）。フルチャージして攻撃した時、自分の右隣の味方1機に持続ダメージ19.97%UP（5秒間維持）。BS（アクティブ・CT40秒）：自分の右隣の味方1機にスキル発動者基準で攻撃力47.52%UP＋持続ダメージ27.23%UP（10秒間維持）。実装メモ：「右隣」は新規target構文rightAdjacent（srcの1つ右のスロット）で実装。右隣に味方がいない時はS1・S2・BSの効果が無いためCAUTION（noRightAdjacent）で警告。【おばけの仮装】（単一攻撃対象除外）と【おばけのイタズラ】（敵被ダメ）は個別にON/OFFできる（連動なし・初期は両方ON）。"
   }
 ]
