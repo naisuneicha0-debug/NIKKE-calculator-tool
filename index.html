@@ -1979,12 +1979,6 @@
 
       <div class="modal-scroll">
       <div class="modal-filters">
-      <!-- 効果検索（カード内訳の効果名で絞り込み。複数選択=AND） -->
-      <div class="filter-group">
-        <div class="filter-group-label collapsible" onclick="toggleFilterGroup(this)">EFFECT <span class="fg-arrow" style="transform:rotate(180deg)">▲</span></div>
-        <div class="fg-body collapsed" id="effectFilterBody"></div>
-      </div>
-
       <!-- 段2: バースト -->
       <div class="filter-group">
         <div class="filter-group-label collapsible" onclick="toggleFilterGroup(this)">BURST <span class="fg-arrow" style="transform:rotate(180deg)">▲</span></div>
@@ -2040,6 +2034,12 @@
           <span class="fchip comp-chip" data-ftype="company" data-filter="pilgrim"  onclick="setFilter('company','pilgrim')">Pilgrim</span>
           <span class="fchip comp-chip" data-ftype="company" data-filter="abnormal" onclick="setFilter('company','abnormal')">Abnormal</span>
         </div>
+      </div>
+
+      <!-- 効果検索（カード内訳の効果名で絞り込み。複数選択=AND） -->
+      <div class="filter-group">
+        <div class="filter-group-label collapsible" onclick="toggleFilterGroup(this)">EFFECT <span class="fg-arrow" style="transform:rotate(180deg)">▲</span></div>
+        <div class="fg-body collapsed" id="effectFilterBody"></div>
       </div>
 
       </div><!-- /modal-filters -->
@@ -5400,7 +5400,7 @@ const EFFECT_CATS = {
   'バフ・デバフ解除': ['SURVIVAL', 'ENEMY'],
   'デバフ免疫': ['SURVIVAL']
 };
-const EFFECT_CAT_NAMES = { ATTACK: '攻撃', CONTROL: '操作・弾', SURVIVAL: '生存', ENEMY: '敵' };
+const EFFECT_CAT_NAMES = { ATTACK: 'ATTACK', CONTROL: 'CONTROL', SURVIVAL: 'SURVIVAL', ENEMY: 'ENEMY' };
 let EFFECT_INDEX = {};   // キャラID → 持っている効果ボタン名のSet
 let EFFECT_BUTTONS = {}; // ボタン名 → { cats: [...], count }
 
