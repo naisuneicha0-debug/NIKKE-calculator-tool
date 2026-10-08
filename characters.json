@@ -250,7 +250,6 @@
           "target": null,
           "condLabel": "BS・10秒間維持",
           "caster": true,
-          "showCond": true,
           "noCondTag": true
         },
         "hpUp": {
@@ -493,7 +492,6 @@
           "val": 13.55,
           "target": "weapon:sr",
           "condLabel": "S1・フルBS時・10秒間維持",
-          "showCond": true,
           "noCondTag": true
         },
         "coreDmg": {
@@ -557,7 +555,6 @@
           "target": null,
           "condLabel": "BS・10秒間維持",
           "caster": true,
-          "showCond": true,
           "noCondTag": true
         },
         "coreDmg": {
@@ -1099,7 +1096,6 @@
           "condLabel": "BS・最大HPの10.45%・15秒間維持",
           "caster": true,
           "hpBased": true,
-          "showCond": true,
           "noCondTag": true
         }
       },
@@ -2332,21 +2328,18 @@
           "target": "id:crown",
           "condLabel": "S1・戦闘開始時・持続",
           "caster": true,
-          "showCond": true,
           "noCondTag": true
         },
         "normalDmg": {
           "val": 46.22,
           "target": "id:crown",
           "condLabel": "S2・FB発動時・10秒間維持",
-          "showCond": true,
           "noCondTag": true
         },
         "dmgB": {
           "val": 92.44,
           "target": "id:crown",
           "condLabel": "BS・10秒間維持",
-          "showCond": true,
           "noCondTag": true
         }
       },
@@ -2402,7 +2395,6 @@
           "target": "id:anisstar",
           "condLabel": "S1・FB終了時・持続",
           "caster": true,
-          "showCond": true,
           "noCondTag": true
         },
         "explodeDmg": {
@@ -3373,7 +3365,6 @@
           "target": null,
           "condLabel": "BS・15秒間維持",
           "caster": true,
-          "showCond": true,
           "noCondTag": true
         }
       },
@@ -3581,7 +3572,6 @@
           "condLabel": "BS・10秒間維持",
           "caster": true,
           "syncGroup": "emmaBS",
-          "showCond": true,
           "noCondTag": true
         }
       },
@@ -5346,14 +5336,12 @@
           "condLabel": "FB発動時・10秒間維持",
           "caster": true,
           "target": "element:electric",
-          "showCond": true,
           "noCondTag": true
         },
         "reload": {
           "val": 49.28,
           "condLabel": "FB発動時・10秒間維持",
           "target": "element:electric",
-          "showCond": true,
           "noCondTag": true
         }
       },
@@ -5705,14 +5693,12 @@
           "val": 63.88,
           "condLabel": "S1・FB発動時・10秒間維持",
           "target": "weapon:sg",
-          "showCond": true,
           "noCondTag": true
         },
         "maxMagazineSG": {
           "val": 50.14,
           "condLabel": "S1・FB発動時・10秒間維持",
           "target": "weapon:sg",
-          "showCond": true,
           "noCondTag": true
         }
       },
@@ -13430,7 +13416,7 @@
         },
         "dmgB": {
           "val": 77.35,
-          "condLabel": "BS・【マイティストンプ】追加効果・10秒間持続",
+          "condLabel": "BS・【マイティストンプ】追加効果・10秒間維持",
           "showCond": true
         },
         "chargeFixed": {
