@@ -206,11 +206,11 @@
       "party": {
         "burstCT": {
           "val": 7,
-          "condLabel": "S2・フルチャージ8回時"
+          "condLabel": "S1・フルチャージ8回時"
         },
         "hpUpOnly": {
           "val": 5,
-          "condLabel": "S2・フルチャージ8回時・5秒間維持",
+          "condLabel": "S1・フルチャージ8回時・5秒間維持",
           "caster": true
         }
       },
@@ -250,7 +250,8 @@
           "target": null,
           "condLabel": "BS・10秒間維持",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         },
         "hpUp": {
           "val": 15.08,
@@ -287,7 +288,7 @@
       },
       "other": []
     },
-    "note": "dmg/dmgReduceは後列（スロット2・4）配置時のみ有効（自分＋両隣2機）。atk・hpUp系はバースト時のコイン状態によって変動（両隣にニケがいる時のみ）。hpUp 15.08%はバースト5回使用＋ダブルソードコイン＋後列＋両隣条件。hpUponlyはS2フルチャージ8回時に全体付与（発動者基準・5秒）。"
+    "note": "dmg/dmgReduceは後列（スロット2・4）配置時のみ有効（自分＋両隣2機）。atk・hpUp系はバースト時のコイン状態によって変動（両隣にニケがいる時のみ）。hpUp 15.08%はバースト5回使用＋ダブルソードコイン＋後列＋両隣条件。hpUpOnlyはS1フルチャージ8回時（burstCT 7秒短縮も同時）に全体付与（発動者基準・5秒）。"
   },
   {
     "id": "huren",
@@ -492,7 +493,8 @@
           "val": 13.55,
           "target": "weapon:sr",
           "condLabel": "S1・フルBS時・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         },
         "coreDmg": {
           "val": 16.26,
@@ -555,7 +557,8 @@
           "target": null,
           "condLabel": "BS・10秒間維持",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         },
         "coreDmg": {
           "val": 40.07,
@@ -1096,7 +1099,8 @@
           "condLabel": "BS・最大HPの10.45%・15秒間維持",
           "caster": true,
           "hpBased": true,
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         }
       },
       "condParty": [],
@@ -1586,8 +1590,7 @@
           "triggersLinked": true,
           "linkedTo": "hpUp",
           "unit": "持続",
-          "hpBased": true,
-          "showCond": true
+          "hpBased": true
         },
         "hpUpCin": {
           "val": 1.6,
@@ -1881,7 +1884,8 @@
           "condition": "always",
           "anisMode": "team",
           "condLabel": "BS使用時",
-          "unit": "burst"
+          "unit": "burst",
+          "noCondTag": true
         }
       ],
       "other": [
@@ -2328,19 +2332,22 @@
           "target": "id:crown",
           "condLabel": "S1・戦闘開始時・持続",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         },
         "normalDmg": {
           "val": 46.22,
           "target": "id:crown",
           "condLabel": "S2・FB発動時・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         },
         "dmgB": {
           "val": 92.44,
           "target": "id:crown",
           "condLabel": "BS・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         }
       },
       "condParty": [],
@@ -2395,7 +2402,8 @@
           "target": "id:anisstar",
           "condLabel": "S1・FB終了時・持続",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         },
         "explodeDmg": {
           "val": 40.13,
@@ -2459,7 +2467,8 @@
           "val": 30.78,
           "condition": "always",
           "condLabel": "S2・5秒間維持",
-          "caster": true
+          "caster": true,
+          "noCondTag": true
         }
       ],
       "other": []
@@ -3364,7 +3373,8 @@
           "target": null,
           "condLabel": "BS・15秒間維持",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         }
       },
       "condParty": [],
@@ -3458,7 +3468,8 @@
           "condLabel": "BS・敵被ダメ▲・10秒間維持",
           "unit": "秒",
           "defaultOff": false,
-          "syncGroup": "unfaBS"
+          "syncGroup": "unfaBS",
+          "noCondTag": true
         },
         {
           "key": "enemyDmgTaken",
@@ -3510,8 +3521,7 @@
         "critDmg": {
           "val": 23.51,
           "condLabel": "S2",
-          "squadOnly": true,
-          "showCond": true
+          "squadOnly": true
         },
         "explodeDmg": {
           "val": 2.32,
@@ -3546,8 +3556,7 @@
           "val": 1,
           "condLabel": "S1・持続",
           "cautionCondition": "hasUnfa",
-          "syncGroup": "emmaS1",
-          "showCond": true
+          "syncGroup": "emmaS1"
         },
         "battleCtrl": {
           "val": 10,
@@ -3572,7 +3581,8 @@
           "condLabel": "BS・10秒間維持",
           "caster": true,
           "syncGroup": "emmaBS",
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         }
       },
       "condParty": [
@@ -3601,7 +3611,8 @@
           "condLabel": "BS・10秒間維持",
           "unit": "%",
           "defaultOff": false,
-          "syncGroup": "emmaBS"
+          "syncGroup": "emmaBS",
+          "noCondTag": true
         }
       ],
       "other": []
@@ -3868,7 +3879,8 @@
           "condition": "always",
           "condLabel": "S2・敵全体・5秒間維持",
           "unit": "%",
-          "defaultOff": false
+          "defaultOff": false,
+          "noCondTag": true
         },
         {
           "key": "stun",
@@ -3876,7 +3888,8 @@
           "condition": "always",
           "condLabel": "S2・敵全体・2秒間維持",
           "unit": "秒",
-          "defaultOff": false
+          "defaultOff": false,
+          "noCondTag": true
         },
         {
           "key": "enemyDmgTaken",
@@ -5333,13 +5346,15 @@
           "condLabel": "FB発動時・10秒間維持",
           "caster": true,
           "target": "element:electric",
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         },
         "reload": {
           "val": 49.28,
           "condLabel": "FB発動時・10秒間維持",
           "target": "element:electric",
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         }
       },
       "condParty": []
@@ -5407,8 +5422,7 @@
         "maxMagazine": {
           "val": -5.04,
           "condLabel": "S1・200発命中ごと・10秒間維持",
-          "stackLinkedKey": "modaniaS1",
-          "showCond": true
+          "stackLinkedKey": "modaniaS1"
         }
       },
       "targeted": {},
@@ -5691,13 +5705,15 @@
           "val": 63.88,
           "condLabel": "S1・FB発動時・10秒間維持",
           "target": "weapon:sg",
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         },
         "maxMagazineSG": {
           "val": 50.14,
           "condLabel": "S1・FB発動時・10秒間維持",
           "target": "weapon:sg",
-          "showCond": true
+          "showCond": true,
+          "noCondTag": true
         }
       },
       "other": []
@@ -5763,14 +5779,12 @@
           "condLabel": "BS・25秒間維持・解除不可",
           "performanceOnly": true,
           "caster": true,
-          "hpBased": true,
-          "showCond": true
+          "hpBased": true
         },
         "chargeDmg": {
           "val": 25,
           "condLabel": "BS・25秒間維持・解除不可",
-          "performanceOnly": true,
-          "showCond": true
+          "performanceOnly": true
         },
         "dmg": {
           "val": 25.01,
@@ -6975,29 +6989,25 @@
           "val": 10,
           "condLabel": "S2・通常攻撃3回・10秒間維持",
           "caster": true,
-          "crustMeilardOnly": true,
-          "showCond": true
+          "crustMeilardOnly": true
         },
         "defUpBranching": {
           "val": 10,
           "condLabel": "S2・フルチャージ攻撃3回・10秒間維持",
           "caster": true,
-          "crustBranchingOnly": true,
-          "showCond": true
+          "crustBranchingOnly": true
         },
         "cleanse": {
           "val": 1,
           "unit": "個",
           "condLabel": "S2・通常攻撃3回",
-          "crustMeilardOnly": true,
-          "showCond": true
+          "crustMeilardOnly": true
         },
         "cleanseBranching": {
           "val": 1,
           "unit": "個",
           "condLabel": "S2・フルチャージ攻撃3回",
-          "crustBranchingOnly": true,
-          "showCond": true
+          "crustBranchingOnly": true
         },
         "atkB": {
           "val": 20,

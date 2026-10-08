@@ -3869,7 +3869,7 @@ function buildCharCard(char, filledTeam) {
       if(exSetId !== activeSet) effDefaultOff = true;
     }
     if(!incoming[actualKey]) incoming[actualKey] = [];
-    incoming[actualKey].push({ val, name, tag: actualTag, condLabel: actualCond, unit: unit || '%', stack: stack || null, caster: caster || false, defaultOff: effDefaultOff, showCond: showCond || false, exclusiveGroup: exclusiveGroup || null, syncGroup: syncGroup || null, fullStackOnly: fullStackOnly || false, fullStackRef: fullStackRef || null, rawKey: k, cautionCondition: cautionCondition || null, srcCharId: srcCharId || null, stackLinkedKey: stackLinkedKey || null, parentStack: parentStack || null, gcThreshold: gcThreshold || null, hpBased: hpBased || false, exclusiveSet: exSet, setId: exSetId, stackThreshold: (stackThreshold != null ? stackThreshold : null), stackThresholdRef: stackThresholdRef || null, belowFullStackOnly: belowFullStackOnly || false, belowFullStackRef: belowFullStackRef || null });
+    incoming[actualKey].push({ val, name, tag: actualTag, condLabel: actualCond, unit: unit || '%', stack: stack || null, caster: caster || false, defaultOff: effDefaultOff, showCond: showCond || false, exclusiveGroup: exclusiveGroup || null, syncGroup: syncGroup || null, fullStackOnly: fullStackOnly || false, fullStackRef: fullStackRef || null, rawKey: k, cautionCondition: cautionCondition || null, srcCharId: srcCharId || null, stackLinkedKey: stackLinkedKey || null, parentStack: parentStack || null, gcThreshold: gcThreshold || null, hpBased: hpBased || false, exclusiveSet: exSet, setId: exSetId, stackThreshold: (stackThreshold != null ? stackThreshold : null), stackThresholdRef: stackThresholdRef || null, belowFullStackOnly: belowFullStackOnly || false, belowFullStackRef: belowFullStackRef || null, noCondTag: !!(extra && extra.noCondTag) });
   };
 
   // ラピのpartyバフ制御：
@@ -3969,7 +3969,7 @@ function buildCharCard(char, filledTeam) {
         if(src.id === 'arcana_tarot') {
           if(entry.arcanaFateOnly && effectiveArcanaFateMode !== 'fate') return;
         }
-        addBuff(k, val, src.name, buffTag, fullCond, unit, entry.stack || null, entry.caster || false, entry.defaultOff || false, entry.showCond || false, entry.exclusiveGroup || null, entry.syncGroup || null, entry.fullStackOnly || false, entry.fullStackRef || null, entry.cautionCondition || null, src.id, null, null, null, entry.hpBased || false, null, (entry.stackThreshold != null ? entry.stackThreshold : null), entry.stackThresholdRef || null, entry.belowFullStackOnly || false, entry.belowFullStackRef || null);
+        addBuff(k, val, src.name, buffTag, fullCond, unit, entry.stack || null, entry.caster || false, entry.defaultOff || false, entry.showCond || false, entry.exclusiveGroup || null, entry.syncGroup || null, entry.fullStackOnly || false, entry.fullStackRef || null, entry.cautionCondition || null, src.id, null, null, null, entry.hpBased || false, (entry.noCondTag ? { noCondTag: true } : null), (entry.stackThreshold != null ? entry.stackThreshold : null), entry.stackThresholdRef || null, entry.belowFullStackOnly || false, entry.belowFullStackRef || null);
       }
     });
   });
@@ -4120,7 +4120,7 @@ function buildCharCard(char, filledTeam) {
         if(entry.excludeSelf && char === src) return;
         // silenceOnly: 騒音公害時のみ有効 → defaultOff=trueで追加してスライダー連動
         const isDefaultOff = !!(entry.defaultOff || entry.silenceOnly);
-        addBuff(key, val, src.name, 'party', condLabel, unit, entry.stack || null, entry.caster || false, isDefaultOff, true, entry.exclusiveGroup || null, entry.syncGroup || null, false, null, (condition === 'noIegisSquad' || condition === 'noAbsoluteSquad' || condition === 'no777Squad' || condition === 'hasEmma' || condition === 'hasUnfa') ? condition : null, src.id);
+        addBuff(key, val, src.name, 'party', condLabel, unit, entry.stack || null, entry.caster || false, isDefaultOff, !entry.noCondTag, entry.exclusiveGroup || null, entry.syncGroup || null, false, null, (condition === 'noIegisSquad' || condition === 'noAbsoluteSquad' || condition === 'no777Squad' || condition === 'hasEmma' || condition === 'hasUnfa') ? condition : null, src.id, null, null, null, false, (entry.noCondTag ? { noCondTag: true } : null));
       }
     });
   });
@@ -4332,14 +4332,14 @@ function buildCharCard(char, filledTeam) {
           else                        valText = `+${fmt(src.val)}%`;
           const hasCond = !!src.condLabel;
           // 「条件付」の付け方（2026-10-07確定）：状態・HP・編成などの追加条件がある行だけ（データのshowCond＝true）。
-          // 発動タイミング（FB発動時・通常攻撃N回命中時など）は条件に含めない。対象限定（targeted）は常に条件付、condPartyも常に条件付。
+          // 発動タイミング（FB発動時・通常攻撃N回命中時など）は条件に含めない。対象限定（targeted）・condPartyは原則条件付だが、データにnoCondTag:trueがあれば付けない。
           let tagsHtml = '';
           if (src.tag === 'self') {
             tagsHtml = `<span class="buff-source-tag self">自己</span>`;
             if (src.showCond) tagsHtml += `<span class="buff-source-tag targeted">条件付</span>`;
             if (src.hpBased) tagsHtml += `<span class="buff-source-tag hp-based">最大HP基準</span>`;
           } else if (src.tag === 'targeted') {
-            tagsHtml = `<span class="buff-source-tag targeted">条件付</span>`;
+            tagsHtml = src.noCondTag ? '' : `<span class="buff-source-tag targeted">条件付</span>`;
             if (src.hpBased) tagsHtml += `<span class="buff-source-tag hp-based">最大HP基準</span>`;
           } else {
             tagsHtml = `<span class="buff-source-tag party">全体</span>`;
@@ -4531,7 +4531,7 @@ function buildCharCard(char, filledTeam) {
             if (src.tag === 'self') casterTags += `<span class="buff-source-tag self">自己</span>`;
             if (src.tag === 'party') casterTags += `<span class="buff-source-tag party">全体</span>`;
             casterTags += `<span class="buff-source-tag" style="background:rgba(255,212,0,0.1);color:var(--accent3);border:1px solid rgba(255,212,0,0.3);">発動者基準</span>`;
-            if (src.showCond) casterTags += `<span class="buff-source-tag targeted">条件付</span>`;
+            if (src.showCond && !src.noCondTag) casterTags += `<span class="buff-source-tag targeted">条件付</span>`;
             if (src.hpBased) casterTags += `<span class="buff-source-tag hp-based">最大HP基準</span>`;
             return renderSourceRow({
               rowClass: casterInitRowClass,
