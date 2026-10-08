@@ -5903,7 +5903,8 @@
           "val": 77.5,
           "target": "element:wind&weapon:ar",
           "condLabel": "S2・風圧AR限定・FB発動時・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         }
       },
       "other": [
