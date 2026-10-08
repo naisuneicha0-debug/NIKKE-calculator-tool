@@ -390,41 +390,47 @@
         "hpUpOnlyElec": {
           "val": 44.98,
           "target": "element:electric&weapon:ar",
-          "condLabel": "S2・戦闘開始時・自分生存時・持続",
+          "condLabel": "S2・電撃AR限定・戦闘開始時・自分生存時・持続",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "invincible": {
           "val": 2,
           "target": "position:slot1&element:electric&weapon:ar",
-          "condLabel": "S2・戦闘開始時",
+          "condLabel": "S2・スロット1の電撃AR限定・戦闘開始時",
           "unit": "秒",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "dmgElec": {
           "val": 94.15,
           "target": "position:slot1&element:electric&weapon:ar",
           "condLabel": "BS・電撃AR限定・スロット1・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "reload": {
           "val": 50.82,
           "target": "position:slot1&element:electric&weapon:ar",
           "condLabel": "BS・電撃AR限定・スロット1・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "maxMagazine": {
           "val": 20,
           "target": "element:electric&weapon:ar",
           "condLabel": "BS・電撃AR限定・10秒間維持",
           "unit": "発",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "hitRate": {
           "val": 45.3,
           "target": "element:electric&weapon:ar",
           "condLabel": "BS・電撃AR限定・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         }
       },
       "other": [
@@ -1281,7 +1287,8 @@
           "target": "burst:3",
           "condLabel": "S1・FB発動時・最終攻撃力最低のB3味方1機・10秒間維持",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         }
       },
       "condParty": [],
@@ -2597,19 +2604,22 @@
           "target": "burst:3",
           "condLabel": "S1・FB発動時・直前BS使用済みのB3に・10秒間維持",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "trueDmg": {
           "val": 50,
           "target": "burst:3",
           "condLabel": "S1・FB発動時・直前BS使用済みのB3に・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "lifesteal": {
           "val": 10,
           "target": "burst:3",
           "condLabel": "S1・FB発動時・直前BS使用済みのB3に・攻撃ダメの10%回復・10秒間維持",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         }
       },
       "condParty": [],
@@ -3333,14 +3343,16 @@
           "defaultOff": true,
           "fullStackOnly": true,
           "fullStackRef": "maxMagazineTove",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "atkToveSG": {
           "val": 24.21,
           "target": "weapon:sg",
           "condLabel": "BS・SG限定・15秒間維持",
           "caster": true,
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         },
         "atkToveAll": {
           "val": 2.32,
@@ -4036,7 +4048,8 @@
           "val": 3.79,
           "target": "weapon:smg",
           "condLabel": "S1・通常攻撃30回命中時・SMG持ち味方・5秒間維持",
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         }
       },
       "condParty": [],
@@ -6858,7 +6871,8 @@
           "target": "element:electric",
           "condLabel": "BS・電撃コードの味方全体・【運命の輪のカード】・10秒間維持",
           "arcanaFateOnly": true,
-          "showCond": true
+          "showCond": true,
+          "suppressTargetLabel": true
         }
       },
       "party": {
@@ -8769,28 +8783,28 @@
         "elem": {
           "val": 40.02,
           "target": "weapon:sg&element:water",
-          "condLabel": "S2・FB発動時・水冷コードのSG装備・15秒間維持",
+          "condLabel": "S2・FB発動時・水冷コードのSG・15秒間維持",
           "suppressTargetLabel": true,
           "showCond": true
         },
         "elemB": {
           "val": 40.02,
           "target": "weapon:sg&element:iron",
-          "condLabel": "S2・FB発動時・鉄甲コードのSG装備・15秒間維持",
+          "condLabel": "S2・FB発動時・鉄甲コードのSG・15秒間維持",
           "suppressTargetLabel": true,
           "showCond": true
         },
         "elemC": {
           "val": 60.01,
           "target": "weapon:sg&element:water",
-          "condLabel": "BS・CT40秒・水冷コードのSG装備・15秒間維持",
+          "condLabel": "BS・CT40秒・水冷コードのSG・15秒間維持",
           "suppressTargetLabel": true,
           "showCond": true
         },
         "elemD": {
           "val": 60.01,
           "target": "weapon:sg&element:iron",
-          "condLabel": "BS・CT40秒・鉄甲コードのSG装備・15秒間維持",
+          "condLabel": "BS・CT40秒・鉄甲コードのSG・15秒間維持",
           "suppressTargetLabel": true,
           "showCond": true
         }
