@@ -89,16 +89,28 @@
   .sub { display: none; }
 
   /* レイドモード切替ボタン（ロゴの下）・部隊タブ */
-  .raid-modes { display: flex; gap: 8px; margin: -8px 0 14px; }
+  .raid-modes { display: flex; gap: 8px; margin: -8px 0 14px; padding-block: 5px; }
+  /* 角張った形＋下線バー。選択中は浮き上がり（拡大・影）、他は縮んで暗い */
   .raid-mode-btn {
+    --k: var(--good);
     flex: 1; min-width: 0; aspect-ratio: 2 / 1; position: relative; overflow: hidden; padding: 0; cursor: pointer;
-    border-radius: 6px; border: 1px solid var(--border); background-color: #111a36; background-size: cover; background-position: center;
-    opacity: 0.62; transition: opacity 0.2s, border-color 0.2s, box-shadow 0.2s; -webkit-tap-highlight-color: transparent;
+    border-radius: 0; border: 1px solid var(--border); background-color: #111a36; background-size: cover; background-position: center;
+    opacity: 0.55; transform: scale(0.94); filter: saturate(0.6);
+    transition: opacity 0.2s, transform 0.2s, filter 0.2s, border-color 0.2s, box-shadow 0.2s; -webkit-tap-highlight-color: transparent;
   }
-  .raid-mode-btn[data-mode="preview"] { background-image: linear-gradient(135deg, #1b2a5a, #3a1f6b); }
-  .raid-mode-btn[data-mode="union"]   { background-image: linear-gradient(135deg, #14405a, #1f2f6b); }
-  .raid-mode-btn[data-mode="solo"]    { background-image: linear-gradient(rgba(5,6,14,0.38), rgba(5,6,14,0.38)), url('videos/solo_poster.jpg'), linear-gradient(135deg, #4a1f4f, #1b2a5a); }
-  .raid-mode-btn.on { opacity: 1; border-color: var(--accent); box-shadow: 0 0 12px rgba(0,212,255,0.45); }
+  .raid-mode-btn[data-mode="preview"] { --k: var(--good);    background-image: linear-gradient(135deg, #1b2a5a, #3a1f6b); }
+  .raid-mode-btn[data-mode="union"]   { --k: var(--accent3); background-image: linear-gradient(135deg, #14405a, #1f2f6b); }
+  .raid-mode-btn[data-mode="solo"]    { --k: var(--accent2); background-image: linear-gradient(rgba(5,6,14,0.38), rgba(5,6,14,0.38)), url('videos/solo_poster.jpg'), linear-gradient(135deg, #4a1f4f, #1b2a5a); }
+  .raid-mode-btn::after {
+    content: ''; position: absolute; left: 50%; bottom: 0; height: 3px; width: 30%; transform: translateX(-50%);
+    background: var(--k); opacity: 0.7; z-index: 3; transition: width 0.25s, box-shadow 0.25s; pointer-events: none;
+  }
+  .raid-mode-btn.on {
+    opacity: 1; transform: scale(1.05); filter: none; z-index: 2;
+    border-color: color-mix(in srgb, var(--k) 55%, var(--border));
+    box-shadow: 0 8px 18px rgba(0,0,0,0.65), 0 0 14px color-mix(in srgb, var(--k) 30%, transparent);
+  }
+  .raid-mode-btn.on::after { width: 100%; opacity: 1; box-shadow: 0 0 10px var(--k); }
   .raid-mode-btn video {
     position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%;
     opacity: 0; transition: opacity 0.15s; pointer-events: none; filter: brightness(0.62);
@@ -111,13 +123,11 @@
     display: block; font-family: 'Bebas Neue', 'Orbitron', 'Courier New', monospace; font-size: 16px; font-weight: 400; letter-spacing: 2px; white-space: nowrap;
     text-shadow: 0 0 5px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,1);
   }
-  .raid-mode-btn[data-mode="preview"] .rm-en { color: var(--good); }
-  .raid-mode-btn[data-mode="union"]   .rm-en { color: var(--accent3); }
-  .raid-mode-btn[data-mode="solo"]    .rm-en { color: var(--accent2); }
+  .rm-en { color: var(--k); }
   .party-tabs { display: none; gap: 6px; margin: 0 0 12px; }
   .party-tabs.show { display: flex; }
   .party-tab {
-    flex: 1; min-width: 0; padding: 8px 0; border-radius: 4px; border: 1px solid var(--border); background: transparent; cursor: pointer;
+    flex: 1; min-width: 0; padding: 8px 0; border-radius: 0; border: 1px solid var(--border); background: transparent; cursor: pointer;
     font-family: 'Chakra Petch', 'Courier New', monospace; font-size: 12px; letter-spacing: 1px; color: #8fa0bf;
     -webkit-tap-highlight-color: transparent;
   }
