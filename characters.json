@@ -161,13 +161,13 @@
         },
         "shelter": {
           "val": 21.41,
-          "condLabel": "BS時・最大HPの21.41%",
+          "condLabel": "BS使用時・最大HPの21.41%",
           "caster": true,
           "hpBased": true
         },
         "lifesteal": {
           "val": 21.96,
-          "condLabel": "BS時・攻撃ダメージの21.96%・10秒間維持"
+          "condLabel": "BS使用時・攻撃ダメージの21.96%・10秒間維持"
         },
         "hpUp": {
           "val": 32.75,
@@ -4998,7 +4998,7 @@
         },
         "elem": {
           "val": 30.02,
-          "condLabel": "S2・FB時・バリア適用状態の場合・10秒間維持",
+          "condLabel": "S2・FB発動時・バリア適用状態の場合・10秒間維持",
           "defaultOff": true,
           "caster": true,
           "showCond": true,
@@ -5026,7 +5026,7 @@
       "targeted": {
         "coreDmg": {
           "val": 60.07,
-          "condLabel": "S2・FB時・灼熱限定・10秒間維持",
+          "condLabel": "S2・FB発動時・灼熱限定・10秒間維持",
           "target": "element:fire",
           "suppressTargetLabel": true,
           "showCond": true
@@ -5067,7 +5067,7 @@
         "burstTimeUp": {
           "val": 2,
           "unit": "秒",
-          "condLabel": "S2・B3突入時・ゴールデンチップ10以上・FBT間持続",
+          "condLabel": "S2・B3突入時・ゴールデンチップ10以上・FB中持続",
           "defaultOff": true,
           "gcThreshold": 10,
           "showCond": true
@@ -5075,7 +5075,7 @@
         "burstCT_gc20": {
           "val": 3,
           "unit": "秒",
-          "condLabel": "S2・B3突入時・ゴールデンチップ20以上・FBT間持続",
+          "condLabel": "S2・B3突入時・ゴールデンチップ20以上・FB中持続",
           "defaultOff": true,
           "gcThreshold": 20,
           "showCond": true
@@ -5430,7 +5430,7 @@
         "burstTimeDown": {
           "val": 5,
           "unit": "秒",
-          "condLabel": "BS・味方全体・フルバーストタイム短縮・10秒→5秒"
+          "condLabel": "BS・味方全体・FB短縮・10秒→5秒"
         }
       },
       "self": {
@@ -5890,7 +5890,8 @@
         },
         "atk": {
           "val": 156.19,
-          "condLabel": "S1・変身中・持続（約20秒）"
+          "condLabel": "S1・【変身】中・持続（約20秒）",
+          "showCond": true
         },
         "dotDmg": {
           "val": 135.83,
@@ -5901,7 +5902,7 @@
         "dotDmgFBT": {
           "val": 77.5,
           "target": "element:wind&weapon:ar",
-          "condLabel": "S2・風圧AR限定・FB時・10秒間維持",
+          "condLabel": "S2・風圧AR限定・FB発動時・10秒間維持",
           "showCond": true
         }
       },
@@ -5910,13 +5911,13 @@
           "label": "持続ダメ（通常攻撃30回ごと）",
           "val": 59.6,
           "unit": "%",
-          "cond": "S1・通常攻撃30回ごと・self・5秒間維持"
+          "cond": "S1・通常攻撃30回ごと・5秒間維持"
         },
         {
           "label": "攻撃力（変身中）",
           "val": 156.19,
           "unit": "%",
-          "cond": "S1・バッテリー100%到達時・変身中・self・持続（約20秒）"
+          "cond": "S1・バッテリー100%到達時・【変身】中・持続（約20秒）"
         },
         {
           "label": "持続ダメ・敵全体（変身中常時）",
@@ -5934,7 +5935,7 @@
           "label": "バッテリー操作（BS）",
           "val": "",
           "unit": "",
-          "cond": "BS・変身中→バッテリー+50%（変身10秒延長）/非変身→バッテリー+100%即変身・その後-50%（変身10秒スタート）"
+          "cond": "BS・【変身】中→バッテリー+50%（変身10秒延長）/非変身→バッテリー+100%即変身・その後-50%（変身10秒スタート）"
         }
       ]
     },
@@ -7247,7 +7248,7 @@
         },
         "heal": {
           "val": 28.11,
-          "condLabel": "S2・バースト使用時・発動者基準の最終最大HP"
+          "condLabel": "S2・BS使用時・発動者基準の最終最大HP"
         },
         "hpReserve": {
           "val": 27.87,
@@ -7714,7 +7715,7 @@
       "self": {
         "critRate": {
           "val": 0.75,
-          "condLabel": "S1・【傾く天秤】最後の弾丸で攻撃時・持続（FBT終了で解除）",
+          "condLabel": "S1・【傾く天秤】最後の弾丸で攻撃時・持続（FB終了で解除）",
           "stack": {
             "max": 100,
             "key": "kTenbinStack"
@@ -8623,7 +8624,7 @@
       "party": {
         "enemyAtkDown": {
           "val": 10.56,
-          "condLabel": "S1・警戒対象指定時（FBT時・敵撃破時再指定時）・10秒間維持",
+          "condLabel": "S1・警戒対象指定時（FB発動時・敵撃破時再指定時）・10秒間維持",
           "showCond": true
         },
         "defDown": {
@@ -9130,7 +9131,7 @@
         "taunt": {
           "val": 5,
           "unit": "秒",
-          "condLabel": "S1・フルバースト中フルチャージ攻撃命中時・対象に挑発・5秒間維持"
+          "condLabel": "S1・FB中フルチャージ攻撃命中時・対象に挑発・5秒間維持"
         },
         "hpUpBs": {
           "val": 15.13,
@@ -11036,7 +11037,7 @@
         },
         "lifestealB": {
           "val": 16.5,
-          "condLabel": "S1・フルバーストタイム初回発動時・追加・15秒間維持"
+          "condLabel": "S1・FB初回発動時・追加・15秒間維持"
         },
         "elemB": {
           "val": 91.09,
@@ -11296,7 +11297,7 @@
         "burstTimeDown": {
           "val": 5,
           "unit": "秒",
-          "condLabel": "BS・味方全体・フルバーストタイム短縮"
+          "condLabel": "BS・味方全体・FB短縮"
         }
       },
       "self": {
@@ -12548,7 +12549,7 @@
       "party": {
         "defDown": {
           "val": 9.38,
-          "condLabel": "S2・CT13秒・フルバーストタイム持続中に発動した場合・最終防御力最も高い敵3機・6秒間維持",
+          "condLabel": "S2・CT13秒・FB中に発動した場合・最終防御力最も高い敵3機・6秒間維持",
           "showCond": true
         }
       },
@@ -12600,7 +12601,7 @@
         "burstTimeDown": {
           "val": 5,
           "unit": "秒",
-          "condLabel": "BS・CT40秒・味方全体・フルバーストタイム短縮"
+          "condLabel": "BS・CT40秒・味方全体・FB短縮"
         }
       },
       "self": {
