@@ -3670,7 +3670,7 @@ const COND_SEG_RX = [
   /【/, /スタック(を)?付与|スタック以上/, /パーツ破壊/, /\d+発間/, /状態付与/,
   /状態(時|の|で|限定|中|に|なら|のみ|でない)|状態$|状態・|状態が/,
   /HP\d+%(以下|以上)|HP(が)?最(大|小|低|も低|も高)の?(場合|時)|HPが最大/,
-  /限定|時のみ|のみ発動/, /場合|なら|でない|ではない/, /いない|いる時|在籍|装備|対象時/,
+  /限定|時のみ|のみ発動/, /場合|なら|でない|ではない/, /いない|いる時|在籍|装備|対象時|使用済み/,
   /フルスタック|スタンス|モード/, /\d+%(以上|以下|未満)|\d+(機|体|個)以上|\d+機以下/,
   // 属性コードで味方を限定する書き方（水冷コードのSG・電撃コードの味方 など）
   /コードの(SG|AR|SMG|RL|SR|MG|味方)/,
@@ -4341,7 +4341,7 @@ function buildCharCard(char, filledTeam) {
           }
           const rowId = `row-${char.id}-${catName}-${k}-${srcIdx}`;
           const entryIdForRow = `${char.id}-${catName}-${k}`;
-          const condLine = src.condLabel ? `<div class="buff-source-cond ${src.tag === 'self' ? 'c-self' : 'c-other'}">[${condLabelHtml(src.condLabel)}]</div>` : '';
+          const condLine = src.condLabel ? `<div class="buff-source-cond ${src.tag === 'self' ? 'c-self' : 'c-other'}">${condLabelHtml(src.condLabel)}</div>` : '';
           // スタックスライダー（rawK=マージ前の元キー）
           const stackInfo = src.stack;
           const rawK = src.rawKey || k;
@@ -4478,7 +4478,7 @@ function buildCharCard(char, filledTeam) {
             const condSpan = condText ? ` <span style="color:var(--warn);font-size:9px;">[${condText}]</span>` : '';
             const casterRowId = `row-${char.id}-${catName}-${k}-caster-${charName}-${srcIdx}`;
             const casterEntryIdForRow = `${char.id}-${catName}-${k}-caster-${charName}`;
-            const casterCondLine = condText ? `<div class="buff-source-cond ${src.tag === 'self' ? 'c-self' : 'c-other'}">[${condLabelHtml(condText)}]</div>` : '';
+            const casterCondLine = condText ? `<div class="buff-source-cond ${src.tag === 'self' ? 'c-self' : 'c-other'}">${condLabelHtml(condText)}</div>` : '';
             const casterStackInfo = src.stack || null;
             const casterInitVal = casterStackInfo ? src.val * (casterStackInfo.default || 1) : src.val;
             const casterU = src.unit || '%';
