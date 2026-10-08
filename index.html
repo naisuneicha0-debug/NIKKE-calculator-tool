@@ -277,6 +277,14 @@
   .fg-body { overflow: hidden; transition: all 0.2s; }
   .fg-body.collapsed { display: none; }
   .filter-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 0; }
+  /* 効果検索（EFFECT欄） */
+  .efx-sub { margin: 4px 0 6px; }
+  .efx-sub-label { font-size: 11px; border: 1px solid var(--border); border-radius: 4px; padding: 7px 10px !important; margin-bottom: 6px; }
+  .efx-sub-n { opacity: 0.55; font-size: 10px; margin-left: 4px; }
+  .efx-n { opacity: 0.55; font-size: 10px; margin-left: 5px; }
+  .fchip.efx-chip.on { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.14); box-shadow: 0 0 8px rgba(0,212,255,0.35); }
+  .efx-result-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; color: var(--accent); padding: 4px 2px 8px; }
+  .efx-clear { cursor: pointer; color: var(--text-mid); text-decoration: underline; white-space: nowrap; }
   .fchip {
     font-family: 'Orbitron', 'Courier New', monospace;
     font-size: 11px; font-weight: 600; padding: 7px 13px; border-radius: 3px;
@@ -1971,6 +1979,12 @@
 
       <div class="modal-scroll">
       <div class="modal-filters">
+      <!-- 効果検索（カード内訳の効果名で絞り込み。複数選択=AND） -->
+      <div class="filter-group">
+        <div class="filter-group-label collapsible" onclick="toggleFilterGroup(this)">EFFECT <span class="fg-arrow" style="transform:rotate(180deg)">▲</span></div>
+        <div class="fg-body collapsed" id="effectFilterBody"></div>
+      </div>
+
       <!-- 段2: バースト -->
       <div class="filter-group">
         <div class="filter-group-label collapsible" onclick="toggleFilterGroup(this)">BURST <span class="fg-arrow" style="transform:rotate(180deg)">▲</span></div>
@@ -2706,6 +2720,9 @@ async function loadDB() {
       `<span class="fchip squad-chip" data-ftype="squad" data-filter="${s}" onclick="setFilter('squad','${s}')">${s}</span>`
     ).join('');
   }
+  // 効果フィルター（EFFECT欄）を生成
+  buildEffectIndex();
+  renderEffectFilter();
 }
 
 function saveDB() {
@@ -5314,10 +5331,140 @@ function buildCharCard(char, filledTeam) {
 // UI RENDER: キャラ選択ピッカー
 // ============================================================
 // ===== PICKER =====
-const FILTER_KEYS = ['burst','role','weapon','element','company','squad'];
+// ===== 効果検索（ピッカーのEFFECT欄） =====
+// 検索ボタン名はカード内訳の表示名（BUFF_LABELS）を基本とし、似た効果は下の対応表で1つのボタンにまとめる（カード表示は変えない）
+const EFFECT_ALIAS = {
+  '順番攻撃ダメ': ['攻撃ダメ'],
+  '通常攻撃クリティカル確率': ['クリ率'],
+  '通常攻撃防御無視化': ['防御無視ダメ'],
+  '通常ダメ防御無視化': ['防御無視ダメ'],
+  '有利コード適用': ['有利コードダメ'],
+  '通常攻撃ダメ倍率': ['攻撃ダメ'],
+  '適正最小射程距離': ['適正射程距離'],
+  '適正最大射程距離': ['適正射程距離'],
+  'チャージ速度増加効果無効': ['チャージ速度'],
+  'チャージ速度減少効果無効': ['チャージ速度'],
+  'ペレット数固定': ['ペレット数'],
+  'リロード速度固定': ['リロード速度'],
+  '羞恥心免疫': ['デバフ免疫'],
+  '気絶免疫': ['デバフ免疫'],
+  'HP回復（最大HP%）': ['HP回復'],
+  'HP回復均等分配': ['HP回復'],
+  'バリア無敵': ['バリア'],
+  'バリアHP回復': ['バリア'],
+  'バリアHP増加': ['バリア'],
+  '共用バリア': ['バリア'],
+  '被ダメ均等分配': ['被ダメ分配'],
+  '被ダメ偏差分配': ['被ダメ分配'],
+  '遮蔽被ダメ偏差分配': ['遮蔽物'],
+  '遮蔽物最大HP': ['遮蔽物'],
+  '遮蔽物復活': ['遮蔽物'],
+  '遮蔽物HP回復': ['遮蔽物'],
+  'デコイ回復': ['デコイ'],
+  'デコイ持続回復': ['デコイ'],
+  '最大HPのみ': ['最大HP'],
+  '超過HP保存': ['HP回復'],
+  'チャージ時間固定': ['チャージ速度'],
+  'バーストゲージ即時チャージ': ['バーストチャージ速度'],
+  'スタック増減効果無効': ['スタック'],
+  'スタック可能デバフ▼': ['スタック'],
+  'スタック可能バフ▲': ['スタック'],
+  '消音スタック': ['スタック'],
+  '持続回復': ['HP回復'],
+  '攻撃ダメ回復': ['HP回復'],
+  '与える回復量': ['HP回復量'],
+  'デバフ解除': ['バフ・デバフ解除'],
+  '敵バフ解除': ['バフ・デバフ解除'],
+  '敵残弾数▼': ['装弾数'],
+  '残弾数▼': ['装弾数'],
+  '発射体爆発ダメ': ['爆発'],
+  '爆発範囲': ['爆発'],
+  'スキルCT短縮': ['CT短縮'],
+  'バーストCT短縮': ['CT短縮'],
+  '装弾数無限': ['装弾数'],
+  '最大装弾数': ['装弾数'],
+  '貫通範囲拡大': ['貫通'],
+  '貫通特化': ['貫通']
+};
+// 新設ボタンの所属分類（既存の表示名と同名のボタンは、その効果自身の分類に従う）
+const EFFECT_CATS = {
+  '爆発': ['ATTACK'],
+  'CT短縮': ['CONTROL'],
+  '装弾数': ['CONTROL', 'ENEMY'],
+  '貫通': ['CONTROL'],
+  'スタック': ['CONTROL'],
+  '適正射程距離': ['CONTROL'],
+  '被ダメ分配': ['SURVIVAL'],
+  '遮蔽物': ['SURVIVAL'],
+  'デコイ': ['CONTROL'],
+  'バフ・デバフ解除': ['SURVIVAL', 'ENEMY'],
+  'デバフ免疫': ['SURVIVAL']
+};
+const EFFECT_CAT_NAMES = { ATTACK: '攻撃', CONTROL: '操作・弾', SURVIVAL: '生存', ENEMY: '敵' };
+let EFFECT_INDEX = {};   // キャラID → 持っている効果ボタン名のSet
+let EFFECT_BUTTONS = {}; // ボタン名 → { cats: [...], count }
+
+function effectLabelOf(key) {
+  const mk = BUFF_MERGE_INTO[key] || key;
+  return BUFF_LABELS[mk] || BUFF_LABELS[key] || null;
+}
+function effectCatOf(key) {
+  const mk = BUFF_MERGE_INTO[key] || key;
+  for(const c of Object.keys(BUFF_CATEGORIES)) {
+    if(BUFF_CATEGORIES[c].includes(mk) || BUFF_CATEGORIES[c].includes(key)) return c;
+  }
+  return null;
+}
+function buildEffectIndex() {
+  EFFECT_INDEX = {};
+  EFFECT_BUTTONS = {};
+  const labelCat = {};
+  NIKKE_DB.forEach(c => {
+    const set = new Set();
+    const b = c.buffs || {};
+    const keys = [];
+    ['party', 'self', 'targeted'].forEach(blk => Object.keys(b[blk] || {}).forEach(k => keys.push(k)));
+    (b.condParty || []).forEach(e => { if(e && e.key) keys.push(e.key); });
+    keys.forEach(k => {
+      const lab = effectLabelOf(k);
+      if(!lab) return;
+      if(!labelCat[lab]) labelCat[lab] = effectCatOf(k);
+      (EFFECT_ALIAS[lab] || [lab]).forEach(name => set.add(name));
+    });
+    EFFECT_INDEX[c.id] = set;
+    set.forEach(name => {
+      if(!EFFECT_BUTTONS[name]) EFFECT_BUTTONS[name] = { cats: [], count: 0 };
+      EFFECT_BUTTONS[name].count++;
+    });
+  });
+  Object.keys(EFFECT_BUTTONS).forEach(name => {
+    EFFECT_BUTTONS[name].cats = EFFECT_CATS[name] || (labelCat[name] ? [labelCat[name]] : []);
+  });
+}
+function renderEffectFilter() {
+  const body = document.getElementById('effectFilterBody');
+  if(!body) return;
+  body.innerHTML = Object.keys(EFFECT_CAT_NAMES).map(cat => {
+    const list = Object.entries(EFFECT_BUTTONS)
+      .filter(([, v]) => v.cats.includes(cat))
+      .sort((a, b) => b[1].count - a[1].count || a[0].localeCompare(b[0], 'ja'));
+    if(!list.length) return '';
+    const chips = list.map(([name, v]) =>
+      `<span class="fchip efx-chip" data-ftype="effect" data-filter="${name}" onclick="setFilter('effect', this.dataset.filter)">${name}<span class="efx-n">${v.count}</span></span>`
+    ).join('');
+    return `<div class="efx-sub"><div class="filter-group-label collapsible efx-sub-label" onclick="toggleFilterGroup(this)"><span>${EFFECT_CAT_NAMES[cat]} <span class="efx-sub-n">${list.length}</span></span><span class="fg-arrow" style="transform:rotate(180deg)">▲</span></div><div class="filter-chips fg-body collapsed">${chips}</div></div>`;
+  }).join('');
+}
+function clearEffectFilter() {
+  filterState.effect.clear();
+  updateFilterChips();
+  renderCharList();
+}
+
+const FILTER_KEYS = ['burst','role','weapon','element','company','squad','effect'];
 
 function freshFilterState() {
-  return { showAll: false, burst: new Set(), role: new Set(), weapon: new Set(), element: new Set(), company: new Set(), squad: new Set() };
+  return { showAll: false, burst: new Set(), role: new Set(), weapon: new Set(), element: new Set(), company: new Set(), squad: new Set(), effect: new Set() };
 }
 
 // スキル内訳表示用の短縮名（「：」付きニケの名前を短縮）
@@ -5782,7 +5929,7 @@ function setFilter(type, val) {
   if(filterState[type].has(val)) {
     filterState[type].delete(val); // 同じ項目を再タップで解除
   } else {
-    filterState[type].clear(); // 同じカテゴリ内の他の選択を解除してから選び直す（カテゴリごとに1つのみ選択可能）
+    if(type !== 'effect') filterState[type].clear(); // 効果は複数選択（すべて持つニケだけ表示=AND） // 同じカテゴリ内の他の選択を解除してから選び直す（カテゴリごとに1つのみ選択可能）
     filterState[type].add(val);
   }
   updateFilterChips();
@@ -5847,6 +5994,10 @@ function renderCharList() {
     if(filterState.element.size > 0 && !filterState.element.has(c.element))   return false;
     if(filterState.company.size > 0 && !filterState.company.has(c.company))   return false;
     if(filterState.squad.size   > 0 && !filterState.squad.has(c.squad))       return false;
+    if(filterState.effect.size  > 0) {
+      const have = EFFECT_INDEX[c.id];
+      for(const e of filterState.effect) { if(!have || !have.has(e)) return false; }
+    }
     if(search) {
       const key = search;
       const nameMatch = normSearch(c.name).startsWith(key);
@@ -5856,10 +6007,14 @@ function renderCharList() {
     return true;
   });
 
+  const effectHead = filterState.effect.size > 0
+    ? `<div class="efx-result-head"><span>${[...filterState.effect].join(' ＋ ')} ／ ${filtered.length}体（すべて持つ）</span><span class="efx-clear" onclick="clearEffectFilter()">効果を解除</span></div>`
+    : '';
   if(!filtered.length) {
-    list.innerHTML = '<div class="empty-team">該当するニケがいません</div>';
+    list.innerHTML = effectHead + '<div class="empty-team">該当するニケがいません</div>';
     return;
   }
+  if(effectHead) list.insertAdjacentHTML('beforeend', effectHead);
 
   const activeBursts = ['b1','b2','b3'].filter(k => filterState.burst.has(k));
   const effBurst = c => (c.id === 'redhood' && activeBursts.length === 1)
