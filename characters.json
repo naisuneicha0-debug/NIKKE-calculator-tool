@@ -217,14 +217,14 @@
       "self": {
         "dmg": {
           "val": 6.65,
-          "condLabel": "S2",
+          "condLabel": "S2・戦闘開始時・後列配置時・【ソードコイン】・持続",
           "requireBack": true,
           "showCond": true
         },
         "dmgReduce": {
           "val": 15.2,
           "requireBack": true,
-          "condLabel": "S2・フルチャージ30回・【ソードコイン】状態時",
+          "condLabel": "S2・フルチャージ30回・【ソードコイン】状態時・【シールドコイン】・持続",
           "showCond": true
         }
       },
@@ -232,7 +232,7 @@
         "dmg": {
           "val": 6.65,
           "target": "adjacent",
-          "condLabel": "S2・両隣2機限定",
+          "condLabel": "S2・戦闘開始時・後列配置時・両隣2機限定・【ソードコイン】・持続",
           "suppressTargetLabel": true,
           "requireSrcBack": true,
           "showCond": true
@@ -241,7 +241,9 @@
           "val": 15.2,
           "target": "adjacent",
           "requireSrcBack": true,
-          "showCond": true
+          "showCond": true,
+          "condLabel": "S2・フルチャージ30回・【ソードコイン】状態時・両隣2機限定・【シールドコイン】・持続",
+          "suppressTargetLabel": true
         },
         "atk": {
           "val": 15.07,
@@ -253,7 +255,7 @@
         "hpUp": {
           "val": 15.08,
           "target": null,
-          "condLabel": "BS5回使用時・【シールドコイン】状態・持続",
+          "condLabel": "S2・BS5回使用時・【シールドコイン】状態時・【ダブルソードコイン】・持続",
           "requireSrcBack": true,
           "caster": true,
           "showCond": true
@@ -789,7 +791,8 @@
         },
         "enemyDmgTaken": {
           "val": 5.05,
-          "condLabel": "S2・敵登場時・対象敵に・持続"
+          "condLabel": "S2・敵登場時・対象敵に・持続",
+          "showCond": true
         },
         "stun": {
           "val": 3,
@@ -1025,7 +1028,8 @@
         },
         "dmg": {
           "val": 20.99,
-          "condLabel": "S2・回復効果適用時・全体・7秒間維持"
+          "condLabel": "S2・回復効果適用時・全体・7秒間維持",
+          "showCond": true
         },
         "dmgB": {
           "val": 36.24,
@@ -1383,7 +1387,8 @@
         "elemAdv": {
           "val": 1,
           "condLabel": "S2・戦闘開始時・電撃コードの敵に有利属性ダメージ適用・持続",
-          "unit": "持続"
+          "unit": "持続",
+          "showCond": true
         },
         "attachDmg": {
           "val": 150.72,
@@ -3396,11 +3401,12 @@
       "party": {
         "chargeDmg": {
           "val": 41.81,
-          "condLabel": "S2"
+          "condLabel": "S2・自分生存時・【フォーメーションAS】・持続",
+          "showCond": true
         },
         "critRate": {
           "val": 8.16,
-          "condLabel": "S2",
+          "condLabel": "S2・自分生存時・【フォーメーションAS】・同じ部隊限定・持続",
           "squadOnly": true,
           "showCond": true
         }
@@ -3421,7 +3427,8 @@
         },
         "atk": {
           "val": 42.24,
-          "condLabel": "S2"
+          "condLabel": "S2・自分生存時・【フォーメーションAS】・持続",
+          "showCond": true
         }
       },
       "targeted": {},
@@ -3430,7 +3437,7 @@
           "key": "explodeDmg",
           "val": 5.11,
           "condition": "hasEmma",
-          "condLabel": "S2追加・エマ在籍時",
+          "condLabel": "S2・自分生存時・【フォーメーションLT】適用中・エマ在籍時・持続",
           "unit": "%",
           "caster": false,
           "defaultOff": true
@@ -3439,7 +3446,7 @@
           "key": "trueDmg",
           "val": 30.97,
           "condition": "hasEmma",
-          "condLabel": "S2追加・エマ在籍時",
+          "condLabel": "S2・自分生存時・【フォーメーションLT】適用中・エマ在籍時・持続",
           "unit": "%",
           "caster": false,
           "defaultOff": true
@@ -4209,7 +4216,8 @@
         },
         "defDown": {
           "val": 14.54,
-          "condLabel": "BS・残HP最低の敵5機・10秒間維持"
+          "condLabel": "BS・残HP最低の敵5機・10秒間維持",
+          "showCond": true
         }
       },
       "self": {
@@ -5007,7 +5015,8 @@
         },
         "atk": {
           "val": 96.98,
-          "condLabel": "S1・回復効果適用時・25秒間維持"
+          "condLabel": "S1・回復効果適用時・25秒間維持",
+          "showCond": true
         },
         "elem": {
           "val": 30.02,
@@ -5075,7 +5084,8 @@
             "max": 50,
             "default": 1,
             "key": "goldChip"
-          }
+          },
+          "showCond": true
         },
         "burstTimeUp": {
           "val": 2,
@@ -5112,7 +5122,8 @@
         "dmg": {
           "val": 10.51,
           "condLabel": "S1・FB中・通常攻撃3回攻撃ごと・自分除く最終攻撃力最高の味方1機・2秒間維持",
-          "caster": true
+          "caster": true,
+          "showCond": true
         }
       },
       "targeted": {}
@@ -5183,7 +5194,8 @@
       "party": {
         "enemyDmgTaken": {
           "val": 12.56,
-          "condLabel": "S1・通常攻撃60回命中ごと・対象敵・3秒間維持"
+          "condLabel": "S1・通常攻撃60回命中ごと・対象敵・3秒間維持",
+          "showCond": true
         }
       },
       "targeted": {}
@@ -5971,11 +5983,13 @@
       "party": {
         "chargeSpd": {
           "val": 4.48,
-          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒間維持"
+          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒間維持",
+          "showCond": true
         },
         "atk": {
           "val": 43.1,
-          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒間維持"
+          "condLabel": "S1・FB発動時・攻撃力最高2機・10秒間維持",
+          "showCond": true
         }
       },
       "self": {
@@ -6391,11 +6405,13 @@
       "party": {
         "enemyDmgTaken": {
           "val": 9.09,
-          "condLabel": "S1・通常攻撃10回被弾時・最終最大HP最高の敵1機・10秒間維持"
+          "condLabel": "S1・通常攻撃10回被弾時・最終最大HP最高の敵1機・10秒間維持",
+          "showCond": true
         },
         "enemyAtkDown": {
           "val": 9.09,
-          "condLabel": "S1・通常攻撃10回被弾時・最終最大HP最高の敵1機・10秒間維持"
+          "condLabel": "S1・通常攻撃10回被弾時・最終最大HP最高の敵1機・10秒間維持",
+          "showCond": true
         },
         "dmg": {
           "val": 38.91,
@@ -6659,7 +6675,8 @@
         },
         "enemyAtkDown": {
           "val": 3.55,
-          "condLabel": "S2・最終攻撃力最高の敵1機・5秒間維持"
+          "condLabel": "S2・最終攻撃力最高の敵1機・5秒間維持",
+          "showCond": true
         },
         "buffStackUp": {
           "val": 1,
@@ -6730,7 +6747,8 @@
         },
         "enemyDmgTakenB": {
           "val": 8,
-          "condLabel": "S1・BS使用時・照準線最近の攻撃範囲内の敵1機・10秒間維持"
+          "condLabel": "S1・BS使用時・照準線最近の攻撃範囲内の敵1機・10秒間維持",
+          "showCond": true
         },
         "distDmg": {
           "val": 20,
@@ -6984,7 +7002,8 @@
         "atkB": {
           "val": 20,
           "condLabel": "S2・FB発動時・メイラード/ブランチング対象・10秒間維持",
-          "caster": true
+          "caster": true,
+          "showCond": true
         },
         "dmg": {
           "val": 20,
@@ -7040,12 +7059,14 @@
       "party": {
         "dmgShareDiff": {
           "val": 1,
-          "condLabel": "S1・BS使用時・自分が生存している限り・持続"
+          "condLabel": "S1・BS使用時・自分が生存している限り・持続",
+          "showCond": true
         },
         "defUp": {
           "val": 10.13,
           "condLabel": "S1・BS使用時・自分が生存している限り・持続",
-          "caster": true
+          "caster": true,
+          "showCond": true
         },
         "heal": {
           "val": 4,
@@ -7062,7 +7083,8 @@
       "self": {
         "dmgShareDiffShelter": {
           "val": 1,
-          "condLabel": "S2・BS使用時・自分が生存している限り・持続"
+          "condLabel": "S2・BS使用時・自分が生存している限り・持続",
+          "showCond": true
         },
         "shelter": {
           "val": 2.88,
@@ -7259,7 +7281,8 @@
         },
         "healRcvUp": {
           "val": 26.98,
-          "condLabel": "S1・最後の弾丸命中時・最終攻撃力上位2機・3秒間維持"
+          "condLabel": "S1・最後の弾丸命中時・最終攻撃力上位2機・3秒間維持",
+          "showCond": true
         },
         "heal": {
           "val": 28.11,
@@ -7476,7 +7499,8 @@
       "party": {
         "dmgReduce": {
           "val": 8,
-          "condLabel": "S1・撃たれた時10%の確率・10秒間維持"
+          "condLabel": "S1・撃たれた時10%の確率・10秒間維持",
+          "showCond": true
         },
         "invincible": {
           "val": 3,
@@ -8749,7 +8773,8 @@
         "elemAdv": {
           "val": 1,
           "unit": "持続",
-          "condLabel": "S1・戦闘開始時・灼熱コードの敵に有利属性ダメージ適用・持続・解除不可"
+          "condLabel": "S1・戦闘開始時・灼熱コードの敵に有利属性ダメージ適用・持続・解除不可",
+          "showCond": true
         },
         "critRate": {
           "val": 13.02,
@@ -9334,7 +9359,8 @@
         "buffStackUp": {
           "val": 1,
           "unit": "個",
-          "condLabel": "BS・灼熱コードの味方全体"
+          "condLabel": "BS・灼熱コードの味方全体",
+          "showCond": true
         }
       },
       "self": {
@@ -9351,7 +9377,8 @@
         "stun": {
           "val": 1,
           "unit": "秒",
-          "condLabel": "BS・ランダムの敵2機・1秒間維持"
+          "condLabel": "BS・ランダムの敵2機・1秒間維持",
+          "showCond": true
         }
       },
       "targeted": {},
@@ -9498,7 +9525,8 @@
         },
         "defDownB": {
           "val": 9.86,
-          "condLabel": "BS・最終防御力最高の敵10機・10秒間維持"
+          "condLabel": "BS・最終防御力最高の敵10機・10秒間維持",
+          "showCond": true
         },
         "hpUp": {
           "val": 6.09,
@@ -10202,11 +10230,13 @@
       "party": {
         "reload": {
           "val": 36.96,
-          "condLabel": "S1・20回撃たれた時・10秒間維持"
+          "condLabel": "S1・20回撃たれた時・10秒間維持",
+          "showCond": true
         },
         "defUp": {
           "val": 14.78,
-          "condLabel": "S1・20回撃たれた時・10秒間維持"
+          "condLabel": "S1・20回撃たれた時・10秒間維持",
+          "showCond": true
         }
       },
       "self": {
@@ -10495,7 +10525,8 @@
         "taunt": {
           "val": 5,
           "unit": "秒",
-          "condLabel": "S2・CT20秒・最終攻撃力最高の敵1機に挑発・5秒間維持"
+          "condLabel": "S2・CT20秒・最終攻撃力最高の敵1機に挑発・5秒間維持",
+          "showCond": true
         },
         "hpUp": {
           "val": 44.96,
@@ -10552,7 +10583,8 @@
       "party": {
         "defDown": {
           "val": 7.05,
-          "condLabel": "S1・CT10秒・最終防御力最高の敵3機・5秒間維持"
+          "condLabel": "S1・CT10秒・最終防御力最高の敵3機・5秒間維持",
+          "showCond": true
         },
         "enemyDmgTaken": {
           "val": 67.5,
@@ -10675,7 +10707,8 @@
       "party": {
         "chargeDmg": {
           "val": 9.59,
-          "condLabel": "S1・20回撃たれた時・20秒間維持"
+          "condLabel": "S1・20回撃たれた時・20秒間維持",
+          "showCond": true
         },
         "reload": {
           "val": 50.91,
@@ -11389,7 +11422,8 @@
         "enemyBuffRemove": {
           "val": 5,
           "unit": "個",
-          "condLabel": "S1・通常攻撃10回命中時・最終攻撃力最高の敵2機・戦闘中1回"
+          "condLabel": "S1・通常攻撃10回命中時・最終攻撃力最高の敵2機・戦闘中1回",
+          "showCond": true
         },
         "enemyDmgTaken": {
           "val": 29,
@@ -11482,13 +11516,15 @@
           "val": 2.1,
           "condLabel": "S1・通常攻撃60回攻撃時・デコイ存在時",
           "caster": true,
-          "hpBased": true
+          "hpBased": true,
+          "showCond": true
         },
         "decoyHealOverTime": {
           "val": 2.27,
           "condLabel": "BS・デコイ存在時・1秒間隔・10秒間維持",
           "caster": true,
-          "hpBased": true
+          "hpBased": true,
+          "showCond": true
         },
         "taunt": {
           "val": 5,
@@ -11857,7 +11893,8 @@
         },
         "defDownB": {
           "val": 2.43,
-          "condLabel": "BS・最終攻撃力最も高い敵10機・15秒間維持"
+          "condLabel": "BS・最終攻撃力最も高い敵10機・15秒間維持",
+          "showCond": true
         },
         "critRate": {
           "val": 4.65,
@@ -12118,7 +12155,8 @@
         "taunt": {
           "val": 5,
           "unit": "秒",
-          "condLabel": "S2・CT20秒・最終攻撃力最も高い敵1機を挑発"
+          "condLabel": "S2・CT20秒・最終攻撃力最も高い敵1機を挑発",
+          "showCond": true
         },
         "atkB": {
           "val": 60.75,
