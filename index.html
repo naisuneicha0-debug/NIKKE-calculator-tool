@@ -97,20 +97,23 @@
   }
   .raid-mode-btn[data-mode="preview"] { background-image: linear-gradient(135deg, #1b2a5a, #3a1f6b); }
   .raid-mode-btn[data-mode="union"]   { background-image: linear-gradient(135deg, #14405a, #1f2f6b); }
-  .raid-mode-btn[data-mode="solo"]    { background-image: url('videos/solo_poster.jpg'), linear-gradient(135deg, #4a1f4f, #1b2a5a); }
+  .raid-mode-btn[data-mode="solo"]    { background-image: linear-gradient(rgba(5,6,14,0.38), rgba(5,6,14,0.38)), url('videos/solo_poster.jpg'), linear-gradient(135deg, #4a1f4f, #1b2a5a); }
   .raid-mode-btn.on { opacity: 1; border-color: var(--accent); box-shadow: 0 0 12px rgba(0,212,255,0.45); }
   .raid-mode-btn video {
     position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%;
-    opacity: 0; transition: opacity 0.15s; pointer-events: none;
+    opacity: 0; transition: opacity 0.15s; pointer-events: none; filter: brightness(0.62);
   }
   .raid-mode-btn video.show { opacity: 1; }
   .rm-label {
-    position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 4px 5px; text-align: center; pointer-events: none;
-    background: linear-gradient(transparent, rgba(5,6,14,0.88));
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
   }
-  .rm-en { display: block; font-family: 'Orbitron', 'Courier New', monospace; font-size: 9px; letter-spacing: 1.5px; color: #8fa0bf; }
-  .rm-ja { display: block; font-size: 11px; color: #dbe6f5; margin-top: 1px; }
-  .raid-mode-btn.on .rm-en { color: var(--accent); }
+  .rm-en {
+    display: block; font-family: 'Orbitron', 'Courier New', monospace; font-size: 12px; font-weight: 700; letter-spacing: 2px;
+    text-shadow: 0 0 5px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,1);
+  }
+  .raid-mode-btn[data-mode="preview"] .rm-en { color: var(--good); }
+  .raid-mode-btn[data-mode="union"]   .rm-en { color: var(--accent3); }
+  .raid-mode-btn[data-mode="solo"]    .rm-en { color: var(--accent2); }
   .party-tabs { display: none; gap: 6px; margin: 0 0 12px; }
   .party-tabs.show { display: flex; }
   .party-tab {
@@ -1939,9 +1942,9 @@
 
   <!-- レイドモード切替（プレビュー=1部隊／ユニオンレイド=3部隊／ソロレイド=5部隊）と部隊タブ -->
   <div class="raid-modes" id="raidModes">
-    <button type="button" class="raid-mode-btn on" data-mode="preview" onclick="setRaidMode('preview')"><span class="rm-label"><span class="rm-en">PREVIEW</span><span class="rm-ja">プレビュー</span></span></button>
-    <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><span class="rm-label"><span class="rm-en">UNION RAID</span><span class="rm-ja">ユニオンレイド</span></span></button>
-    <button type="button" class="raid-mode-btn" data-mode="solo" onclick="setRaidMode('solo')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">SOLO RAID</span><span class="rm-ja">ソロレイド</span></span></button>
+    <button type="button" class="raid-mode-btn on" data-mode="preview" onclick="setRaidMode('preview')"><span class="rm-label"><span class="rm-en">PREVIEW</span></span></button>
+    <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><span class="rm-label"><span class="rm-en">UNION RAID</span></span></button>
+    <button type="button" class="raid-mode-btn" data-mode="solo" onclick="setRaidMode('solo')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">SOLO RAID</span></span></button>
   </div>
   <div class="party-tabs" id="partyTabs"></div>
 
@@ -2804,7 +2807,7 @@ function renderModeUI() {
   tabs.className = 'party-tabs show';
   tabs.innerHTML = ps.map((p, i) => {
     const n = p.filter(Boolean).length;
-    return `<button type="button" class="party-tab${i === ACTIVE_PARTY ? ' on' : ''}" onclick="setActiveParty(${i})">部隊${i + 1}${n ? `<span class="pt-n">${n}</span>` : ''}</button>`;
+    return `<button type="button" class="party-tab${i === ACTIVE_PARTY ? ' on' : ''}" onclick="setActiveParty(${i})">P${i + 1}${n ? `<span class="pt-n">${n}</span>` : ''}</button>`;
   }).join('');
 }
 function setActiveParty(i) {
