@@ -89,18 +89,23 @@
   .sub { display: none; }
 
   /* レイドモード切替ボタン（ロゴの下）・部隊タブ */
-  .raid-modes { display: flex; gap: 8px; margin: -8px 0 14px; padding-block: 5px; }
-  /* 角張った形＋下線バー。選択中は浮き上がり（拡大・影）、他は縮んで暗い */
+  .raid-modes { display: flex; gap: 8px; margin: -8px 0 14px; padding-block: 7px; }
+  /* 角張った形＋細い暗い帯＋下線バー。選択中は浮き上がり（拡大・影）、他は小さく白黒 */
   .raid-mode-btn {
     --k: var(--good);
     flex: 1; min-width: 0; aspect-ratio: 2 / 1; position: relative; overflow: hidden; padding: 0; cursor: pointer;
     border-radius: 0; border: 1px solid var(--border); background-color: #111a36; background-size: cover; background-position: center;
-    opacity: 0.55; transform: scale(0.94); filter: saturate(0.6);
+    opacity: 0.7; transform: scale(0.88); filter: grayscale(1) brightness(0.8);
     transition: opacity 0.2s, transform 0.2s, filter 0.2s, border-color 0.2s, box-shadow 0.2s; -webkit-tap-highlight-color: transparent;
   }
   .raid-mode-btn[data-mode="preview"] { --k: var(--good);    background-image: linear-gradient(135deg, #1b2a5a, #3a1f6b); }
   .raid-mode-btn[data-mode="union"]   { --k: var(--accent3); background-image: linear-gradient(135deg, #14405a, #1f2f6b); }
   .raid-mode-btn[data-mode="solo"]    { --k: var(--accent2); background-image: linear-gradient(rgba(5,6,14,0.38), rgba(5,6,14,0.38)), url('videos/solo_poster.jpg'), linear-gradient(135deg, #4a1f4f, #1b2a5a); }
+  /* 文字の後ろの細い暗い帯（文字より少し細い） */
+  .raid-mode-btn::before {
+    content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 10px; transform: translateY(-50%);
+    background: rgba(5,6,14,0.6); z-index: 1; pointer-events: none;
+  }
   .raid-mode-btn::after {
     content: ''; position: absolute; left: 50%; bottom: 0; height: 3px; width: 30%; transform: translateX(-50%);
     background: var(--k); opacity: 0.7; z-index: 3; transition: width 0.25s, box-shadow 0.25s; pointer-events: none;
@@ -117,7 +122,7 @@
   }
   .raid-mode-btn video.show { opacity: 1; }
   .rm-label {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
+    position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; pointer-events: none;
   }
   .rm-en {
     display: block; font-family: 'Bebas Neue', 'Orbitron', 'Courier New', monospace; font-size: 16px; font-weight: 400; letter-spacing: 2px; white-space: nowrap;
