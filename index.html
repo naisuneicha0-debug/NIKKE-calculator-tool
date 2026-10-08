@@ -88,6 +88,39 @@
   /* サブタイトル */
   .sub { display: none; }
 
+  /* レイドモード切替ボタン（ロゴの下）・部隊タブ */
+  .raid-modes { display: flex; gap: 8px; margin: -8px 0 14px; }
+  .raid-mode-btn {
+    flex: 1; min-width: 0; aspect-ratio: 2 / 1; position: relative; overflow: hidden; padding: 0; cursor: pointer;
+    border-radius: 6px; border: 1px solid var(--border); background-color: #111a36; background-size: cover; background-position: center;
+    opacity: 0.62; transition: opacity 0.2s, border-color 0.2s, box-shadow 0.2s; -webkit-tap-highlight-color: transparent;
+  }
+  .raid-mode-btn[data-mode="preview"] { background-image: linear-gradient(135deg, #1b2a5a, #3a1f6b); }
+  .raid-mode-btn[data-mode="union"]   { background-image: linear-gradient(135deg, #14405a, #1f2f6b); }
+  .raid-mode-btn[data-mode="solo"]    { background-image: url('videos/solo_poster.jpg'), linear-gradient(135deg, #4a1f4f, #1b2a5a); }
+  .raid-mode-btn.on { opacity: 1; border-color: var(--accent); box-shadow: 0 0 12px rgba(0,212,255,0.45); }
+  .raid-mode-btn video {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 42%;
+    opacity: 0; transition: opacity 0.15s; pointer-events: none;
+  }
+  .raid-mode-btn video.show { opacity: 1; }
+  .rm-label {
+    position: absolute; left: 0; right: 0; bottom: 0; padding: 14px 4px 5px; text-align: center; pointer-events: none;
+    background: linear-gradient(transparent, rgba(5,6,14,0.88));
+  }
+  .rm-en { display: block; font-family: 'Orbitron', 'Courier New', monospace; font-size: 9px; letter-spacing: 1.5px; color: #8fa0bf; }
+  .rm-ja { display: block; font-size: 11px; color: #dbe6f5; margin-top: 1px; }
+  .raid-mode-btn.on .rm-en { color: var(--accent); }
+  .party-tabs { display: none; gap: 6px; margin: 0 0 12px; }
+  .party-tabs.show { display: flex; }
+  .party-tab {
+    flex: 1; min-width: 0; padding: 8px 0; border-radius: 4px; border: 1px solid var(--border); background: transparent; cursor: pointer;
+    font-family: 'Chakra Petch', 'Courier New', monospace; font-size: 12px; letter-spacing: 1px; color: #8fa0bf;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .party-tab.on { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+  .party-tab .pt-n { opacity: 0.6; font-size: 10px; margin-left: 3px; }
+
   /* ========================================
      LAYOUT: パネル・共通コンテナ
      ======================================== */
@@ -1904,6 +1937,14 @@
     </div>
   </header>
 
+  <!-- レイドモード切替（プレビュー=1部隊／ユニオンレイド=3部隊／ソロレイド=5部隊）と部隊タブ -->
+  <div class="raid-modes" id="raidModes">
+    <button type="button" class="raid-mode-btn on" data-mode="preview" onclick="setRaidMode('preview')"><span class="rm-label"><span class="rm-en">PREVIEW</span><span class="rm-ja">プレビュー</span></span></button>
+    <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><span class="rm-label"><span class="rm-en">UNION RAID</span><span class="rm-ja">ユニオンレイド</span></span></button>
+    <button type="button" class="raid-mode-btn" data-mode="solo" onclick="setRaidMode('solo')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">SOLO RAID</span><span class="rm-ja">ソロレイド</span></span></button>
+  </div>
+  <div class="party-tabs" id="partyTabs"></div>
+
   <!-- 編成パネル -->
   <div class="panel">
     <div class="ptitle ptitle-en">FORMATION<button class="panel-help-btn" type="button" onclick="showFormationHelp()" aria-label="編成ヘルプ">?</button></div>
@@ -2728,7 +2769,62 @@ async function loadDB() {
 function saveDB() {
   // 開発中はローカルストレージ無効
 }
-let TEAM = [null,null,null,null,null];
+// ===== レイドモード・部隊 =====
+// プレビュー=1部隊／ユニオンレイド=3部隊／ソロレイド=5部隊。各モードの編成はモードごとに別々に保持し、切り替えても消えない。
+// TEAMは「いま表示している部隊」の配列を指す（バフ計算はこれまでどおりTEAMだけを見る＝部隊内だけで計算）。
+const RAID_MODES = { preview: { parties: 1 }, union: { parties: 3 }, solo: { parties: 5 } };
+const newParty = () => [null, null, null, null, null];
+const PARTY_STORE = {
+  preview: [newParty()],
+  union:   [newParty(), newParty(), newParty()],
+  solo:    [newParty(), newParty(), newParty(), newParty(), newParty()],
+};
+let RAID_MODE = 'preview';
+let ACTIVE_PARTY = 0;
+let TEAM = PARTY_STORE.preview[0];
+function activeParties() { return PARTY_STORE[RAID_MODE]; }
+// 同じニケは同じモードの複数部隊に入れられない（ゲーム仕様）。モード内の全部隊から探す
+function findCharPlacement(charId) {
+  const ps = activeParties();
+  for(let p = 0; p < ps.length; p++) {
+    const s = ps[p].findIndex(m => m && m.id === charId);
+    if(s !== -1) return { party: p, slot: s };
+  }
+  return null;
+}
+function isCharPlaced(charId) { return !!findCharPlacement(charId); }
+function sortieSlotLabel(partyIdx, slotIdx) {
+  return (activeParties().length > 1 ? `P${partyIdx + 1}・` : '') + 'SLOT ' + String(slotIdx + 1).padStart(2, '0');
+}
+function renderModeUI() {
+  document.querySelectorAll('.raid-mode-btn').forEach(b => b.classList.toggle('on', b.dataset.mode === RAID_MODE));
+  const tabs = el('partyTabs');
+  const ps = activeParties();
+  if(ps.length <= 1) { tabs.className = 'party-tabs'; tabs.innerHTML = ''; return; }
+  tabs.className = 'party-tabs show';
+  tabs.innerHTML = ps.map((p, i) => {
+    const n = p.filter(Boolean).length;
+    return `<button type="button" class="party-tab${i === ACTIVE_PARTY ? ' on' : ''}" onclick="setActiveParty(${i})">部隊${i + 1}${n ? `<span class="pt-n">${n}</span>` : ''}</button>`;
+  }).join('');
+}
+function setActiveParty(i) {
+  const ps = activeParties();
+  if(i < 0 || i >= ps.length || i === ACTIVE_PARTY) return;
+  ACTIVE_PARTY = i;
+  TEAM = ps[i];
+  pendingChar = null;
+  renderModeUI();
+  renderSlots();
+}
+function setRaidMode(mode) {
+  if(!RAID_MODES[mode] || mode === RAID_MODE) return;
+  RAID_MODE = mode;
+  ACTIVE_PARTY = 0;
+  TEAM = activeParties()[0];
+  pendingChar = null;
+  renderModeUI();
+  renderSlots();
+}
 let rapiSupMode = null;
 let anisStarMode = null;
 let neonViMode = null;
@@ -2768,7 +2864,7 @@ function setBunnyMode(charId, mode) {
 }
 function loadTeam() {
   // 開発中はローカルストレージ無効
-  TEAM = [null,null,null,null,null];
+  Object.values(PARTY_STORE).forEach(ps => ps.forEach(p => p.fill(null)));
 }
 function saveTeam() {
   // 開発中はローカルストレージ無効
@@ -3151,7 +3247,7 @@ function removeChar(idx) {
   TEAM[idx] = null;
   checkModeChangeAndRender();
   // 他のスロットにも同じキャラがいなければ、ピッカー上のロックを解除
-  if(removedChar && !TEAM.some(m => m && m.id === removedChar.id)) {
+  if(removedChar && !isCharPlaced(removedChar.id)) {
     animateUnlockPickerItem(removedChar.id);
   }
 }
@@ -5593,17 +5689,17 @@ function placeCharInSlot(idx) {
   el('slotPlacerOverlay').classList.remove('show');
   checkModeChangeAndRender();
   // 上書きで押し出された旧キャラが他のスロットにもいなければ、ピッカー上のロックを解除
-  if(previousChar && previousChar.id !== placedChar.id && !TEAM.some(m => m && m.id === previousChar.id)) {
+  if(previousChar && previousChar.id !== placedChar.id && !isCharPlaced(previousChar.id)) {
     animateUnlockPickerItem(previousChar.id);
   }
   if(TEAM.every(t => t !== null)) {
     closePicker();
   } else {
-    animateLockPickerItem(placedChar.id, idx); // 配置済みニケをシャッター演出付きでロック表示に反映
+    animateLockPickerItem(placedChar.id, sortieSlotLabel(ACTIVE_PARTY, idx)); // 配置済みニケをシャッター演出付きでロック表示に反映
   }
 }
 // ピッカーカードのシャッター一式HTML（ロック中のキャラにのみ必要な時に生成する。全件常時生成すると187件分のDOM肥大化でピッカーが重くなるため）
-function sortieShutterHTML(name, slotIdx) {
+function sortieShutterHTML(name, slotLabel) {
   return `
       <div class="sortie-hatch-top"></div><div class="sortie-hatch-bottom"></div>
       <div class="sortie-seam"></div>
@@ -5613,7 +5709,7 @@ function sortieShutterHTML(name, slotIdx) {
       <div class="sortie-name"><div class="sortie-name-text">${name}</div></div>
       <div class="sortie-bottom">
         <div class="sortie-label">READY FOR SORTIE</div>
-        <div class="sortie-slot">SLOT ${String(slotIdx + 1).padStart(2, '0')}</div>
+        <div class="sortie-slot">${slotLabel}</div>
       </div>`;
 }
 // ===== ロック中テキストのランダム点滅（J-3：名前とSORTIE表記が完全に独立したランダムタイマーで点滅） =====
@@ -5787,10 +5883,10 @@ function cancelSortieUnlock(item) {
 }
 // ピッカー上の対象キャラだけをアニメーション付きでロック状態に切り替える
 // （renderCharList()での全再描画だとDOMが作り直されて「最初からロック済み」の見た目になりトランジションが発火しないため、既存DOMに対してクラスを遅延付与する）
-function animateLockPickerItem(charId, slotIdx) {
+function animateLockPickerItem(charId, slotLabel) {
   const item = document.querySelector(`#charList .char-item[data-char-id="${charId}"]`);
   if(!item) return; // 現在の絞り込み結果に表示されていない場合は次回一覧描画時に通常反映される
-  const slotText = 'SLOT ' + String(slotIdx + 1).padStart(2, '0');
+  const slotText = slotLabel;
   // 解除アニメが進行中なら中断（未完了の解除タイマーがロックを剥がしてしまうのを防ぐ）
   const wasUnlocking = cancelSortieUnlock(item);
   if(item.classList.contains('sortie-locked')) {
@@ -5803,7 +5899,7 @@ function animateLockPickerItem(charId, slotIdx) {
   // シャッター要素が未生成（＝これまで未ロックだった）場合はこの時点で注入する
   if(!item.querySelector('.sortie-hatch-top')) {
     const c = NIKKE_DB.find(x => x.id === charId);
-    item.insertAdjacentHTML('beforeend', sortieShutterHTML(c ? c.name : '', slotIdx));
+    item.insertAdjacentHTML('beforeend', sortieShutterHTML(c ? c.name : '', slotLabel));
     const recallBtn = item.querySelector('.sortie-recall-btn');
     if(recallBtn) recallBtn.onclick = (e) => { e.stopPropagation(); recallCharFromPicker(charId); };
   } else {
@@ -5816,7 +5912,7 @@ function animateLockPickerItem(charId, slotIdx) {
   requestAnimationFrame(() => {
     requestAnimationFrame(() => {
       // 遅延中に解除された（＝もう編成されていない）場合はロックを付けない
-      if(!TEAM.some(m => m && m.id === charId)) return;
+      if(!isCharPlaced(charId)) return;
       item.classList.add('sortie-locked');
       const c = NIKKE_DB.find(x => x.id === charId);
       if(c && c.squad === 'インフィニティレール') {
@@ -5853,16 +5949,16 @@ function animateUnlockPickerItem(charId) {
 // ピッカーカード上のRECALLボタンから直接その場でニケを編成解除する
 // ボタンラベルを「OK」に切り替えて点滅させてから、実際の編成解除＋シャッター解除アニメーションを行う
 function recallCharFromPicker(charId) {
-  if(TEAM.findIndex(m => m && m.id === charId) === -1) return; // 既に編成されていない場合は何もしない
+  if(!isCharPlaced(charId)) return; // 既に編成されていない場合は何もしない
   const item = document.querySelector(`#charList .char-item[data-char-id="${charId}"]`);
   if(item && item._sortieRecalling) return; // 点滅演出中の連打を無視（二重実行とラベル固着を防ぐ）
   const label = item ? item.querySelector('.sortie-recall-label') : null;
   const doRecall = () => {
     if(item) item._sortieRecalling = false;
     // 演出待ちの間に他操作でスロットが変わっている可能性があるため実行時点で取り直す
-    const idx = TEAM.findIndex(m => m && m.id === charId);
-    if(idx === -1) return; // 待機中に別経路で外れていたら何もしない
-    TEAM[idx] = null;
+    const pl = findCharPlacement(charId);
+    if(!pl) return; // 待機中に別経路で外れていたら何もしない
+    activeParties()[pl.party][pl.slot] = null; // 別の部隊に入っている場合もピッカーから外せる
     checkModeChangeAndRender();
     animateUnlockPickerItem(charId);
   };
@@ -6055,13 +6151,13 @@ function renderCharList() {
     const compLabel  = COMPANY_LABELS[c.company] || '';
     const squadLabel = c.squad || '';
     // 他スロットに同じニケが既に編成済みかを判定（配置UIは任意スロットへ配置可能なため、TEAM内の存在有無のみで判定）
-    const lockedSlotIdx = TEAM.findIndex(m => m && m.id === c.id);
-    const isLocked = lockedSlotIdx !== -1;
+    const lockedPl = findCharPlacement(c.id);
+    const isLocked = !!lockedPl;
     const item = document.createElement('div');
     item.className = 'char-item' + (isLocked ? ' sortie-locked' : '');
     item.dataset.charId = c.id;
     // ロック判定はクリック時点のTEAM状態をその都度参照する（配置直後にアニメ付きでロックされた場合も追従）
-    item.onclick = () => { if(!TEAM.some(m => m && m.id === c.id)) showSlotPlacer(c); };
+    item.onclick = () => { if(!isCharPlaced(c.id)) showSlotPlacer(c); };
     if(c.cardBg) {
       // ピッカー専用画像はcardBgPickerで個別指定できる（未指定時は既存ロジック=cardBgAlt優先キャラ or cardBg）
       const pickerBg = c.cardBgPicker
@@ -6079,7 +6175,7 @@ function renderCharList() {
     item.innerHTML = `
       <div class="crt-vignette"></div><div class="crt-overlay"></div><div class="crt-flicker"></div>
       ${c.cardBg ? `<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,7,14,0.7) 0%,rgba(6,7,14,0.4) 100%);pointer-events:none;"></div>` : '<div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,212,255,0.08),transparent);pointer-events:none;"></div>'}
-      ${isLocked ? sortieShutterHTML(c.name, lockedSlotIdx) : ''}
+      ${isLocked ? sortieShutterHTML(c.name, sortieSlotLabel(lockedPl.party, lockedPl.slot)) : ''}
       <span class="char-burst b${c.burst}" style="visibility:hidden;">${c.id === 'redhood' ? 'Λ' : 'B' + c.burst}</span><div class="char-burst-wm b${c.burst}${c.id === 'redhood' ? ' rh' : ''}">${c.id === 'redhood' ? lambdaSVG(36) : c.burst}</div>
       <div style="flex:1; min-width:0; position:relative; display:flex; flex-direction:column; justify-content:center; gap:4px;">
         <div class="char-item-name">${c.name}</div>
@@ -7705,6 +7801,44 @@ function toggleFilterGroup(labelEl) {
   if(arrow) arrow.style.transform = isCollapsed ? 'rotate(180deg)' : '';
 }
 
+// ===== ソロレイドボタンの動画（1本が終わったら次の1本。最後まで行ったら最初に戻る）=====
+// 2枚のvideoを重ねて交互に使い、次の動画を裏で読み込んでおくので切れ目が出にくい。音なし・インライン再生（iPhone対応）。
+const SOLO_VIDEOS = ['videos/solo_1.mp4','videos/solo_2.mp4','videos/solo_3.mp4','videos/solo_4.mp4','videos/solo_5.mp4','videos/solo_6.mp4','videos/solo_7.mp4'];
+function initSoloVideos() {
+  const btn = document.querySelector('.raid-mode-btn[data-mode="solo"]');
+  if(!btn || !SOLO_VIDEOS.length) return;
+  const vs = Array.from(btn.querySelectorAll('video'));
+  if(vs.length < 2) return;
+  // 視覚効果を減らす設定の端末では動かさず、静止画（ポスター）のままにする
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const N = SOLO_VIDEOS.length;
+  let layer = 0, idx = 0;
+  const load = (v, k) => { v.src = SOLO_VIDEOS[k % N]; v.load(); };
+  const safePlay = v => { const pr = v.play(); if(pr && pr.catch) pr.catch(() => {}); };
+  load(vs[0], 0);
+  load(vs[1], 1);
+  vs.forEach((v, li) => v.addEventListener('ended', () => {
+    if(li !== layer) return;
+    const old = layer, nl = 1 - layer;
+    idx = (idx + 1) % N;
+    vs[nl].currentTime = 0;
+    safePlay(vs[nl]);
+    vs[nl].classList.add('show');
+    vs[old].classList.remove('show');
+    layer = nl;
+    load(vs[old], idx + 1);
+  }));
+  const start = () => { vs[layer].classList.add('show'); safePlay(vs[layer]); };
+  vs[0].addEventListener('loadeddata', () => { if(vs[0].paused && layer === 0 && idx === 0) start(); }, { once: true });
+  // 自動再生を止められた端末（低電力モードなど）では、最初のタップで再生を始める
+  const kick = () => { if(vs[layer].paused) start(); document.removeEventListener('pointerdown', kick); };
+  document.addEventListener('pointerdown', kick);
+  // 画面を離れている間は止める
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden) vs[layer].pause(); else if(vs[layer].classList.contains('show')) safePlay(vs[layer]);
+  });
+}
+
 // ============================================================
 // INIT: 初期化
 // ============================================================
@@ -7715,8 +7849,10 @@ function toggleFilterGroup(labelEl) {
   updateAssetLoadingUI(0, imgUrls.length);
   await preloadAllImages(imgUrls, updateAssetLoadingUI);
   loadTeam();
+  renderModeUI();
   renderSlots();
   hideAssetLoadingOverlay();
+  initSoloVideos();
 })();
 
 </script>
