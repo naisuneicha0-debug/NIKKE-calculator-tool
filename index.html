@@ -131,8 +131,16 @@
   }
   .rm-en { color: var(--k); }
   /* ソロレイドだけ：文字を少し傾け、選択中は赤いネオン文字（枠は光らせない） */
-  .raid-mode-btn[data-mode="solo"] .rm-en { transform: rotate(-4deg); }
-  .raid-mode-btn[data-mode="solo"].on .rm-en { text-shadow: 0 0 6px rgba(255,60,60,0.95), 0 0 18px rgba(255,40,40,0.7), 0 0 34px rgba(255,0,0,0.45); }
+  .raid-mode-btn[data-mode="solo"] .rm-en { transform: rotate(-4deg); text-shadow: none; }
+  /* ソロレイドの帯：黒×半透明の虎柄テープ（45度の縞。選択中は右へ流れる）。赤い発光・影・縁取りはなし */
+  .raid-mode-btn[data-mode="solo"]::before {
+    height: 8px;
+    background: linear-gradient(135deg, rgba(0,0,0,0.9) 25%, rgba(0,0,0,0.3) 25% 50%, rgba(0,0,0,0.9) 50% 75%, rgba(0,0,0,0.3) 75%) 0 0 / 16px 16px;
+  }
+  .raid-mode-btn[data-mode="solo"].on::before { animation: soloTapeFlow 1.2s linear infinite; }
+  .raid-mode-btn[data-mode="solo"].on::after { box-shadow: none; }
+  @keyframes soloTapeFlow { to { background-position: 16px 0; } }
+  @media (prefers-reduced-motion: reduce) { .raid-mode-btn[data-mode="solo"].on::before { animation: none; } }
   .party-tabs { display: none; gap: 6px; margin: 0 0 12px; }
   .party-tabs.show { display: flex; }
   .party-tab {
