@@ -126,12 +126,12 @@
     position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; pointer-events: none;
   }
   .rm-en {
-    display: block; font-family: 'Teko', 'Arial Narrow', 'Roboto Condensed', Impact, sans-serif; font-size: 16px; font-size: 14cqw; font-weight: 600; line-height: 1; letter-spacing: 1.5px; white-space: nowrap;
+    display: block; font-family: 'Orbitron', 'Courier New', monospace; font-size: 12px; font-size: 9cqw; font-weight: 700; line-height: 1; letter-spacing: 0.1em; white-space: nowrap;
     text-shadow: 0 0 5px rgba(0,0,0,1), 0 0 10px rgba(0,0,0,0.85), 0 1px 2px rgba(0,0,0,1);
   }
   .rm-en { color: var(--k); }
-  /* ソロレイドだけ：文字を少し傾け、選択中は赤いネオン文字（枠は光らせない） */
-  .raid-mode-btn[data-mode="solo"] .rm-en { transform: rotate(-4deg); text-shadow: none; }
+  /* ソロレイドだけ：文字は赤（傾けない・光らせない） */
+  .raid-mode-btn[data-mode="solo"] .rm-en { text-shadow: none; }
   /* ソロレイドの帯：黒×半透明の虎柄テープ（45度の縞。選択中は右へ流れる）。赤い発光・影・縁取りはなし */
   .raid-mode-btn[data-mode="solo"]::before {
     height: 8px;
