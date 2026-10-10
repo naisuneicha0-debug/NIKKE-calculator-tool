@@ -138,15 +138,7 @@
     text-shadow: 0 0 4px #ff2a2a, 0 0 12px #ff2a2a, 0 0 30px #ff2a2a, 0 0 60px rgba(255,42,42,0.6);
     animation: cautionFade 2s ease-in-out infinite;
   }
-  /* ソロレイドを選んでいる間：二重のダイヤ枠が文字の後ろでゆっくり逆向きに回り続ける */
-  .rm-fx { position: absolute; display: none; pointer-events: none; z-index: 1; left: 50%; top: 50%; }
-  .raid-mode-btn.on .rm-fx { display: block; }
-  .rm-d1, .rm-d2 { box-shadow: 0 0 8px #ff2a2a, inset 0 0 8px #ff2a2a; }
-  .rm-d1 { width: 34px; height: 34px; margin: -17px; border: 1.5px solid #fff; opacity: 0.75; animation: rmSpinA 7s linear infinite; }
-  .rm-d2 { width: 44px; height: 44px; margin: -22px; border: 1.5px solid #ff2a2a; opacity: 0.6; animation: rmSpinB 9s linear infinite; }
-  @keyframes rmSpinA { 0% { transform: rotate(45deg) scale(1); } 50% { transform: rotate(225deg) scale(1.15); } 100% { transform: rotate(405deg) scale(1); } }
-  @keyframes rmSpinB { 0% { transform: rotate(45deg) scale(1.1); } 50% { transform: rotate(-135deg) scale(0.95); } 100% { transform: rotate(-315deg) scale(1.1); } }
-  @media (prefers-reduced-motion: reduce) { .raid-mode-btn[data-mode="solo"].on .rm-en, .rm-d1, .rm-d2 { animation: none; } }
+  @media (prefers-reduced-motion: reduce) { .raid-mode-btn[data-mode="solo"].on .rm-en { animation: none; } }
   /* ソロレイドの帯：黒×半透明の虎柄テープ（45度の縞。選択中は右へ流れる）。赤い発光・影・縁取りはなし */
   .raid-mode-btn[data-mode="solo"]::before {
     height: 8px;
@@ -1986,7 +1978,7 @@
   <div class="raid-modes" id="raidModes">
     <button type="button" class="raid-mode-btn on" data-mode="preview" onclick="setRaidMode('preview')"><span class="rm-label"><span class="rm-en">PREVIEW</span></span></button>
     <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><span class="rm-label"><span class="rm-en">UNION RAID</span></span></button>
-    <button type="button" class="raid-mode-btn" data-mode="solo" onclick="setRaidMode('solo')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><i class="rm-fx rm-d1"></i><i class="rm-fx rm-d2"></i><span class="rm-label"><span class="rm-en">SOLO RAID</span></span></button>
+    <button type="button" class="raid-mode-btn" data-mode="solo" onclick="setRaidMode('solo')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">SOLO RAID</span></span></button>
   </div>
   <div class="party-tabs" id="partyTabs"></div>
 
