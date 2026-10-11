@@ -7844,6 +7844,8 @@ const MODE_VIDEOS = {
   solo:  Array.from({ length: 10 }, (_, i) => `videos/solo_${i + 1}.mp4`),
   union: Array.from({ length: 8 },  (_, i) => `videos/union_${i + 1}.mp4`),
 };
+// 動画ごとの縦の表示位置（％。未指定は CSS の 42%）。モード→{動画の番号(1始まり): 位置}
+const MODE_VIDEO_POS = { union: { 5: 55, 6: 65, 7: 30 } };
 function initModeVideos(mode) {
   const list = MODE_VIDEOS[mode];
   const btn = document.querySelector(`.raid-mode-btn[data-mode="${mode}"]`);
@@ -7854,7 +7856,7 @@ function initModeVideos(mode) {
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const N = list.length;
   let layer = 0, idx = 0;
-  const load = (v, k) => { v.src = list[k % N]; v.load(); };
+  const load = (v, k) => { v.src = list[k % N]; const p = (MODE_VIDEO_POS[mode] || {})[(k % N) + 1]; v.style.objectPosition = p == null ? '' : `50% ${p}%`; v.load(); };
   const safePlay = v => { const pr = v.play(); if(pr && pr.catch) pr.catch(() => {}); };
   load(vs[0], 0);
   load(vs[1], 1);
