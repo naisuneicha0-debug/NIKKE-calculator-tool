@@ -133,7 +133,13 @@
   .rm-en { color: var(--k); }
   /* ユニオンレイドだけ：UNIONは白、RAIDは1文字ずつ赤寄り→明るいオレンジ、下線バーはオレンジのグラデーション */
   .raid-mode-btn[data-mode="union"] .rm-en { color: #fff; }
-  .raid-mode-btn[data-mode="union"] .rm-en i { font-style: normal; } /* 色は文字ごとに直接指定（iPhoneのSafariでグラデーション文字が黒くなるのを避けるため） */
+  /* 黒い縁取り（文字の影）と文字の後ろの黒帯はなし。RAIDは赤寄り→明るいオレンジのグラデーション文字（filterは使わない） */
+  .raid-mode-btn[data-mode="union"] .rm-en { text-shadow: none; }
+  .raid-mode-btn[data-mode="union"]::before { display: none; }
+  .raid-mode-btn[data-mode="union"] .rm-en i {
+    font-style: normal; background: linear-gradient(90deg, #e8501a, #ff9d33);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  }
   .raid-mode-btn[data-mode="union"]::after { background: linear-gradient(90deg, #e8501a, #ff9d33); }
   .raid-mode-btn[data-mode="union"].on::after { box-shadow: 0 0 10px #ff9d33; }
   /* ソロレイドだけ：文字は赤（傾けない・光らせない） */
@@ -1982,7 +1988,7 @@
   <!-- レイドモード切替（プレビュー=1部隊／ユニオンレイド=3部隊／ソロレイド=5部隊）と部隊タブ -->
   <div class="raid-modes" id="raidModes">
     <button type="button" class="raid-mode-btn on" data-mode="preview" onclick="setRaidMode('preview')"><span class="rm-label"><span class="rm-en">PREVIEW</span></span></button>
-    <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">UNION <i style="color:#e8501a">R</i><i style="color:#f06a22">A</i><i style="color:#f7832b">I</i><i style="color:#ff9d33">D</i></span></span></button>
+    <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">UNION <i>RAID</i></span></span></button>
     <button type="button" class="raid-mode-btn" data-mode="solo" onclick="setRaidMode('solo')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">SOLO RAID</span></span></button>
   </div>
   <div class="party-tabs" id="partyTabs"></div>
