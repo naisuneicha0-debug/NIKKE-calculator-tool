@@ -89,8 +89,12 @@
   .sub { display: none; }
 
   /* レイドモード切替ボタン（ロゴの下）・部隊タブ */
-  .raid-modes { display: flex; gap: 8px; margin: -8px 0 14px; padding: 14px 6px; }
+  .raid-modes { display: flex; gap: 8px; margin: -42px 0 -20px; padding: 48px 6px; overflow: hidden; }
+  /* 上の margin/padding は、拡大（1.8倍）・左右移動したボタンが枠の外へはみ出して画面が横に広がる（iPhoneで画面が拡大縮小する）のを防ぐための
+     overflow:hidden とセット。上下は拡大ぶんの余白（padding 48px）を取り、見た目の位置は元のまま（上-8+14=6px・下14+14=28px）になるよう margin で打ち消している */
   /* 角張った形＋細い暗い帯＋下線バー。選択中は大きく浮き上がり（拡大・影。枠の発光はなし）、他は小さく白黒 */
+  /* ボタンの連打でiPhoneがダブルタップ拡大しないようにする */
+  .raid-mode-btn, .party-tab { touch-action: manipulation; }
   .raid-mode-btn {
     --k: var(--good);
     flex: 1; min-width: 0; aspect-ratio: 2 / 1; position: relative; overflow: hidden; padding: 0; cursor: pointer;
@@ -179,7 +183,7 @@
   @media (prefers-reduced-motion: reduce) { .raid-mode-btn[data-mode="solo"].on::before { animation: none; } }
   /* P1〜のタブ：四隅が欠けたカード。中に編成中のニケの顔（5枠）を並べ、選んでいないPでも誰が入っているか見える。
      選択中はモード色（ユニオン=オレンジ・ソロ=赤）で光る。編成が変わるたびにリアルタイムで更新（renderPartyTabs） */
-  .party-tabs { display: none; gap: 6px; margin: 28px 0 12px; --tk: #ff9d33; --tk2: #e8501a; }
+  .party-tabs { display: none; gap: 6px; margin: 14px 0 12px; --tk: #ff9d33; --tk2: #e8501a; }
   .party-tabs.show { display: flex; }
   .party-tabs[data-mode="solo"] { --tk: #ff3a3a; --tk2: #7a0a0a; }
   .party-tab {
