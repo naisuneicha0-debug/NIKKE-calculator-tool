@@ -100,7 +100,7 @@
     transition: opacity 0.2s, transform 0.2s, filter 0.2s, border-color 0.2s, box-shadow 0.2s; -webkit-tap-highlight-color: transparent;
   }
   .raid-mode-btn[data-mode="preview"] { --k: var(--good);    background-image: linear-gradient(135deg, #1b2a5a, #3a1f6b); }
-  .raid-mode-btn[data-mode="union"]   { --k: var(--accent3); background-image: linear-gradient(135deg, #14405a, #1f2f6b); }
+  .raid-mode-btn[data-mode="union"]   { --k: var(--accent3); background-image: linear-gradient(rgba(5,6,14,0.38), rgba(5,6,14,0.38)), url('videos/union_poster.jpg'), linear-gradient(135deg, #14405a, #1f2f6b); }
   .raid-mode-btn[data-mode="solo"]    { --k: #ff2a2a; background-image: linear-gradient(rgba(5,6,14,0.38), rgba(5,6,14,0.38)), url('videos/solo_poster.jpg'), linear-gradient(135deg, #4a1f4f, #1b2a5a); }
   /* 文字の後ろの細い暗い帯（文字より少し細い） */
   .raid-mode-btn::before {
@@ -1977,7 +1977,7 @@
   <!-- レイドモード切替（プレビュー=1部隊／ユニオンレイド=3部隊／ソロレイド=5部隊）と部隊タブ -->
   <div class="raid-modes" id="raidModes">
     <button type="button" class="raid-mode-btn on" data-mode="preview" onclick="setRaidMode('preview')"><span class="rm-label"><span class="rm-en">PREVIEW</span></span></button>
-    <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><span class="rm-label"><span class="rm-en">UNION RAID</span></span></button>
+    <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">UNION RAID</span></span></button>
     <button type="button" class="raid-mode-btn" data-mode="solo" onclick="setRaidMode('solo')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">SOLO RAID</span></span></button>
   </div>
   <div class="party-tabs" id="partyTabs"></div>
@@ -7838,19 +7838,23 @@ function toggleFilterGroup(labelEl) {
   if(arrow) arrow.style.transform = isCollapsed ? 'rotate(180deg)' : '';
 }
 
-// ===== ソロレイドボタンの動画（1本が終わったら次の1本。最後まで行ったら最初に戻る）=====
+// ===== モードボタンの動画（ソロレイド・ユニオンレイド）：1本が終わったら次の1本。最後まで行ったら最初に戻る =====
 // 2枚のvideoを重ねて交互に使い、次の動画を裏で読み込んでおくので切れ目が出にくい。音なし・インライン再生（iPhone対応）。
-const SOLO_VIDEOS = ['videos/solo_1.mp4','videos/solo_2.mp4','videos/solo_3.mp4','videos/solo_4.mp4','videos/solo_5.mp4','videos/solo_6.mp4','videos/solo_7.mp4','videos/solo_8.mp4','videos/solo_9.mp4','videos/solo_10.mp4'];
-function initSoloVideos() {
-  const btn = document.querySelector('.raid-mode-btn[data-mode="solo"]');
-  if(!btn || !SOLO_VIDEOS.length) return;
+const MODE_VIDEOS = {
+  solo:  Array.from({ length: 10 }, (_, i) => `videos/solo_${i + 1}.mp4`),
+  union: Array.from({ length: 8 },  (_, i) => `videos/union_${i + 1}.mp4`),
+};
+function initModeVideos(mode) {
+  const list = MODE_VIDEOS[mode];
+  const btn = document.querySelector(`.raid-mode-btn[data-mode="${mode}"]`);
+  if(!btn || !list || !list.length) return;
   const vs = Array.from(btn.querySelectorAll('video'));
   if(vs.length < 2) return;
   // 視覚効果を減らす設定の端末では動かさず、静止画（ポスター）のままにする
   if(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const N = SOLO_VIDEOS.length;
+  const N = list.length;
   let layer = 0, idx = 0;
-  const load = (v, k) => { v.src = SOLO_VIDEOS[k % N]; v.load(); };
+  const load = (v, k) => { v.src = list[k % N]; v.load(); };
   const safePlay = v => { const pr = v.play(); if(pr && pr.catch) pr.catch(() => {}); };
   load(vs[0], 0);
   load(vs[1], 1);
@@ -7889,7 +7893,8 @@ function initSoloVideos() {
   renderModeUI();
   renderSlots();
   hideAssetLoadingOverlay();
-  initSoloVideos();
+  initModeVideos('solo');
+  initModeVideos('union');
 })();
 
 </script>
