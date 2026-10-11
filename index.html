@@ -7859,7 +7859,7 @@ const MODE_VIDEOS = {
   union: Array.from({ length: 8 },  (_, i) => `videos/union_${i + 1}.mp4`),
 };
 // 動画ごとの縦の表示位置（％。未指定は CSS の 42%）。モード→{動画の番号(1始まり): 位置}
-const MODE_VIDEO_POS = { solo: { 11: 10 }, union: { 5: 55, 6: 65, 7: 30 } };
+const MODE_VIDEO_POS = { solo: { 3: 65, 11: 10 }, union: { 5: 55, 6: 65, 7: 30 } };
 function initModeVideos(mode) {
   const list = MODE_VIDEOS[mode];
   const btn = document.querySelector(`.raid-mode-btn[data-mode="${mode}"]`);
