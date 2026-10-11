@@ -141,8 +141,11 @@
   .raid-modes[data-sel="solo"] .raid-mode-btn[data-mode="preview"]    { --tx: -0.25; }
   .raid-modes[data-sel="solo"] .raid-mode-btn[data-mode="union"]      { --tx: 1.25; }
   .raid-modes[data-sel="solo"] .raid-mode-btn[data-mode="solo"]       { --tx: -1; }
-  /* 選んでいないボタンの名前は縦書きで小さく */
-  .raid-mode-btn:not(.on) .rm-en { writing-mode: vertical-rl; transform: none; font-size: 4.4cqw; letter-spacing: 0.12em; }
+  /* 選んでいないボタン：帯はなし、名前は下部に小さく1行の横書き（RAIDはグラデーションだと暗く沈むので白） */
+  .raid-mode-btn:not(.on)::before { display: none; }
+  .raid-mode-btn:not(.on) .rm-label { align-items: flex-end; padding-bottom: 9%; }
+  .raid-mode-btn:not(.on) .rm-en { transform: none; font-size: 3.9cqw; letter-spacing: 0.02em; white-space: nowrap; }
+  .raid-mode-btn[data-mode="union"]:not(.on) .rm-en i { background: none; -webkit-text-fill-color: #fff; color: #fff; }
   /* ユニオンレイドだけ：UNIONは白、RAIDは1文字ずつ赤寄り→明るいオレンジ、下線バーはオレンジのグラデーション */
   .raid-mode-btn[data-mode="union"] .rm-en { color: #fff; }
   /* 黒い縁取り（文字の影）と文字の後ろの黒帯はなし。RAIDは赤寄り→明るいオレンジのグラデーション文字（filterは使わない） */
