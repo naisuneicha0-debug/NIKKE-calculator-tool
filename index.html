@@ -7841,7 +7841,7 @@ function toggleFilterGroup(labelEl) {
 // ===== モードボタンの動画（ソロレイド・ユニオンレイド）：1本が終わったら次の1本。最後まで行ったら最初に戻る =====
 // 2枚のvideoを重ねて交互に使い、次の動画を裏で読み込んでおくので切れ目が出にくい。音なし・インライン再生（iPhone対応）。
 const MODE_VIDEOS = {
-  solo:  Array.from({ length: 10 }, (_, i) => `videos/solo_${i + 1}.mp4`),
+  solo:  Array.from({ length: 12 }, (_, i) => `videos/solo_${i + 1}.mp4`),
   union: Array.from({ length: 8 },  (_, i) => `videos/union_${i + 1}.mp4`),
 };
 // 動画ごとの縦の表示位置（％。未指定は CSS の 42%）。モード→{動画の番号(1始まり): 位置}
