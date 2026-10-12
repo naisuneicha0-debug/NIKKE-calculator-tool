@@ -90,7 +90,7 @@
 
   /* レイドモード切替ボタン（ロゴの下）・部隊タブ */
   .raid-modes { display: flex; gap: 8px; margin: -42px 0 -20px; padding: 48px 6px; overflow: hidden; }
-  /* PREVIEW選択中はP1〜のタブが出ないので、FORMATIONの枠との間を10px広げる（他のモードは変えない） */
+  /* CAMPAIGN（旧PREVIEW）選択中はP1〜のタブが出ないので、FORMATIONの枠との間を10px広げる（他のモードは変えない） */
   .raid-modes[data-sel="preview"] { margin-bottom: -10px; }
   /* 上の margin/padding は、拡大（1.8倍）・左右移動したボタンが枠の外へはみ出して画面が横に広がる（iPhoneで画面が拡大縮小する）のを防ぐための
      overflow:hidden とセット。上下は拡大ぶんの余白（padding 48px）を取り、見た目の位置は元のまま（上-8+14=6px・下14+14=28px）になるよう margin で打ち消している */
@@ -2029,7 +2029,7 @@
 
   <!-- レイドモード切替（プレビュー=1部隊／ユニオンレイド=3部隊／ソロレイド=5部隊）と部隊タブ -->
   <div class="raid-modes" id="raidModes" data-sel="preview">
-    <button type="button" class="raid-mode-btn on" data-mode="preview" onclick="setRaidMode('preview')"><span class="rm-label"><span class="rm-en">PREVIEW</span></span></button>
+    <button type="button" class="raid-mode-btn on" data-mode="preview" onclick="setRaidMode('preview')"><span class="rm-label"><span class="rm-en">CAMPAIGN</span></span></button>
     <button type="button" class="raid-mode-btn" data-mode="union" onclick="setRaidMode('union')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">UNION <i>RAID</i></span></span></button>
     <button type="button" class="raid-mode-btn" data-mode="solo" onclick="setRaidMode('solo')"><video muted playsinline preload="auto"></video><video muted playsinline preload="auto"></video><span class="rm-label"><span class="rm-en">SOLO RAID</span></span></button>
   </div>
