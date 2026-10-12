@@ -181,26 +181,31 @@
   .raid-mode-btn[data-mode="solo"].on::after { box-shadow: none; }
   @keyframes soloTapeFlow { to { background-position: 16px 0; } }
   @media (prefers-reduced-motion: reduce) { .raid-mode-btn[data-mode="solo"].on::before { animation: none; } }
-  /* P1〜のタブ：四隅が欠けたカード。中に編成中のニケの顔（5枠）を並べ、選んでいないPでも誰が入っているか見える。
-     選択中はモード色（ユニオン=オレンジ・ソロ=赤）で光る。編成が変わるたびにリアルタイムで更新（renderPartyTabs） */
-  .party-tabs { display: none; gap: 6px; margin: 14px 0 12px; --tk: #ff9d33; --tk2: #e8501a; }
+  /* P1〜のタブ：四角いカード。上中央に名前、中に編成中のニケの顔（5枠・縦長）、その下に人数ぶん伸びるバー。
+     選んでいないPでも誰が入っているか見える。選択中はモード色（ユニオン=オレンジ・ソロ=赤）で光る。
+     編成が変わるたびにリアルタイムで更新（renderPartyTabs。バーの長さは --p＝人数×20%） */
+  .party-tabs { display: none; gap: 5px; margin: 14px 0 12px; --tk: #ff9d33; --tk2: #e8501a; }
   .party-tabs.show { display: flex; }
   .party-tabs[data-mode="solo"] { --tk: #ff3a3a; --tk2: #7a0a0a; }
   .party-tab {
-    --pg: polygon(8px 0, calc(100% - 8px) 0, 100% 8px, 100% calc(100% - 8px), calc(100% - 8px) 100%, 8px 100%, 0 calc(100% - 8px), 0 8px);
-    flex: 1 1 0; min-width: 0; height: 56px; padding: 0; position: relative; isolation: isolate; cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px;
-    border: none; background: #2c3a66; clip-path: var(--pg); color: #8fa0c4;
-    font-family: 'Chakra Petch', 'Courier New', monospace; font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+    flex: 1 1 0; min-width: 0; padding: 6px 4px; position: relative; isolation: isolate; cursor: pointer;
+    display: flex; flex-direction: column; align-items: stretch; gap: 5px;
+    border: none; background: #2c3a66; color: #8fa0c4;
+    font-family: 'Chakra Petch', 'Courier New', monospace; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
     transition: color 0.2s, background 0.2s, filter 0.2s;
     -webkit-tap-highlight-color: transparent;
   }
-  .party-tab::before { content: ''; position: absolute; inset: 1.5px; z-index: -1; clip-path: var(--pg); background: linear-gradient(90deg, #1c2850, #0a0f20); }
+  .party-tab::before { content: ''; position: absolute; inset: 1px; z-index: -1; background: linear-gradient(90deg, #1c2850, #0a0f20); }
+  .party-tab::after {
+    content: ''; display: block; flex: none; height: 3px; margin-top: -2px;
+    background: linear-gradient(90deg, var(--tk) 0 calc(var(--p, 0) * 1%), rgba(255,255,255,0.12) calc(var(--p, 0) * 1%));
+  }
   .party-tab.on { background: var(--tk); color: #fff; filter: drop-shadow(0 0 6px var(--tk)); }
   .party-tab.on::before { background: linear-gradient(90deg, var(--tk), var(--tk2)); }
-  .party-tab .pt-l { line-height: 1; }
-  .party-tab .pt-row { display: flex; gap: 2px; }
-  .party-tab .pt-th { display: block; width: 11px; height: 24px; background: #0a0f20 center / cover no-repeat; }
+  .party-tab.on::after { background: linear-gradient(90deg, #fff 0 calc(var(--p, 0) * 1%), rgba(255,255,255,0.3) calc(var(--p, 0) * 1%)); }
+  .party-tab .pt-l { text-align: center; line-height: 1; }
+  .party-tab .pt-row { display: flex; gap: 1px; }
+  .party-tab .pt-th { display: block; flex: 1 1 0; height: 32px; background: #0a0f20 center / cover no-repeat; }
   .party-tab .pt-th.e { background: rgba(255,255,255,0.06); outline: 1px dashed #33406a; outline-offset: -1px; }
   .party-tab.on .pt-th.e { outline-color: rgba(255,255,255,0.6); }
 
@@ -2899,7 +2904,7 @@ function renderPartyTabs() {
       return `<i class="pt-th" style="background-image:url(&quot;${url}&quot;)"></i>`;
     }).join('');
     const n = p.filter(Boolean).length;
-    return `<button type="button" class="party-tab${i === ACTIVE_PARTY ? ' on' : ''}" onclick="setActiveParty(${i})" aria-label="パーティ${i + 1}（${n}/5人）"><span class="pt-l">P${i + 1}</span><span class="pt-row">${faces}</span></button>`;
+    return `<button type="button" class="party-tab${i === ACTIVE_PARTY ? ' on' : ''}" style="--p:${n * 20}" onclick="setActiveParty(${i})" aria-label="パーティ${i + 1}（${n}/5人）"><span class="pt-l">P${i + 1}</span><span class="pt-row">${faces}</span></button>`;
   }).join('');
 }
 function setActiveParty(i) {
