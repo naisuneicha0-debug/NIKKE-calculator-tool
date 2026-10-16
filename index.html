@@ -256,11 +256,13 @@
   .fl-tile.on { border-top-color: var(--good); } .fl-tile.mid { border-top-color: var(--accent); }
   .fl-cap { padding: 6px 8px; font-size: 11.5px; font-weight: 700; border-bottom: 1px solid var(--border2); white-space: pre-line; line-height: 1.4; }
   .fl-tile.on .fl-cap { color: var(--good); } .fl-tile.off .fl-cap { color: var(--text-mid); }
-  .fl-bd { padding: 4px 8px 7px; font-size: 12px; }
+  .fl-bd { padding: 4px 6px 7px; font-size: 12px; }
   .fl-mc { border: 1px solid var(--border2); background: var(--bg); border-radius: 4px; }
   .fl-mc .fl-hd { padding: 6px 7px; font-size: 12px; font-weight: 700; white-space: pre-line; }
   .fl-mc .fl-n { font-size: 15px; }
-  .fl-mc .fl-pl { padding: 0 7px 5px 7px; }
+  .fl-mc .fl-pl { padding: 0 5px 5px 5px; }
+  #flowModal .modal-title { padding: 0 6px; }
+  @media (max-width: 370px) { .fl-mc .fl-chip { font-size: 11.5px; } }
   .help-modal-pages { padding-top: 4px; font-size: 13px; line-height: 1.8; color: var(--text); overflow-y: auto; flex: 1; min-height: 0; letter-spacing: 0; text-align: left; }
   .help-modal-page { display: none; }
   .help-modal-page.active { display: block; }
@@ -1934,7 +1936,8 @@
     100% { opacity:0;   clip-path:inset(50% 0 50% 0);  transform:translate(0,0); }
   }
   .signal-layer {
-    position: absolute; inset: 0;
+    /* 横ずれ（translate最大±10px）で端に隙間が出ないよう、左右を12pxずつはみ出させる（親のoverflow:hiddenで切られる） */
+    position: absolute; inset: 0 -12px;
     pointer-events: none;
     z-index: 5;
     background-size: cover;
@@ -1956,7 +1959,8 @@
   }
   /* バースト用クローン（独立アニメーション） */
   .sig-burst-clone {
-    position: absolute; inset: 0;
+    /* 横ずれ（translate最大±10px）で端に隙間が出ないよう、左右を12pxずつはみ出させる（親のoverflow:hiddenで切られる） */
+    position: absolute; inset: 0 -12px;
     pointer-events: none;
     z-index: 6;
     background-size: cover;
@@ -2089,8 +2093,8 @@
   </div>
 
   <!-- Modal: Flow（キャラ別のフロー表） -->
-  <div class="modal-overlay" id="flowModal" onclick="if(event.target===this)closeFlowModal()">
-    <div class="modal" style="width:380px; height:84vh; max-width:94vw; max-height:84vh; padding:18px 14px;">
+  <div class="modal-overlay" id="flowModal" style="padding:8px;" onclick="if(event.target===this)closeFlowModal()">
+    <div class="modal" style="width:100%; max-width:560px; height:84vh; max-height:84vh; padding:16px 8px;">
       <div class="modal-title"><span id="flowTitle">FLOW</span><button class="modal-close" onclick="closeFlowModal()">✕</button></div>
       <div class="fl-body" id="flowBody"></div>
     </div>
