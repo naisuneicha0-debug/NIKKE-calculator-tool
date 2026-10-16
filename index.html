@@ -223,6 +223,44 @@
   .ptitle.ptitle-en::before { display: none; }
   .panel-help-btn { position: absolute; right: 0; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border: 1px solid var(--border2); border-radius: 5px; background: var(--panel2); color: var(--accent); font-family: 'Chakra Petch', 'Courier New', monospace; font-size: 16px; font-weight: bold; display: flex; align-items: center; justify-content: center; cursor: pointer; letter-spacing: 0; transition: border-color 0.2s, color 0.2s, box-shadow 0.2s; }
   .panel-help-btn:hover { border-color: var(--accent); color: var(--accent3); box-shadow: 0 0 8px var(--glow); }
+  /* ===== フロー表（FLOW）：スロット下のボタン＋モーダル内の流れ図 ===== */
+  .slot-flow-btn { display: flex; align-items: center; justify-content: center; gap: 3px; width: 100%; height: 22px; border: 1px solid var(--accent); border-radius: 4px; background: var(--panel2); color: var(--accent); font-family: 'Chakra Petch', 'Courier New', monospace; font-weight: 700; font-size: 10px; letter-spacing: 1.5px; cursor: pointer; box-shadow: 0 0 6px var(--glow); touch-action: manipulation; }
+  .slot-flow-btn:active { background: rgba(0,212,255,0.18); }
+  .fl-who { margin-left: 12px; font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif; font-size: 13px; letter-spacing: 0; color: var(--text); }
+  .fl-body { overflow-y: auto; flex: 1; min-height: 0; padding-right: 2px; font-size: 13px; }
+  .fl { color: var(--text); line-height: 1.5; }
+  .fl-c { border: 1px solid var(--border2); background: var(--panel2); margin: 0 0 6px; border-radius: 5px; }
+  .fl-hd { display: flex; align-items: center; gap: 8px; padding: 8px 10px; flex-wrap: wrap; }
+  .fl-n { font-family: 'Chakra Petch', sans-serif; font-weight: 700; font-size: 20px; line-height: 1; color: var(--text); padding-right: 8px; border-right: 3px solid var(--accent4); flex: none; }
+  .fl-t { font-size: 14px; font-weight: 700; color: var(--warn); background: rgba(255,107,53,0.14); padding: 1px 9px; line-height: 1.5; }
+  .fl-pl { padding: 0 10px 7px 42px; }
+  .fl-chip { display: block; margin: 4px 0; font-size: 12.5px; font-weight: 700; white-space: pre-line; line-height: 1.5; }
+  .fl-chip.s { color: var(--accent); } .fl-chip.b { color: var(--good); } .fl-chip.d { color: var(--accent2); } .fl-chip.n { color: var(--text-mid); }
+  .fl-hang { text-indent: -1.6em; padding-left: 1.6em; }
+  .fl-row { display: grid; grid-template-columns: 96px 1fr; border-top: 1px solid var(--border2); }
+  .fl-cd { padding: 6px 9px; background: rgba(168,85,247,0.12); color: var(--accent4); font-size: 11.5px; font-weight: 700; }
+  .fl-rs { padding: 2px 9px 4px; }
+  .fl-q { border: 2px solid var(--accent4); background: var(--panel2); border-radius: 5px; }
+  .fl-q .fl-hd { background: rgba(168,85,247,0.12); }
+  .fl-q .fl-row { grid-template-columns: 62px 1fr; }
+  .fl-q .fl-rs { padding: 6px 10px; font-size: 12.5px; white-space: pre-line; }
+  .fl-dn { display: flex; flex-direction: column; align-items: center; line-height: 1; }
+  .fl-dn::before { content: ""; width: 2px; height: 9px; background: var(--border2); }
+  .fl-dn::after { content: ""; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 7px solid var(--border2); margin-bottom: 5px; }
+  .fl-dn.s { margin: 2px 0 0; } .fl-dn.s::before { height: 7px; } .fl-dn.s::after { margin-bottom: 3px; }
+  .fl-y { position: relative; height: 20px; }
+  .fl-y::before { content: ""; position: absolute; left: 50%; top: 0; height: 10px; border-left: 2px solid var(--border2); }
+  .fl-y::after { content: ""; position: absolute; top: 10px; left: calc(50% / var(--n)); right: calc(50% / var(--n)); height: 10px; border: 2px solid var(--border2); border-bottom: none; }
+  .fl-two { display: grid; gap: 8px; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
+  .fl-tile { min-width: 0; border: 1px solid var(--border2); border-top: 4px solid var(--text-dim); background: var(--panel2); border-radius: 0 0 4px 4px; }
+  .fl-tile.on { border-top-color: var(--good); } .fl-tile.mid { border-top-color: var(--accent); }
+  .fl-cap { padding: 6px 8px; font-size: 11.5px; font-weight: 700; border-bottom: 1px solid var(--border2); white-space: pre-line; line-height: 1.4; }
+  .fl-tile.on .fl-cap { color: var(--good); } .fl-tile.off .fl-cap { color: var(--text-mid); }
+  .fl-bd { padding: 4px 8px 7px; font-size: 12px; }
+  .fl-mc { border: 1px solid var(--border2); background: var(--bg); border-radius: 4px; }
+  .fl-mc .fl-hd { padding: 6px 7px; font-size: 12px; font-weight: 700; white-space: pre-line; }
+  .fl-mc .fl-n { font-size: 15px; }
+  .fl-mc .fl-pl { padding: 0 7px 5px 7px; }
   .help-modal-pages { padding-top: 4px; font-size: 13px; line-height: 1.8; color: var(--text); overflow-y: auto; flex: 1; min-height: 0; letter-spacing: 0; text-align: left; }
   .help-modal-page { display: none; }
   .help-modal-page.active { display: block; }
@@ -2050,6 +2088,14 @@
     </div>
   </div>
 
+  <!-- Modal: Flow（キャラ別のフロー表） -->
+  <div class="modal-overlay" id="flowModal" onclick="if(event.target===this)closeFlowModal()">
+    <div class="modal" style="width:380px; height:84vh; max-width:94vw; max-height:84vh; padding:18px 14px;">
+      <div class="modal-title"><span id="flowTitle">FLOW</span><button class="modal-close" onclick="closeFlowModal()">✕</button></div>
+      <div class="fl-body" id="flowBody"></div>
+    </div>
+  </div>
+
   <!-- Modal: Formation Help -->
   <div class="modal-overlay" id="formationHelpModal">
     <div class="modal" style="width:340px; height:460px; max-width:90vw; max-height:85vh;">
@@ -2715,6 +2761,12 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m.id === 'unfa_tu');
         break;
       }
+      case 'noFbtDown': {
+        // 自分以外に「フルバーストタイム短縮（burstTimeDown）」を持つニケがいない場合に発動（アルカナ用）。
+        // 運命の輪のカード（BSから10秒間）が付いている間にFBが終わらないと、魔術師・力・死神のカードが付かないため。
+        triggered = !filledTeam.some(m => m && m.id !== char.id && Object.keys({...(m.buffs.party||{}),...(m.buffs.self||{}),...(m.buffs.targeted||{})}).includes('burstTimeDown'));
+        break;
+      }
       case 'breddyNoneMode': {
         // ブレッディ：分配ダメ/持続ダメ両方の保有者が編成にいない(=---モード)時のみ発動。
         // ADCV(habit)/RCMD(recom)いずれかのモードになっていればコーション解消。
@@ -3339,6 +3391,18 @@ function renderSlots() {
     const slot = buildSlotEl(char, i, 'sl-');
     slot.onclick = () => char ? removeChar(i) : openPicker(i);
     cont.appendChild(slot);
+  });
+  // フロー表（char.flow）を持つニケのスロットの下に、FLOWボタンを2行目として並べる
+  TEAM.forEach((char, i) => {
+    if(!char || !char.flow) return;
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'slot-flow-btn';
+    b.innerHTML = FLOW_BTN_SVG + '<span>FLOW</span>';
+    b.style.gridColumn = String(i + 1);
+    b.style.gridRow = '2';
+    b.onclick = (e) => { e.stopPropagation(); openFlowModal(char.id); };
+    cont.appendChild(b);
   });
 
   renderBuffCards();
@@ -6084,6 +6148,57 @@ function cancelSlotPlacement() {
 }
 // FORMATIONヘルプボタン：モーダル＋ページング
 let formationHelpPageIdx = 0;
+// ===== FLOW（フロー表）：characters.json の char.flow をモーダルに描画 =====
+// データ形式：flow.steps[] = {t:'card', trig, title?, chips[{k,x}], rows[{cd,chips}]} / {t:'fork', trig, pre, tiles[{cap,kind,chips,minis[{title,trig,chips}]}]}
+// chipのk：s=状態(水色) b=付くもの(緑) d=敵へ(赤) n=何も起きない(灰)。改行は\n。「N・」で始まる項目は2行目以降を字下げ（ぶら下げ）
+function flEsc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function flChips(a) { return (a || []).map(c => '<span class="fl-chip ' + c.k + (/^\d・/.test(c.x) ? ' fl-hang' : '') + '">' + flEsc(c.x) + '</span>').join(''); }
+function flTrig(v) { return v ? '<span class="fl-t">' + flEsc(v) + '</span>' : ''; }
+function flNum(n) { return String(n).padStart(2, '0'); }
+function flCard(s, n) {
+  let h = '<div class="fl-c"><div class="fl-hd"><b class="fl-n">' + flNum(n) + '</b>' + flTrig(s.trig) + (s.title ? '<span>' + flEsc(s.title) + '</span>' : '') + '</div>';
+  if((s.chips || []).length) h += '<div class="fl-pl">' + flChips(s.chips) + '</div>';
+  (s.rows || []).forEach(r => { h += '<div class="fl-row"><div class="fl-cd">' + flEsc(r.cd) + '</div><div class="fl-rs">' + flChips(r.chips) + '</div></div>'; });
+  return h + '</div>';
+}
+function flFork(s, n) {
+  const N = s.tiles.length;
+  let h = '<div class="fl-q"><div class="fl-hd"><b class="fl-n">' + flNum(n) + '</b>' + flTrig(s.trig) + '</div>';
+  if(s.pre) h += '<div class="fl-row"><div class="fl-cd">前提</div><div class="fl-rs">' + flEsc(s.pre) + '</div></div>';
+  h += '</div><div class="fl-y" style="--n:' + N + '"></div><div class="fl-two" style="--n:' + N + '">';
+  let mx = 0;
+  s.tiles.forEach(t => {
+    h += '<div class="fl-tile ' + t.kind + '"><div class="fl-cap">' + flEsc(t.cap) + '</div><div class="fl-bd">' + flChips(t.chips);
+    (t.minis || []).forEach((m, j) => {
+      h += '<div class="fl-dn s"></div><div class="fl-mc"><div class="fl-hd"><b class="fl-n">' + flNum(n + 1 + j) + '</b>' + flTrig(m.trig) + '<span>' + flEsc(m.title) + '</span></div><div class="fl-pl">' + flChips(m.chips) + '</div></div>';
+    });
+    mx = Math.max(mx, (t.minis || []).length);
+    h += '</div></div>';
+  });
+  return [h + '</div>', mx];
+}
+function renderFlowHtml(flow) {
+  let n = 1, h = '<div class="fl">';
+  flow.steps.forEach((s, i) => {
+    if(i) h += '<div class="fl-dn"></div>';
+    if(s.t === 'fork') { const r = flFork(s, n); h += r[0]; n += 1 + r[1]; }
+    else { h += flCard(s, n); n++; }
+  });
+  return h + '</div>';
+}
+function openFlowModal(id) {
+  const c = NIKKE_DB.find(x => x.id === id);
+  if(!c || !c.flow) return;
+  el('flowTitle').innerHTML = 'FLOW<span class="fl-who">' + flEsc(c.name.split('：')[0]) + '</span>';
+  el('flowBody').innerHTML = renderFlowHtml(c.flow);
+  el('flowBody').scrollTop = 0;
+  el('flowModal').classList.add('show');
+}
+function closeFlowModal() {
+  el('flowModal').classList.remove('show');
+}
+const FLOW_BTN_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6M12 9l-6 6v6M12 9l6 6v6"/></svg>';
+
 function showFormationHelp() {
   formationHelpPageIdx = 0;
   renderFormationHelpPage();
