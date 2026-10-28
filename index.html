@@ -7409,6 +7409,55 @@ function toggleSourceRow(rowId, e) {
     });
   }
 
+  // 排他グループと連動グループ（syncGroup）の両方に属する行が絡む場合の連鎖反映（マリアン：クイーンで初例）
+  // 例：排他で自動的にOFFになった行の連動先も追従する／連動で切り替わった行の排他相手を入れ替える
+  // 既に反映済みの状態は変えない（既存の排他だけ・連動だけのグループの動作は変わらない）
+  {
+    const cascadeSet = (r, on) => {
+      r.dataset.active = on ? '1' : '0';
+      r.classList.toggle('row-on', on);
+      r.classList.toggle('row-off', !on);
+      recalcEntryTotal(r.dataset.entryid, r.dataset.buffkey);
+    };
+    const queue = [row];
+    const visited = new Set([row]);
+    let guard = 0;
+    // 状態が変わった行は必ず再処理、変わっていない行も1回は確認する
+    const enqueue = (x, changed) => { if(changed || !visited.has(x)) { visited.add(x); queue.push(x); } };
+    while(queue.length && guard++ < 60) {
+      const r = queue.shift();
+      const on = r.dataset.active === '1';
+      if(r.dataset.syncGroup) {
+        document.querySelectorAll(`.buff-source-row[data-sync-group="${r.dataset.syncGroup}"]`).forEach(p => {
+          if(p === r) return;
+          const changed = p.dataset.active !== r.dataset.active;
+          if(changed) cascadeSet(p, on);
+          enqueue(p, changed);
+        });
+      }
+      if(r.dataset.exclusiveGroup) {
+        const cardEl = r.closest('.char-card');
+        if(cardEl) {
+          const grpRows = [...cardEl.querySelectorAll('.buff-source-row[data-exclusive-group]')].filter(x => x.dataset.exclusiveGroup === r.dataset.exclusiveGroup);
+          if(on) {
+            grpRows.forEach(x => {
+              if(x === r) return;
+              const changed = x.dataset.active === '1';
+              if(changed) cascadeSet(x, false);
+              enqueue(x, changed);
+            });
+          } else {
+            if(!grpRows.some(x => x !== r && x.dataset.active === '1')) {
+              const nx = grpRows[(grpRows.indexOf(r) + 1) % grpRows.length];
+              if(nx && nx !== r) { cascadeSet(nx, true); enqueue(nx, true); }
+            }
+            grpRows.forEach(x => { if(x !== r) enqueue(x, false); });
+          }
+        }
+      }
+    }
+  }
+
   // goldChipスライダー行のON/OFF連動：gcThreshold付きバフ行をまとめてON/OFF
   const mySlider2 = row.querySelector('.stack-slider');
   if(mySlider2) {
