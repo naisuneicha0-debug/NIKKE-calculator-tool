@@ -2388,6 +2388,7 @@ const BUFF_LABELS = {
   rangeUpMax:   '適正最大射程距離',
   zansMode:     '殲滅モード',
   pierceRange:  '貫通範囲拡大',
+  normalAtkRange: '通常攻撃範囲拡大',
   pelletFixed:  'ペレット数固定',
   atkSpd:       '攻撃速度',
   mgStartup:    'MG立ち上げ速度',
@@ -2419,7 +2420,7 @@ Object.entries(BUFF_DEBUFF_PAIRS).forEach(([up, down]) => { DEBUFF_BUFF_PAIRS[do
 // バフカテゴリ分類
 const BUFF_CATEGORIES = {
   'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','critDmg','chargeDmg','seqDmg','dotDmg','aftertasteUp','unstableEnergyUp','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
-  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','pierce','focusFire','taunt','stun','immobilize','forcedMove','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
+  'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','normalAtkRange','pierce','focusFire','taunt','stun','immobilize','forcedMove','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
   'SURVIVAL': ['heal','healHelm','healPower','lifesteal','healRcvUp','healOverTime','decoyHeal','decoyHealOverTime','barrierHealOverTime','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','barrier','barrierShared','barrierInvincible','nextBarrierHp','shelterHpUp','shelterRevive','medkit','medkitMaxUp','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','stunImmune','revive','hpDown'],
   'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown','enemyHealRcvDown','enemyBuffRemove'],
 };
@@ -2454,6 +2455,7 @@ const BUFF_MERGE_INTO = {
   atkLilyB: 'atk',
   critDmgB: 'critDmg',
   critDmgC: 'critDmg',
+  normalCritRateB: 'normalCritRate',
   atkSW:    'atk',
   hpUpM1:   'hpUp',
   hpUpM2:   'hpUp',
