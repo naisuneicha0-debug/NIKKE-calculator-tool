@@ -2275,6 +2275,7 @@ const BUFF_LABELS = {
   normalDmg:'通常攻撃ダメ倍率',
   critRate: 'クリ率',
   normalCritRate: '通常攻撃クリティカル確率',
+  normalCritRateBS: '通常攻撃クリティカル確率',
   critDmg:  'クリダメ',
   elem:     '有利コードダメ',
   coreDmg:  'コアダメ',
@@ -2419,7 +2420,7 @@ Object.entries(BUFF_DEBUFF_PAIRS).forEach(([up, down]) => { DEBUFF_BUFF_PAIRS[do
 
 // バフカテゴリ分類
 const BUFF_CATEGORIES = {
-  'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','critDmg','chargeDmg','seqDmg','dotDmg','aftertasteUp','unstableEnergyUp','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
+  'ATTACK': ['atk','atkRate','dmg','normalDmg','trueDmg','distDmg','partDmg','blockDmg','barrierDmg','critRate','normalCritRate','normalCritRateBS','critDmg','chargeDmg','seqDmg','dotDmg','aftertasteUp','unstableEnergyUp','attachDmg','enemyProjectileDmg','pierceDmg','coreDmg','elem','elemAdv','explodeDmg','explodeRange','piercingAtk','normalDmgIgnoreDef','taken'],
   'CONTROL': ['maxMagazine','maxMagazineK','magazineInfinite','magazineDown','reload','reloadRateDown','reloadFixed','chargeSpd','chargeSpdDown','chargeFixed','chargeSpdFixed','chargeSpdImmuneUp','chargeSpdImmuneDown','atkSpd','mgStartup','hitRate','burstCT','skillCT','burstTimeUp','burstTimeDown','burstReEntryTia','burstReEntryAnisst','burstReEntryChime','burstReEntryAbista','burstReEntryAliceWb','burstReEntryViper','burstReEntryRupeeX','burstGauge','burstGaugeInstant','bulletCharge','pouch','pellet','pelletFixed','pierceRange','normalAtkRange','pierce','focusFire','taunt','stun','immobilize','forcedMove','selfStun','decoy','singleTargetExclude','camouflage','missileGuide','apShell','stackImmuneUD','debuffStackDown','buffStackUp','shyImmune','silenceStack','grenadeCD','envCtrl','battleCtrl','envCtrC','rangeUp','rangeUpMax','zansMode'],
   'SURVIVAL': ['heal','healHelm','healPower','lifesteal','healRcvUp','healOverTime','decoyHeal','decoyHealOverTime','barrierHealOverTime','healShare','dmgShare','dmgShareDiff','dmgShareDiffShelter','barrier','barrierShared','barrierInvincible','nextBarrierHp','shelterHpUp','shelterRevive','medkit','medkitMaxUp','shelter','dmgReduce','defUp','hpUp','hpUpOnly','hpReserve','invincible','immortal','cleanse','debuffImmune','stunImmune','revive','hpDown'],
   'ENEMY': ['defDown','enemyAtkDown','enemyDmgTaken','enemyMagazineDown','enemyHealRcvDown','enemyBuffRemove'],
@@ -2455,7 +2456,6 @@ const BUFF_MERGE_INTO = {
   atkLilyB: 'atk',
   critDmgB: 'critDmg',
   critDmgC: 'critDmg',
-  normalCritRateB: 'normalCritRate',
   atkSW:    'atk',
   hpUpM1:   'hpUp',
   hpUpM2:   'hpUp',
