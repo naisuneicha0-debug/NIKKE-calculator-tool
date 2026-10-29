@@ -5013,7 +5013,11 @@ function buildCharCard(char, filledTeam) {
     return char.cardBg;
   })();
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
-  const glitchBg = char.cardBgGlitch || activeBg;
+  // cardBgGlitchは文字列（1枚）または配列（複数枚）。複数枚の場合は発火のたびにランダムで切り替える（fireSignal）
+  const glitchList = Array.isArray(char.cardBgGlitch) ? char.cardBgGlitch.filter(Boolean) : (char.cardBgGlitch ? [char.cardBgGlitch] : []);
+  const glitchBg = glitchList.length ? glitchList[0] : activeBg;
+  if(glitchList.length > 1) glitchList.forEach(u => { try { const im = new Image(); im.src = u; } catch(e) {} }); // 初回発火で空白が出ないよう先読み
+  const glitchListAttr = glitchList.length > 1 ? ` data-glitch-list='${JSON.stringify(glitchList).replace(/'/g, '&#39;')}'` : '';
   // 信号干渉エフェクトの色調（未指定時は従来のランダム虹色hue-rotate・既存キャラは無変更）
   const signalToneClass = char.signalTone === 'sepia' ? ' sepia' : (char.signalTone === 'fixed' ? ' fixedtone' : (char.signalTone === 'raw' ? ' rawtone' : ''));
   // ヘッダー画像の縦フォーカス位置。cardBgPosYで個別指定できる（未指定時はtop=デフォルト、既存キャラは無変更）
@@ -5510,7 +5514,7 @@ function buildCharCard(char, filledTeam) {
         <div class="crt-vignette"></div>
         <div class="crt-overlay"></div>
         <div class="crt-flicker"></div>
-        <div class="signal-layer${signalToneClass}" id="signal-${cardId}" ${glitchBg ? `style="background-image:url('${glitchBg}');"` : ''}></div>
+        <div class="signal-layer${signalToneClass}" id="signal-${cardId}"${glitchListAttr} ${glitchBg ? `style="background-image:url('${glitchBg}');"` : ''}></div>
         ${burstDisplay}
         <div class="char-card-info" style="position:relative;">
           <div style="display:flex;align-items:stretch;padding-top:16px;position:relative;">
@@ -6504,6 +6508,13 @@ function fireSignal(cardId) {
   const anims = ['sig-a','sig-b','sig-c','sig-d','sig-e'];
   sig.style.setProperty('--sig-hue', hues[Math.floor(Math.random() * hues.length)] + 'deg');
   sig.style.setProperty('--sig-anim', anims[Math.floor(Math.random() * anims.length)]);
+  // 干渉エフェクト用の画像が複数ある場合は、発火のたびにランダムで切り替える
+  if(sig.dataset.glitchList) {
+    try {
+      const list = JSON.parse(sig.dataset.glitchList);
+      if(list.length) sig.style.backgroundImage = `url('${list[Math.floor(Math.random() * list.length)]}')`;
+    } catch(e) {}
+  }
   sig.classList.remove('firing');
   sig.offsetHeight;
   sig.classList.add('firing');
