@@ -1958,6 +1958,10 @@
   .signal-layer.fixedtone {
     filter: brightness(1.08) !important;
   }
+  /* 画像そのままの色で表示（色相回転・明度調整とも無し） */
+  .signal-layer.rawtone {
+    filter: none !important;
+  }
   /* バースト用クローン（独立アニメーション） */
   .sig-burst-clone {
     /* 横ずれ（translate最大±10px）で端に隙間が出ないよう、左右を12pxずつはみ出させる（親のoverflow:hiddenで切られる） */
@@ -5011,7 +5015,7 @@ function buildCharCard(char, filledTeam) {
   // 信号干渉エフェクト時に表示する別カット（未指定時はactiveBgにフォールバック・既存キャラは無変更）
   const glitchBg = char.cardBgGlitch || activeBg;
   // 信号干渉エフェクトの色調（未指定時は従来のランダム虹色hue-rotate・既存キャラは無変更）
-  const signalToneClass = char.signalTone === 'sepia' ? ' sepia' : (char.signalTone === 'fixed' ? ' fixedtone' : '');
+  const signalToneClass = char.signalTone === 'sepia' ? ' sepia' : (char.signalTone === 'fixed' ? ' fixedtone' : (char.signalTone === 'raw' ? ' rawtone' : ''));
   // ヘッダー画像の縦フォーカス位置。cardBgPosYで個別指定できる（未指定時はtop=デフォルト、既存キャラは無変更）
   const headerBgPosY = char.cardBgPosY || 'top';
   const headerBgStyle = activeBg
