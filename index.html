@@ -3189,6 +3189,7 @@ function matchSingleTarget(type, val, char, filledTeam, src) {
     case 'company':  return char.company === val;
     case 'squad':    return char.squad === val;
     case 'persona':  return !!char.personaUser;
+    case 'sen':      return !!char.senUser;  // 臨戦状態を持つニケ（紅蓮：神殺・マリアン：クイーン）
     case 'position': {
       const charIdx = TEAM.indexOf(char);
       if(charIdx === -1) return false;
@@ -4799,7 +4800,7 @@ function buildCharCard(char, filledTeam) {
               <span class="stack-label"><span id="${stackValId}">${initStack}</span>/${casterStackInfo.max}スタック</span>
             </div>`;
             })() : '';
-            const casterDataAttrs = ` data-active="${casterInitActive}" data-val="${casterInitVal}" data-unit="${casterU}" data-buffkey="${k}" data-entryid="${casterEntryIdForRow}" data-caster="1" ${src.syncGroup ? `data-sync-group="${src.syncGroup}"` : ''} ${src.fullStackRef ? `data-full-stack-ref="${src.fullStackRef}"` : ''} ${src.belowFullStackRef ? `data-below-full-stack-ref="${src.belowFullStackRef}"` : ''} ${src.cautionCondition ? `data-caution-condition="${src.cautionCondition}"` : ''} ${src.cautionCondition ? `data-src-char-id="${src.srcCharId || char.id}"` : ''} ${src.exclusiveSet ? `data-exclusive-set="${src.exclusiveSet}"` : ''} ${src.setId ? `data-set-id="${src.setId}"` : ''} ${src.stackThreshold != null ? `data-stack-threshold="${src.stackThreshold}"` : ''} ${src.stackThresholdRef ? `data-stack-threshold-ref="${src.stackThresholdRef}"` : ''}`;
+            const casterDataAttrs = ` data-active="${casterInitActive}" data-val="${casterInitVal}" data-unit="${casterU}" data-buffkey="${k}" data-entryid="${casterEntryIdForRow}" data-caster="1" ${src.exclusiveGroup ? `data-exclusive-group="${src.exclusiveGroup}"` : ''} ${src.syncGroup ? `data-sync-group="${src.syncGroup}"` : ''} ${src.fullStackRef ? `data-full-stack-ref="${src.fullStackRef}"` : ''} ${src.belowFullStackRef ? `data-below-full-stack-ref="${src.belowFullStackRef}"` : ''} ${src.cautionCondition ? `data-caution-condition="${src.cautionCondition}"` : ''} ${src.cautionCondition ? `data-src-char-id="${src.srcCharId || char.id}"` : ''} ${src.exclusiveSet ? `data-exclusive-set="${src.exclusiveSet}"` : ''} ${src.setId ? `data-set-id="${src.setId}"` : ''} ${src.stackThreshold != null ? `data-stack-threshold="${src.stackThreshold}"` : ''} ${src.stackThresholdRef ? `data-stack-threshold-ref="${src.stackThresholdRef}"` : ''}`;
             const casterValColor = DEBUFF_KEYS.has(k) ? '#ff3c6e' : catCol.color;
             let casterTags = '';
             if (src.tag === 'self') casterTags += `<span class="buff-source-tag self">自己</span>`;
@@ -5806,6 +5807,7 @@ function getShortName(name) {
     'ルピー：ウィンターショッパー':       'ルピー：WS',
     'ラプラス：アルティメットヒーロー':   'ラプラス：UH',
     'マクスウェル：オーディナリーメカニック': 'マクスウェル：OM',
+    'ラプンツェル：サンクチュアリ':       'ラプンツェル：SC',
     'マリアン：クイーン':                 'マリアン：QN',
   };
   return SHORT_NAMES[name] || name;
