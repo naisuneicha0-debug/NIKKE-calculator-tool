@@ -13925,11 +13925,11 @@
     "cardBg": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen.jpg",
     "cardBgSlot": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_slot.jpg",
     "cardBgGlitch": [
-      "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch.jpg",
+      { "url": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch.jpg", "posY": 60 },
       "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch2.jpg",
-      "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch3.jpg",
-      "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch4.jpg",
-      "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch5.jpg"
+      { "url": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch3.jpg", "posY": 0 },
+      { "url": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch4.jpg", "posY": 100 },
+      { "url": "https://naisuneicha0-debug.github.io/NIKKE-calculator-tool/images/marian_queen_glitch5.jpg", "posY": 100 }
     ],
     "signalTone": "raw",
     "buffs": {
