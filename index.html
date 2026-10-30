@@ -2764,6 +2764,11 @@ function getCautionMessages(char, filledTeam) {
         triggered = !filledTeam.some(m => m && m.id !== char.id && m.burst === 3 && m.element === 'electric');
         break;
       }
+      case 'noSenAlly': {
+        // 自分以外に臨戦状態を持つニケ（senUser：紅蓮：神殺・マリアン：クイーン）がいない場合に発動（ラプンツェル：サンクチュアリ用）
+        triggered = !filledTeam.some(m => m && m.id !== char.id && m.senUser);
+        break;
+      }
       case 'noB3PersonaAlly': {
         triggered = !filledTeam.some(m => m && m.id !== char.id && m.burst === 3 && m.personaUser);
         break;
