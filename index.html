@@ -412,6 +412,12 @@
 
   .search-box { width: 100%; background: var(--panel2); border: 1px solid var(--border); border-radius: 4px; padding: 8px 10px; color: var(--text); font-size: 13px; margin-bottom: 10px; -webkit-appearance: none; outline: none; }
   .search-box:focus { border-color: var(--accent); }
+  /* 検索欄の右端の×ボタン（文字が入っている時だけ表示。タップで入力を消す） */
+  .search-wrap { position: relative; flex-shrink: 0; margin-bottom: 10px; }
+  .search-wrap .search-box { margin-bottom: 0; padding-right: 38px; }
+  .search-clear { display: none; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); width: 30px; height: 30px; border: 0; border-radius: 50%; background: transparent; color: var(--text-mid); font-size: 15px; line-height: 1; cursor: pointer; touch-action: manipulation; }
+  .search-clear:active { background: rgba(255,255,255,0.1); color: var(--accent); }
+  .search-wrap.has-text .search-clear { display: flex; align-items: center; justify-content: center; }
 
   /* ========================================
      UI: フィルターチップ（バースト/武器/属性等）
@@ -2161,7 +2167,10 @@
         <span>NIKKE SELECT</span>
         <button class="modal-close" onclick="closePicker()">✕</button>
       </div>
-      <input type="text" class="search-box" id="charSearch" placeholder="名前で検索..." oninput="renderCharList()">
+      <div class="search-wrap" id="charSearchWrap">
+        <input type="text" class="search-box" id="charSearch" placeholder="名前で検索..." oninput="onCharSearchInput()">
+        <button type="button" class="search-clear" id="charSearchClear" aria-label="検索欄をクリア" onclick="clearCharSearch()">✕</button>
+      </div>
 
       <div class="modal-scroll">
       <div class="modal-filters">
@@ -5816,6 +5825,7 @@ function getShortName(name) {
 function openPicker(idx) {
   pickerSlotIdx = idx;
   el('charSearch').value = '';
+  updateCharSearchClear();
   filterState = freshFilterState();
   updateFilterChips();
   renderCharList();
@@ -6220,6 +6230,22 @@ function closeFlowModal() {
 }
 const FLOW_BTN_SVG = '<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6M12 9l-6 6v6M12 9l6 6v6"/></svg>';
 
+// 検索欄の×ボタン：文字が入っている時だけ表示し、タップで入力を消して一覧を更新（キーボードは出したままにする）
+function updateCharSearchClear() {
+  const w = el('charSearchWrap');
+  if(w) w.classList.toggle('has-text', !!el('charSearch').value);
+}
+function onCharSearchInput() {
+  updateCharSearchClear();
+  renderCharList();
+}
+function clearCharSearch() {
+  const inp = el('charSearch');
+  inp.value = '';
+  updateCharSearchClear();
+  renderCharList();
+  inp.focus();
+}
 function showFormationHelp() {
   formationHelpPageIdx = 0;
   renderFormationHelpPage();
