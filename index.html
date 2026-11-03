@@ -252,6 +252,10 @@
   .fl-y::before { content: ""; position: absolute; left: 50%; top: 0; height: 10px; border-left: 2px solid var(--border2); }
   .fl-y::after { content: ""; position: absolute; top: 10px; left: calc(50% / var(--n)); right: calc(50% / var(--n)); height: 10px; border: 2px solid var(--border2); border-bottom: none; }
   .fl-two { display: grid; gap: 8px; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
+  .fl-two.n3 { gap: 5px; }
+  .fl-two.n3 .fl-cap { font-size: 10px; padding: 5px 5px; }
+  .fl-two.n3 .fl-bd { padding: 4px 4px 7px; }
+  .fl-two.n3 .fl-chip { font-size: 10px; }
   .fl-tile { min-width: 0; border: 1px solid var(--border2); border-top: 4px solid var(--text-dim); background: var(--panel2); border-radius: 0 0 4px 4px; }
   .fl-tile.on { border-top-color: var(--good); } .fl-tile.mid { border-top-color: var(--accent); }
   .fl-cap { padding: 6px 8px; font-size: 11.5px; font-weight: 700; border-bottom: 1px solid var(--border2); white-space: pre-line; line-height: 1.4; }
@@ -6201,7 +6205,7 @@ function flFork(s, n) {
   const N = s.tiles.length;
   let h = '<div class="fl-q"><div class="fl-hd"><b class="fl-n">' + flNum(n) + '</b>' + flTrig(s.trig) + '</div>';
   if(s.pre) h += '<div class="fl-row"><div class="fl-cd">前提</div><div class="fl-rs">' + flEsc(s.pre) + '</div></div>';
-  h += '</div><div class="fl-y" style="--n:' + N + '"></div><div class="fl-two" style="--n:' + N + '">';
+  h += '</div><div class="fl-y" style="--n:' + N + '"></div><div class="fl-two' + (N >= 3 ? ' n3' : '') + '" style="--n:' + N + '">';
   let mx = 0;
   s.tiles.forEach(t => {
     h += '<div class="fl-tile ' + t.kind + '"><div class="fl-cap">' + flEsc(t.cap) + '</div><div class="fl-bd">' + flChips(t.chips);
