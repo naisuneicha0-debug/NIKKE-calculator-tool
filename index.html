@@ -253,6 +253,7 @@
   .fl-y::after { content: ""; position: absolute; top: 10px; left: calc(50% / var(--n)); right: calc(50% / var(--n)); height: 10px; border: 2px solid var(--border2); border-bottom: none; }
   .fl-two { display: grid; gap: 8px; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); }
   .fl-two.n3 { gap: 5px; }
+  .fl-vs { display: flex; flex-direction: column; }
   .fl-two.n3 .fl-cap { font-size: 10px; padding: 5px 5px; }
   .fl-two.n3 .fl-bd { padding: 4px 4px 7px; }
   .fl-two.n3 .fl-chip { font-size: 10px; }
@@ -6205,9 +6206,11 @@ function flFork(s, n) {
   const N = s.tiles.length;
   let h = '<div class="fl-q"><div class="fl-hd"><b class="fl-n">' + flNum(n) + '</b>' + flTrig(s.trig) + '</div>';
   if(s.pre) h += '<div class="fl-row"><div class="fl-cd">前提</div><div class="fl-rs">' + flEsc(s.pre) + '</div></div>';
-  h += '</div><div class="fl-y" style="--n:' + N + '"></div><div class="fl-two' + (N >= 3 ? ' n3' : '') + '" style="--n:' + N + '">';
+  const vert = s.layout === 'v'; // 縦並び：分岐ではなく「順番につながる」状態を、矢印でつないで縦に並べる
+  h += vert ? '</div><div class="fl-dn s"></div><div class="fl-vs">' : '</div><div class="fl-y" style="--n:' + N + '"></div><div class="fl-two' + (N >= 3 ? ' n3' : '') + '" style="--n:' + N + '">';
   let mx = 0;
-  s.tiles.forEach(t => {
+  s.tiles.forEach((t, ti) => {
+    if(vert && ti) h += '<div class="fl-dn s"></div>';
     h += '<div class="fl-tile ' + t.kind + '"><div class="fl-cap">' + flEsc(t.cap) + '</div><div class="fl-bd">' + flChips(t.chips);
     (t.minis || []).forEach((m, j) => {
       h += '<div class="fl-dn s"></div><div class="fl-mc"><div class="fl-hd"><b class="fl-n">' + flNum(n + 1 + j) + '</b>' + flTrig(m.trig) + '<span>' + flEsc(m.title) + '</span></div><div class="fl-pl">' + flChips(m.chips) + '</div></div>';
